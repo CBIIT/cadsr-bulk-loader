@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Administered_Item_List xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.ncicb.nih.gov/caDSR/schema/ISO11179 ../../../../../../../../../../src/gov/nih/nci/ncicb/cadsr/bulkloader/schema/cadsr_iso11179.xsd"
+ xmlns="http://www.ncicb.nih.gov/caDSR/schema/ISO11179"
+ xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179">
+    
+    <iso11179:Data_Element_List>
+        <iso11179:Data_Element tagId="DE-a" expressing="DEC-a" represented_by="VD-a">
+            <iso11179:administered_item_administration_record>
+                <iso11179:administered_item_identifier>
+                    <iso11179:item_registration_authority_identifier>
+                        <iso11179:international_code_designator></iso11179:international_code_designator>
+                    </iso11179:item_registration_authority_identifier>
+                    <iso11179:data_identifier>2775546</iso11179:data_identifier>
+                </iso11179:administered_item_identifier>
+                <iso11179:registration_status></iso11179:registration_status>
+                <iso11179:administrative_status></iso11179:administrative_status>
+                <iso11179:creation_date>2009-02-04</iso11179:creation_date>
+            </iso11179:administered_item_administration_record>
+            
+            <iso11179:having>
+                <iso11179:containing_entry>
+                    <iso11179:language_section_language_identifier>
+                        <iso11179:language_identifier></iso11179:language_identifier>
+                    </iso11179:language_section_language_identifier>
+                    <iso11179:naming_entry>
+                        <iso11179:name>Specify the reason this patient did not receive the scheduled HSCT:</iso11179:name>
+                        <iso11179:preferred_designation>true</iso11179:preferred_designation>
+                    </iso11179:naming_entry>
+                    <iso11179:naming_entry>
+                        <iso11179:name>Reason:</iso11179:name>
+                        <iso11179:preferred_designation>false</iso11179:preferred_designation>
+                    </iso11179:naming_entry>
+                </iso11179:containing_entry>
+            </iso11179:having>
+        </iso11179:Data_Element>
+        
+        <iso11179:Data_Element tagId="DE-b" expressing="DEC-a" represented_by="VD-b">
+            <iso11179:having>
+                <iso11179:containing_entry>
+                    <iso11179:language_section_language_identifier>
+                        <iso11179:language_identifier></iso11179:language_identifier>
+                    </iso11179:language_section_language_identifier>
+                    <iso11179:naming_entry>
+                        <iso11179:name>Specify the reason this HSCT was canceled if patient is alive:</iso11179:name>
+                        <iso11179:preferred_designation>true</iso11179:preferred_designation>
+                    </iso11179:naming_entry>
+                    <iso11179:naming_entry>
+                        <iso11179:name>Reason for cancellation:</iso11179:name>
+                        <iso11179:preferred_designation>false</iso11179:preferred_designation>
+                    </iso11179:naming_entry>
+                </iso11179:containing_entry>
+            </iso11179:having>
+        </iso11179:Data_Element>
+    </iso11179:Data_Element_List>
+    <iso11179:Data_Element_Concept_List>
+        <iso11179:Data_Element_Concept tagId="DEC-a" 
+                        data_element_concept_object_class="OC-a"
+                        data_element_concept_property="Prop-a" 
+                        having="CD-a"
+                        >
+            <iso11179:administered_item_administration_record>
+                <iso11179:administered_item_identifier>
+                    <iso11179:item_registration_authority_identifier>
+                        <iso11179:international_code_designator></iso11179:international_code_designator>
+                    </iso11179:item_registration_authority_identifier>
+                    <iso11179:data_identifier>2775546</iso11179:data_identifier>
+                </iso11179:administered_item_identifier>
+                <iso11179:registration_status></iso11179:registration_status>
+                <iso11179:administrative_status></iso11179:administrative_status>
+                <iso11179:creation_date>2009-02-04</iso11179:creation_date>
+            </iso11179:administered_item_administration_record>
+            <iso11179:registered_by>
+                <iso11179:organization_name></iso11179:organization_name>
+                <iso11179:registration_authority_identifier>
+                    <iso11179:international_code_designator></iso11179:international_code_designator>
+                </iso11179:registration_authority_identifier>
+                <iso11179:documentation_language_identifier>
+                    <iso11179:language_identifier></iso11179:language_identifier>
+                </iso11179:documentation_language_identifier>
+                <iso11179:represented_by>
+                    <iso11179:registrar_contact>
+                        <iso11179:contact_information></iso11179:contact_information>
+                        <iso11179:contact_name></iso11179:contact_name>
+                    </iso11179:registrar_contact>
+                    <iso11179:registrar_identifier></iso11179:registrar_identifier>
+                </iso11179:represented_by>
+            </iso11179:registered_by>
+            <iso11179:classified_by></iso11179:classified_by>
+            <iso11179:submitted_by>
+                <iso11179:submission_contact>
+                    <iso11179:contact_information></iso11179:contact_information>
+                    <iso11179:contact_name></iso11179:contact_name>
+                </iso11179:submission_contact>
+                <iso11179:Organization>
+                    <iso11179:organization_name></iso11179:organization_name>
+                </iso11179:Organization>
+            </iso11179:submitted_by>
+            <iso11179:administered_by>
+                <iso11179:stewardship_contact>
+                    <iso11179:contact_information></iso11179:contact_information>
+                    <iso11179:contact_name></iso11179:contact_name>
+                </iso11179:stewardship_contact>
+                <iso11179:Organization>
+                    <iso11179:organization_name></iso11179:organization_name>
+                </iso11179:Organization>
+            </iso11179:administered_by>
+            <iso11179:having>
+                <iso11179:containing_entry>
+                    <iso11179:language_section_language_identifier>
+                        <iso11179:language_identifier></iso11179:language_identifier>
+                    </iso11179:language_section_language_identifier>
+                </iso11179:containing_entry>
+            </iso11179:having>
+            <iso11179:related_to>
+                <iso11179:data_element_concept_relationship_type_description></iso11179:data_element_concept_relationship_type_description>
+                <iso11179:related_to></iso11179:related_to>
+            </iso11179:related_to>
+        </iso11179:Data_Element_Concept>
+    </iso11179:Data_Element_Concept_List>
+    
+    <iso11179:Object_Class_List>
+       <Object_Class tagId="OC-a">
+           <Concept_Derivation_Rule>
+               <iso11179:having>
+                   <iso11179:containing_entry>
+                       <iso11179:language_section_language_identifier>
+                           <iso11179:language_identifier></iso11179:language_identifier>
+                       </iso11179:language_section_language_identifier>
+                   </iso11179:containing_entry>
+               </iso11179:having>
+               <iso11179:derivation_rule_specification></iso11179:derivation_rule_specification>
+               <Component_Concept_List>
+                   <Component_Concept conRefId="CON-OC-1" order="1"/>
+                   <Component_Concept conRefId="CON-OC-2" order="2"/>
+               </Component_Concept_List>
+           </Concept_Derivation_Rule>
+           
+       </Object_Class>
+    </iso11179:Object_Class_List>
+    
+    <iso11179:Property_List>
+        <Property tagId="Prop-a">
+            <Concept_Derivation_Rule>
+                <iso11179:having>
+                    <iso11179:containing_entry>
+                        <iso11179:language_section_language_identifier>
+                            <iso11179:language_identifier></iso11179:language_identifier>
+                        </iso11179:language_section_language_identifier>
+                    </iso11179:containing_entry>
+                </iso11179:having>
+                <iso11179:derivation_rule_specification></iso11179:derivation_rule_specification>
+                <Component_Concept_List>
+                    <Component_Concept conRefId="CON-Prop-1" order="1"/>
+                    <Component_Concept conRefId="CON-Prop-2" order="2"/>
+                </Component_Concept_List>
+            </Concept_Derivation_Rule>
+            
+        </Property>
+        
+    </iso11179:Property_List>
+    
+    <iso11179:Value_Domain_List>
+        <Enumerated_Value_Domain tagId="VD-a" having="CD-a">
+            <iso11179:administered_item_administration_record>
+                <iso11179:administered_item_identifier>
+                    <iso11179:item_registration_authority_identifier>
+                        <iso11179:international_code_designator></iso11179:international_code_designator>
+                    </iso11179:item_registration_authority_identifier>
+                    <iso11179:data_identifier>2775100</iso11179:data_identifier>
+                </iso11179:administered_item_identifier>
+                <iso11179:registration_status></iso11179:registration_status>
+                <iso11179:administrative_status></iso11179:administrative_status>
+                <iso11179:creation_date>2009-02-04</iso11179:creation_date>
+            </iso11179:administered_item_administration_record>
+           
+            <iso11179:value_domain_datatype>
+                <iso11179:datatype_name>Character</iso11179:datatype_name>
+                <iso11179:datatype_scheme_reference></iso11179:datatype_scheme_reference>
+            </iso11179:value_domain_datatype>
+            
+            <Concept_Derivation_Rule>
+                <iso11179:derivation_rule_specification></iso11179:derivation_rule_specification>
+                <Component_Concept_List>
+                    <Component_Concept conRefId="CON-OC-1" order="1"/>
+                    <Component_Concept conRefId="CON-OC-2" order="2"/>
+                    <Component_Concept conRefId="CON-Prop-1" order="3"/>
+                    <Component_Concept conRefId="CON-Prop-2" order="4"/>
+                    <Component_Concept conRefId="CON-VD-1" order="5"/>
+                </Component_Concept_List>
+            </Concept_Derivation_Rule>
+            
+            <Permissible_Value_List xmlns="">
+                <iso11179:Permissible_Value containing="VM-a">
+                    <iso11179:permissible_value_begin_date>2009-02-04</iso11179:permissible_value_begin_date>
+                    <iso11179:has>
+                        <iso11179:value_item>CNCLD</iso11179:value_item>
+                    </iso11179:has>
+                </iso11179:Permissible_Value>
+                <iso11179:Permissible_Value containing="VM-b">
+                    <iso11179:permissible_value_begin_date>2009-02-04</iso11179:permissible_value_begin_date>
+                    <iso11179:has>
+                        <iso11179:value_item>DIED</iso11179:value_item>
+                    </iso11179:has>
+                </iso11179:Permissible_Value>
+            </Permissible_Value_List>
+        </Enumerated_Value_Domain>
+        
+        <Non_Enumerated_Value_Domain tagId="VD-b">
+            <iso11179:administered_item_administration_record>
+                <iso11179:administered_item_identifier>
+                    <iso11179:item_registration_authority_identifier>
+                        <iso11179:international_code_designator></iso11179:international_code_designator>
+                    </iso11179:item_registration_authority_identifier>
+                    <iso11179:data_identifier>2555250</iso11179:data_identifier>
+                </iso11179:administered_item_identifier>
+                <iso11179:registration_status></iso11179:registration_status>
+                <iso11179:administrative_status></iso11179:administrative_status>
+                <iso11179:creation_date>2009-02-04</iso11179:creation_date>
+            </iso11179:administered_item_administration_record>
+            <iso11179:value_domain_datatype>
+                <iso11179:datatype_name>Character</iso11179:datatype_name>
+                <iso11179:datatype_scheme_reference></iso11179:datatype_scheme_reference>
+            </iso11179:value_domain_datatype>
+            <non_enumerated_value_domain_description xmlns=""></non_enumerated_value_domain_description>
+        </Non_Enumerated_Value_Domain>
+        
+    </iso11179:Value_Domain_List>
+    
+    <iso11179:Conceptual_Domain_List>
+        <Non_Enumerated_Conceptual_Domain tagId="CD-a">
+            <iso11179:administered_item_administration_record>
+                <iso11179:administered_item_identifier>
+                    <iso11179:item_registration_authority_identifier>
+                        <iso11179:international_code_designator></iso11179:international_code_designator>
+                    </iso11179:item_registration_authority_identifier>
+                    <iso11179:data_identifier>2008538</iso11179:data_identifier>
+                </iso11179:administered_item_identifier>
+                <iso11179:registration_status></iso11179:registration_status>
+                <iso11179:administrative_status></iso11179:administrative_status>
+                <iso11179:creation_date>2009-02-04</iso11179:creation_date>
+            </iso11179:administered_item_administration_record>
+            <iso11179:related_to>
+                <iso11179:conceptual_domain_relationship_type_description></iso11179:conceptual_domain_relationship_type_description>
+                <iso11179:related_to></iso11179:related_to>
+            </iso11179:related_to>
+            <non_enumerated_conceptual_domain_description xmlns=""></non_enumerated_conceptual_domain_description>
+        </Non_Enumerated_Conceptual_Domain>
+    </iso11179:Conceptual_Domain_List>
+        
+    <Value_Meaning_List>
+        <Value_Meaning tagId="VM-a">
+            <value_meaning_begin_date xmlns="">2009-02-04</value_meaning_begin_date>
+            <value_meaning_identifier xmlns=""></value_meaning_identifier>
+            <Concept_Derivation_Rule>
+                <iso11179:derivation_rule_specification></iso11179:derivation_rule_specification>
+                <Component_Concept_List>
+                    <Component_Concept conRefId="CON-OC-1" order="1"/>
+                    <Component_Concept conRefId="CON-OC-2" order="2"/>
+                    <Component_Concept conRefId="CON-VM-3" order="3"/>
+                    <Component_Concept conRefId="CON-VM-4" order="4"/>
+                    <Component_Concept conRefId="CON-VM-5" order="5"/>
+                </Component_Concept_List>
+            </Concept_Derivation_Rule>
+        </Value_Meaning>
+        
+        <Value_Meaning tagId="VM-b">
+            <value_meaning_begin_date xmlns="">2009-02-04</value_meaning_begin_date>
+            <value_meaning_identifier xmlns=""></value_meaning_identifier>
+            <Concept_Derivation_Rule>
+                <iso11179:derivation_rule_specification></iso11179:derivation_rule_specification>
+                <Component_Concept_List>
+                    <Component_Concept conRefId="CON-VM-6" order="1"/>
+                    <Component_Concept conRefId="CON-VM-7" order="2"/>
+                    <Component_Concept conRefId="CON-VM-8" order="3"/>
+                    <Component_Concept conRefId="CON-VM-9" order="4"/>
+                    <Component_Concept conRefId="CON-VM-10" order="5"/>
+                    <Component_Concept conRefId="CON-VM-11" order="6"/>
+                    <Component_Concept conRefId="CON-OC-1" order="7"/>
+                    <Component_Concept conRefId="CON-OC-2" order="8"/>
+                </Component_Concept_List>
+            </Concept_Derivation_Rule>
+        </Value_Meaning>
+    </Value_Meaning_List>
+    
+    <Concept_List>
+        <Concept tagId="CON-OC-1" name="C12551">
+            <iso11179:having>
+                <iso11179:containing_entry>
+                    <iso11179:language_section_language_identifier>
+                        <iso11179:language_identifier></iso11179:language_identifier>
+                    </iso11179:language_section_language_identifier>
+                    <iso11179:naming_entry>
+                        <iso11179:name>Hematopoietic Stem Cell</iso11179:name>
+                    </iso11179:naming_entry>
+                    <iso11179:defining_entry_of>
+                        <iso11179:definition_text>Hematopoietic Stem Cell</iso11179:definition_text>
+                        <iso11179:preferred_definition>true</iso11179:preferred_definition>
+                        <iso11179:definition_source_reference>
+                            <iso11179:reference_document_identifier></iso11179:reference_document_identifier>
+                            <iso11179:reference_document_title></iso11179:reference_document_title>
+                            <iso11179:provided_by>
+                                <iso11179:organization_name>NMDP</iso11179:organization_name>
+                            </iso11179:provided_by>
+                        </iso11179:definition_source_reference>
+                    </iso11179:defining_entry_of>
+                </iso11179:containing_entry>
+            </iso11179:having>
+        </Concept>
+        <Concept tagId="CON-OC-2" name="C15342">
+            <iso11179:having>
+                <iso11179:containing_entry>
+                    <iso11179:language_section_language_identifier>
+                        <iso11179:language_identifier></iso11179:language_identifier>
+                    </iso11179:language_section_language_identifier>
+                    <iso11179:naming_entry>
+                        <iso11179:name>Transplantation</iso11179:name>
+                    </iso11179:naming_entry>
+                    <iso11179:defining_entry_of>
+                        <iso11179:definition_text>Transplantation</iso11179:definition_text>
+                        <iso11179:preferred_definition>true</iso11179:preferred_definition>
+                        <iso11179:definition_source_reference>
+                            <iso11179:reference_document_identifier></iso11179:reference_document_identifier>
+                            <iso11179:reference_document_title></iso11179:reference_document_title>
+                            <iso11179:provided_by>
+                                <iso11179:organization_name>NMDP</iso11179:organization_name>
+                            </iso11179:provided_by>
+                        </iso11179:definition_source_reference>
+                    </iso11179:defining_entry_of>
+                </iso11179:containing_entry>
+            </iso11179:having>
+        </Concept>
+        <Concept tagId="CON-Prop-1" name="C25594">
+            <iso11179:having>
+                <iso11179:containing_entry>
+                    <iso11179:language_section_language_identifier>
+                        <iso11179:language_identifier></iso11179:language_identifier>
+                    </iso11179:language_section_language_identifier>
+                    <iso11179:naming_entry>
+                    <iso11179:name>Not</iso11179:name>
+                    </iso11179:naming_entry>
+                    <iso11179:defining_entry_of>
+                        <iso11179:definition_text>Not</iso11179:definition_text>
+                        <iso11179:preferred_definition>true</iso11179:preferred_definition>
+                        <iso11179:definition_source_reference>
+                            <iso11179:reference_document_identifier></iso11179:reference_document_identifier>
+                            <iso11179:reference_document_title></iso11179:reference_document_title>
+                            <iso11179:provided_by>
+                                <iso11179:organization_name>NMDP</iso11179:organization_name>
+                            </iso11179:provided_by>
+                        </iso11179:definition_source_reference>
+                    </iso11179:defining_entry_of>
+                </iso11179:containing_entry>
+            </iso11179:having>
+        </Concept>
+        <Concept tagId="CON-Prop-2" name="C38000">
+            <iso11179:having>
+                <iso11179:containing_entry>
+                    <iso11179:language_section_language_identifier>
+                        <iso11179:language_identifier></iso11179:language_identifier>
+                    </iso11179:language_section_language_identifier>
+                    <iso11179:naming_entry>
+                        <iso11179:name>Performed</iso11179:name>
+                    </iso11179:naming_entry>
+                    <iso11179:defining_entry_of>
+                        <iso11179:definition_text>Performed</iso11179:definition_text>
+                        <iso11179:preferred_definition>true</iso11179:preferred_definition>
+                        <iso11179:definition_source_reference>
+                            <iso11179:reference_document_identifier></iso11179:reference_document_identifier>
+                            <iso11179:reference_document_title></iso11179:reference_document_title>
+                            <iso11179:provided_by>
+                                <iso11179:organization_name>NMDP</iso11179:organization_name>
+                            </iso11179:provided_by>
+                        </iso11179:definition_source_reference>
+                    </iso11179:defining_entry_of>
+                </iso11179:containing_entry>
+            </iso11179:having>
+        </Concept>
+        <Concept tagId="CON-VD-1" name="C25638">
+            <iso11179:having>
+                <iso11179:containing_entry>
+                    <iso11179:language_section_language_identifier>
+                        <iso11179:language_identifier></iso11179:language_identifier>
+                    </iso11179:language_section_language_identifier>
+                    <iso11179:naming_entry>
+                        <iso11179:name>Reason</iso11179:name>
+                    </iso11179:naming_entry>
+                    <iso11179:defining_entry_of>
+                        <iso11179:definition_text>Reason</iso11179:definition_text>
+                        <iso11179:preferred_definition>true</iso11179:preferred_definition>
+                        <iso11179:definition_source_reference>
+                            <iso11179:reference_document_identifier></iso11179:reference_document_identifier>
+                            <iso11179:reference_document_title></iso11179:reference_document_title>
+                            <iso11179:provided_by>
+                                <iso11179:organization_name>NMDP</iso11179:organization_name>
+                            </iso11179:provided_by>
+                        </iso11179:definition_source_reference>
+                    </iso11179:defining_entry_of>
+                </iso11179:containing_entry>
+            </iso11179:having>
+        </Concept>
+        <Concept tagId="CON-VM-3" name="C63471">
+            <iso11179:having>
+                <iso11179:containing_entry>
+                    <iso11179:language_section_language_identifier>
+                        <iso11179:language_identifier></iso11179:language_identifier>
+                    </iso11179:language_section_language_identifier>
+                    <iso11179:naming_entry>
+                        <iso11179:name>Cancel</iso11179:name>
+                    </iso11179:naming_entry>
+                    <iso11179:defining_entry_of>
+                        <iso11179:definition_text>Cancel</iso11179:definition_text>
+                        <iso11179:preferred_definition>true</iso11179:preferred_definition>
+                        <iso11179:definition_source_reference>
+                            <iso11179:reference_document_identifier></iso11179:reference_document_identifier>
+                            <iso11179:reference_document_title></iso11179:reference_document_title>
+                            <iso11179:provided_by>
+                                <iso11179:organization_name>NMDP</iso11179:organization_name>
+                            </iso11179:provided_by>
+                        </iso11179:definition_source_reference>
+                    </iso11179:defining_entry_of>
+                </iso11179:containing_entry>
+            </iso11179:having>
+        </Concept>
+        <Concept tagId="CON-VM-4" name="C16960">
+            <iso11179:having>
+                <iso11179:containing_entry>
+                    <iso11179:language_section_language_identifier>
+                        <iso11179:language_identifier></iso11179:language_identifier>
+                    </iso11179:language_section_language_identifier>
+                    <iso11179:naming_entry>
+                        <iso11179:name>Patient</iso11179:name>
+                    </iso11179:naming_entry>
+                    <iso11179:defining_entry_of>
+                        <iso11179:definition_text>Patient</iso11179:definition_text>
+                        <iso11179:preferred_definition>true</iso11179:preferred_definition>
+                        <iso11179:definition_source_reference>
+                            <iso11179:reference_document_identifier></iso11179:reference_document_identifier>
+                            <iso11179:reference_document_title></iso11179:reference_document_title>
+                            <iso11179:provided_by>
+                                <iso11179:organization_name>NMDP</iso11179:organization_name>
+                            </iso11179:provided_by>
+                        </iso11179:definition_source_reference>
+                    </iso11179:defining_entry_of>
+                </iso11179:containing_entry>
+            </iso11179:having>
+        </Concept>
+        <Concept tagId="CON-VM-5" name="C37987">
+            <iso11179:having>
+                <iso11179:containing_entry>
+                    <iso11179:language_section_language_identifier>
+                        <iso11179:language_identifier></iso11179:language_identifier>
+                    </iso11179:language_section_language_identifier>
+                    <iso11179:naming_entry>
+                        <iso11179:name>Life</iso11179:name>
+                    </iso11179:naming_entry>
+                    <iso11179:defining_entry_of>
+                        <iso11179:definition_text>Life</iso11179:definition_text>
+                        <iso11179:preferred_definition>true</iso11179:preferred_definition>
+                        <iso11179:definition_source_reference>
+                            <iso11179:reference_document_identifier></iso11179:reference_document_identifier>
+                            <iso11179:reference_document_title></iso11179:reference_document_title>
+                            <iso11179:provided_by>
+                                <iso11179:organization_name>NMDP</iso11179:organization_name>
+                            </iso11179:provided_by>
+                        </iso11179:definition_source_reference>
+                    </iso11179:defining_entry_of>
+                </iso11179:containing_entry>
+            </iso11179:having>
+        </Concept>
+        <Concept tagId="CON-VM-6" name="C16960">
+            <iso11179:having>
+                <iso11179:containing_entry>
+                    <iso11179:language_section_language_identifier>
+                        <iso11179:language_identifier></iso11179:language_identifier>
+                    </iso11179:language_section_language_identifier>
+                    <iso11179:naming_entry>
+                        <iso11179:name>Patient</iso11179:name>
+                    </iso11179:naming_entry>
+                    <iso11179:defining_entry_of>
+                        <iso11179:definition_text>Patient</iso11179:definition_text>
+                        <iso11179:preferred_definition>true</iso11179:preferred_definition>
+                        <iso11179:definition_source_reference>
+                            <iso11179:reference_document_identifier></iso11179:reference_document_identifier>
+                            <iso11179:reference_document_title></iso11179:reference_document_title>
+                            <iso11179:provided_by>
+                                <iso11179:organization_name>NMDP</iso11179:organization_name>
+                            </iso11179:provided_by>
+                        </iso11179:definition_source_reference>
+                    </iso11179:defining_entry_of>
+                </iso11179:containing_entry>
+            </iso11179:having>
+        </Concept>
+        <Concept tagId="CON-VM-7" name="C28554">
+            <iso11179:having>
+                <iso11179:containing_entry>
+                    <iso11179:language_section_language_identifier>
+                        <iso11179:language_identifier></iso11179:language_identifier>
+                    </iso11179:language_section_language_identifier>
+                    <iso11179:naming_entry>
+                        <iso11179:name>Death</iso11179:name>
+                    </iso11179:naming_entry>
+                    <iso11179:defining_entry_of>
+                        <iso11179:definition_text>Death</iso11179:definition_text>
+                        <iso11179:preferred_definition>true</iso11179:preferred_definition>
+                        <iso11179:definition_source_reference>
+                            <iso11179:reference_document_identifier></iso11179:reference_document_identifier>
+                            <iso11179:reference_document_title></iso11179:reference_document_title>
+                            <iso11179:provided_by>
+                                <iso11179:organization_name>NMDP</iso11179:organization_name>
+                            </iso11179:provided_by>
+                        </iso11179:definition_source_reference>
+                    </iso11179:defining_entry_of>
+                </iso11179:containing_entry>
+            </iso11179:having>
+        </Concept>
+        <Concept tagId="CON-VM-8" name="C38008">
+            <iso11179:having>
+                <iso11179:containing_entry>
+                    <iso11179:language_section_language_identifier>
+                        <iso11179:language_identifier></iso11179:language_identifier>
+                    </iso11179:language_section_language_identifier>
+                    <iso11179:naming_entry>
+                        <iso11179:name>Post</iso11179:name>
+                    </iso11179:naming_entry>
+                    <iso11179:defining_entry_of>
+                        <iso11179:definition_text>Post</iso11179:definition_text>
+                        <iso11179:preferred_definition>true</iso11179:preferred_definition>
+                        <iso11179:definition_source_reference>
+                            <iso11179:reference_document_identifier></iso11179:reference_document_identifier>
+                            <iso11179:reference_document_title></iso11179:reference_document_title>
+                            <iso11179:provided_by>
+                                <iso11179:organization_name>NMDP</iso11179:organization_name>
+                            </iso11179:provided_by>
+                        </iso11179:definition_source_reference>
+                    </iso11179:defining_entry_of>
+                </iso11179:containing_entry>
+            </iso11179:having>
+        </Concept>
+        <Concept tagId="CON-VM-9" name="C25431">
+            <iso11179:having>
+                <iso11179:containing_entry>
+                    <iso11179:language_section_language_identifier>
+                        <iso11179:language_identifier></iso11179:language_identifier>
+                    </iso11179:language_section_language_identifier>
+                    <iso11179:naming_entry>
+                        <iso11179:name>Begin</iso11179:name>
+                    </iso11179:naming_entry>
+                    <iso11179:defining_entry_of>
+                        <iso11179:definition_text>Begin</iso11179:definition_text>
+                        <iso11179:preferred_definition>true</iso11179:preferred_definition>
+                        <iso11179:definition_source_reference>
+                            <iso11179:reference_document_identifier></iso11179:reference_document_identifier>
+                            <iso11179:reference_document_title></iso11179:reference_document_title>
+                            <iso11179:provided_by>
+                                <iso11179:organization_name>NMDP</iso11179:organization_name>
+                            </iso11179:provided_by>
+                        </iso11179:definition_source_reference>
+                    </iso11179:defining_entry_of>
+                </iso11179:containing_entry>
+            </iso11179:having>
+        </Concept>
+        <Concept tagId="CON-VM-10" name="C61155">
+            <iso11179:having>
+                <iso11179:containing_entry>
+                    <iso11179:language_section_language_identifier>
+                        <iso11179:language_identifier></iso11179:language_identifier>
+                    </iso11179:language_section_language_identifier>
+                    <iso11179:naming_entry>
+                        <iso11179:name>Preparative Regimen</iso11179:name>
+                    </iso11179:naming_entry>
+                    <iso11179:defining_entry_of>
+                        <iso11179:definition_text>Preparative Regimen</iso11179:definition_text>
+                        <iso11179:preferred_definition>true</iso11179:preferred_definition>
+                        <iso11179:definition_source_reference>
+                            <iso11179:reference_document_identifier></iso11179:reference_document_identifier>
+                            <iso11179:reference_document_title></iso11179:reference_document_title>
+                            <iso11179:provided_by>
+                                <iso11179:organization_name>NMDP</iso11179:organization_name>
+                            </iso11179:provided_by>
+                        </iso11179:definition_source_reference>
+                    </iso11179:defining_entry_of>
+                </iso11179:containing_entry>
+            </iso11179:having>
+        </Concept>
+        <Concept tagId="CON-VM-11" name="C37912">
+            <iso11179:having>
+                <iso11179:containing_entry>
+                    <iso11179:language_section_language_identifier>
+                        <iso11179:language_identifier></iso11179:language_identifier>
+                    </iso11179:language_section_language_identifier>
+                    <iso11179:naming_entry>
+                        <iso11179:name>And</iso11179:name>
+                    </iso11179:naming_entry>
+                    <iso11179:defining_entry_of>
+                        <iso11179:definition_text>And</iso11179:definition_text>
+                        <iso11179:preferred_definition>true</iso11179:preferred_definition>
+                        <iso11179:definition_source_reference>
+                        <iso11179:reference_document_identifier></iso11179:reference_document_identifier>
+                        <iso11179:reference_document_title></iso11179:reference_document_title>
+                        <iso11179:provided_by>
+                            <iso11179:organization_name>NMDP</iso11179:organization_name>
+                        </iso11179:provided_by>
+                        </iso11179:definition_source_reference>
+                    </iso11179:defining_entry_of>
+                </iso11179:containing_entry>
+            </iso11179:having>
+        </Concept>
+    </Concept_List>
+    
+</Administered_Item_List>

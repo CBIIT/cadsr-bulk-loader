@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+ 
+<beans>
+
+	<bean name="bulkLoader" class="gov.nih.nci.ncicb.cadsr.bulkloader.CaDSRBulkLoader" >
+	  <property name="parser" ref="parser" />
+	  <property name="dao" ref="dataElementDAO" />
+	</bean>
+  									<!-- Parser -->
+  									
+  <bean name="parser" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.ParserImpl" >
+  	<property name="binder" ref="objectBinder" />
+  	<property name="translator" ref="deTranslator" />
+  </bean>
+  
+  
+									<!-- Binder -->
+  									
+  <bean name="objectBinder" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.bind.ISO11179SchemaBinder" />
+    
+  
+  									<!-- Translators -->
+  									  
+  <bean name="deTranslator" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.DataElementTranslator" >
+  	<property name="child" ref="decTranslator" />
+  </bean>
+  
+  <bean name="decTranslator" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.DataElementConceptTranslator" >
+  	<property name="child" ref="ocTranslator" />
+  </bean>
+  
+  <bean name="ocTranslator" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.ObjectClassTranslator" >
+  	<property name="child" ref="propertiesTranslator" />
+  </bean>
+  
+  <bean name="propertiesTranslator" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.PropertiesTranslator" >
+  	<property name="child" ref="vdTranslator" />
+  </bean>
+  
+  <bean name="vdTranslator" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.ValueDomainTranslator" >
+  	<property name="child" ref="cdTranslator" />
+  </bean>
+  
+  <bean name="cdTranslator" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.ConceptualDomainTranslator" >
+  	<property name="child" ref="vmTranslator" />
+  </bean>
+  
+  <bean name="vmTranslator" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.ValueMeaningTranslator" >
+  	<property name="child" ref="conceptsTranslator" />
+  </bean>
+  
+  <bean name="conceptsTranslator" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.ConceptsTranslator" />
+
+  
+  									<!-- DAOs -->
+  							
+  <bean name="conceptsDAO" class="gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAOImpl">
+    <property name="field" ref="conceptBean" />
+    <property name="loader" ref="conceptsLoader" />
+  </bean>
+  
+  <bean name="propertyDAO" class="gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAOImpl">
+    <property name="field" ref="propertyBean" />
+    <property name="loader" ref="propertyLoader" />
+    <property name="dependentDAO" ref="conceptsDAO" />
+  </bean>
+  
+  <bean name="objectClassDAO" class="gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAOImpl">
+    <property name="field" ref="objectClassBean" />
+    <property name="loader" ref="objectClassLoader" />
+    <property name="dependentDAO" ref="propertyDAO" />
+  </bean>
+  
+  <bean name="valueDomainDAO" class="gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAOImpl">
+    <property name="field" ref="valueDomainBean" />
+    <property name="loader" ref="valueDomainLoader" />
+    <property name="dependentDAO" ref="objectClassDAO" />
+  </bean>
+  
+  <bean name="dataElementConceptDAO" class="gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAOImpl">
+    <property name="field" ref="dataElementConceptBean" />
+    <property name="loader" ref="decLoader" />
+    <property name="dependentDAO" ref="valueDomainDAO" />
+  </bean>
+  
+  <bean name="dataElementDAO" class="gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAOImpl">
+    <property name="field" ref="dataElementBean" />
+    <property name="loader" ref="dataElementLoader" />
+    <property name="dependentDAO" ref="dataElementConceptDAO" />
+  </bean>
+   
+   
+   									<!-- Loaders -->
+   							
+  <bean name="conceptsLoader" class="gov.nih.nci.ncicb.cadsr.bulkloader.ext.ExternalLoaderImpl">
+ 	<property name="persister" ref="conceptPersister" />
+  </bean>
+  
+  <bean name="propertyLoader" class="gov.nih.nci.ncicb.cadsr.bulkloader.ext.ExternalLoaderImpl">
+ 	<property name="persister" ref="propertyPersister" />
+  </bean>
+  
+  <bean name="objectClassLoader" class="gov.nih.nci.ncicb.cadsr.bulkloader.ext.ExternalLoaderImpl">
+ 	<property name="persister" ref="objectClassPersister" />
+  </bean>
+  
+  <bean name="decLoader" class="gov.nih.nci.ncicb.cadsr.bulkloader.ext.ExternalLoaderImpl">
+ 	<property name="persister" ref="decPersister" />
+  </bean>
+  
+  <bean name="valueDomainLoader" class="gov.nih.nci.ncicb.cadsr.bulkloader.ext.ExternalLoaderImpl">
+ 	<property name="persister" ref="valueDomainPersister" />
+  </bean>
+  
+  <bean name="dataElementLoader" class="gov.nih.nci.ncicb.cadsr.bulkloader.ext.ExternalLoaderImpl">
+ 	<property name="persister" ref="dePersister" />
+  </bean>
+  
+  
+  									<!-- CaDSR Objects -->
+  
+   <bean name="conceptBean" class="gov.nih.nci.ncicb.cadsr.domain.bean.ConceptBean" />
+   <bean name="objectClassBean" class="gov.nih.nci.ncicb.cadsr.domain.bean.ObjectClassBean" />
+   <bean name="propertyBean" class="gov.nih.nci.ncicb.cadsr.domain.bean.PropertyBean" />
+   <bean name="valueDomainBean" class="gov.nih.nci.ncicb.cadsr.domain.bean.ValueDomainBean" />
+   <bean name="dataElementConceptBean" class="gov.nih.nci.ncicb.cadsr.domain.bean.DataElementConceptBean" />
+   <bean name="dataElementBean" class="gov.nih.nci.ncicb.cadsr.domain.bean.DataElementBean" />
+  
+</beans>
