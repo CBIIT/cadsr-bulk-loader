@@ -1,0 +1,37 @@
+package gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate;
+
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptualDomain_caDSR11179;
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ISO11179Elements;
+import gov.nih.nci.ncicb.cadsr.domain.ConceptualDomain;
+import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
+
+import java.util.List;
+
+public class ConceptualDomainTranslator extends AbstractTranslatorTemplate {
+
+	@Override
+	protected CaDSRObjectRegistry translateElement(ISO11179Elements iso11179Elements, CaDSRObjectRegistry objRegistry) {
+		List<ConceptualDomain_caDSR11179> isoCDs = iso11179Elements.getConceptualDomains();
+		
+		for (ConceptualDomain_caDSR11179 isoCD: isoCDs) {
+			ConceptualDomain cd = getConceptualDomain(isoCD);
+			objRegistry.addConceptualDomain(isoCD.getTagId(), cd);
+		}
+		return objRegistry;
+	}
+	
+	private ConceptualDomain getConceptualDomain(ConceptualDomain_caDSR11179 isoCD) {
+		String cdId = util.getIdentifier(isoCD);
+		String preferredName = util.getPreferredQuestionText(isoCD);
+		
+		ConceptualDomain cd = DomainObjectFactory.newConceptualDomain();
+		cd.setId(cdId);
+		cd.setPreferredName(preferredName);
+		cd.setVersion(1.0f);
+		cd.setWorkflowStatus("RELEASED");
+		cd.setPublicId(cdId);
+		
+		return cd;
+	}
+
+}
