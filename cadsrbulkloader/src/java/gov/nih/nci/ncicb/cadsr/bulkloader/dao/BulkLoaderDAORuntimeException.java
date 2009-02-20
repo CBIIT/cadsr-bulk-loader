@@ -1,5 +1,7 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.dao;
 
+import gov.nih.nci.ncicb.cadsr.bulkloader.BulkLoaderRuntimeException;
+
 /**
  * 
  * @author Ashwin Mathur
@@ -7,7 +9,7 @@ package gov.nih.nci.ncicb.cadsr.bulkloader.dao;
  * @since 
  */
 
-public class BulkLoaderDAORuntimeException extends RuntimeException {
+public class BulkLoaderDAORuntimeException extends BulkLoaderRuntimeException {
 
 	private static final long serialVersionUID = 1L;
 

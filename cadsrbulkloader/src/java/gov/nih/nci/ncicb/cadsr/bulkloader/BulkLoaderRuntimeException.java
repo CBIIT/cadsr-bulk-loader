@@ -10,10 +10,12 @@ public class BulkLoaderRuntimeException extends RuntimeException {
 	
 	public BulkLoaderRuntimeException(Exception e) {
 		super(e);
+		super.setStackTrace(e.getStackTrace());
 	}
 	
 	public BulkLoaderRuntimeException(String message, Exception e) {
 		super(message, e);
+		super.setStackTrace(e.getStackTrace());
 	}
 	
 	public BulkLoaderRuntimeException(String message) {

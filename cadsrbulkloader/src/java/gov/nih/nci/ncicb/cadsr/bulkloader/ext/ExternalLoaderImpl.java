@@ -2,6 +2,9 @@ package gov.nih.nci.ncicb.cadsr.bulkloader.ext;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAORuntimeException;
 import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
+import gov.nih.nci.ncicb.cadsr.domain.AdminComponentClassSchemeClassSchemeItem;
+import gov.nih.nci.ncicb.cadsr.domain.ClassSchemeClassSchemeItem;
+import gov.nih.nci.ncicb.cadsr.domain.ClassificationSchemeItem;
 import gov.nih.nci.ncicb.cadsr.loader.ElementsLists;
 import gov.nih.nci.ncicb.cadsr.loader.defaults.UMLDefaults;
 import gov.nih.nci.ncicb.cadsr.loader.persister.Persister;
@@ -26,6 +29,7 @@ public class ExternalLoaderImpl implements ExternalLoader{
 	private UMLDefaults defaults = UMLDefaults.getInstance();
 	private boolean propertiesLoaded;
 	
+	
 	public Persister getPersister() {
 		return persister;
 	}
@@ -33,12 +37,14 @@ public class ExternalLoaderImpl implements ExternalLoader{
 	public void setPersister(Persister persister) {
 		this.persister = persister;
 	}
-
+	
 	public void save(List<? extends AdminComponent> adminComponents) throws BulkLoaderDAORuntimeException{
 		
 		loadDefaultsIfNotLoaded();
 		
 		addElementsToSave(adminComponents);
+		
+		loadComponentDefaults(adminComponents);
 		
 		persist();
 	}
@@ -65,6 +71,28 @@ public class ExternalLoaderImpl implements ExternalLoader{
 		for (Object adminComponent: adminComponents) {
 			elements.addElement(adminComponent);
 		}
+	}
+	
+	private <T extends AdminComponent> void loadComponentDefaults(List<T> adminComps) {
+		for (AdminComponent adminComp: adminComps) {
+			loadAdminComponentCSCSI(adminComp);
+		}
+	}
+	
+	private void loadAdminComponentCSCSI(AdminComponent adminComp) {
+		List<AdminComponentClassSchemeClassSchemeItem> acCSCSIs = adminComp.getAcCsCsis();
+		if (acCSCSIs != null) {
+			for (AdminComponentClassSchemeClassSchemeItem acCSCSI: acCSCSIs) {
+				loadCSCSIAsDefaults(acCSCSI);
+			}
+		}
+	}
+	
+	private void loadCSCSIAsDefaults(AdminComponentClassSchemeClassSchemeItem acCSCSI) {
+		ClassSchemeClassSchemeItem csCSI = acCSCSI.getCsCsi();
+		ClassificationSchemeItem csi = csCSI.getCsi();
+		String csiLongName = csi.getLongName();
+		defaults.getPackageCsCsis().put(csiLongName, csCSI);
 	}
 	
 	private void persist() {

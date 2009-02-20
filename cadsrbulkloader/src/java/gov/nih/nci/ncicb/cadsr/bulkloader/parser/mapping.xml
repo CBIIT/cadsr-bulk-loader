@@ -7,26 +7,50 @@
     <!-- <description>Castor mapping file for the Bulk Loader</description> -->
 
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ISO11179Elements">
-        <field name="dataElements" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.DataElementList_ISO11179" />
-        <field collection="arraylist" name="dataElementRefs" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.DataElementRef_ISO11179" />
+        <map-to xml="Administered_Item_List" ns-prefix="caDSR" ns-uri="http://www.ncicb.nih.gov/caDSR/schema/ISO11179"/>
+        <field name="dataElements" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.DataElementList_ISO11179" >
+            <bind-xml name="iso11179:Data_Element_List" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179"/>
+        </field>
+        <field collection="arraylist" name="dataElementRefs" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.DataElementRef_ISO11179" />
         
-        <field name="dataElementConcepts" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.DataElementConceptList_ISO11179" />
-        <field collection="arraylist" name="dataElementConceptRefs" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.DataElementConceptRef_ISO11179" />
+        <field name="dataElementConcepts" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.DataElementConceptList_ISO11179" >
+            <bind-xml name="iso11179:Data_Element_Concept_List" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179"/>
+        </field>
+        <field collection="arraylist" name="dataElementConceptRefs" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.DataElementConceptRef_ISO11179" />
         
-        <field name="objectClassList" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ObjectClassList_ISO11179" />
+        <field name="objectClassList" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ObjectClassList_ISO11179" >
+            <bind-xml name="iso11179:Object_Class_List" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179"/>
+        </field>
         <field collection="arraylist" name="objectClassRefs" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ObjectClassRef_ISO11179" />
         
-        <field name="propertiesList" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.PropertyList_ISO11179" />
+        <field name="propertiesList" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.PropertyList_ISO11179" >
+            <bind-xml name="iso11179:Property_List" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179"/>
+        </field>
         <field collection="arraylist" name="propertyRefs" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.PropertyRef_ISO11179" />
         
-        <field name="conceptualDomainsList" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptualDomainList_ISO11179" />
+        <field name="conceptualDomainsList" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptualDomainList_ISO11179" >
+            <bind-xml name="iso11179:Conceptual_Domain_List" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179"/>
+        </field>
         <field collection="arraylist" name="conceptualDomainRefs" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptualDomainRef_ISO11179" />
         
-        <field name="valueDomainsList" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueDomainsList_ISO11179" />
+        <field name="valueDomainsList" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueDomainsList_ISO11179" >
+            <bind-xml name="iso11179:Value_Domain_List" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179"/>
+        </field>
         <field collection="arraylist" name="valueDomainRefs" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueDomainRef_ISO11179" />
         
-        <field name="valueMeaningsList" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueMeaningsList_ISO11179" />
-        <field name="conceptsList" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptList_ISO11179" />
+        <field name="valueMeaningsList" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueMeaningsList_ISO11179" >
+            <bind-xml name="iso11179:Value_Meaning_List" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179"/>
+        </field>
+        <field name="conceptsList" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptList_ISO11179" >
+            <bind-xml name="iso11179:Concept_List" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179"/>
+        </field>
+        
+        <field name="classSchemeList" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ClassificationSchemeList_ISO11179" >
+            <bind-xml name="iso11179:Classification_Scheme_List" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179"/>
+        </field>
+        <field name="classSchemeItemList" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ClassificationSchemeItemList_caDSR11179" >
+            <bind-xml name="iso11179:Classification_Scheme_Item_List" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179"/>
+        </field>
     </class>
     
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.AdminItem_ISO11179">
@@ -191,21 +215,67 @@
             <bind-xml name="iso11179:organization_mail_address" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179"/>
         </field>
     </class>
+
+    <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ClassificationSchemeList_ISO11179">
+        <map-to xml="Classification_Scheme_List" ns-prefix="iso11179" ns-uri="http://www.cancergrid.org/schema/ISO11179"/>
+        <field name="classSchemes" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ClassificationScheme_ISO11179" />
+    </class>
+    
+    <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ClassificationScheme_ISO11179" extends="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.AdminItem_ISO11179">
+        <map-to xml="Classification_Scheme" ns-prefix="iso11179" ns-uri="http://www.cancergrid.org/schema/ISO11179" />
+        <field name="typeName" type="string">
+            <bind-xml name="iso11179:classification_scheme_type_name" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179" />
+        </field>
+        <field name="name" type="string">
+            <bind-xml name="iso11179:classification_scheme_name" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179" />
+        </field>
+        <field name="version" type="float">
+            <bind-xml name="iso11179:classification_scheme_version" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179" />
+        </field>
+    </class>
+    
+    <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ClassificationSchemeItemList_caDSR11179">
+        <map-to xml="Classification_Scheme_Item_List" />
+        <field name="classSchemeItems" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ClassificationSchemeItem_caDSR11179" >
+            <bind-xml name="Classification_Scheme_Item" />
+        </field>
+    </class>
+    
+    <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ClassificationSchemeItem_caDSR11179" extends="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.AdminItem_ISO11179">
+        <map-to xml="Classification_Scheme_Item" />
+        <field name="csiName" type="string">
+            <bind-xml name="classification_scheme_item_name" />
+        </field>
+        <field name="csiValue" type="string">
+            <bind-xml name="classification_scheme_item_value" />
+        </field>
+    </class>
     
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ClassificationSchemeItemRef_ISO11179">
         <field name="csiRefId" type="string">
             <bind-xml name="csiRefId" location="Classification_Scheme_Item_Ref" node="attribute" />
         </field>
+        <field name="csRefId" type="string">
+            <bind-xml name="csRefId" location="Classification_Scheme_Item_Ref" node="attribute" />
+        </field>
     </class>
 
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Submission_ISO11179">
-        <field name="contact" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Contact_ISO11179"/>
-        <field name="organization" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Organization_ISO11179"/>
+        <field name="contact" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Contact_ISO11179">
+            <bind-xml name="submission_contact" />
+        </field>
+        <field name="organization" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Organization_ISO11179">
+            <bind-xml name="Organization"></bind-xml>
+        </field>
     </class>
     
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Stewardship_ISO11179">
-        <field name="contact" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Contact_ISO11179"/>
-        <field name="organization" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Organization_ISO11179"/>
+        <field name="contact" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Contact_ISO11179">
+            <bind-xml name="stewardship_contact"/>
+        </field>
+        <field name="organization" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Organization_ISO11179">
+            <bind-xml name="Organization"/>
+        </field>
     </class>
     
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.TerminologicalEntry_ISO11179">
@@ -251,12 +321,14 @@
     </class>
     
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.DataElementList_ISO11179">
-        <map-to xml="Data_Element_List"/>
-        <field name="dataElements" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.DataElement_ISO11179" collection="arraylist" />
+        <map-to xml="Data_Element_List" />
+        <field name="dataElements" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.DataElement_ISO11179" collection="arraylist" >
+            <bind-xml name="iso11179:Data_Element" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179"/>
+        </field>
     </class>
     
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.DataElement_ISO11179" extends="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.AdminItem_ISO11179">
-        <map-to xml="Data_Element" />
+        <map-to xml="Data_Element" ns-prefix="iso11179" ns-uri="http://www.cancergrid.org/schema/ISO11179"/>
         
         <field name="decRefId" type="string">
             <bind-xml name="expressing" node="attribute" />
@@ -275,7 +347,9 @@
 
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.DataElementConceptList_ISO11179">
         <map-to xml="Data_Element_Concept_List"/>
-        <field name="dataElementConcepts" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.DataElementConcept_ISO11179" collection="arraylist" />
+        <field name="dataElementConcepts" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.DataElementConcept_ISO11179" collection="arraylist" >
+            <bind-xml name="Data_Element_Concept"/>
+        </field>
     </class>
     
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.DataElementConcept_ISO11179" extends="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.AdminItem_ISO11179">
@@ -301,33 +375,45 @@
     
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ObjectClassList_ISO11179">
         <map-to xml="Object_Class_List"/>
-        <field name="objectClasses" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ObjectClass_caDSR11179" />
+        <field name="objectClasses" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ObjectClass_caDSR11179" >
+            <bind-xml name="Object_Class" />
+        </field>
     </class>
         
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ObjectClass_caDSR11179" extends="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.AdminItem_ISO11179">
         <map-to xml="Object_Class" />
         
-        <field name="conceptDerivationRule" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptDerivationRule_caDSR11179" />
+        <field name="conceptDerivationRule" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptDerivationRule_caDSR11179" >
+            <bind-xml name="Concept_Derivation_Rule" />
+        </field>
     </class>
     
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.PropertyList_ISO11179">
         <map-to xml="Property_List"/>
-        <field name="properties" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Property_caDSR11179" />
+        <field name="properties" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Property_caDSR11179" >
+            <bind-xml name="Property" />
+        </field>
     </class>
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Property_caDSR11179" extends="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.AdminItem_ISO11179">
         <map-to xml="Property"/>
         
-        <field name="conceptDerivationRule" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptDerivationRule_caDSR11179" />
+        <field name="conceptDerivationRule" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptDerivationRule_caDSR11179" >
+            <bind-xml name="Concept_Derivation_Rule" />
+        </field>
     </class>
     
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptDerivationRule_caDSR11179" extends="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.AdminItem_ISO11179">
         <map-to xml="Concept_Derivation_Rule"/>
-        <field name="componentConceptsList" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ComponentConceptList_caDSR11179" />
+        <field name="componentConceptsList" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ComponentConceptList_caDSR11179" >
+            <bind-xml name="Component_Concept_List" />
+        </field>
     </class>
     
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ComponentConceptList_caDSR11179">
         <map-to xml="Component_Concept_List"/>
-        <field name="componentConcepts" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ComponentConcept_caDSR11179"></field>
+        <field name="componentConcepts" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ComponentConcept_caDSR11179">
+            <bind-xml name="Component_Concept" />
+        </field>
     </class>
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ComponentConcept_caDSR11179">
         <map-to xml="Component_Concept"/>
@@ -341,16 +427,26 @@
     
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueDomainsList_ISO11179">
         <map-to xml="Value_Domain_List"/>
-        <field name="enumVDs" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.EnumeratedValueDomain_caDSR11179" />
-        <field name="nonEnumVDs" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.NonEnumeratedValueDomain_caDSR11179" />
+        <field name="enumVDs" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.EnumeratedValueDomain_caDSR11179" >
+            <bind-xml name="Enumerated_Value_Domain" />
+        </field>
+        <field name="nonEnumVDs" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.NonEnumeratedValueDomain_caDSR11179" >
+            <bind-xml name="Non_Enumerated_Value_Domain" />
+        </field>
     </class>
     
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.EnumeratedValueDomain_caDSR11179" extends="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.AdminItem_ISO11179">
         <map-to xml="Enumerated_Value_Domain"/>
         
-        <field name="conDerivationRule" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptDerivationRule_caDSR11179" />
-        <field name="permissibleValues" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.PermissibleValue_ISO11179" />
-        <field name="datatype" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Datatype_ISO11179" />
+        <field name="conDerivationRule" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptDerivationRule_caDSR11179" >
+            <bind-xml name="Concept_Derivation_Rule" />
+        </field>
+        <field name="permissibleValues" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.PermissibleValue_ISO11179" >
+            <bind-xml name="Permissible_Value" location="Permissible_Value_List" />
+        </field>
+        <field name="datatype" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Datatype_ISO11179" >
+            <bind-xml name="value_domain_datatype" />
+        </field>
         <field name="conceptualDomainRefId" type="string">
             <bind-xml name="having" node="attribute"/>
         </field>
@@ -390,12 +486,18 @@
     
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptualDomainList_ISO11179">
         <map-to xml="Conceptual_Domain_List" ns-prefix="iso11179" ns-uri="http://www.cancergrid.org/schema/ISO11179"/>
-        <field name="enumCDs" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.EnumeratedConceptualDomain_caDSR11179" />
-        <field name="nonEnumCDs" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.NonEnumeratedConceptualDomain_caDSR11179" />
+        <field name="enumCDs" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.EnumeratedConceptualDomain_caDSR11179" >
+            <bind-xml name="Enumerated_Conceptual_Domain" />
+        </field>
+        <field name="nonEnumCDs" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.NonEnumeratedConceptualDomain_caDSR11179" >
+            <bind-xml name="Non_Enumerated_Conceptual_Domain" />
+        </field>
     </class>
     
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptualDomain_caDSR11179" extends="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.AdminItem_ISO11179">
-        <field name="conceptDerivationRule" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptDerivationRule_caDSR11179" />
+        <field name="conceptDerivationRule" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptDerivationRule_caDSR11179" >
+            <bind-xml name="Concept_Derivation_Rule" />
+        </field>
     </class>
     
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.EnumeratedConceptualDomain_caDSR11179" extends="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptualDomain_caDSR11179">
@@ -414,7 +516,9 @@
     
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueMeaningsList_ISO11179">
         <map-to xml="Value_Meaning_List"/>
-        <field name="valueMeanings" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueMeaning_caDSR11179" />
+        <field name="valueMeanings" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueMeaning_caDSR11179" >
+            <bind-xml name="Value_Meaning" />
+        </field>
     </class>
     
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueMeaning_caDSR11179" extends="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.AdminItem_ISO11179">
@@ -425,12 +529,16 @@
         <field name="endDate" type="date" handler="gov.nih.nci.ncicb.cadsr.bulkloader.util.CastorDateHandler">
             <bind-xml name="value_meaning_end_date" node="text" />
         </field>
-        <field name="conceptDerivationRule" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptDerivationRule_caDSR11179" />
+        <field name="conceptDerivationRule" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptDerivationRule_caDSR11179" >
+            <bind-xml name="Concept_Derivation_Rule" />
+        </field>
     </class>
     
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptList_ISO11179">
         <map-to xml="Concept_List"/>
-        <field name="concepts" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Concept_caDSR11179" />
+        <field name="concepts" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Concept_caDSR11179" >
+            <bind-xml name="Concept"></bind-xml>
+        </field>
     </class>
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Concept_caDSR11179" extends="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.AdminItem_ISO11179">
         <map-to xml="Concept"/>

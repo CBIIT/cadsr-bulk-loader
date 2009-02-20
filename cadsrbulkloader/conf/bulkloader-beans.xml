@@ -5,6 +5,7 @@
 
 	<bean name="bulkLoader" class="gov.nih.nci.ncicb.cadsr.bulkloader.CaDSRBulkLoader" >
 	  <property name="parser" ref="parser" />
+	  <property name="validator" ref="validator" />
 	  <property name="dao" ref="dataElementDAO" />
 	</bean>
   									<!-- Parser -->
@@ -50,9 +51,40 @@
   	<property name="child" ref="conceptsTranslator" />
   </bean>
   
-  <bean name="conceptsTranslator" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.ConceptsTranslator" />
-
+  <bean name="conceptsTranslator" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.ConceptsTranslator" >
+  	<property name="child" ref="csTranslator" />
+  </bean>
   
+  <bean name="csTranslator" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.ClassificationSchemeTranslator" >
+  	<property name="child" ref="csiTranslator" />
+  </bean>
+  
+  <bean name="csiTranslator" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.ClassificationSchemeItemTranslator" />
+
+
+
+
+  									<!-- Validators -->
+  									
+  <bean name="validator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.ValidationImpl" >
+  	<property name="validators">
+  		<list>
+  			<ref bean="conceptCodeValidator" />
+  			<ref bean="duplicateValidator" />
+  			<ref bean="latestVersionValidator" />
+  			<ref bean="duplicateAttributeValidator" />
+  			<ref bean="definitionLengthValidator" />
+  			<ref bean="descriptionValidator" />
+  		</list>
+  	</property>
+  </bean>
+  
+  <bean name="conceptCodeValidator" class="gov.nih.nci.ncicb.cadsr.loader.validator.ConceptCodeValidator" />
+  <bean name="conceptValidator" class="gov.nih.nci.ncicb.cadsr.loader.validator.ConceptValidator" />
+  <bean name="dataTypeValidator" class="gov.nih.nci.ncicb.cadsr.loader.validator.DatatypeValidator" />
+  <bean name="definitionLengthValidator" class="gov.nih.nci.ncicb.cadsr.loader.validator.ConceptCodeValidator" />
+    
+    
   									<!-- DAOs -->
   							
   <bean name="conceptsDAO" class="gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAOImpl">

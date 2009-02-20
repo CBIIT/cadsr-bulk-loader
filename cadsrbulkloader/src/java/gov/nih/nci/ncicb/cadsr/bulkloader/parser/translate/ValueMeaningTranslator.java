@@ -30,7 +30,7 @@ public class ValueMeaningTranslator extends AbstractTranslatorTemplate {
 		ValueMeaning valueMeaning = DomainObjectFactory.newValueMeaning();
 		valueMeaning.setConceptDerivationRule(cdr);
 		valueMeaning.setLongName(longName);
-		
+		valueMeaning.setId(longName);
 		
 		return valueMeaning;
 	}
