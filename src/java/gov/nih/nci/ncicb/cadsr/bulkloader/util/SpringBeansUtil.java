@@ -4,6 +4,7 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.CaDSRBulkLoader;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.CaDSRObjects;
 import gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAO;
 import gov.nih.nci.ncicb.cadsr.bulkloader.parser.Parser;
+import gov.nih.nci.ncicb.cadsr.bulkloader.parser.bind.ObjectBinder;
 import gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.Translator;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -25,6 +26,7 @@ public class SpringBeansUtil {
 	private static final String DEC_DAO_BEAN_NAME = "dataElementConceptDAO";
 	private static final String VD_DAO_BEAN_NAME = "valueDomainDAO";
 	private static final String DE_DAO_BEAN_NAME = "dataElementDAO";
+	private static final String OBJECT_BINDER_BEAN_NAME = "objectBinder";
 	
 	static ClassPathXmlApplicationContext beanFactory = new ClassPathXmlApplicationContext(new String[]{"beans.xml", "loader-spring.xml", "bulkloader-beans.xml", "spring-datasources.xml"});
 	
@@ -42,6 +44,12 @@ public class SpringBeansUtil {
 		Parser parser = (Parser)beanFactory.getBean(PARSER_BEAN_NAME);
 		
 		return parser;
+	}
+	
+	public static ObjectBinder getObjectBinder() {
+		ObjectBinder objBinder = (ObjectBinder)beanFactory.getBean(OBJECT_BINDER_BEAN_NAME);
+		
+		return objBinder;
 	}
 	
 	public static BulkLoaderDAO getConceptsDAO() {

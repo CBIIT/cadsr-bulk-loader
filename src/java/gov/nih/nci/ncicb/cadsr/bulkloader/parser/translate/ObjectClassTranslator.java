@@ -23,8 +23,8 @@ public class ObjectClassTranslator extends AbstractTranslatorTemplate {
 		return objRegistry;
 	}
 	
-	public ObjectClass getCaDSRObjectClass(ObjectClass_caDSR11179 objClass, CaDSRObjectRegistry objRegistry) {
-		ConceptDerivationRule_caDSR11179 conDerRule = objClass.getConceptDerivationRule();
+	public ObjectClass getCaDSRObjectClass(ObjectClass_caDSR11179 isoObjClass, CaDSRObjectRegistry objRegistry) {
+		ConceptDerivationRule_caDSR11179 conDerRule = isoObjClass.getConceptDerivationRule();
 		ConceptDerivationRule cdr = util.getConceptDerivationRule(conDerRule, objRegistry);
 		
 		List<String> conceptRefs = util.getConceptReferences(conDerRule);
@@ -33,12 +33,13 @@ public class ObjectClassTranslator extends AbstractTranslatorTemplate {
 		String preferredName = util.getPreferredNameFromConcepts(concepts);
 		String preferredDefinition = util.getDefinitionFromConcepts(concepts);
 		
-		ObjectClass isoObjClass = DomainObjectFactory.newObjectClass();
-		isoObjClass.setConceptDerivationRule(cdr);
-		isoObjClass.setPreferredName(preferredName);
-		isoObjClass.setPreferredDefinition(preferredDefinition);
+		ObjectClass objClass = DomainObjectFactory.newObjectClass();
+		objClass.setConceptDerivationRule(cdr);
+		objClass.setPreferredName(preferredName);
+		objClass.setPreferredDefinition(preferredDefinition);
+		objClass.setId(preferredName);
 		
-		return isoObjClass;
+		return objClass;
 	}
 
 }

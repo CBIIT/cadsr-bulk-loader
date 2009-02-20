@@ -7,11 +7,10 @@ import gov.nih.nci.ncicb.cadsr.domain.DataElementConcept;
 import gov.nih.nci.ncicb.cadsr.domain.ObjectClass;
 import gov.nih.nci.ncicb.cadsr.domain.Property;
 import gov.nih.nci.ncicb.cadsr.domain.ValueDomain;
+import gov.nih.nci.ncicb.cadsr.domain.ValueMeaning;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 
@@ -28,6 +27,7 @@ public class CaDSRObjects {
 	private List<ObjectClass> objectClasses;
 	private List<Property> properties;
 	private List<Concept> concepts;
+	private List<ValueMeaning> valueMeanings;
 	
 	private List<AdminComponent> emptyList = new ArrayList<AdminComponent>();
 	
@@ -68,6 +68,14 @@ public class CaDSRObjects {
 		this.concepts = concepts;
 	}
 	
+	public List<ValueMeaning> getValueMeanings() {
+		return valueMeanings;
+	}
+
+	public void setValueMeanings(List<ValueMeaning> valueMeanings) {
+		this.valueMeanings = valueMeanings;
+	}
+	
 	public <T extends AdminComponent> List<? extends AdminComponent> getList(T element) {
 		if (element instanceof Concept) {
 			return getNonNullList(concepts);
@@ -88,6 +96,33 @@ public class CaDSRObjects {
 			return getNonNullList(dataElements);
 		}
 		return getNonNullList(null);
+	}
+	
+	public List<? extends AdminComponent> getList() {
+		List<AdminComponent> adminComponents = new ArrayList<AdminComponent>();
+		if (concepts != null) {
+			adminComponents.addAll(concepts);
+		}
+		if (objectClasses != null) {
+			adminComponents.addAll(objectClasses);
+		}
+		if (properties != null) {
+			adminComponents.addAll(properties);
+		}
+		if (valueDomains != null) {
+			adminComponents.addAll(valueDomains);
+		}
+		if (valueMeanings != null) {
+			adminComponents.addAll(valueMeanings);
+		}
+		if (dataElementConcepts != null) {
+			adminComponents.addAll(dataElementConcepts);
+		}
+		if (dataElements != null) {
+			adminComponents.addAll(dataElements);
+		}
+		
+		return adminComponents;
 	}
 	
 	private <T> List<? extends AdminComponent> getNonNullList(List<? extends AdminComponent> someAdminCompList) {

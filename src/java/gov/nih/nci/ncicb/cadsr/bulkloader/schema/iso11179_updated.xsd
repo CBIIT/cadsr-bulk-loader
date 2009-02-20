@@ -122,6 +122,18 @@
         </xs:restriction>
     </xs:simpleType>
     
+    <xs:simpleType name="Classification_Scheme_Tag_Id">
+        <xs:restriction base="xs:ID">
+            <xs:pattern value="CS-[\i-[:]][\c-[:]]*" />
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="Classification_Scheme_Tag_Id_Ref">
+        <xs:restriction base="xs:IDREF">
+            <xs:pattern value="CS-[\i-[:]][\c-[:]]*" />
+        </xs:restriction>
+    </xs:simpleType>
+    
     <xs:simpleType name="Classification_Scheme_Item_Tag_Id">
         <xs:restriction base="xs:ID">
             <xs:pattern value="CSI-[\i-[:]][\c-[:]]*" />
@@ -150,6 +162,7 @@
             <xs:element ref="Value_Domain_List"  minOccurs="0" maxOccurs="1"/>
             <xs:element ref="Conceptual_Domain_List"  minOccurs="0" maxOccurs="1"/>
             <xs:element ref="Value_Meaning_List"  minOccurs="0" maxOccurs="1"/>
+            <xs:element ref="Classification_Scheme_List"  minOccurs="0" maxOccurs="1"/>
             <xs:element ref="Classification_Scheme_Item_List"  minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
@@ -206,6 +219,14 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element ref="Conceptual_Domain" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="Classification_Scheme_List">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="Classification_Scheme" maxOccurs="unbounded" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -978,7 +999,7 @@
                         </xs:complexType>
                     </xs:element>
                 </xs:sequence>
-                
+                <xs:attribute name="tagId" type="Classification_Scheme_Tag_Id" use="required"/>
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>
@@ -1013,6 +1034,7 @@
     
     <xs:element name="Classification_Scheme_Item_Ref" type="Classification_Scheme_Item_Ref" />
     <xs:complexType name="Classification_Scheme_Item_Ref">
+        <xs:attribute name="csRefId" type="Classification_Scheme_Tag_Id_Ref" use="required" />
         <xs:attribute name="csiRefId" type="Classification_Scheme_Item_Tag_Id_Ref" use="required" />
     </xs:complexType>
     

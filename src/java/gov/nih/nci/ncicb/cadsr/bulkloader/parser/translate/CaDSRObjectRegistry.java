@@ -1,5 +1,7 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate;
 
+import gov.nih.nci.ncicb.cadsr.domain.ClassificationScheme;
+import gov.nih.nci.ncicb.cadsr.domain.ClassificationSchemeItem;
 import gov.nih.nci.ncicb.cadsr.domain.Concept;
 import gov.nih.nci.ncicb.cadsr.domain.ConceptualDomain;
 import gov.nih.nci.ncicb.cadsr.domain.DataElement;
@@ -26,6 +28,8 @@ public class CaDSRObjectRegistry {
 	private static final Map<String, DataElement> dataElementMap = new HashMap<String, DataElement>();
 	private static final Map<String, ConceptualDomain> conceptualDomainMap = new HashMap<String, ConceptualDomain>();
 	private static final Map<String, ValueMeaning> valueMeaningMap = new HashMap<String, ValueMeaning>();
+	private static final Map<String, ClassificationSchemeItem> csiMap = new HashMap<String, ClassificationSchemeItem>();
+	private static final Map<String, ClassificationScheme> csMap = new HashMap<String, ClassificationScheme>();
 	
 	public void addConcept(String tagId, Concept con) {
 		conceptsMap.put(tagId, con);
@@ -58,6 +62,18 @@ public class CaDSRObjectRegistry {
 	public void addValueMeaning(String tagId, ValueMeaning vm) {
 		valueMeaningMap.put(tagId, vm);
 	}
+	
+	public void addClassificationSchemeItem(String tagId, ClassificationSchemeItem csi) {
+		csiMap.put(tagId, csi);
+	}
+	
+	public void addClassificationScheme(String tagId, ClassificationScheme cs) {
+		csMap.put(tagId, cs);
+	}
+	
+	
+	
+	
 	
 	
 	public Concept getConcept(String tagId) {
@@ -92,6 +108,17 @@ public class CaDSRObjectRegistry {
 		return valueMeaningMap.get(tagId);
 	}
 	
+	public ClassificationSchemeItem getClassificationSchemeItem(String tagId) {
+		return csiMap.get(tagId);
+	}
+	
+	public ClassificationScheme getClassificationScheme(String tagId) {
+		return csMap.get(tagId);
+	}
+	
+	
+	
+	
 	public List<Concept> getConcepts() {
 		return getValuesAsList(conceptsMap);
 	}
@@ -123,6 +150,16 @@ public class CaDSRObjectRegistry {
 	public List<ValueMeaning> getValueMeanings() {
 		return getValuesAsList(valueMeaningMap);
 	}
+	
+	public List<ClassificationSchemeItem> getClassificationSchemeItems() {
+		return getValuesAsList(csiMap);
+	}
+	
+	public List<ClassificationScheme> getClassificationSchemes() {
+		return getValuesAsList(csMap);
+	}
+	
+	
 	
 	private <T> List<T> getValuesAsList(Map<String, T> map) {
 		Collection<T> collection = map.values();

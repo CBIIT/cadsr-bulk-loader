@@ -46,12 +46,17 @@ public class BulkLoaderDAOImpl<T extends AdminComponent> implements BulkLoaderDA
 	
 	public void saveElementsAndDependencies(CaDSRObjects caDSRObjects) throws BulkLoaderDAORuntimeException{
 		
-		saveDependentElements(caDSRObjects);
-		
-		saveElements(caDSRObjects);
+		try {
+			saveDependentElements(caDSRObjects);
+			
+			saveElements(caDSRObjects);
+		} catch (Exception e) {
+			throw new BulkLoaderDAORuntimeException(e);
+		}
 	}
 	
 	private void saveDependentElements(CaDSRObjects caDSRObjects) {
+		
 		if (dependentDAO != null) {
 			dependentDAO.saveElementsAndDependencies(caDSRObjects);
 		}

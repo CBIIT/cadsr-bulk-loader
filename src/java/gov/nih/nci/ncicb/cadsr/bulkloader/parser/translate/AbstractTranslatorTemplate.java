@@ -39,6 +39,7 @@ public abstract class AbstractTranslatorTemplate implements Translator<CaDSRObje
 		caDSRObjects.setValueDomains(objRegistry.getValueDomains());
 		caDSRObjects.setDataElementConcepts(objRegistry.getDataElementConcepts());
 		caDSRObjects.setDataElements(objRegistry.getDataElements());
+		caDSRObjects.setValueMeanings(objRegistry.getValueMeanings());
 		
 		return caDSRObjects;
 	}

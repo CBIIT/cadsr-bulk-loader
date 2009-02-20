@@ -37,6 +37,7 @@ public class PropertiesTranslator extends AbstractTranslatorTemplate {
 		Property property = DomainObjectFactory.newProperty();
 		property.setConceptDerivationRule(cdr);
 		property.setPreferredName(preferredName);
+		property.setLongName(preferredName);
 		property.setPreferredDefinition(preferredDefinition);
 		
 		return property;

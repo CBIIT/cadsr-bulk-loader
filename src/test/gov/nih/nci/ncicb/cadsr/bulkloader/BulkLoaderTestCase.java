@@ -16,6 +16,7 @@ public class BulkLoaderTestCase extends MainTestCase {
 		UserSelections.getInstance().setProperty("ignore-vd", new Boolean(false));
 		UserPreferences.getInstance().setUsePrivateApi(true);
 		
-		bulkLoader.load(fileToLoad);
+		LoadResult result = bulkLoader.load(fileToLoad);
+		assertNotNull(result);
 	}
 }

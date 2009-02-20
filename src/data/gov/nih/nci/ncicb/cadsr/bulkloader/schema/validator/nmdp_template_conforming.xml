@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Administered_Item_List xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://www.ncicb.nih.gov/caDSR/schema/ISO11179 ../../../../../../../../../../src/gov/nih/nci/ncicb/cadsr/bulkloader/schema/cadsr_iso11179.xsd"
+ xsi:schemaLocation="http://www.ncicb.nih.gov/caDSR/schema/ISO11179 ../../../../../../../../../java/gov/nih/nci/ncicb/cadsr/bulkloader/schema/cadsr_iso11179.xsd"
  xmlns="http://www.ncicb.nih.gov/caDSR/schema/ISO11179"
  xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179">
     
@@ -17,7 +17,9 @@
                 <iso11179:administrative_status></iso11179:administrative_status>
                 <iso11179:creation_date>2009-02-04</iso11179:creation_date>
             </iso11179:administered_item_administration_record>
-            
+            <iso11179:classified_by>
+                <iso11179:Classification_Scheme_Item_Ref csRefId="CS-a" csiRefId="CSI-a"/>
+            </iso11179:classified_by>
             <iso11179:having>
                 <iso11179:containing_entry>
                     <iso11179:language_section_language_identifier>
@@ -36,6 +38,20 @@
         </iso11179:Data_Element>
         
         <iso11179:Data_Element tagId="DE-b" expressing="DEC-a" represented_by="VD-b">
+            <iso11179:administered_item_administration_record>
+                <iso11179:administered_item_identifier>
+                    <iso11179:item_registration_authority_identifier>
+                        <iso11179:international_code_designator></iso11179:international_code_designator>
+                    </iso11179:item_registration_authority_identifier>
+                    <iso11179:data_identifier>2775605</iso11179:data_identifier>
+                </iso11179:administered_item_identifier>
+                <iso11179:registration_status></iso11179:registration_status>
+                <iso11179:administrative_status></iso11179:administrative_status>
+                <iso11179:creation_date>2009-02-04</iso11179:creation_date>
+            </iso11179:administered_item_administration_record>
+            <iso11179:classified_by>
+                <iso11179:Classification_Scheme_Item_Ref csRefId="CS-a" csiRefId="CSI-a"/>
+            </iso11179:classified_by>
             <iso11179:having>
                 <iso11179:containing_entry>
                     <iso11179:language_section_language_identifier>
@@ -247,7 +263,29 @@
             <non_enumerated_conceptual_domain_description xmlns=""></non_enumerated_conceptual_domain_description>
         </Non_Enumerated_Conceptual_Domain>
     </iso11179:Conceptual_Domain_List>
-        
+    
+    <iso11179:Classification_Scheme_List>
+        <iso11179:Classification_Scheme tagId="CS-a">
+            <iso11179:administered_item_administration_record>
+                <iso11179:administered_item_identifier>
+                    <iso11179:item_registration_authority_identifier>
+                        <iso11179:international_code_designator></iso11179:international_code_designator>
+                    </iso11179:item_registration_authority_identifier>
+                    <iso11179:data_identifier>2695319</iso11179:data_identifier>
+                </iso11179:administered_item_identifier>
+                <iso11179:registration_status></iso11179:registration_status>
+                <iso11179:administrative_status></iso11179:administrative_status>
+                <iso11179:creation_date>2009-02-11</iso11179:creation_date>
+            </iso11179:administered_item_administration_record>
+            <iso11179:classification_scheme_type_name></iso11179:classification_scheme_type_name>
+            <iso11179:classification_scheme_name>NMDP: CDEs to be Reviewed</iso11179:classification_scheme_name>
+            <iso11179:classification_scheme_version>1</iso11179:classification_scheme_version>
+            <iso11179:containing>
+                <iso11179:Classification_Scheme_Item_Ref csRefId="CS-a" csiRefId="CSI-a"/>
+            </iso11179:containing>
+        </iso11179:Classification_Scheme>
+    </iso11179:Classification_Scheme_List>
+    
     <Value_Meaning_List>
         <Value_Meaning tagId="VM-a">
             <value_meaning_begin_date xmlns="">2009-02-04</value_meaning_begin_date>
@@ -285,6 +323,15 @@
     
     <Concept_List>
         <Concept tagId="CON-OC-1" name="C12551">
+            <iso11179:submitted_by>
+                <iso11179:submission_contact>
+                    <iso11179:contact_information></iso11179:contact_information>
+                    <iso11179:contact_name></iso11179:contact_name>
+                </iso11179:submission_contact>
+                <iso11179:Organization>
+                    <iso11179:organization_name></iso11179:organization_name>
+                </iso11179:Organization>
+            </iso11179:submitted_by>
             <iso11179:having>
                 <iso11179:containing_entry>
                     <iso11179:language_section_language_identifier>
@@ -608,4 +655,20 @@
         </Concept>
     </Concept_List>
     
+    <Classification_Scheme_Item_List>
+        <Classification_Scheme_Item tagId="CSI-a">
+            <iso11179:administered_item_administration_record>
+                <iso11179:administered_item_identifier>
+                    <iso11179:item_registration_authority_identifier>
+                        <iso11179:international_code_designator></iso11179:international_code_designator>
+                    </iso11179:item_registration_authority_identifier>
+                    <iso11179:data_identifier>2813015</iso11179:data_identifier>
+                </iso11179:administered_item_identifier>
+                <iso11179:registration_status></iso11179:registration_status>
+                <iso11179:administrative_status></iso11179:administrative_status>
+                <iso11179:creation_date>2009-02-04</iso11179:creation_date>
+            </iso11179:administered_item_administration_record>
+            <classification_scheme_item_value xmlns="">2100:</classification_scheme_item_value>
+        </Classification_Scheme_Item>
+    </Classification_Scheme_Item_List>
 </Administered_Item_List>

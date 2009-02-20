@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Administered_Item_List xmlns="http://www.ncicb.nih.gov/caDSR/schema/ISO11179"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.ncicb.nih.gov/caDSR/schema/ISO11179 ../../../../../../../../../java/gov/nih/nci/ncicb/cadsr/bulkloader/schema/cadsr_iso11179.xsd">
+    <Concept_List>
+        <Concept tagId="CON-a">
+            <administered_item_administration_record xmlns="http://www.cancergrid.org/schema/ISO11179">
+                <administered_item_identifier>
+                    <item_registration_authority_identifier>
+                        <international_code_designator></international_code_designator>
+                    </item_registration_authority_identifier>
+                </administered_item_identifier>
+                <registration_status></registration_status>
+                <administrative_status></administrative_status>
+                <creation_date>2009-02-07</creation_date>
+            </administered_item_administration_record>
+            <registered_by xmlns="http://www.cancergrid.org/schema/ISO11179">
+                <organization_name></organization_name>
+                <registration_authority_identifier>
+                    <international_code_designator></international_code_designator>
+                </registration_authority_identifier>
+                <documentation_language_identifier>
+                    <language_identifier></language_identifier>
+                </documentation_language_identifier>
+                <represented_by>
+                    <registrar_contact>
+                        <contact_information></contact_information>
+                        <contact_name></contact_name>
+                    </registrar_contact>
+                    <registrar_identifier></registrar_identifier>
+                </represented_by>
+            </registered_by>
+            <described_by xmlns="http://www.cancergrid.org/schema/ISO11179">
+                <reference_document_identifier></reference_document_identifier>
+                <reference_document_title></reference_document_title>
+                <provided_by>
+                    <organization_name></organization_name>
+                </provided_by>
+            </described_by>
+            <classified_by xmlns="http://www.cancergrid.org/schema/ISO11179"></classified_by>
+            <administered_by xmlns="http://www.cancergrid.org/schema/ISO11179">
+                <stewardship_contact>
+                    <contact_information></contact_information>
+                    <contact_name></contact_name>
+                </stewardship_contact>
+                <Organization>
+                    <organization_name></organization_name>
+                </Organization>
+            </administered_by>
+            <having xmlns="http://www.cancergrid.org/schema/ISO11179">
+                <containing_entry>
+                    <language_section_language_identifier>
+                        <language_identifier></language_identifier>
+                    </language_section_language_identifier>
+                </containing_entry>
+            </having>
+        </Concept>
+    </Concept_List>
+</Administered_Item_List>

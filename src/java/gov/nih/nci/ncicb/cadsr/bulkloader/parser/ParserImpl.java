@@ -36,9 +36,13 @@ public class ParserImpl implements Parser {
 	}
 
 	public CaDSRObjects parse(File _xmlFile) {
-		ISO11179Elements iso11179Elements = binder.bind(_xmlFile);
-		CaDSRObjects caDSRObjects = translator.translate(iso11179Elements);
-		
-		return caDSRObjects;
+		try {
+			ISO11179Elements iso11179Elements = binder.bind(_xmlFile);
+			CaDSRObjects caDSRObjects = translator.translate(iso11179Elements);
+			
+			return caDSRObjects;
+		} catch (Exception e) {
+			throw new ParserRuntimeException(e);
+		}
 	}
 }

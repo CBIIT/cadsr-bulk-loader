@@ -34,7 +34,8 @@ public class ISO11179Elements {
 	
 	private ConceptList_ISO11179 conceptsList;
 	
-	private List<ClassificationSchemeItem_caDSR11179> classSchemeItems;
+	private ClassificationSchemeItemList_caDSR11179 classSchemeItemList;
+	private ClassificationSchemeList_ISO11179 classSchemeList;
 	
 	public DataElementList_ISO11179 getDataElements() {
 		if (dataElements == null) return new DataElementList_ISO11179();
@@ -64,11 +65,6 @@ public class ISO11179Elements {
 			List<DataElementConceptRef_ISO11179> dataElementConceptRefs) {
 		this.dataElementConceptRefs = dataElementConceptRefs;
 	}
-	
-	
-	
-	
-	
 	
 	public ObjectClassList_ISO11179 getObjectClassList() {
 		return objectClassList;
@@ -106,6 +102,19 @@ public class ISO11179Elements {
 	}
 	public void setConceptsList(ConceptList_ISO11179 conceptsList) {
 		this.conceptsList = conceptsList;
+	}
+	public ClassificationSchemeItemList_caDSR11179 getClassSchemeItemList() {
+		return classSchemeItemList;
+	}
+	public void setClassSchemeItemList(
+			ClassificationSchemeItemList_caDSR11179 classSchemeItemList) {
+		this.classSchemeItemList = classSchemeItemList;
+	}
+	public ClassificationSchemeList_ISO11179 getClassSchemeList() {
+		return classSchemeList;
+	}
+	public void setClassSchemeList(ClassificationSchemeList_ISO11179 classSchemeList) {
+		this.classSchemeList = classSchemeList;
 	}
 	public List<ObjectClass_caDSR11179> getObjectClasses() {
 		if (objectClassList != null) {
@@ -172,12 +181,23 @@ public class ISO11179Elements {
 	}
 	
 	public List<ClassificationSchemeItem_caDSR11179> getClassSchemeItems() {
-		return classSchemeItems;
+		if (classSchemeItemList != null) {
+			return getNonNullList(classSchemeItemList.getClassSchemeItems());
+		}
+		else return new ArrayList<ClassificationSchemeItem_caDSR11179>();
 	}
-	public void setClassSchemeItems(
-			List<ClassificationSchemeItem_caDSR11179> classSchemeItems) {
-		this.classSchemeItems = classSchemeItems;
+	
+	
+	public List<ClassificationScheme_ISO11179> getClassSchemes() {
+		if (classSchemeList != null) {
+			return getNonNullList(classSchemeList.getClassSchemes());
+		}
+		else return new ArrayList<ClassificationScheme_ISO11179>();
 	}
+	
+
+	
+	
 	private <T> List<T> getNonNullList(List<T> t) {
 		if (t == null) {
 			return new ArrayList<T>();

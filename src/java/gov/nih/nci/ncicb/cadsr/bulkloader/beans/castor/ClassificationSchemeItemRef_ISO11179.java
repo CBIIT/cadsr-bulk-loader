@@ -10,6 +10,7 @@ package gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor;
 public class ClassificationSchemeItemRef_ISO11179 {
 
 	private String csiRefId;
+	private String csRefId;
 
 	public String getCsiRefId() {
 		return csiRefId;
@@ -17,6 +18,14 @@ public class ClassificationSchemeItemRef_ISO11179 {
 
 	public void setCsiRefId(String csiRefId) {
 		this.csiRefId = csiRefId;
+	}
+
+	public String getCsRefId() {
+		return csRefId;
+	}
+
+	public void setCsRefId(String csRefId) {
+		this.csRefId = csRefId;
 	}
 	
 	
