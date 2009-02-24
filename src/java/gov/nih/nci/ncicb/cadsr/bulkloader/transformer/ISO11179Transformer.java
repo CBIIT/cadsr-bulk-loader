@@ -13,9 +13,13 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptDerivationRule_caD
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptList_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Concept_caDSR11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptualDomainList_ISO11179;
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptualDomainRef_ISO11179;
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptualDomainRelationship_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptualDomain_caDSR11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Contact_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.DataElementConceptList_ISO11179;
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.DataElementConceptRef_ISO11179;
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.DataElementConceptRelationship_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.DataElementConcept_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.DataElementList_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.DataElement_ISO11179;
@@ -250,7 +254,8 @@ public class ISO11179Transformer implements Transformer {
 			
 			for (int i=0;i<idAndNames.length;i++) {
 				Concept_caDSR11179 isoConcept = new Concept_caDSR11179();
-				fillupAdminItem(isoConcept);
+				//fillupAdminItem(isoConcept);
+				isoConcept.setSubmittedBy(getBlankSubmittedBy());
 				
 				String conceptId = idAndNames[i][0];
 				String conceptName = idAndNames[i][1];
@@ -366,7 +371,30 @@ public class ISO11179Transformer implements Transformer {
 			isoDEC.setPropertyRefId(isoProp.getTagId());
 			isoDEC.setConceptualDomainRefId(isoCD.getTagId());
 			
+			ClassificationScheme_ISO11179 isoCS = getCS();
+			ClassificationSchemeItem_caDSR11179 isoCSI = getCSI();
+			ClassificationSchemeItemRef_ISO11179 isoCSIRef = new ClassificationSchemeItemRef_ISO11179();
+			isoCSIRef.setCsRefId(isoCS.getTagId());
+			isoCSIRef.setCsiRefId(isoCSI.getTagId());
+			List<ClassificationSchemeItemRef_ISO11179> isoCSIRefs = new ArrayList<ClassificationSchemeItemRef_ISO11179>();
+			isoCSIRefs.add(isoCSIRef);
+			
+			isoDEC.setClassifiedBy(isoCSIRefs);
+			
 			String tagId = "DEC-"+getRandomString();
+			
+			DataElementConceptRelationship_ISO11179 decRel = new DataElementConceptRelationship_ISO11179();
+			decRel.setRelationshipTypeDescription("");
+			
+			DataElementConceptRef_ISO11179 deRef = new DataElementConceptRef_ISO11179();
+			deRef.setDataElementConceptRefId(tagId);
+			List<DataElementConceptRef_ISO11179> deRefs = new ArrayList<DataElementConceptRef_ISO11179>();
+			deRefs.add(deRef);
+			
+			decRel.setRelatedTo(deRefs);
+			
+			isoDEC.setDecRelationship(decRel);
+			
 			isoDEC.setTagId(tagId);
 			
 			decMap.put(decId, isoDEC);
@@ -391,13 +419,14 @@ public class ISO11179Transformer implements Transformer {
 			}
 			
 			EnumeratedValueDomain_caDSR11179 isoEnumVD = new EnumeratedValueDomain_caDSR11179();
-			fillupAdminItem(isoEnumVD);
+			//fillupAdminItem(isoEnumVD);
+			isoEnumVD.setAdminRecord(getBlankAdminRecord());
 			setItemId(isoEnumVD, vdId);
 			
 			List<PermissibleValue_ISO11179> isoPVList = new ArrayList<PermissibleValue_ISO11179>();
 			
 			for (DataEntry dataEntry: dataEntriesSubList) {
-				PermissibleValue_ISO11179 isoPV = getPV(mainDataEntry);
+				PermissibleValue_ISO11179 isoPV = getPV(dataEntry);
 				isoPVList.add(isoPV);
 			}
 			isoEnumVD.setPermissibleValues(isoPVList);
@@ -412,6 +441,10 @@ public class ISO11179Transformer implements Transformer {
 			}
 			
 			NonEnumeratedValueDomain_caDSR11179 isoNonEnumVD = new NonEnumeratedValueDomain_caDSR11179();
+			isoNonEnumVD.setAdminRecord(getBlankAdminRecord());
+			setItemId(isoNonEnumVD, vdId);
+			
+			isoNonEnumVD.setDescription("");
 			nonEnumVDMap.put(vdId, isoNonEnumVD);
 			
 			isoVD = isoNonEnumVD;
@@ -428,6 +461,7 @@ public class ISO11179Transformer implements Transformer {
 		
 		Datatype_ISO11179 isoDatatype = new Datatype_ISO11179();
 		isoDatatype.setName(mainDataEntry.getDataType());
+		isoDatatype.setSchemeReference("");
 		isoVD.setDatatype(isoDatatype);
 		
 		ConceptualDomain_caDSR11179 isoCD = getConceptualDomain(mainDataEntry.getVdConceptualDomain());
@@ -445,6 +479,7 @@ public class ISO11179Transformer implements Transformer {
 		if (pvStr != null) pvStr = pvStr.trim();
 		PermissibleValue_ISO11179 isoPV = new PermissibleValue_ISO11179();
 		isoPV.setValue(pvStr);
+		isoPV.setBeginDate(new Date());
 		
 		String vmConIdStr = dataEntry.getVmConceptIds();
 		List<Concept_caDSR11179> vmConcepts = getConcepts(vmConIdStr);
@@ -463,7 +498,7 @@ public class ISO11179Transformer implements Transformer {
 		}
 		else {
 			ObjectClass_caDSR11179 isoObjClass = new ObjectClass_caDSR11179();
-			fillupAdminItem(isoObjClass);
+			//fillupAdminItem(isoObjClass);
 			isoObjClass.setConceptDerivationRule(getCDRAndAddConcepts(isoConcepts));
 			String tagId = "OC-"+getRandomString();
 			isoObjClass.setTagId(tagId);
@@ -482,7 +517,7 @@ public class ISO11179Transformer implements Transformer {
 		}
 		else {
 			Property_caDSR11179 isoProp = new Property_caDSR11179();
-			fillupAdminItem(isoProp);
+			//fillupAdminItem(isoProp);
 			isoProp.setConceptDerivationRule(getCDRAndAddConcepts(isoConcepts));
 			String tagId = "Prop-"+getRandomString();
 			isoProp.setTagId(tagId);
@@ -500,11 +535,12 @@ public class ISO11179Transformer implements Transformer {
 		}
 		else {
 			ValueMeaning_caDSR11179 isoVM = new ValueMeaning_caDSR11179();
-			fillupAdminItem(isoVM);
+			//fillupAdminItem(isoVM);
 			isoVM.setConceptDerivationRule(getCDRAndAddConcepts(isoConcepts));
 			isoVM.setBeginDate(new Date());
 			String tagId = "VM-"+getRandomString();
 			isoVM.setTagId(tagId);
+			isoVM.setId("");
 			
 			vmMap.put(codesConcat, isoVM);
 			
@@ -514,7 +550,8 @@ public class ISO11179Transformer implements Transformer {
 	
 	private ConceptualDomain_caDSR11179 getConceptualDomain(String conDomainStr) {
 		NonEnumeratedConceptualDomain_caDSR11179 isoCD = new NonEnumeratedConceptualDomain_caDSR11179();
-		fillupAdminItem(isoCD);
+		//fillupAdminItem(isoCD);
+		isoCD.setAdminRecord(getBlankAdminRecord());
 		String[][] idAndName = getIdAndName(conDomainStr);
 		if (idAndName != null) {
 			String id = idAndName[0][0];
@@ -524,6 +561,18 @@ public class ISO11179Transformer implements Transformer {
 			setItemId(isoCD, idAndName[0][0]);
 			String tagId = "CD-"+getRandomString();
 			isoCD.setTagId(tagId);
+			isoCD.setDescription("");
+			
+			ConceptualDomainRelationship_ISO11179 cdRel = new ConceptualDomainRelationship_ISO11179();
+			cdRel.setRelationshipTypeDescription("");
+			
+			ConceptualDomainRef_ISO11179 cdRef = new ConceptualDomainRef_ISO11179();
+			cdRef.setConceptualDomainTagIdRef(tagId);
+			List<ConceptualDomainRef_ISO11179> cdRefList = new ArrayList<ConceptualDomainRef_ISO11179>();
+			cdRefList.add(cdRef);
+			cdRel.setRelatedTo(cdRefList);
+			
+			isoCD.setRelatedTo(cdRel);
 			
 			cdMap.put(id, isoCD);
 		}
@@ -539,11 +588,21 @@ public class ISO11179Transformer implements Transformer {
 		else {
 			ClassificationScheme_ISO11179 isoCS = new ClassificationScheme_ISO11179();
 			fillupAdminItem(isoCS);
+			isoCS.setTypeName("");
 			isoCS.setName("NMDP: CDEs to be Reviewed");
 			setItemId(isoCS, csId);
 			
 			String tagId = "CS-"+getRandomString();
 			isoCS.setTagId(tagId);
+
+			ClassificationSchemeItem_caDSR11179 isoCSI = getCSI();
+			List<ClassificationSchemeItemRef_ISO11179> isoCSIs = new ArrayList<ClassificationSchemeItemRef_ISO11179>();
+			ClassificationSchemeItemRef_ISO11179 csiRef = new ClassificationSchemeItemRef_ISO11179();
+			csiRef.setCsiRefId(isoCSI.getTagId());
+			csiRef.setCsRefId(tagId);
+			
+			isoCSIs.add(csiRef);
+			isoCS.setContaining(isoCSIs);
 			
 			csMap.put(csId, isoCS);
 			
@@ -560,7 +619,7 @@ public class ISO11179Transformer implements Transformer {
 			ClassificationSchemeItem_caDSR11179 isoCSI = new ClassificationSchemeItem_caDSR11179();
 			fillupAdminItem(isoCSI);
 			isoCSI.setCsiValue("2100:");
-			isoCSI.setCsiName("2100:");
+			//isoCSI.setCsiName("2100:");
 			setItemId(isoCSI, csiId);
 			
 			String tagId = "CSI-"+getRandomString();
@@ -599,6 +658,12 @@ public class ISO11179Transformer implements Transformer {
 		isoCompConList.setComponentConcepts(isoCompConcepts);
 		isoCDR.setComponentConceptsList(isoCompConList);
 		
+		TerminologicalEntry_ISO11179 isoTermEntry = getBlankTermEntry();
+		List<TerminologicalEntry_ISO11179> isoTermEntries = new ArrayList<TerminologicalEntry_ISO11179>();
+		isoTermEntries.add(isoTermEntry);
+		isoCDR.setHaving(isoTermEntries);
+		isoCDR.setSpecification("");
+		
 		return isoCDR;
 	}
 	
@@ -618,42 +683,115 @@ public class ISO11179Transformer implements Transformer {
 	}
 	
 	private void fillupAdminItem(AdminItem_ISO11179 isoAdminItem) {
-		
-		AdminRecord_ISO11179 isoAdminRecord = new AdminRecord_ISO11179();
-		
-		ItemIdentifier_ISO11179 isoItemId = new ItemIdentifier_ISO11179();
-		RegistrationAuthorityIdentifier_ISO11179 isoRegId = new RegistrationAuthorityIdentifier_ISO11179();
-		isoItemId.setItemRegistrationAuthorityIdentifier(isoRegId);
-		
-		isoAdminRecord.setIdentifier(isoItemId);
-		isoAdminRecord.setCreationDate(new Date());
-		isoAdminItem.setAdminRecord(isoAdminRecord);
-		
-		Stewardship_ISO11179 isoStewardship = new Stewardship_ISO11179();
-		Contact_ISO11179 isoContact = new Contact_ISO11179();
-		Organization_ISO11179 isoOrg = new Organization_ISO11179();
-		isoStewardship.setContact(isoContact);
-		isoStewardship.setOrganization(isoOrg);
-		isoAdminItem.setAdministeredBy(isoStewardship);
+	
+		isoAdminItem.setAdminRecord(getBlankAdminRecord());
+		isoAdminItem.setAdministeredBy(getBlankAdministeredBy());
 		
 		isoAdminItem.setClassifiedBy(new ArrayList<ClassificationSchemeItemRef_ISO11179>());
 		isoAdminItem.setDescribedBy(new ArrayList<ReferenceDocument_ISO11179>());
 		isoAdminItem.setHaving(new ArrayList<TerminologicalEntry_ISO11179>());
 		
+		isoAdminItem.setRegisteredBy(getBlankRegisteredBy());
+		isoAdminItem.setHaving(getBlankHaving());
+		
+		/*Submission_ISO11179 isoSubmission = new Submission_ISO11179();
+		isoSubmission.setContact(isoContact);
+		isoSubmission.setOrganization(isoOrg);
+		isoAdminItem.setSubmittedBy(isoSubmission);
+		*/
+	}
+	
+	private AdminRecord_ISO11179 getBlankAdminRecord() {
+		AdminRecord_ISO11179 isoAdminRecord = new AdminRecord_ISO11179();
+		
+		ItemIdentifier_ISO11179 isoItemId = new ItemIdentifier_ISO11179();
+		RegistrationAuthorityIdentifier_ISO11179 isoRegId = new RegistrationAuthorityIdentifier_ISO11179();
+		isoRegId.setInternationalCodeDesignator("");
+		isoItemId.setItemRegistrationAuthorityIdentifier(isoRegId);
+		
+		isoAdminRecord.setIdentifier(isoItemId);
+		isoAdminRecord.setCreationDate(new Date());
+		isoAdminRecord.setAdministrativeStatus("");
+		isoAdminRecord.setRegistrationStatus("");
+		isoAdminRecord.setCreationDate(new Date());
+		
+		return isoAdminRecord;
+	}
+	
+	private Stewardship_ISO11179 getBlankAdministeredBy() {
+		Stewardship_ISO11179 isoStewardship = new Stewardship_ISO11179();
+		isoStewardship.setOrganization(getBlankOrganization());
+		isoStewardship.setContact(getBlankContact());
+		
+		return isoStewardship;
+	}
+	
+	private Contact_ISO11179 getBlankContact() {
+		Contact_ISO11179 isoContact = new Contact_ISO11179();
+		isoContact.setInformation("");
+		isoContact.setName("");
+		
+		return isoContact;
+	}
+	
+	private Organization_ISO11179 getBlankOrganization() {
+		Organization_ISO11179 isoOrg = new Organization_ISO11179();
+		isoOrg.setName("");
+
+		return isoOrg;
+	}
+	
+	private RegistrationAuthority_ISO11179 getBlankRegisteredBy() {
 		RegistrationAuthority_ISO11179 isoRegAuth = new RegistrationAuthority_ISO11179();
 		isoRegAuth.setDocumentationLanguageIdentifier(new ArrayList<LanguageIdentification_ISO11179>());
 		isoRegAuth.setRepresentedBy(new ArrayList<Registrar_ISO11179>());
 		RegistrationAuthorityIdentifier_ISO11179 isoRegId2 = new RegistrationAuthorityIdentifier_ISO11179();
+		isoRegId2.setInternationalCodeDesignator("");
 		isoRegAuth.setIdentifier(isoRegId2);
-		isoAdminItem.setRegisteredBy(isoRegAuth);
+		isoRegAuth.setName("");
+		isoRegAuth.setDocumentationLanguageIdentifier(getBlankLanguageIdentifiers());
+		isoRegAuth.setRepresentedBy(getBlankRepresentedBy());
 		
-		Submission_ISO11179 isoSubmission = new Submission_ISO11179();
-		isoSubmission.setContact(isoContact);
-		isoSubmission.setOrganization(isoOrg);
-		isoAdminItem.setSubmittedBy(isoSubmission);
-		
+		return isoRegAuth;
 	}
 	
+	private Submission_ISO11179 getBlankSubmittedBy() {
+		Submission_ISO11179 isoSubmission = new Submission_ISO11179();
+		isoSubmission.setContact(getBlankContact());
+		isoSubmission.setOrganization(getBlankOrganization());
+		
+		return isoSubmission;
+	}
+	
+	private List<TerminologicalEntry_ISO11179> getBlankHaving() {
+		TerminologicalEntry_ISO11179 isoTermEntry = getBlankTermEntry();
+		List<TerminologicalEntry_ISO11179> isoTermEntries = new ArrayList<TerminologicalEntry_ISO11179>();
+		isoTermEntries.add(isoTermEntry);
+		
+		return isoTermEntries;
+	}
+	
+	private List<LanguageIdentification_ISO11179> getBlankLanguageIdentifiers() {
+		LanguageIdentification_ISO11179 isoLangIdentify = new LanguageIdentification_ISO11179();
+		isoLangIdentify.setLanguageIdentifier("en");
+		isoLangIdentify.setCountryIdentifier("US");
+		List<LanguageIdentification_ISO11179> isoLangIdentifyList = new ArrayList<LanguageIdentification_ISO11179>();
+		isoLangIdentifyList.add(isoLangIdentify);
+		
+		return isoLangIdentifyList;
+	}
+	
+	private List<Registrar_ISO11179> getBlankRepresentedBy() {
+		Registrar_ISO11179 isoRegistrar = new Registrar_ISO11179();
+		isoRegistrar.setRegistrarIdentifier("");
+	
+		isoRegistrar.setRegistrarContact(getBlankContact());
+		
+		List<Registrar_ISO11179> isoRegistrars = new ArrayList<Registrar_ISO11179>();
+		isoRegistrars.add(isoRegistrar);
+		
+		return isoRegistrars;
+	}
 	
 	private void setItemId(AdminItem_ISO11179 isoAdminItem, String id) {
 		isoAdminItem.getAdminRecord().getIdentifier().setDataIdentifier(id);
@@ -705,6 +843,10 @@ public class ISO11179Transformer implements Transformer {
 		isoLangSection.setNamingEntries(new ArrayList<Designation_ISO11179>());
 		isoLangSection.setDefiningEntries(new ArrayList<Definition_ISO11179>());
 		
+		LanguageIdentification_ISO11179 isoLangId = new LanguageIdentification_ISO11179();
+		isoLangId.setLanguageIdentifier("");
+		isoLangSection.setIdentifier(isoLangId);
+		
 		List<LanguageSection_ISO11179> isoLangSections = new ArrayList<LanguageSection_ISO11179>();
 		isoLangSections.add(isoLangSection);
 		
@@ -734,6 +876,8 @@ public class ISO11179Transformer implements Transformer {
 		List<Organization_ISO11179> orgs = new ArrayList<Organization_ISO11179>();
 		orgs.add(isoOrg);
 		isoRefDoc.setProvidedBy(orgs);
+		isoRefDoc.setIdentifier("");
+		isoRefDoc.setTitle("");
 		isoDef.setSourceReference(isoRefDoc);
 		
 		List<Definition_ISO11179> defins = new ArrayList<Definition_ISO11179>();
@@ -741,6 +885,12 @@ public class ISO11179Transformer implements Transformer {
 		
 		isoLangSection.setNamingEntries(desigs);
 		isoLangSection.setDefiningEntries(defins);
+		
+		LanguageIdentification_ISO11179 isoLangId = new LanguageIdentification_ISO11179();
+		isoLangId.setLanguageIdentifier("");
+		
+		isoLangSection.setIdentifier(isoLangId);
+		
 		List<LanguageSection_ISO11179> langSections = new ArrayList<LanguageSection_ISO11179>();
 		langSections.add(isoLangSection);
 		
@@ -748,6 +898,10 @@ public class ISO11179Transformer implements Transformer {
 		isoTermEntry.setContainingEntries(langSections);
 		
 		List<TerminologicalEntry_ISO11179> havingList = isoAdminItem.getHaving();
+		if (havingList == null) {
+			havingList = new ArrayList<TerminologicalEntry_ISO11179>();
+			isoAdminItem.setHaving(havingList);
+		}
 		havingList.add(isoTermEntry);
 	}
 	
@@ -779,7 +933,7 @@ public class ISO11179Transformer implements Transformer {
 
 	public static void main(String[] args) {
 		ISO11179Transformer transformer = new ISO11179Transformer();
-		transformer.transform(new File("C:\\Docume~1\\mathura2\\Desktop\\ExcelXML\\test.xml"));
+		transformer.transform(new File("C:\\Docume~1\\mathura2\\Desktop\\ExcelXML\\test2.xml"));
 	}
 	
 	private class DataEntryListIterator {

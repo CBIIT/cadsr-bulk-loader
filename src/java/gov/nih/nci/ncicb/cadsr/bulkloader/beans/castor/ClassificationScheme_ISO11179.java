@@ -1,5 +1,7 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor;
 
+import java.util.List;
+
 /**
  * 
  * @author Ashwin Mathur
@@ -16,6 +18,7 @@ public class ClassificationScheme_ISO11179 extends AdminItem_ISO11179{
 	private String typeName;
 	private String name;
 	private float version;
+	private List<ClassificationSchemeItemRef_ISO11179> containing;
 	
 	public String getTypeName() {
 		return typeName;
@@ -34,6 +37,12 @@ public class ClassificationScheme_ISO11179 extends AdminItem_ISO11179{
 	}
 	public void setVersion(float version) {
 		this.version = version;
+	}
+	public List<ClassificationSchemeItemRef_ISO11179> getContaining() {
+		return containing;
+	}
+	public void setContaining(List<ClassificationSchemeItemRef_ISO11179> containing) {
+		this.containing = containing;
 	}
 	
 }

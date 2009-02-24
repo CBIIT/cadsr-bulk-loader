@@ -11,7 +11,7 @@ public class BulkLoaderTestCase extends MainTestCase {
 	
 	public void testBulkLoader() {
 		CaDSRBulkLoader bulkLoader = SpringBeansUtil.getBulkLoader();
-		File fileToLoad = getValidFile();
+		File fileToLoad = new File("C:\\Docume~1\\mathura2\\Desktop\\11179sample.xml"); //getValidFile();
 		
 		UserSelections.getInstance().setProperty("ignore-vd", new Boolean(false));
 		UserPreferences.getInstance().setUsePrivateApi(true);
