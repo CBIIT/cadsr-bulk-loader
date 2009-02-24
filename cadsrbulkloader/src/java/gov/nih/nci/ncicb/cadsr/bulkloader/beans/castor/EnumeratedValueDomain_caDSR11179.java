@@ -4,21 +4,23 @@ import java.util.List;
 
 public class EnumeratedValueDomain_caDSR11179 extends ValueDomain_caDSR11179 {
 
-	private List<PermissibleValue_ISO11179> permissibleValues;
+	private PermissibleValuesList_ISO11179 pvList = new PermissibleValuesList_ISO11179();
 
 	public List<PermissibleValue_ISO11179> getPermissibleValues() {
-		return permissibleValues;
+		return pvList.getPermissibleValues();
 	}
 
 	public void setPermissibleValues(
 			List<PermissibleValue_ISO11179> permissibleValues) {
-		this.permissibleValues = permissibleValues;
+		pvList.setPermissibleValues(permissibleValues);
+	}
+
+	public PermissibleValuesList_ISO11179 getPvList() {
+		return pvList;
+	}
+
+	public void setPvList(PermissibleValuesList_ISO11179 pvList) {
+		this.pvList = pvList;
 	}
 	
-	public Datatype_ISO11179 getDatatype() {
-		return super.getDatatype();
-	}
-	public void setDatatype(Datatype_ISO11179 datatype) {
-		super.setDatatype(datatype);
-	}
 }

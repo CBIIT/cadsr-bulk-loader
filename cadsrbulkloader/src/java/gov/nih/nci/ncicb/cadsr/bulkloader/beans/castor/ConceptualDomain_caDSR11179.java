@@ -1,6 +1,6 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor;
 
-public class ConceptualDomain_caDSR11179 extends ConceptualDomain_ISO11179 {
+public abstract class ConceptualDomain_caDSR11179 extends ConceptualDomain_ISO11179 {
 
 	private ConceptDerivationRule_caDSR11179 conceptDerivationRule;
 

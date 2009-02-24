@@ -1,6 +1,5 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor;
 
-import java.util.List;
 
 /**
  * 
@@ -17,7 +16,7 @@ public class DataElementConcept_ISO11179 extends AdminItem_ISO11179{
 	private String objectClassRefId;
 	private String propertyRefId;
 
-	private List<String> relatedDECsRefIds;
+	private DataElementConceptRelationship_ISO11179 decRelationship;
 
 	public String getId() {
 		return id;
@@ -51,13 +50,14 @@ public class DataElementConcept_ISO11179 extends AdminItem_ISO11179{
 		this.propertyRefId = propertyRefId;
 	}
 
-	public List<String> getRelatedDECsRefIds() {
-		return relatedDECsRefIds;
+	public DataElementConceptRelationship_ISO11179 getDecRelationship() {
+		return decRelationship;
 	}
 
-	public void setRelatedDECsRefIds(List<String> relatedDECsRefIds) {
-		this.relatedDECsRefIds = relatedDECsRefIds;
+	public void setDecRelationship(
+			DataElementConceptRelationship_ISO11179 decRelationship) {
+		this.decRelationship = decRelationship;
 	}
-	
+
 	
 }
