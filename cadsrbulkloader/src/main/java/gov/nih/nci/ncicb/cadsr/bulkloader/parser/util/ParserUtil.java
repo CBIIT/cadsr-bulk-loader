@@ -62,6 +62,10 @@ public class ParserUtil {
 		List<Concept> concepts = getConceptsFromRegistry(conceptRefs, objRegistry);
 		List<ComponentConcept> compConcepts = getComponentConceptsFromConcepts(concepts);
 		
+		for (ComponentConcept compConcept: compConcepts) {
+			compConcept.setConceptDerivationRule(cdr);
+		}
+		
 		cdr.setComponentConcepts(compConcepts);
 		return cdr;
 	}
@@ -72,6 +76,25 @@ public class ParserUtil {
 		String id = itemId.getDataIdentifier();
 		
 		return id;
+	}
+	
+	public Float getIdVersion(AdminItem_ISO11179 adminItem) {
+		AdminRecord_ISO11179 adminRecord = adminItem.getAdminRecord();
+		ItemIdentifier_ISO11179 itemId = adminRecord.getIdentifier();
+		String versionStr = itemId.getVersion();
+		
+		if (versionStr == null) {
+			return null;
+		}
+		
+		try {
+			Float version = Float.parseFloat(versionStr);
+			
+			return version;
+		} catch (NumberFormatException e) {
+			
+			return 1.0f;
+		}
 	}
 	
 	public String getPreferredQuestionText(AdminItem_ISO11179 adminItem) {
@@ -140,10 +163,28 @@ public class ParserUtil {
 		List<ComponentConcept> compCons = cdr.getComponentConcepts();
 		for (ComponentConcept compCon: compCons) {
 			String conLongName = compCon.getConcept().getLongName();
-			longName = longName.length()==0?conLongName:longName+"_"+conLongName;
+			longName = longName.length()==0?conLongName:longName+" "+conLongName;
 		}
 		
 		return longName;
+	}
+	
+	public String getDefinition(ConceptDerivationRule cdr) {
+		List<ComponentConcept> compCons = cdr.getComponentConcepts();
+		StringBuffer sb = new StringBuffer();
+		for (ComponentConcept compCon: compCons) {
+			List<Definition> defs = compCon.getConcept().getDefinitions();
+			for (Definition def: defs) {
+				if (sb.length()==0) {
+					sb.append(def.getDefinition());
+				}
+				else {
+					sb.append(CONCEPT_CONCAT_STRING+def.getDefinition());
+				}
+			}
+		}
+		
+		return sb.toString();
 	}
 	
 	public List<ComponentConcept> getComponentConcepts(List<ComponentConcept_caDSR11179> caDSRCompConcepts, List<Concept_caDSR11179> concepts) {

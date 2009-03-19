@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src/java"/>
-	<classpathentry kind="src" path="src/data"/>
-	<classpathentry kind="src" path="conf"/>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/test/java"/>
+	<classpathentry kind="src" path="conf"/>
+	<classpathentry kind="src" path="src/data"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/acegi-security-1.0.4.jar"/>
 	<classpathentry kind="lib" path="lib/activation.jar"/>
@@ -62,6 +61,9 @@
 	<classpathentry kind="lib" path="lib/uml-loader.jar" sourcepath="/UMLLoader2/2.0.0/src"/>
 	<classpathentry kind="lib" path="lib/xerces-2.6.2.jar"/>
 	<classpathentry kind="lib" path="lib/xmi.in.out.jar"/>
+	<classpathentry kind="lib" path="lib/junit/dbunit-2.4.3.jar"/>
+	<classpathentry kind="lib" path="lib/junit/poi-3.2-FINAL-20081019.jar"/>
+	<classpathentry kind="lib" path="lib/junit/spring-test.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

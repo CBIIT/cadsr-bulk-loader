@@ -66,9 +66,12 @@ public class ValueDomainTranslator extends AbstractTranslatorTemplate {
 			ConceptDerivationRule_caDSR11179 isoCDR = isoVD.getConDerivationRule();
 			ConceptDerivationRule cdr = util.getConceptDerivationRule(isoCDR, objRegistry);
 			String longName = util.getLongName(cdr);
+			String definition = util.getDefinition(cdr);
 			Representation rep = DomainObjectFactory.newRepresentation();
 			rep.setPreferredName(longName);
 			
+			vd.setLongName(longName);
+			vd.setPreferredDefinition(definition);
 			vd.setConceptDerivationRule(cdr);
 			vd.setRepresentation(rep);
 		}
