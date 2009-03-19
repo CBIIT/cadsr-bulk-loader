@@ -41,6 +41,11 @@ public class DataElementTranslator extends AbstractTranslatorTemplate {
 		de.setValueDomain(vd);
 		de.setLongName(getDELongName(dec, vd));
 		
+		String publicId = util.getIdentifier(isoDE);
+		Float version = util.getIdVersion(isoDE);
+		de.setPublicId(publicId);
+		de.setVersion(version);
+		
 		List<AdminComponentClassSchemeClassSchemeItem> acCSCSIList = getAdminComponentCSCSI(isoDE, objRegistry);
 		de.setAcCsCsis(acCSCSIList);
 		
@@ -67,6 +72,7 @@ public class DataElementTranslator extends AbstractTranslatorTemplate {
 			ClassSchemeClassSchemeItem csCSI = DomainObjectFactory.newClassSchemeClassSchemeItem();
 			csCSI.setCs(cs);
 			csCSI.setCsi(csi);
+			csCSI.setId("4E5E03B0-CEA6-202B-E044-0003BA3F9857");
 			
 			AdminComponentClassSchemeClassSchemeItem acCSCSI = DomainObjectFactory.newAdminComponentClassSchemeClassSchemeItem();
 			acCSCSI.setCsCsi(csCSI);

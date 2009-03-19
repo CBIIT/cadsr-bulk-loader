@@ -79,6 +79,9 @@ public class ISO11179Transformer implements Transformer {
 
 	private static final String MAPPING_FILE = "gov/nih/nci/ncicb/cadsr/bulkloader/transformer/dataentry_mapping.xml";
 	
+	private static final String RAW_XML_FILE = "C:\\Docume~1\\mathura2\\Desktop\\customxml1.xml";
+	private static final String TRANSFORMED_XML_FILE = "c:\\docume~1\\mathura2\\desktop\\11179sample2.xml";
+	
 	private final Map<String, Concept_caDSR11179> conceptsMap = new HashMap<String, Concept_caDSR11179>();
 	private final Map<String, ObjectClass_caDSR11179> ocMap = new HashMap<String, ObjectClass_caDSR11179>();
 	private final Map<String, Property_caDSR11179> propMap = new HashMap<String, Property_caDSR11179>();
@@ -138,7 +141,7 @@ public class ISO11179Transformer implements Transformer {
 			Mapping mapping = new Mapping();
 			mapping.loadMapping(url);
 			
-			Writer writer = new FileWriter(new File("c:\\docume~1\\mathura2\\desktop\\11179sample.xml"));
+			Writer writer = new FileWriter(new File(TRANSFORMED_XML_FILE));
 			
 			Marshaller marshaller = new Marshaller();
 			marshaller.setMapping(mapping);
@@ -303,104 +306,121 @@ public class ISO11179Transformer implements Transformer {
 		
 		DataEntry mainDataEntry = dataEntries.get(0);
 		String deId = mainDataEntry.getCdeId();
-		if (deMap.containsKey(deId)) {
-			return deMap.get(deId);
+		if (deId != null) {
+			deId = deId.trim();
+			if (!deId.trim().equals("") && deMap.containsKey(deId)) {
+				return deMap.get(deId);
+			}
+		}
+		
+		String[] idAndVer = getPublicIdAndVersion(deId);
+
+		DataElement_ISO11179 isoDE = new DataElement_ISO11179();
+		fillupAdminItem(isoDE);
+		setItemId(isoDE, idAndVer[0], idAndVer[1]);
+		
+		DataElementConcept_ISO11179 isoDEC = getDEC(mainDataEntry);
+		ValueDomain_caDSR11179 isoVD = getVD(dataEntries);
+		
+		ClassificationScheme_ISO11179 isoCS = getCS();
+		ClassificationSchemeItem_caDSR11179 isoCSI = getCSI();
+		ClassificationSchemeItemRef_ISO11179 isoCSIRef = new ClassificationSchemeItemRef_ISO11179();
+		isoCSIRef.setCsRefId(isoCS.getTagId());
+		isoCSIRef.setCsiRefId(isoCSI.getTagId());
+		List<ClassificationSchemeItemRef_ISO11179> isoCSIRefs = new ArrayList<ClassificationSchemeItemRef_ISO11179>();
+		isoCSIRefs.add(isoCSIRef);
+		
+		isoDE.setDecRefId(isoDEC.getTagId());
+		isoDE.setVdRefId(isoVD.getTagId());
+		isoDE.setClassifiedBy(isoCSIRefs);
+		
+		addNameAndDef(isoDE,mainDataEntry.getPreferredQuestionText(),"", true);
+		addNameAndDef(isoDE,mainDataEntry.getAlternateQuestionText(),"", true);
+		
+		String tagId = "DE-"+getRandomString();
+		isoDE.setTagId(tagId);
+		
+		if (deId != null && !deId.equals("")) {
+			deMap.put(deId, isoDE);
 		}
 		else {
-			DataElement_ISO11179 isoDE = new DataElement_ISO11179();
-			fillupAdminItem(isoDE);
-			setItemId(isoDE, deId);
-			
-			DataElementConcept_ISO11179 isoDEC = getDEC(mainDataEntry);
-			ValueDomain_caDSR11179 isoVD = getVD(dataEntries);
-			
-			ClassificationScheme_ISO11179 isoCS = getCS();
-			ClassificationSchemeItem_caDSR11179 isoCSI = getCSI();
-			ClassificationSchemeItemRef_ISO11179 isoCSIRef = new ClassificationSchemeItemRef_ISO11179();
-			isoCSIRef.setCsRefId(isoCS.getTagId());
-			isoCSIRef.setCsiRefId(isoCSI.getTagId());
-			List<ClassificationSchemeItemRef_ISO11179> isoCSIRefs = new ArrayList<ClassificationSchemeItemRef_ISO11179>();
-			isoCSIRefs.add(isoCSIRef);
-			
-			isoDE.setDecRefId(isoDEC.getTagId());
-			isoDE.setVdRefId(isoVD.getTagId());
-			isoDE.setClassifiedBy(isoCSIRefs);
-			
-			addNameAndDef(isoDE,mainDataEntry.getPreferredQuestionText(),"", true);
-			addNameAndDef(isoDE,mainDataEntry.getAlternateQuestionText(),"", true);
-			
-			String tagId = "DE-"+getRandomString();
-			isoDE.setTagId(tagId);
-			
-			deMap.put(deId, isoDE);
-			
-			return isoDE;
+			deMap.put(tagId, isoDE);
 		}
+		
+		return isoDE;
 	}
 	
 	private DataElementConcept_ISO11179 getDEC(DataEntry dataEntry) {
 		String decId = dataEntry.getDecId();
-		if (decId != null) decId = decId.trim();
-		if (decMap.containsKey(decId)) {
-			return decMap.get(decId);
+		if (decId != null) {
+			decId = decId.trim();
+			if (!decId.equals("") && decMap.containsKey(decId)) {
+				return decMap.get(decId);
+			}
+		}
+		DataElementConcept_ISO11179 isoDEC = new DataElementConcept_ISO11179();
+		fillupAdminItem(isoDEC);
+		
+		String[] idAndVer = getPublicIdAndVersion(decId);
+		
+		setItemId(isoDEC, idAndVer[0], idAndVer[1]);
+		
+		List<Concept_caDSR11179> ocQualConcepts = getConcepts(dataEntry.getObjectClassQualifierConcepts());
+		List<Concept_caDSR11179> ocPrimConcepts = getConcepts(dataEntry.getObjectClassPrimaryConcepts());
+		List<Concept_caDSR11179> propQualConcepts = getConcepts(dataEntry.getPropertyQualifierConcepts());
+		List<Concept_caDSR11179> propPrimConcepts = getConcepts(dataEntry.getPropertyPrimaryConcepts());
+		
+		List<Concept_caDSR11179> allOCConcepts = new ArrayList<Concept_caDSR11179>();
+		List<Concept_caDSR11179> allPropConcepts = new ArrayList<Concept_caDSR11179>();
+		
+		allOCConcepts.addAll(ocQualConcepts);
+		allOCConcepts.addAll(ocPrimConcepts);
+		
+		allPropConcepts.addAll(propQualConcepts);
+		allPropConcepts.addAll(propPrimConcepts);
+		
+		ObjectClass_caDSR11179 isoOC = getObjectClassAndAddConcepts(allOCConcepts);
+		Property_caDSR11179 isoProp = getPropertyAndAddConcepts(allPropConcepts);
+		ConceptualDomain_caDSR11179 isoCD = getConceptualDomain(dataEntry.getDecConceptualDomain());
+		
+		isoDEC.setObjectClassRefId(isoOC.getTagId());
+		isoDEC.setPropertyRefId(isoProp.getTagId());
+		isoDEC.setConceptualDomainRefId(isoCD.getTagId());
+		
+		ClassificationScheme_ISO11179 isoCS = getCS();
+		ClassificationSchemeItem_caDSR11179 isoCSI = getCSI();
+		ClassificationSchemeItemRef_ISO11179 isoCSIRef = new ClassificationSchemeItemRef_ISO11179();
+		isoCSIRef.setCsRefId(isoCS.getTagId());
+		isoCSIRef.setCsiRefId(isoCSI.getTagId());
+		List<ClassificationSchemeItemRef_ISO11179> isoCSIRefs = new ArrayList<ClassificationSchemeItemRef_ISO11179>();
+		isoCSIRefs.add(isoCSIRef);
+		
+		isoDEC.setClassifiedBy(isoCSIRefs);
+		
+		String tagId = "DEC-"+getRandomString();
+		
+		DataElementConceptRelationship_ISO11179 decRel = new DataElementConceptRelationship_ISO11179();
+		decRel.setRelationshipTypeDescription("");
+		
+		DataElementConceptRef_ISO11179 deRef = new DataElementConceptRef_ISO11179();
+		deRef.setDataElementConceptRefId(tagId);
+		List<DataElementConceptRef_ISO11179> deRefs = new ArrayList<DataElementConceptRef_ISO11179>();
+		deRefs.add(deRef);
+		
+		decRel.setRelatedTo(deRefs);
+		
+		isoDEC.setDecRelationship(decRel);
+		
+		isoDEC.setTagId(tagId);
+		
+		if (decId != null && !decId.equals("")) {
+			decMap.put(decId, isoDEC);
 		}
 		else {
-			DataElementConcept_ISO11179 isoDEC = new DataElementConcept_ISO11179();
-			fillupAdminItem(isoDEC);
-			setItemId(isoDEC, decId);
-			
-			List<Concept_caDSR11179> ocQualConcepts = getConcepts(dataEntry.getObjectClassQualifierConcepts());
-			List<Concept_caDSR11179> ocPrimConcepts = getConcepts(dataEntry.getObjectClassPrimaryConcepts());
-			List<Concept_caDSR11179> propQualConcepts = getConcepts(dataEntry.getPropertyQualifierConcepts());
-			List<Concept_caDSR11179> propPrimConcepts = getConcepts(dataEntry.getPropertyPrimaryConcepts());
-			
-			List<Concept_caDSR11179> allOCConcepts = new ArrayList<Concept_caDSR11179>();
-			List<Concept_caDSR11179> allPropConcepts = new ArrayList<Concept_caDSR11179>();
-			
-			allOCConcepts.addAll(ocQualConcepts);
-			allOCConcepts.addAll(ocPrimConcepts);
-			
-			allPropConcepts.addAll(propQualConcepts);
-			allPropConcepts.addAll(propPrimConcepts);
-			
-			ObjectClass_caDSR11179 isoOC = getObjectClassAndAddConcepts(allOCConcepts);
-			Property_caDSR11179 isoProp = getPropertyAndAddConcepts(allPropConcepts);
-			ConceptualDomain_caDSR11179 isoCD = getConceptualDomain(dataEntry.getDecConceptualDomain());
-			
-			isoDEC.setObjectClassRefId(isoOC.getTagId());
-			isoDEC.setPropertyRefId(isoProp.getTagId());
-			isoDEC.setConceptualDomainRefId(isoCD.getTagId());
-			
-			ClassificationScheme_ISO11179 isoCS = getCS();
-			ClassificationSchemeItem_caDSR11179 isoCSI = getCSI();
-			ClassificationSchemeItemRef_ISO11179 isoCSIRef = new ClassificationSchemeItemRef_ISO11179();
-			isoCSIRef.setCsRefId(isoCS.getTagId());
-			isoCSIRef.setCsiRefId(isoCSI.getTagId());
-			List<ClassificationSchemeItemRef_ISO11179> isoCSIRefs = new ArrayList<ClassificationSchemeItemRef_ISO11179>();
-			isoCSIRefs.add(isoCSIRef);
-			
-			isoDEC.setClassifiedBy(isoCSIRefs);
-			
-			String tagId = "DEC-"+getRandomString();
-			
-			DataElementConceptRelationship_ISO11179 decRel = new DataElementConceptRelationship_ISO11179();
-			decRel.setRelationshipTypeDescription("");
-			
-			DataElementConceptRef_ISO11179 deRef = new DataElementConceptRef_ISO11179();
-			deRef.setDataElementConceptRefId(tagId);
-			List<DataElementConceptRef_ISO11179> deRefs = new ArrayList<DataElementConceptRef_ISO11179>();
-			deRefs.add(deRef);
-			
-			decRel.setRelatedTo(deRefs);
-			
-			isoDEC.setDecRelationship(decRel);
-			
-			isoDEC.setTagId(tagId);
-			
-			decMap.put(decId, isoDEC);
-			
-			return isoDEC;
+			decMap.put(tagId, isoDEC);
 		}
+		
+		return isoDEC;
 	}
 	
 	private ValueDomain_caDSR11179 getVD(List<DataEntry> dataEntriesSubList) {
@@ -413,15 +433,22 @@ public class ISO11179Transformer implements Transformer {
 		ValueDomain_caDSR11179 isoVD = null;
 		
 		String enumerated = mainDataEntry.getEnumerated();
+		String tagId = "VD-"+getRandomString();
 		if (enumerated != null && enumerated.trim().equalsIgnoreCase("yes")) {
-			if (enumVDMap.containsKey(vdId)) {
-				return enumVDMap.get(vdId);
+			if (vdId != null) {
+				vdId = vdId.trim();
+				if (!vdId.equals("") && enumVDMap.containsKey(vdId)) {
+					return enumVDMap.get(vdId);
+				}
 			}
+			
 			
 			EnumeratedValueDomain_caDSR11179 isoEnumVD = new EnumeratedValueDomain_caDSR11179();
 			//fillupAdminItem(isoEnumVD);
 			isoEnumVD.setAdminRecord(getBlankAdminRecord());
-			setItemId(isoEnumVD, vdId);
+			
+			String[] idAndVer = getPublicIdAndVersion(vdId);
+			setItemId(isoEnumVD, idAndVer[0], idAndVer[1]);
 			
 			List<PermissibleValue_ISO11179> isoPVList = new ArrayList<PermissibleValue_ISO11179>();
 			
@@ -431,21 +458,37 @@ public class ISO11179Transformer implements Transformer {
 			}
 			isoEnumVD.setPermissibleValues(isoPVList);
 			
-			enumVDMap.put(vdId, isoEnumVD);
+			if (vdId != null && !vdId.equals("")) {
+				enumVDMap.put(vdId, isoEnumVD);
+			}
+			else {
+				enumVDMap.put(tagId, isoEnumVD);
+			}
 			
 			isoVD = isoEnumVD;
 		}
 		else {
-			if (nonEnumVDMap.containsKey(vdId)) {
-				return nonEnumVDMap.get(vdId);
+			if (vdId != null) {
+				vdId = vdId.trim();
+				if (!vdId.equals("") && nonEnumVDMap.containsKey(vdId)) {
+					return nonEnumVDMap.get(vdId);
+				}
 			}
 			
 			NonEnumeratedValueDomain_caDSR11179 isoNonEnumVD = new NonEnumeratedValueDomain_caDSR11179();
 			isoNonEnumVD.setAdminRecord(getBlankAdminRecord());
-			setItemId(isoNonEnumVD, vdId);
+			
+			String[] idAndVer = getPublicIdAndVersion(vdId);
+			setItemId(isoNonEnumVD, idAndVer[0], idAndVer[1]);
 			
 			isoNonEnumVD.setDescription("");
-			nonEnumVDMap.put(vdId, isoNonEnumVD);
+			
+			if (vdId != null && !vdId.equals("")) {
+				nonEnumVDMap.put(vdId, isoNonEnumVD);
+			}
+			else {
+				nonEnumVDMap.put(tagId, isoNonEnumVD);
+			}
 			
 			isoVD = isoNonEnumVD;
 		}
@@ -468,7 +511,7 @@ public class ISO11179Transformer implements Transformer {
 		if (isoCD != null) {
 			isoVD.setConceptualDomainRefId(isoCD.getTagId());
 		}
-		String tagId = "VD-"+getRandomString();
+		
 		isoVD.setTagId(tagId);
 		
 		return isoVD;
@@ -558,7 +601,9 @@ public class ISO11179Transformer implements Transformer {
 			if (cdMap.containsKey(id)) {
 				return cdMap.get(id);
 			}
-			setItemId(isoCD, idAndName[0][0]);
+			
+			String[] idAndVer = getPublicIdAndVersion(idAndName[0][0]);
+			setItemId(isoCD, idAndVer[0], idAndVer[1]);
 			String tagId = "CD-"+getRandomString();
 			isoCD.setTagId(tagId);
 			isoCD.setDescription("");
@@ -590,7 +635,9 @@ public class ISO11179Transformer implements Transformer {
 			fillupAdminItem(isoCS);
 			isoCS.setTypeName("");
 			isoCS.setName("NMDP: CDEs to be Reviewed");
-			setItemId(isoCS, csId);
+			
+			String[] idAndVer = getPublicIdAndVersion(csId);
+			setItemId(isoCS, idAndVer[0], idAndVer[1]);
 			
 			String tagId = "CS-"+getRandomString();
 			isoCS.setTagId(tagId);
@@ -620,7 +667,9 @@ public class ISO11179Transformer implements Transformer {
 			fillupAdminItem(isoCSI);
 			isoCSI.setCsiValue("2100:");
 			//isoCSI.setCsiName("2100:");
-			setItemId(isoCSI, csiId);
+			
+			String[] idAndVer = getPublicIdAndVersion(csiId);
+			setItemId(isoCSI, idAndVer[0], idAndVer[1]);
 			
 			String tagId = "CSI-"+getRandomString();
 			isoCSI.setTagId(tagId);
@@ -629,6 +678,24 @@ public class ISO11179Transformer implements Transformer {
 			
 			return isoCSI;
 		}
+	}
+	
+	private String[] getPublicIdAndVersion(String id) {
+		
+		String[] idAndVerArr = new String[2];
+		
+		if (id != null) {
+			String[] idParts = id.split("[vV]");
+			
+			idAndVerArr[0] = idParts[0].trim();
+			idAndVerArr[1] = "1.0";
+			
+			if (idParts.length >= 2) {
+				idAndVerArr[1] = idParts[1].trim();
+			}
+		}
+		
+		return idAndVerArr;
 	}
 	
 	private ConceptDerivationRule_caDSR11179 getCDRAndAddConcepts(List<Concept_caDSR11179> isoConcepts) {
@@ -793,8 +860,10 @@ public class ISO11179Transformer implements Transformer {
 		return isoRegistrars;
 	}
 	
-	private void setItemId(AdminItem_ISO11179 isoAdminItem, String id) {
-		isoAdminItem.getAdminRecord().getIdentifier().setDataIdentifier(id);
+	private void setItemId(AdminItem_ISO11179 isoAdminItem, String id, String version) {
+		ItemIdentifier_ISO11179 itemId = isoAdminItem.getAdminRecord().getIdentifier();
+		itemId.setDataIdentifier(id);
+		itemId.setVersion(version);
 	}
 	
 	private void addNameAndDef(AdminItem_ISO11179 isoAdminItem, String name, String def, boolean isPreferred) {
@@ -933,7 +1002,7 @@ public class ISO11179Transformer implements Transformer {
 
 	public static void main(String[] args) {
 		ISO11179Transformer transformer = new ISO11179Transformer();
-		transformer.transform(new File("C:\\Docume~1\\mathura2\\Desktop\\ExcelXML\\test2.xml"));
+		transformer.transform(new File(RAW_XML_FILE));
 	}
 	
 	private class DataEntryListIterator {
