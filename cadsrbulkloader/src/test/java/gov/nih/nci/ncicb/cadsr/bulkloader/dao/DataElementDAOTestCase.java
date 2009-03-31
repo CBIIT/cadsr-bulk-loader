@@ -2,6 +2,7 @@ package gov.nih.nci.ncicb.cadsr.bulkloader.dao;
 
 import gov.nih.nci.ncicb.cadsr.MainTestCase;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.CaDSRObjects;
+import gov.nih.nci.ncicb.cadsr.bulkloader.dao.util.BulkLoaderDAOUtil;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.SpringBeansUtil;
 import gov.nih.nci.ncicb.cadsr.domain.Concept;
 import gov.nih.nci.ncicb.cadsr.loader.UserSelections;
@@ -13,11 +14,11 @@ import java.util.List;
 public class DataElementDAOTestCase extends MainTestCase {
 
 	public void testCreateDE() {
-		BulkLoaderDAO dao = SpringBeansUtil.getDEDAO();
+		BulkLoaderDAOUtil dao = SpringBeansUtil.getDEDAO();
 		UserSelections.getInstance().setProperty("ignore-vd", new Boolean(false));
 		UserPreferences.getInstance().setUsePrivateApi(true);
 		
-		dao.saveElementsAndDependencies(getCaDSRObjects());
+		dao.saveElements(getCaDSRObjects());
 	}
 	
 	private CaDSRObjects getCaDSRObjects() {

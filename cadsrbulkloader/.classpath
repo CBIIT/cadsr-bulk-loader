@@ -11,7 +11,6 @@
 	<classpathentry kind="lib" path="lib/aopalliance.jar"/>
 	<classpathentry kind="lib" path="lib/asm.jar"/>
 	<classpathentry kind="lib" path="lib/cadsr-api.jar" sourcepath="/caDSRAPI/src"/>
-	<classpathentry kind="lib" path="lib/caDSR-beans.jar"/>
 	<classpathentry kind="lib" path="lib/castor-1.2-xml-schema.jar"/>
 	<classpathentry kind="lib" path="lib/castor-1.2-xml.jar" sourcepath="C:/castor-1.2/src/main/java"/>
 	<classpathentry kind="lib" path="lib/castor-1.2.jar"/>
@@ -64,6 +63,8 @@
 	<classpathentry kind="lib" path="lib/junit/dbunit-2.4.3.jar"/>
 	<classpathentry kind="lib" path="lib/junit/poi-3.2-FINAL-20081019.jar"/>
 	<classpathentry kind="lib" path="lib/junit/spring-test.jar"/>
+	<classpathentry kind="lib" path="lib/cadsrapi40-beans.jar"/>
+	<classpathentry kind="lib" path="lib/cadsrapi40-orm.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

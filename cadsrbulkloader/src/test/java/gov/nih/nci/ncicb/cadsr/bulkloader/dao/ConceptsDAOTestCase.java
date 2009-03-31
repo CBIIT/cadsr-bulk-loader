@@ -2,6 +2,7 @@ package gov.nih.nci.ncicb.cadsr.bulkloader.dao;
 
 import gov.nih.nci.ncicb.cadsr.MainTestCase;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.CaDSRObjects;
+import gov.nih.nci.ncicb.cadsr.bulkloader.dao.util.BulkLoaderDAOUtil;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.SpringBeansUtil;
 
 /**
@@ -14,8 +15,8 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.util.SpringBeansUtil;
 public class ConceptsDAOTestCase extends MainTestCase {
 
 	public void testSaveConcept() {
-		BulkLoaderDAO conceptsDAO = SpringBeansUtil.getConceptsDAO();
-		conceptsDAO.saveElementsAndDependencies(getCaDSRObjects());
+		BulkLoaderDAOUtil conceptsDAO = SpringBeansUtil.getConceptsDAO();
+		conceptsDAO.saveElements(getCaDSRObjects());
 	}
 	
 	private CaDSRObjects getCaDSRObjects() {

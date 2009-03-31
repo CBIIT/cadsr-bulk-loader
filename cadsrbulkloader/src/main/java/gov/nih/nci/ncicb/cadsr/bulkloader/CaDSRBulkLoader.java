@@ -1,8 +1,8 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.CaDSRObjects;
-import gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAO;
 import gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAORuntimeException;
+import gov.nih.nci.ncicb.cadsr.bulkloader.dao.util.BulkLoaderDAOUtil;
 import gov.nih.nci.ncicb.cadsr.bulkloader.parser.Parser;
 import gov.nih.nci.ncicb.cadsr.bulkloader.parser.ParserRuntimeException;
 import gov.nih.nci.ncicb.cadsr.bulkloader.validate.ValidationResult;
@@ -16,7 +16,7 @@ public class CaDSRBulkLoader {
 
 	private Parser parser;
 	private Validator validator;
-	private BulkLoaderDAO dao;
+	private BulkLoaderDAOUtil dao;
 	
 	private CaDSRObjects caDSRObjects;
 	private ValidationResult validationResult;
@@ -33,10 +33,10 @@ public class CaDSRBulkLoader {
 	public void setValidator(Validator validator) {
 		this.validator = validator;
 	}
-	public BulkLoaderDAO getDao() {
+	public BulkLoaderDAOUtil getDao() {
 		return dao;
 	}
-	public void setDao(BulkLoaderDAO dao) {
+	public void setDao(BulkLoaderDAOUtil dao) {
 		this.dao = dao;
 	}
 	
@@ -44,7 +44,7 @@ public class CaDSRBulkLoader {
 		try {
 			caDSRObjects = parser.parse(_xmlFile);
 			if (validateParsedObjects()) {
-				dao.saveElementsAndDependencies(caDSRObjects);
+				dao.saveElements(caDSRObjects);
 			}
 			return getLoadResult();
 		} catch (BulkLoaderRuntimeException e) {
