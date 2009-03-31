@@ -144,6 +144,7 @@
             <xs:extension base="iso11179:Value_Domain">
                 <xs:sequence>
                     <xs:element ref="caDSR:Concept_Derivation_Rule" minOccurs="0"/>
+                    <xs:element ref="caDSR:Representation_Class" minOccurs="0" maxOccurs="1" />
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
@@ -210,6 +211,17 @@
                     <xs:element name="classification_scheme_item_value" type="xs:string" minOccurs="0" />
                 </xs:sequence>
                 <xs:attribute name="tagId" type="iso11179:Classification_Scheme_Item_Tag_Id" use="required" />
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="Representation_Class" type="caDSR:Representation_Class" />
+    <xs:complexType name="Representation_Class">
+        <xs:complexContent>
+            <xs:extension base="iso11179:Representation_Class">
+                <xs:sequence>
+                    <xs:element ref="caDSR:Concept_Derivation_Rule"></xs:element>
+                </xs:sequence>
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>

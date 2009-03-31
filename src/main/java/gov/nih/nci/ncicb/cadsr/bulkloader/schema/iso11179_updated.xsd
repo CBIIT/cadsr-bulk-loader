@@ -1836,7 +1836,7 @@
         </xs:annotation>
         <xs:sequence>
             <xs:element name="containing_entry" type="Language_Section" maxOccurs="unbounded"/>
-            <!--xs:element name="Context" type="Context" maxOccurs="unbounded"/ -->
+            <xs:element name="Context" type="Context" maxOccurs="unbounded" minOccurs="0"/>
         </xs:sequence>
     </xs:complexType>
 

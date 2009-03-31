@@ -10,6 +10,7 @@ import gov.nih.nci.ncicb.cadsr.loader.defaults.UMLDefaults;
 import gov.nih.nci.ncicb.cadsr.loader.persister.Persister;
 import gov.nih.nci.ncicb.cadsr.loader.persister.PersisterException;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -38,7 +39,7 @@ public class ExternalLoaderImpl implements ExternalLoader{
 		this.persister = persister;
 	}
 	
-	public void save(List<? extends AdminComponent> adminComponents) throws BulkLoaderDAORuntimeException{
+	public void save(Collection<? extends AdminComponent> adminComponents) throws BulkLoaderDAORuntimeException{
 		
 		loadDefaultsIfNotLoaded();
 		
@@ -67,13 +68,13 @@ public class ExternalLoaderImpl implements ExternalLoader{
 		propertiesLoaded = true;
 	}
 	
-	private void addElementsToSave(List<? extends AdminComponent> adminComponents) {
+	private void addElementsToSave(Collection<? extends AdminComponent> adminComponents) {
 		for (Object adminComponent: adminComponents) {
 			elements.addElement(adminComponent);
 		}
 	}
 	
-	private <T extends AdminComponent> void loadComponentDefaults(List<T> adminComps) {
+	private <T extends AdminComponent> void loadComponentDefaults(Collection<T> adminComps) {
 		for (AdminComponent adminComp: adminComps) {
 			loadAdminComponentCSCSI(adminComp);
 		}

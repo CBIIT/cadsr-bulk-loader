@@ -2,13 +2,14 @@ package gov.nih.nci.ncicb.cadsr.bulkloader.dao;
 
 import gov.nih.nci.ncicb.cadsr.MainTestCase;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.CaDSRObjects;
+import gov.nih.nci.ncicb.cadsr.bulkloader.dao.util.BulkLoaderDAOUtil;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.SpringBeansUtil;
 
 public class PropertiesDAOTestCase extends MainTestCase {
 
 	public void testPropertiesDAO() {
-		BulkLoaderDAO objectClassDAO = SpringBeansUtil.getPropertyDAO();
-		objectClassDAO.saveElementsAndDependencies(getCaDSRObjects());
+		BulkLoaderDAOUtil objectClassDAO = SpringBeansUtil.getPropertyDAO();
+		objectClassDAO.saveElements(getCaDSRObjects());
 	}
 	
 	private CaDSRObjects getCaDSRObjects() {

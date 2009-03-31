@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+    <bean id="publicAPISessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        
+        <property name="dataSource"><ref bean="dataSource"/></property>
+        
+        <property name="mappingResources">
+            
+            <list>
+                <value>gov/nih/nci/cadsr/domain/AdministeredComponent.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/Address.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/AdministeredComponentClassSchemeItem.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/AdministeredComponentContact.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/ClassificationScheme.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/ClassificationSchemeItem.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/ClassificationSchemeItemRelationship.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/ClassificationSchemeRelationship.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/ClassSchemeClassSchemeItem.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/ComponentConcept.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/ComponentLevel.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/Concept.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/ConceptDerivationRule.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/ConceptualDomain.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/ConditionMessage.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/ContactCommunication.hbm.xml</value> 
+                <value>gov/nih/nci/cadsr/domain/Context.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/DataElement.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/DataElementConcept.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/DataElementConceptRelationship.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/DataElementDerivation.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/DataElementRelationship.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/Definition.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/DefinitionClassSchemeItem.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/DerivationType.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/DerivedDataElement.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/Designation.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/DesignationClassSchemeItem.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/EnumeratedValueDomain.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/Form.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/FormElement.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/Function.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/Instruction.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/Module.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/NonenumeratedValueDomain.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/ObjectClass.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/Module.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/ObjectClassRelationship.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/Organization.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/PermissibleValue.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/Person.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/Property.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/Person.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/Protocol.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/Question.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/QuestionCondition.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/QuestionConditionComponents.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/QuestionRepetition.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/ReferenceDocument.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/ReferenceDocumentAttachment.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/Registration.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/Representation.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/TriggerAction.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/ValidValue.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/ValueDomain.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/ValueDomainPermissibleValue.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/ValueDomainRelationship.hbm.xml</value>
+                <value>gov/nih/nci/cadsr/domain/ValueMeaning.hbm.xml</value>
+            </list>
+            
+        </property>
+        
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
+                <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+                <prop key="hibernate.show_sql">true</prop> 
+            </props>
+            
+        </property>
+        
+    </bean>
+</beans>

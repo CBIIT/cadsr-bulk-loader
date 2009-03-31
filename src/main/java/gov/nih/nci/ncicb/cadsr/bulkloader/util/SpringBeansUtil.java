@@ -2,7 +2,7 @@ package gov.nih.nci.ncicb.cadsr.bulkloader.util;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.CaDSRBulkLoader;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.CaDSRObjects;
-import gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAO;
+import gov.nih.nci.ncicb.cadsr.bulkloader.dao.util.BulkLoaderDAOUtil;
 import gov.nih.nci.ncicb.cadsr.bulkloader.parser.Parser;
 import gov.nih.nci.ncicb.cadsr.bulkloader.parser.bind.ObjectBinder;
 import gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.Translator;
@@ -52,34 +52,34 @@ public class SpringBeansUtil {
 		return objBinder;
 	}
 	
-	public static BulkLoaderDAO getConceptsDAO() {
-		BulkLoaderDAO conceptsDAO = (BulkLoaderDAO)beanFactory.getBean(CONCEPTS_DAO_BEAN_NAME);
+	public static BulkLoaderDAOUtil getConceptsDAO() {
+		BulkLoaderDAOUtil conceptsDAO = (BulkLoaderDAOUtil)beanFactory.getBean(CONCEPTS_DAO_BEAN_NAME);
 		
 		return conceptsDAO;
 	}
 	
-	public static BulkLoaderDAO getObjectClassDAO() {
-		BulkLoaderDAO conceptsDAO = (BulkLoaderDAO)beanFactory.getBean(OBJECT_CLASS_DAO_BEAN_NAME);
+	public static BulkLoaderDAOUtil getObjectClassDAO() {
+		BulkLoaderDAOUtil conceptsDAO = (BulkLoaderDAOUtil)beanFactory.getBean(OBJECT_CLASS_DAO_BEAN_NAME);
 		return conceptsDAO;
 	}
 	
-	public static BulkLoaderDAO getPropertyDAO() {
-		BulkLoaderDAO conceptsDAO = (BulkLoaderDAO)beanFactory.getBean(PROPERTIES_DAO_BEAN_NAME);
+	public static BulkLoaderDAOUtil getPropertyDAO() {
+		BulkLoaderDAOUtil conceptsDAO = (BulkLoaderDAOUtil)beanFactory.getBean(PROPERTIES_DAO_BEAN_NAME);
 		return conceptsDAO;
 	}
 	
-	public static BulkLoaderDAO getDECDAO() {
-		BulkLoaderDAO decDAO = (BulkLoaderDAO)beanFactory.getBean(DEC_DAO_BEAN_NAME);
+	public static BulkLoaderDAOUtil getDECDAO() {
+		BulkLoaderDAOUtil decDAO = (BulkLoaderDAOUtil)beanFactory.getBean(DEC_DAO_BEAN_NAME);
 		return decDAO;
 	}
 	
-	public static BulkLoaderDAO getVDDAO() {
-		BulkLoaderDAO decDAO = (BulkLoaderDAO)beanFactory.getBean(VD_DAO_BEAN_NAME);
+	public static BulkLoaderDAOUtil getVDDAO() {
+		BulkLoaderDAOUtil decDAO = (BulkLoaderDAOUtil)beanFactory.getBean(VD_DAO_BEAN_NAME);
 		return decDAO;
 	}
 	
-	public static BulkLoaderDAO getDEDAO() {
-		BulkLoaderDAO decDAO = (BulkLoaderDAO)beanFactory.getBean(DE_DAO_BEAN_NAME);
+	public static BulkLoaderDAOUtil getDEDAO() {
+		BulkLoaderDAOUtil decDAO = (BulkLoaderDAOUtil)beanFactory.getBean(DE_DAO_BEAN_NAME);
 		return decDAO;
 	}
 	
