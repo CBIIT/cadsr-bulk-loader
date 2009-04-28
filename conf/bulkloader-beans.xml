@@ -3,18 +3,32 @@
  
 <beans>
 
+	<bean name="excelTransformer" class="gov.nih.nci.ncicb.cadsr.bulkloader.transformer.TransformerImpl" >
+		<property name="unmarshaller" ref="excelUnMarshaller" />
+		<property name="transformerValidation" ref="excelValidator" />
+		<property name="transformation" ref="excelTransformation" />
+		<property name="marshaller" ref="excelMarshaller" />
+	</bean>
+	
+	<bean name="excelUnMarshaller" class="gov.nih.nci.ncicb.cadsr.bulkloader.excel.transformer.unmarshall.ExcelUnMarshaller" />
+	<bean name="excelValidator" class="gov.nih.nci.ncicb.cadsr.bulkloader.excel.transformer.validation.ExcelValidation" />
+	<bean name="excelTransformation" class="gov.nih.nci.ncicb.cadsr.bulkloader.excel.transformer.transformation.ExcelTransformation" />
+	<bean name="excelMarshaller" class="gov.nih.nci.ncicb.cadsr.bulkloader.excel.transformer.marshall.ExcelMarshaller" />
+
 	<bean name="bulkLoader" class="gov.nih.nci.ncicb.cadsr.bulkloader.CaDSRBulkLoader" >
 	  <property name="parser" ref="parser" />
 	  <property name="validator" ref="validator" />
-	  <property name="dao" ref="dataElementDAO" />
+	  <!-- <property name="dao" ref="dataElementDAO" /> -->
 	</bean>
   									<!-- Parser -->
   									
   <bean name="parser" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.ParserImpl" >
+    <property name="schemaValidator" ref="schemaValidator" />
   	<property name="binder" ref="objectBinder" />
   	<property name="translator" ref="deTranslator" />
   </bean>
   
+  <bean name="schemaValidator" class="gov.nih.nci.ncicb.cadsr.bulkloader.schema.validator.SchemaValidatorImpl"/>
   
 									<!-- Binder -->
   									
@@ -69,63 +83,55 @@
   <bean name="validator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.ValidationImpl" >
   	<property name="validators">
   		<list>
-  			<ref bean="conceptCodeValidator" />
-  			<ref bean="duplicateValidator" />
-  			<ref bean="latestVersionValidator" />
-  			<ref bean="duplicateAttributeValidator" />
-  			<ref bean="definitionLengthValidator" />
-  			<ref bean="descriptionValidator" />
+  			<ref bean="idValidator" />
+  			<ref bean="conceptValidator" />
   		</list>
   	</property>
   </bean>
   
-  <bean name="conceptCodeValidator" class="gov.nih.nci.ncicb.cadsr.loader.validator.ConceptCodeValidator" />
-  <bean name="conceptValidator" class="gov.nih.nci.ncicb.cadsr.loader.validator.ConceptValidator" />
-  <bean name="dataTypeValidator" class="gov.nih.nci.ncicb.cadsr.loader.validator.DatatypeValidator" />
-  <bean name="definitionLengthValidator" class="gov.nih.nci.ncicb.cadsr.loader.validator.ConceptCodeValidator" />
+  <bean name="idValidator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators.IdValidator" >
+    <property name="dao" ref="DAOFacade" />
+  </bean>
+  <bean name="conceptValidator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators.ConceptValidator" >
+    <property name="dao" ref="DAOFacade" />
+  </bean>    
     
-    
-  									<!-- DAOs -->
-  							
-  <bean name="conceptsDAO" class="gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAOImpl">
-    <property name="field" ref="conceptBean" />
-    <property name="loader" ref="conceptsLoader" />
+  <bean name="persister" class="gov.nih.nci.ncicb.cadsr.bulkloader.persist.PersisterImpl">
+    <property name="dao" ref="DAOFacade" />
   </bean>
   
-  <bean name="propertyDAO" class="gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAOImpl">
-    <property name="field" ref="propertyBean" />
-    <property name="loader" ref="propertyLoader" />
-    <property name="dependentDAO" ref="conceptsDAO" />
+  <bean name="DAOFacade" class="gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAOFacadeImpl">
+    <constructor-arg ref="daoFactory"/>
+    <property name="evsDAO" ref="evsDAO" />
   </bean>
   
-  <bean name="objectClassDAO" class="gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAOImpl">
-    <property name="field" ref="objectClassBean" />
-    <property name="loader" ref="objectClassLoader" />
-    <property name="dependentDAO" ref="propertyDAO" />
+  <bean name="daoFactory" class="gov.nih.nci.ncicb.cadsr.bulkloader.dao.factory.BulkLoaderDAOFactoryImpl">
+    <property name="readDAO" ref="readDAO" />
+    <property name="writeDAO" ref="writeDAO" />
+  </bean>
+
+  <bean name="evsDAO" class="gov.nih.nci.ncicb.cadsr.bulkloader.dao.read.LexEVSDAOImpl" />
+  
+  <bean name="readDAO" class="gov.nih.nci.ncicb.cadsr.bulkloader.dao.read.BulkLoaderReadDAOImpl">
+    <property name="dataSource" ref="dataSource" />
   </bean>
   
-  <bean name="valueDomainDAO" class="gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAOImpl">
-    <property name="field" ref="valueDomainBean" />
-    <property name="loader" ref="valueDomainLoader" />
-    <property name="dependentDAO" ref="objectClassDAO" />
+  <bean name="writeDAO" class="gov.nih.nci.ncicb.cadsr.bulkloader.dao.write.BulkLoaderWriteDAOImpl">
+    <property name="persisterMap" >
+      <map>
+        <entry key="concept" value-ref="conceptPersister" />
+        <entry key="objectClass" value-ref="objectClassPersister" />
+        <entry key="property" value-ref="propertyPersister" />
+        <entry key="dataElementConcept" value-ref="decPersister" />
+        <entry key="valueDomain" value-ref="valueDomainPersister" />
+        <entry key="dataElement" value-ref="dePersister" />
+      </map>
+    </property>
   </bean>
   
-  <bean name="dataElementConceptDAO" class="gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAOImpl">
-    <property name="field" ref="dataElementConceptBean" />
-    <property name="loader" ref="decLoader" />
-    <property name="dependentDAO" ref="valueDomainDAO" />
-  </bean>
-  
-  <bean name="dataElementDAO" class="gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAOImpl">
-    <property name="field" ref="dataElementBean" />
-    <property name="loader" ref="dataElementLoader" />
-    <property name="dependentDAO" ref="dataElementConceptDAO" />
-  </bean>
-   
-   
    									<!-- Loaders -->
    							
-  <bean name="conceptsLoader" class="gov.nih.nci.ncicb.cadsr.bulkloader.ext.ExternalLoaderImpl">
+ <!-- <bean name="conceptsLoader" class="gov.nih.nci.ncicb.cadsr.bulkloader.ext.ExternalLoaderImpl">
  	<property name="persister" ref="conceptPersister" />
   </bean>
   
@@ -147,6 +153,14 @@
   
   <bean name="dataElementLoader" class="gov.nih.nci.ncicb.cadsr.bulkloader.ext.ExternalLoaderImpl">
  	<property name="persister" ref="dePersister" />
+  </bean>-->
+  
+  
+                                    <!-- Datasource -->
+  <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="url" value="jdbc:oracle:thin:@cbiodb540.nci.nih.gov:1551:DSRDEV" />
+    <property name="username" value="sbrext" />
+    <property name="password" value="jjuser" />
   </bean>
   
   

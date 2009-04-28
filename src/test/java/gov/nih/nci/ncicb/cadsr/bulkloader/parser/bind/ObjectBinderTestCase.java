@@ -9,9 +9,14 @@ import java.io.File;
 public class ObjectBinderTestCase extends MainTestCase {
 
 	public void testBind() {
-		File toTest = getValidFile();
-		ObjectBinder objBinder = SpringBeansUtil.getObjectBinder();
-		ISO11179Elements isoElements = objBinder.bind(toTest);
-		assertNotNull(isoElements);
+		try {
+			File toTest = getValidFile();
+			ObjectBinder objBinder = SpringBeansUtil.getObjectBinder();
+			ISO11179Elements isoElements = objBinder.bind(toTest);
+			assertNotNull(isoElements);
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
 	}
 }

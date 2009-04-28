@@ -1,7 +1,5 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.parser;
 
-import gov.nih.nci.ncicb.cadsr.bulkloader.beans.CaDSRObjects;
-
 import java.io.File;
 
 /**
@@ -13,5 +11,5 @@ import java.io.File;
 
 public interface Parser {
 
-	public CaDSRObjects parse(File _xmlFile);
+	public ParseResult parse(File _xmlFile);
 }

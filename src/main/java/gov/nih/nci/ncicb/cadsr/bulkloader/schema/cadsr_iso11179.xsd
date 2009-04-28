@@ -29,14 +29,14 @@
     <xs:element name="Concept_List"  type="caDSR:Concept_List"/>
     <xs:complexType name="Concept_List">
         <xs:sequence>
-            <xs:element ref="caDSR:Concept" maxOccurs="unbounded" />
+            <xs:element ref="caDSR:Concept" minOccurs="0" maxOccurs="unbounded" />
         </xs:sequence>
     </xs:complexType>
     
     <xs:element name="Value_Meaning_List">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="caDSR:Value_Meaning" maxOccurs="unbounded"/>
+                <xs:element ref="caDSR:Value_Meaning" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -60,7 +60,7 @@
     <xs:element name="Component_Concept_List" type="caDSR:Component_Concept_List" />
     <xs:complexType name="Component_Concept_List">
         <xs:sequence>
-            <xs:element ref="caDSR:Component_Concept" maxOccurs="unbounded" />
+            <xs:element ref="caDSR:Component_Concept" maxOccurs="unbounded" minOccurs="0" />
         </xs:sequence>
     </xs:complexType>
     

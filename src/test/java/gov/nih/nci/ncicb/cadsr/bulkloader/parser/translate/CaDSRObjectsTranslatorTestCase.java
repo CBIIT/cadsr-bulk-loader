@@ -20,8 +20,12 @@ public class CaDSRObjectsTranslatorTestCase extends MainTestCase {
 		Translator<CaDSRObjects> translator = SpringBeansUtil.getCaDSRObjectsTranslator();
 		ISO11179Elements iso11179Elements = get11179Elements();
 		
-		CaDSRObjects caDSRObjects = translator.translate(iso11179Elements);
+		TranslatorResult<CaDSRObjects> translatorResult = translator.translate(iso11179Elements);
 		
+		assertNotNull(translatorResult);
+		assertTrue(translatorResult.isSuccessful());
+		
+		CaDSRObjects caDSRObjects = translatorResult.getTranslatedObject();
 		assertNotNull(caDSRObjects);
 		
 		List<Concept> concepts = caDSRObjects.getConcepts();

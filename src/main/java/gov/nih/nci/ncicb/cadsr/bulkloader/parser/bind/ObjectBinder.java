@@ -6,5 +6,5 @@ import java.io.File;
 
 public interface ObjectBinder {
 
-	public ISO11179Elements bind(File _xmlFile);
+	public ISO11179Elements bind(File _xmlFile) throws Exception;
 }

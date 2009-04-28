@@ -26,30 +26,20 @@ public class SchemaValidatorTestCase extends MainTestCase {
 	}
 	
 	public void testValidFile() {
-		try {
-			File sampleXMLFile = getValidXMLFile();
-			validator.validate(sampleXMLFile);
-		} catch (SchemaValidationException e) {
-			e.printStackTrace();
-			fail("Validation of sample XML file failed!");
-		}
+		File sampleXMLFile = getValidXMLFile();
+		SchemaValidationResult validationResult = validator.validate(sampleXMLFile);
+		assertTrue(validationResult.isValid());
 	}
 	
 	public void testInvalidFile() {
-		Exception exception = null;
-		try {
-			File sampleXMLFile = getInvalidXMLFile();
-			validator.validate(sampleXMLFile);
-		} catch (SchemaValidationException e) {
-			exception = e;
-		}
-		
-		assertNotNull("Invalid file validation passed!",exception);
+		File sampleXMLFile = getInvalidXMLFile();
+		SchemaValidationResult validationResult = validator.validate(sampleXMLFile);
+		assertTrue(validationResult.isValid());
 	}
 	
 	private File getValidXMLFile() {
 		URL xmlFileURL = classLoader.getResource(validFilePath);
-		File xmlFile = new File("c:/docume~1/mathura2/desktop/11179sample.xml");//new File(xmlFileURL.getPath());
+		File xmlFile = new File("c:/docume~1/mathura2/desktop/test form1_11179.xml");//new File(xmlFileURL.getPath());
 		
 		return xmlFile;
 	}

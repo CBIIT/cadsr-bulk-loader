@@ -5,20 +5,16 @@ import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
 import gov.nih.nci.ncicb.cadsr.loader.ElementsLists;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationError;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationFatal;
+import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationItem;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationItems;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationWarning;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-public class ValidationImpl implements Validator {
+public class ValidationImpl implements Validation {
 
-	private List<Error> errorsList = new ArrayList<Error>();
-	private List<Fatality> fatalitiesList = new ArrayList<Fatality>();
-	private List<Warning> warningsList = new ArrayList<Warning>();
-	
 	private List<gov.nih.nci.ncicb.cadsr.loader.validator.Validator> validators;
 	private ElementsLists elementsList = ElementsLists.getInstance();
 	
@@ -30,22 +26,48 @@ public class ValidationImpl implements Validator {
 		this.validators = validators;
 	}
 
-	public ValidationResult validate(CaDSRObjects caDSRObjects) {
+	public ValidationResult validate(CaDSRObjects caDSRObjects, boolean validate) {
+		if (validate) {
+			return validate(caDSRObjects);
+		}
+		else {
+			return getDefaultValidationResult(caDSRObjects);
+		}
+		
+	}
+	
+	private synchronized ValidationResult validate(CaDSRObjects caDSRObjects) {
+		ValidationResult result = new ValidationResult();
+		result.setValidationItem(caDSRObjects);
+		
+		List<ValidationItemResult> itemResults = new ArrayList<ValidationItemResult>();
+		result.setItemResults(itemResults);
+		
 		try {
 			loadElements(caDSRObjects);
 			
 			for (gov.nih.nci.ncicb.cadsr.loader.validator.Validator validator: validators) {
 				ValidationItems validationItems = validator.validate();
-				processValidationItems(validationItems);
+				processValidationItems(validationItems, itemResults);
 			}
 			
 			unLoadElements(caDSRObjects);
 			
-			ValidationResult result = getValidationResult();
-			return result;
+			result.setValidationStatus(ValidationStatus.SUCCESS);
 		} catch (Exception e) {
-			throw new ValidatorRuntimeException(e);
+			result.setException(e);
+			result.setValidationStatus(ValidationStatus.FAILURE);
 		}
+		
+		return result;
+	}
+	
+	private ValidationResult getDefaultValidationResult(CaDSRObjects caDSRObjects) {
+		ValidationResult result = new ValidationResult();
+		result.setValidationStatus(ValidationStatus.SUCCESS);
+		result.setValidationItem(caDSRObjects);
+		
+		return result;
 	}
 	
 	private void loadElements(CaDSRObjects caDSRObjects) {
@@ -62,86 +84,27 @@ public class ValidationImpl implements Validator {
 		}
 	}
 	
-	private void processValidationItems(ValidationItems validationItems) {
+	private List<ValidationItemResult> processValidationItems(ValidationItems validationItems, List<ValidationItemResult> itemResults) {
 		
 		Set<ValidationError> validationErrors = validationItems.getErrors();
 		Set<ValidationFatal> validationFatals = validationItems.getFatals();
 		Set<ValidationWarning> validationWarnings = validationItems.getWarnings();
 		
-		errorsList.addAll(getErrors(validationErrors));
-		fatalitiesList.addAll(getFatalities(validationFatals));
-		warningsList.addAll(getWarnings(validationWarnings));
+		List<ValidationItem> errors = new ArrayList<ValidationItem>();
+		errors.addAll(validationErrors);
+		errors.addAll(validationFatals);
+		errors.addAll(validationWarnings);
+			
+		for (ValidationItem error: errors) {
+			Object item = error.getRootCause();
+			String message = error.getMessage();
+			ValidationItemResult lineItemResult = new ValidationItemResult(item, ValidationStatus.FAILURE);
+			lineItemResult.setMessage(message);
+			
+			itemResults.add(lineItemResult);
+		}
 		
+		return itemResults;
 	}
 	
-	private List<Error> getErrors(Set<ValidationError> validationErrors) {
-		List<Error> errors = new ArrayList<Error>();
-		if (validationErrors != null) {
-			Iterator<ValidationError> validationErrorIter = validationErrors.iterator();
-			while (validationErrorIter.hasNext()) {
-				ValidationError validationError = validationErrorIter.next();
-				String message = validationError.getMessage();
-				Object trace = validationError.getRootCause();
-				
-				Error error = new Error(message, trace);
-				errors.add(error);
-			}
-		}
-		
-		return errors;
-	}
-	
-	private List<Fatality> getFatalities(Set<ValidationFatal> validationFatals) {
-		List<Fatality> fatalities = new ArrayList<Fatality>();
-		if (validationFatals != null) {
-			Iterator<ValidationFatal> validationFatalsIter = validationFatals.iterator();
-			while (validationFatalsIter.hasNext()) {
-				ValidationFatal validationFatal = validationFatalsIter.next();
-				String message = validationFatal.getMessage();
-				Object trace = validationFatal.getRootCause();
-				
-				Fatality fatality = new Fatality(message, trace);
-				fatalities.add(fatality);
-			}
-		}
-		
-		return fatalities;
-	}
-	
-	private List<Warning> getWarnings(Set<ValidationWarning> validationWarnings) {
-		List<Warning> warnings = new ArrayList<Warning>();
-		if (validationWarnings != null) {
-			Iterator<ValidationWarning> validationWarningsIter = validationWarnings.iterator();
-			while (validationWarningsIter.hasNext()) {
-				ValidationWarning validationWarning = validationWarningsIter.next();
-				String message = validationWarning.getMessage();
-				Object trace = validationWarning.getRootCause();
-				
-				Warning warning = new Warning(message, trace);
-				warnings.add(warning);
-			}
-		}
-		
-		return warnings;
-	}
-	
-	private ValidationResult getValidationResult() {
-		ValidationResult result;
-		
-		if (errorsList.size() > 0 || fatalitiesList.size() > 0) {
-			result = new ValidationResult(ValidationStatus.FAIL);
-		}
-		else if (warningsList.size() > 0) {
-			result = new ValidationResult(ValidationStatus.PASS_WITH_WARNINGS);
-		}
-		else {
-			result = new ValidationResult(ValidationStatus.PASS);
-		}
-		
-		result.setErrors(errorsList);
-		result.setFatalities(fatalitiesList);
-		result.setWarnings(warningsList);
-		
-		return result;
-	}
 }

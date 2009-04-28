@@ -26,22 +26,34 @@ public abstract class AbstractTranslatorTemplate implements Translator<CaDSRObje
 		this.child = child;
 	}
 
-	public final CaDSRObjects translate(ISO11179Elements iso11179Elements) {
-		CaDSRObjectRegistry objRegistry = new CaDSRObjectRegistry();
+	public final TranslatorResult<CaDSRObjects> translate(ISO11179Elements iso11179Elements) {
+		TranslatorResult<CaDSRObjects> result = new TranslatorResult<CaDSRObjects>();
+		result.setIso11179Elements(iso11179Elements);
 		
-		objRegistry = callChildAndTranslateElement(iso11179Elements, objRegistry);
+		try {
+			CaDSRObjectRegistry objRegistry = new CaDSRObjectRegistry();
+			
+			objRegistry = callChildAndTranslateElement(iso11179Elements, objRegistry);
+			
+			CaDSRObjects caDSRObjects = new CaDSRObjects();
+			
+			caDSRObjects.setConcepts(objRegistry.getConcepts());
+			caDSRObjects.setProperties(objRegistry.getProperties());
+			caDSRObjects.setObjectClasses(objRegistry.getObjectClasses());
+			caDSRObjects.setValueDomains(objRegistry.getValueDomains());
+			caDSRObjects.setDataElementConcepts(objRegistry.getDataElementConcepts());
+			caDSRObjects.setDataElements(objRegistry.getDataElements());
+			caDSRObjects.setValueMeanings(objRegistry.getValueMeanings());
+			
+			result.setTranslatedObject(caDSRObjects);
+			result.setStatus(TranslatorStatus.SUCCESS);
+			
+		} catch (Exception e) {
+			result.setException(e);
+			result.setStatus(TranslatorStatus.FAILURE);
+		}
 		
-		CaDSRObjects caDSRObjects = new CaDSRObjects();
-		
-		caDSRObjects.setConcepts(objRegistry.getConcepts());
-		caDSRObjects.setProperties(objRegistry.getProperties());
-		caDSRObjects.setObjectClasses(objRegistry.getObjectClasses());
-		caDSRObjects.setValueDomains(objRegistry.getValueDomains());
-		caDSRObjects.setDataElementConcepts(objRegistry.getDataElementConcepts());
-		caDSRObjects.setDataElements(objRegistry.getDataElements());
-		caDSRObjects.setValueMeanings(objRegistry.getValueMeanings());
-		
-		return caDSRObjects;
+		return result;
 	}
 	
 	private CaDSRObjectRegistry callChildAndTranslateElement(ISO11179Elements iso11179Elements, CaDSRObjectRegistry objRegistry) {

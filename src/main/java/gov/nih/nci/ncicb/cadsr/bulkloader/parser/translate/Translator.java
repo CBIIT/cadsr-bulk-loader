@@ -11,5 +11,5 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ISO11179Elements;
 
 public interface Translator<T> {
 
-	public T translate(ISO11179Elements iso11179Elements);
+	public TranslatorResult<T> translate(ISO11179Elements iso11179Elements);
 }

@@ -17,5 +17,5 @@ public interface SchemaValidator {
 	 * @param _xmlFile
 	 * @throws SchemaValidationException
 	 */
-	public void validate(File _xmlFile) throws SchemaValidationException;
+	public SchemaValidationResult validate(File _xmlFile);
 }
