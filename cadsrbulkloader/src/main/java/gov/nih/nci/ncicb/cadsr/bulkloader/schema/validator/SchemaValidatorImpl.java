@@ -1,7 +1,5 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.schema.validator;
 
-import gov.nih.nci.ncicb.cadsr.bulkloader.ExceptionCode;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -35,18 +33,26 @@ public class SchemaValidatorImpl implements SchemaValidator {
 	private static Log log = LogFactory.getLog(SchemaValidatorImpl.class);
 	private ClassLoader classLoader = SchemaValidatorImpl.class.getClassLoader();
 
-	public void validate(File _xmlFile) throws SchemaValidationException {
-		Validator validator = getValidator();
-		Source source = getSource(_xmlFile);
+	public SchemaValidationResult validate(File _xmlFile) {
+		SchemaValidationResult result = new SchemaValidationResult();
+		result.setInputFile(_xmlFile);
 		try {
+			Validator validator = getValidator();
+			Source source = getSource(_xmlFile);
 			validator.validate(source);
+		} catch (FileNotFoundException e) {
+			result.setException(e);
+			result.setStatus(SchemaValidationStatus.FILE_READ_FAILURE);
+			result.setMessage(e.getMessage());
 		} catch (SAXException e) {
-			throw new SchemaValidationException(ExceptionCode.MALFORMED_XML_FILE, e);
+			result.setException(e);
+			result.setStatus(SchemaValidationStatus.FAILURE);
 		} catch (IOException e) {
-			throw new SchemaValidationException(ExceptionCode.IO_EXCEPTION, e);
-		} catch (Exception e) {
-			throw new SchemaValidationException(ExceptionCode.UNKNOWN, e);
+			result.setException(e);
+			result.setStatus(SchemaValidationStatus.FAILURE);
 		}
+		
+		return result;
 	}
 	
 	/**
@@ -54,7 +60,7 @@ public class SchemaValidatorImpl implements SchemaValidator {
 	 * @return <code>javax.xml.validation.Validator</code>
 	 * @throws SchemaValidationException
 	 */
-	private Validator getValidator() throws SchemaValidationException {
+	private Validator getValidator() throws SAXException {
 		Schema schema = getSchema();
 		Validator validator = schema.newValidator();
 		
@@ -66,20 +72,12 @@ public class SchemaValidatorImpl implements SchemaValidator {
 	 * @return <code>javax.xml.validation.Schema</code>
 	 * @throws SchemaValidationException
 	 */
-	private Schema getSchema() throws SchemaValidationException{
-		try {
-			File xsdFile = getSchemaFile();
-			SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-			Schema schema = schemaFactory.newSchema(xsdFile);
-			
-			return schema;
-		} catch (SAXException e) {
-			log.error(ExceptionCode.MALFORMED_SCHEMA_FILE, e);
-			throw new SchemaValidationException(ExceptionCode.MALFORMED_SCHEMA_FILE, ExceptionCode.MALFORMED_SCHEMA_FILE.toString(), e);
-		} catch (Exception e) {
-			log.error(ExceptionCode.UNKNOWN, e);
-			throw new SchemaValidationException(ExceptionCode.UNKNOWN, ExceptionCode.UNKNOWN.toString(), e);
-		}
+	private Schema getSchema() throws SAXException {
+		File xsdFile = getSchemaFile();
+		SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+		Schema schema = schemaFactory.newSchema(xsdFile);
+		
+		return schema;
 	}
 	
 	/**
@@ -99,17 +97,11 @@ public class SchemaValidatorImpl implements SchemaValidator {
 	 * @return <code>javax.xml.transform.Source</code>
 	 * @throws SchemaValidationException
 	 */
-	private Source getSource(File _xmlFile) throws SchemaValidationException{
-		try {
-			InputSource inputSource = new InputSource(new FileInputStream(_xmlFile));
-			SAXSource saxSource = new SAXSource(inputSource);
-			
-			return saxSource;
-		} catch (FileNotFoundException e) {
-			throw new SchemaValidationException(ExceptionCode.FILE_NOT_FOUND,"File: "+_xmlFile, e);
-		} catch (Exception e) {
-			throw new SchemaValidationException(ExceptionCode.UNKNOWN, e);
-		}
+	private Source getSource(File _xmlFile) throws FileNotFoundException{
+		InputSource inputSource = new InputSource(new FileInputStream(_xmlFile));
+		SAXSource saxSource = new SAXSource(inputSource);
+		
+		return saxSource;
 	}
 
 }

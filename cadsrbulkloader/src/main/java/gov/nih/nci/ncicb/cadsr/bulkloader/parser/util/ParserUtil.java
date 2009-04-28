@@ -2,6 +2,7 @@ package gov.nih.nci.ncicb.cadsr.bulkloader.parser.util;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.AdminItem_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.AdminRecord_ISO11179;
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ComponentConceptList_caDSR11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ComponentConcept_caDSR11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptDerivationRule_caDSR11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Concept_caDSR11179;
@@ -155,21 +156,28 @@ public class ParserUtil {
 	}
 	
 	public String getVDLongName(ValueDomain vd) {
+		if (vd == null) return "";
+		
 		return deriveLongName(vd.getConceptDerivationRule());
 	}
 	
 	public String getLongName(ConceptDerivationRule cdr) {
 		String longName = "";
-		List<ComponentConcept> compCons = cdr.getComponentConcepts();
-		for (ComponentConcept compCon: compCons) {
-			String conLongName = compCon.getConcept().getLongName();
-			longName = longName.length()==0?conLongName:longName+" "+conLongName;
+		
+		if (cdr != null) {
+			List<ComponentConcept> compCons = cdr.getComponentConcepts();
+			for (ComponentConcept compCon: compCons) {
+				String conLongName = compCon.getConcept().getLongName();
+				longName = longName.length()==0?conLongName:longName+" "+conLongName;
+			}
 		}
 		
 		return longName;
 	}
 	
 	public String getDefinition(ConceptDerivationRule cdr) {
+		if (cdr == null) return "";
+		
 		List<ComponentConcept> compCons = cdr.getComponentConcepts();
 		StringBuffer sb = new StringBuffer();
 		for (ComponentConcept compCon: compCons) {
@@ -239,21 +247,28 @@ public class ParserUtil {
 	}
 	
 	public List<String> getConceptReferences(ConceptDerivationRule_caDSR11179 conceptDerivationRule) {
-		List<ComponentConcept_caDSR11179> componentConcepts = conceptDerivationRule.getComponentConceptsList().getComponentConcepts();
-		List<String> concepts = new ArrayList<String>(componentConcepts.size());
-		
-		ListIterator<ComponentConcept_caDSR11179> listIter = componentConcepts.listIterator();
-		for (int i=0;listIter.hasNext();i++) {
-			ComponentConcept_caDSR11179 componentConcept = listIter.next();
-			String conceptId = componentConcept.getConceptRefId();
-			int order = componentConcept.getOrder();
-			if (order > 0 && order <= concepts.size()) {
-				concepts.add(order-1, conceptId);
-			}
-			else {
-				concepts.add(conceptId);
+		List<String> concepts = new ArrayList<String>();
+
+		ComponentConceptList_caDSR11179 compConceptsList = conceptDerivationRule.getComponentConceptsList();
+		if (compConceptsList != null) {
+			List<ComponentConcept_caDSR11179> componentConcepts = compConceptsList.getComponentConcepts();
+			
+			if (componentConcepts != null) {
+				ListIterator<ComponentConcept_caDSR11179> listIter = componentConcepts.listIterator();
+				for (int i=0;listIter.hasNext();i++) {
+					ComponentConcept_caDSR11179 componentConcept = listIter.next();
+					String conceptId = componentConcept.getConceptRefId();
+					int order = componentConcept.getOrder();
+					if (order > 0 && order <= concepts.size()) {
+						concepts.add(order-1, conceptId);
+					}
+					else {
+						concepts.add(conceptId);
+					}
+				}
 			}
 		}
+		
 		
 		return concepts;
 	}
@@ -268,7 +283,7 @@ public class ParserUtil {
 		
 		int lastIndexOfConcatStr = concatConceptsBuffer.lastIndexOf(CONCEPT_CONCAT_STRING);
 		
-		String concatConceptsStr = concatConceptsBuffer.substring(0, lastIndexOfConcatStr);
+		String concatConceptsStr = lastIndexOfConcatStr>=0?concatConceptsBuffer.substring(0, lastIndexOfConcatStr):concatConceptsBuffer.toString();
 		
 		return concatConceptsStr;
 	}
@@ -286,7 +301,7 @@ public class ParserUtil {
 		
 		int lastIndexOfConcatStr = concatConceptsBuffer.lastIndexOf(CONCEPT_CONCAT_STRING);
 		
-		String concatConceptsStr = concatConceptsBuffer.substring(0, lastIndexOfConcatStr);
+		String concatConceptsStr = lastIndexOfConcatStr>=0?concatConceptsBuffer.substring(0, lastIndexOfConcatStr):concatConceptsBuffer.toString();
 		
 		return concatConceptsStr;
 	}

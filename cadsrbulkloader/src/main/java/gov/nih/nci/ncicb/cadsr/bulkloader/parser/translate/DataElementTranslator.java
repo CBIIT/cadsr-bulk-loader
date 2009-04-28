@@ -2,8 +2,12 @@ package gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ClassificationSchemeItemRef_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.DataElement_ISO11179;
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Designation_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ISO11179Elements;
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.LanguageSection_ISO11179;
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.TerminologicalEntry_ISO11179;
 import gov.nih.nci.ncicb.cadsr.domain.AdminComponentClassSchemeClassSchemeItem;
+import gov.nih.nci.ncicb.cadsr.domain.AlternateName;
 import gov.nih.nci.ncicb.cadsr.domain.ClassSchemeClassSchemeItem;
 import gov.nih.nci.ncicb.cadsr.domain.ClassificationScheme;
 import gov.nih.nci.ncicb.cadsr.domain.ClassificationSchemeItem;
@@ -41,6 +45,8 @@ public class DataElementTranslator extends AbstractTranslatorTemplate {
 		de.setValueDomain(vd);
 		de.setLongName(getDELongName(dec, vd));
 		
+		//addAlternateNames(isoDE, de);
+		
 		String publicId = util.getIdentifier(isoDE);
 		Float version = util.getIdVersion(isoDE);
 		de.setPublicId(publicId);
@@ -57,6 +63,24 @@ public class DataElementTranslator extends AbstractTranslatorTemplate {
 		String vdLongName = util.getVDLongName(vd);
 		
 		return decLongName+" "+vdLongName;
+	}
+	
+	private void addAlternateNames(DataElement_ISO11179 isoDE, DataElement de) {
+		List<TerminologicalEntry_ISO11179> isoTermEntries = isoDE.getHaving();
+		for (TerminologicalEntry_ISO11179 termEntry: isoTermEntries) {
+			List<LanguageSection_ISO11179> langSections = termEntry.getContainingEntries();
+			for (LanguageSection_ISO11179 langSection: langSections) {
+				List<Designation_ISO11179> designations = langSection.getNamingEntries();
+				for (Designation_ISO11179 designation: designations) {
+					String name = designation.getName();
+					
+					AlternateName altName = DomainObjectFactory.newAlternateName();
+					altName.setName(name);
+					
+					de.addAlternateName(altName);
+				}
+			}
+		}
 	}
 	
 	private List<AdminComponentClassSchemeClassSchemeItem> getAdminComponentCSCSI(DataElement_ISO11179 isoDE, CaDSRObjectRegistry objRegistry) {

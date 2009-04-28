@@ -5,6 +5,7 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Datatype_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.EnumeratedValueDomain_caDSR11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ISO11179Elements;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.PermissibleValue_ISO11179;
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.RepresentationClass_caDSR11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueDomain_caDSR11179;
 import gov.nih.nci.ncicb.cadsr.domain.ConceptDerivationRule;
 import gov.nih.nci.ncicb.cadsr.domain.ConceptualDomain;
@@ -63,16 +64,19 @@ public class ValueDomainTranslator extends AbstractTranslatorTemplate {
 		String id = util.getIdentifier(isoVD);
 		
 		if (id == null) {
-			ConceptDerivationRule_caDSR11179 isoCDR = isoVD.getConDerivationRule();
-			ConceptDerivationRule cdr = util.getConceptDerivationRule(isoCDR, objRegistry);
+			RepresentationClass_caDSR11179 repTerm = isoVD.getRepresentationClass();
+			
+			ConceptDerivationRule_caDSR11179 repTermCDR = repTerm.getConceptDerivationRule();
+			ConceptDerivationRule cdr = util.getConceptDerivationRule(repTermCDR, objRegistry);
 			String longName = util.getLongName(cdr);
 			String definition = util.getDefinition(cdr);
+			
 			Representation rep = DomainObjectFactory.newRepresentation();
+			rep.setLongName(longName);
 			rep.setPreferredName(longName);
 			
 			vd.setLongName(longName);
 			vd.setPreferredDefinition(definition);
-			vd.setConceptDerivationRule(cdr);
 			vd.setRepresentation(rep);
 		}
 		else {

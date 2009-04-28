@@ -1,8 +1,8 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.transformer;
 
-import java.io.File;
+import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.beans.TransformerInputParams;
 
 public interface Transformer {
 
-	public File transform (File inputFile);
+	public TransformerResult transform (TransformerInputParams _inputParams) throws TransformerException;
 }

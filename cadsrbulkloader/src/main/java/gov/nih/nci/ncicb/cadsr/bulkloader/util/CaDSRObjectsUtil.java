@@ -134,9 +134,22 @@ public class CaDSRObjectsUtil {
 	}
 	
 	public static AdminComponent setPublicIdAndVersion(AdminComponent adminComp, int publicId, double version) {
-		adminComp.setId(String.valueOf(publicId));
+		adminComp.setPublicId(String.valueOf(publicId));
 		adminComp.setVersion(new Float(version));
 		
 		return adminComp;
+	}
+	
+	public static Concept createConcept() {
+		Concept concept = DomainObjectFactory.newConcept();
+		
+		return concept;
+	}
+	
+	public static Concept createConcept(String cui) {
+		Concept concept = createConcept();
+		concept.setPreferredName(cui);
+		
+		return concept;
 	}
 }

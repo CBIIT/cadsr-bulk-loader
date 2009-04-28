@@ -1564,12 +1564,12 @@
 					Datatype</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="datatype_name" type="xs:string">
+            <xs:element name="datatype_name" type="xs:string" minOccurs="0">
                 <xs:annotation>
                     <xs:documentation>a designation for the Datatype</xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="datatype_scheme_reference" type="xs:string">
+            <xs:element name="datatype_scheme_reference" type="xs:string" minOccurs="0">
                 <xs:annotation>
                     <xs:documentation>a reference identifying the source of the Datatype
 						specification</xs:documentation>

@@ -14,7 +14,6 @@ public abstract class ValueDomain_ISO11179 extends AdminItem_ISO11179 {
 	private int maxCharacters;
 	private String unitOfMeasure;
 	private String conceptualDomainRefId;
-	private String tagId;
 	
 	public Datatype_ISO11179 getDatatype() {
 		return datatype;
@@ -46,12 +45,5 @@ public abstract class ValueDomain_ISO11179 extends AdminItem_ISO11179 {
 	public void setConceptualDomainRefId(String conceptualDomainRefId) {
 		this.conceptualDomainRefId = conceptualDomainRefId;
 	}
-	public String getTagId() {
-		return tagId;
-	}
-	public void setTagId(String tagId) {
-		this.tagId = tagId;
-	}
-	
-	
+
 }

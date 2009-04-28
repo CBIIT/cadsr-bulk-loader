@@ -189,7 +189,14 @@
         </field>
     </class>
     
+    <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ReferenceDocumentList_ISO11179">
+        <field name="referenceDocuments" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ReferenceDocument_ISO11179" >
+            <bind-xml name="iso11179:Reference_Document" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179"/>
+        </field>
+    </class>
+    
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ReferenceDocument_ISO11179">
+        
         <field name="identifier" type="string">
             <bind-xml name="iso11179:reference_document_identifier" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179"/>
         </field>
@@ -459,32 +466,74 @@
         </field>
     </class>
     
-    <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.EnumeratedValueDomain_caDSR11179" extends="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.AdminItem_ISO11179">
-        <map-to xml="caDSR:Enumerated_Value_Domain" xmlns:caDSR="http://www.ncicb.nih.gov/caDSR/schema/ISO11179"/>
-        
+    <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueDomain_ISO11179" extends="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.AdminItem_ISO11179">
         <field name="datatype" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Datatype_ISO11179" >
             <bind-xml name="iso11179:value_domain_datatype" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179" />
         </field>
-        <field name="conDerivationRule" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptDerivationRule_caDSR11179" >
-            <bind-xml name="caDSR:Concept_Derivation_Rule" xmlns:caDSR="http://www.ncicb.nih.gov/caDSR/schema/ISO11179"/>
+        <field name="format" type="string" >
+            <bind-xml name="iso11179:value_domain_format" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179" />
         </field>
-        <field name="pvList" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.PermissibleValuesList_ISO11179" >
-            <bind-xml name="Permissible_Value_List" />
+        <field name="maxCharacters" type="integer" >
+            <bind-xml name="iso11179:value_domain_maximum_character_quantity" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179" />
         </field>
-        <field name="conceptualDomainRefId" type="string">
-            <bind-xml name="having" node="attribute"/>
+        <field name="unitOfMeasure" type="string" >
+            <bind-xml name="iso11179:value_domain_unit_of_measure" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179" />
+        </field>
+        <field name="conceptualDomainRefId" type="string" >
+            <bind-xml name="having" node="attribute" />
         </field>
     </class>
     
-    <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.NonEnumeratedValueDomain_caDSR11179" extends="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.AdminItem_ISO11179">
+    <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueDomain_caDSR11179" extends="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueDomain_ISO11179">
+        <field name="conDerivationRule" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptDerivationRule_caDSR11179" >
+            <bind-xml name="caDSR:Concept_Derivation_Rule" xmlns:caDSR="http://www.ncicb.nih.gov/caDSR/schema/ISO11179" />
+        </field>
+        <field name="representationClass" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.RepresentationClass_caDSR11179" >
+            <bind-xml name="caDSR:Representation_Class" xmlns:caDSR="http://www.ncicb.nih.gov/caDSR/schema/ISO11179" />
+        </field>
+    </class>
+    
+    <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.RepresentationClass_ISO11179" extends="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.AdminItem_ISO11179">
+        <map-to xml="iso11179:Representation_Class" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179"/>
+        
+        <field name="typedBy" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueDomainRefList_ISO11179" >
+            <bind-xml name="iso11179:typed_by"  xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179" />
+        </field>
+    </class>
+    
+    <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.RepresentationClass_caDSR11179" extends="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.RepresentationClass_ISO11179">
+        <map-to xml="caDSR:Representation_Class" xmlns:caDSR="http://www.ncicb.nih.gov/caDSR/schema/ISO11179"/>
+        
+        <field name="conceptDerivationRule" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptDerivationRule_caDSR11179" >
+            <bind-xml name="caDSR:Concept_Derivation_Rule" xmlns:caDSR="http://www.ncicb.nih.gov/caDSR/schema/ISO11179" />
+        </field>
+    </class>
+    
+    <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueDomainRefList_ISO11179">
+        <field name="vdRefs" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueDomainRef_ISO11179" >
+            <bind-xml name="iso11179:Value_Domain_Ref" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179" />
+        </field>
+    </class>
+    
+    <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueDomainRef_ISO11179">
+        <map-to xml="iso11179:Value_Domain_Ref" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179"/>
+        
+        <field name="valueDomainTagRefId" type="string">
+            <bind-xml name="vdRefId" node="attribute" />
+        </field>
+    </class>
+    
+    <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.EnumeratedValueDomain_caDSR11179" extends="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueDomain_caDSR11179">
+        <map-to xml="caDSR:Enumerated_Value_Domain" xmlns:caDSR="http://www.ncicb.nih.gov/caDSR/schema/ISO11179"/>
+
+        <field name="pvList" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.PermissibleValuesList_ISO11179" >
+            <bind-xml name="Permissible_Value_List" />
+        </field>
+    </class>
+    
+    <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.NonEnumeratedValueDomain_caDSR11179" extends="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueDomain_caDSR11179">
         <map-to xml="caDSR:Non_Enumerated_Value_Domain" xmlns:caDSR="http://www.ncicb.nih.gov/caDSR/schema/ISO11179"/>
         
-        <field name="datatype" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Datatype_ISO11179" >
-            <bind-xml name="iso11179:value_domain_datatype" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179" />
-        </field>
-        <field name="conceptualDomainRefId" type="string">
-            <bind-xml name="having" node="attribute"/>
-        </field>
         <field name="description" type="string">
             <bind-xml name="non_enumerated_value_domain_description"/>
         </field>

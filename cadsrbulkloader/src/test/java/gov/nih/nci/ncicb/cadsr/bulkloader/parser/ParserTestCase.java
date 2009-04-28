@@ -1,12 +1,11 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.parser;
 
 import gov.nih.nci.ncicb.cadsr.MainTestCase;
-import gov.nih.nci.ncicb.cadsr.bulkloader.beans.CaDSRObjects;
+import gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.TranslatorResult;
+import gov.nih.nci.ncicb.cadsr.bulkloader.schema.validator.SchemaValidationResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.SpringBeansUtil;
-import gov.nih.nci.ncicb.cadsr.domain.ObjectClass;
 
 import java.io.File;
-import java.util.List;
 
 /**
  * 
@@ -24,12 +23,29 @@ public class ParserTestCase extends MainTestCase {
 	}
 	
 	public void testParse() {
-		File fileToParse = getValidFile();
-		CaDSRObjects caDSRObjects = parser.parse(fileToParse);
+		File fileToParse = new File("C:\\Docume~1\\mathura2\\Desktop\\test form1.xml");//getValidFile();
+		ParseResult parseResult = parser.parse(fileToParse);
 		
-		assertNotNull(caDSRObjects);
+		assertNotNull(parseResult);
 		
-		List<ObjectClass> ocs = caDSRObjects.getObjectClasses();
-		assertNotNull(ocs);
+		if (!parseResult.isSuccessful()) {
+			SchemaValidationResult schemaValidationResult = parseResult.getSchemaValidationResult();
+			if (!schemaValidationResult.isValid()) {
+				Exception schemaValidationException = schemaValidationResult.getException();
+				if (schemaValidationException != null) {
+					schemaValidationException.printStackTrace();
+				}
+			}
+			
+			TranslatorResult translatorResult = parseResult.getTranslatorResult();
+			if (!translatorResult.isSuccessful()) {
+				Exception translatorException = translatorResult.getException();
+				if (translatorException != null) {
+					translatorException.printStackTrace();
+				}
+			}
+		}
+		assertTrue(parseResult.isSuccessful());
+		assertNotNull(parseResult.getCaDSRObjects());
 	}
 }
