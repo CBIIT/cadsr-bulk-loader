@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:nci:caDSR" xmlns:de="urn:nci:caDSR" targetNamespace="urn:nci:caDSR" elementFormDefault="qualified">
+    
+    <xs:element name="Form" type="Form" />
+    <xs:complexType name="Form">
+        <xs:sequence>
+            <xs:element name="formName" type="xs:string" minOccurs="1" maxOccurs="1" />
+            <xs:element name="context" type="xs:string" minOccurs="1" maxOccurs="1" />
+            <xs:element name="cs" type="xs:string" minOccurs="1" maxOccurs="1" />
+            <xs:element name="csi" type="xs:string" minOccurs="1" maxOccurs="1" />
+            <xs:element name="source" type="xs:string" minOccurs="1" maxOccurs="1" />
+	    <xs:element name="questions" type="Questions" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="Questions">
+        <xs:sequence>
+            <xs:element ref="Question" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    
+    <xs:element name="Question" type="Question"/>
+    <xs:complexType name="Question">
+        <xs:sequence>
+            <xs:element name="moduleName" type="xs:string" minOccurs="0"/>
+            <xs:element name="questionNumber" type="xs:int" minOccurs="0"/>
+	    <xs:element name="alternateName" type="xs:string" minOccurs="0"/>
+	    <xs:element name="alternateNameType" type="xs:string" minOccurs="0"/>
+            <xs:element name="preferredQuestion" type="xs:string" minOccurs="0"/>
+            <xs:element name="alternateQuestion" type="xs:string" minOccurs="0"/>
+            <xs:element name="questionNotes" type="xs:string" minOccurs="0"/>
+            
+            <xs:element name="cdeId" type="xs:string" minOccurs="0"/>
+            <xs:element name="cdeLongName" type="xs:string" minOccurs="0"/>
+            <xs:element name="cdeNotes" type="xs:string" minOccurs="0"/>
+            
+            <xs:element name="decId" type="xs:string" minOccurs="0"/>
+            <xs:element name="ocQualConcepts" type="xs:string" minOccurs="0"/>
+            <xs:element name="ocPrimConcepts" type="xs:string" minOccurs="0"/>
+            <xs:element name="propQualConcepts" type="xs:string" minOccurs="0"/>
+            <xs:element name="propPrimConcepts" type="xs:string" minOccurs="0"/>
+            <xs:element name="decConceptualDomainId" type="xs:string" minOccurs="0"/>
+            <xs:element name="decNotes" type="xs:string" minOccurs="0"/>
+            
+            <xs:element name="vdId" type="xs:string" minOccurs="0"/>
+            <xs:element name="repTermQualConcepts" type="xs:string" minOccurs="0"/>
+            <xs:element name="repTermPrimConcepts" type="xs:string" minOccurs="0"/>
+            <xs:element name="vdConceptualDomainId" type="xs:string" minOccurs="0"/>
+            <xs:element name="dataType" type="xs:string" minOccurs="0"/>
+            <xs:element name="vdMaxLength" type="xs:string" minOccurs="0"/>
+            <xs:element name="enumerated" type="xs:string" minOccurs="0"/>
+            <xs:element name="pv" type="xs:string" minOccurs="0"/>
+            <xs:element name="pvLength" type="xs:string" minOccurs="0"/>
+            <xs:element name="vmConcepts" type="xs:string" minOccurs="0"/>
+            <xs:element name="vmNotes" type="xs:string" minOccurs="0"/>
+            
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
