@@ -12,9 +12,17 @@ import java.util.List;
 
 public class ValidatorTestCase extends MainTestCase {
 
+	protected boolean ignoreVD() {
+		return true;
+	}
+	
+	protected boolean isUsePrivateAPI() {
+		return true;
+	}
+	
 	public void testValidator() {
 		Validation validation = SpringBeansUtil.getValidator();
-		ValidationResult validationResult = validation.validate(getObject(), true);
+		ValidationResult validationResult = validation.validate(getObject(), getDefaultLoadProperties());
 		
 		assertNotNull(validationResult);
 		if (!validationResult.isSuccessful() || validationResult.hasErrors() ) {

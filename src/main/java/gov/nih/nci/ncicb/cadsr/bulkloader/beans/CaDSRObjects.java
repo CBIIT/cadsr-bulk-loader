@@ -1,7 +1,9 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.beans;
 
 import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
+import gov.nih.nci.ncicb.cadsr.domain.ClassificationScheme;
 import gov.nih.nci.ncicb.cadsr.domain.Concept;
+import gov.nih.nci.ncicb.cadsr.domain.Context;
 import gov.nih.nci.ncicb.cadsr.domain.DataElement;
 import gov.nih.nci.ncicb.cadsr.domain.DataElementConcept;
 import gov.nih.nci.ncicb.cadsr.domain.ObjectClass;
@@ -28,6 +30,9 @@ public class CaDSRObjects {
 	private List<Property> properties;
 	private List<Concept> concepts;
 	private List<ValueMeaning> valueMeanings;
+	
+	private Context loadContext;
+	private ClassificationScheme loadClassificationScheme;
 	
 	private List<AdminComponent> emptyList = new ArrayList<AdminComponent>();
 	
@@ -76,6 +81,19 @@ public class CaDSRObjects {
 		this.valueMeanings = valueMeanings;
 	}
 	
+	public Context getLoadContext() {
+		return loadContext;
+	}
+	public void setLoadContext(Context loadContext) {
+		this.loadContext = loadContext;
+	}
+	public ClassificationScheme getLoadClassificationScheme() {
+		return loadClassificationScheme;
+	}
+	public void setLoadClassificationScheme(
+			ClassificationScheme loadClassificationScheme) {
+		this.loadClassificationScheme = loadClassificationScheme;
+	}
 	public <T extends AdminComponent> List<? extends AdminComponent> getList(T element) {
 		if (element instanceof Concept) {
 			return getNonNullList(concepts);

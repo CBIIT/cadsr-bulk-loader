@@ -59,27 +59,27 @@ public class TransformerImpl implements Transformer {
 		File inputFile = _inputParams.getInputFile();
 		File outputFile = _inputParams.getOutputFile();
 		
-		TransformerUnMarshallResult marshallResult = unmarshaller.read(inputFile);
-		result.setMarshallerResult(marshallResult);
+		TransformerUnMarshallResult unMarshallResult = unmarshaller.read(inputFile);
+		result.setUnmarshallerResult(unMarshallResult);
 		
-		if (marshallResult.getStatus().validationPassed()) {
+		if (unMarshallResult.getStatus().validationPassed()) {
 			if (_inputParams.isValidate()) {
-				TransformerValidationResult validationResult = transformerValidation.validate(marshallResult.getUnMarshalledObject());
+				TransformerValidationResult validationResult = transformerValidation.validate(unMarshallResult.getUnMarshalledObject());
 				result.setValidationResult(validationResult);
 				
 				if (!validationResult.getStatus().validationPassed()) {
 					return result;
 				}
 			}
-			TransformerTransformationResult transformationResult = transformation.transform(marshallResult.getUnMarshalledObject());
+			TransformerTransformationResult transformationResult = transformation.transform(unMarshallResult.getUnMarshalledObject());
 			result.setTransformationResult(transformationResult);
 			
 			if (!transformationResult.getStatus().validationPassed()) {
 				return result;
 			}
 			
-			TransformerMarshallerResult unmarshallerResult = marshaller.marshall(transformationResult.getIsoElements(), outputFile);
-			result.setUnmarshallerResult(unmarshallerResult);
+			TransformerMarshallerResult marshallerResult = marshaller.marshall(transformationResult.getIsoElements(), outputFile);
+			result.setMarshallerResult(marshallerResult);
 			
 		}
 		

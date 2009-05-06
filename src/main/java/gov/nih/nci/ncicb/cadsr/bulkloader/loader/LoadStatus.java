@@ -1,4 +1,4 @@
-package gov.nih.nci.ncicb.cadsr.bulkloader;
+package gov.nih.nci.ncicb.cadsr.bulkloader.loader;
 
 public enum LoadStatus {
 

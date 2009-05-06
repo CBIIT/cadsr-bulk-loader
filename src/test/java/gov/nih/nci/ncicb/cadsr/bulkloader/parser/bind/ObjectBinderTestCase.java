@@ -8,6 +8,14 @@ import java.io.File;
 
 public class ObjectBinderTestCase extends MainTestCase {
 
+	protected boolean ignoreVD() {
+		return true;
+	}
+	
+	protected boolean isUsePrivateAPI() {
+		return true;
+	}
+	
 	public void testBind() {
 		try {
 			File toTest = getValidFile();

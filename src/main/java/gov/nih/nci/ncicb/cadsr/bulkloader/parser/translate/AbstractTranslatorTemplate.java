@@ -2,6 +2,7 @@ package gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.CaDSRObjects;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ISO11179Elements;
+import gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAOFacade;
 import gov.nih.nci.ncicb.cadsr.bulkloader.parser.util.ParserUtil;
 
 /**
@@ -16,6 +17,7 @@ public abstract class AbstractTranslatorTemplate implements Translator<CaDSRObje
 	ParserUtil util = new ParserUtil();
 	
 	private AbstractTranslatorTemplate child;
+	protected BulkLoaderDAOFacade daoFacade;
 	
 
 	public AbstractTranslatorTemplate getChild() {
@@ -24,6 +26,10 @@ public abstract class AbstractTranslatorTemplate implements Translator<CaDSRObje
 
 	public void setChild(AbstractTranslatorTemplate child) {
 		this.child = child;
+	}
+
+	public void setDaoFacade(BulkLoaderDAOFacade daoFacade) {
+		this.daoFacade = daoFacade;
 	}
 
 	public final TranslatorResult<CaDSRObjects> translate(ISO11179Elements iso11179Elements) {

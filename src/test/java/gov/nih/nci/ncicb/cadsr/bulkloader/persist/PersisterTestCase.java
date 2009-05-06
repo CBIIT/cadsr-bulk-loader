@@ -19,11 +19,19 @@ public class PersisterTestCase extends MainTestCase {
 
 	private static Persister persister = SpringBeansUtil.getPersister();
 	
+	protected boolean ignoreVD() {
+		return false;
+	}
+	
+	protected boolean isUsePrivateAPI() {
+		return true;
+	}
+	
 	public void testConceptPersistence() {
 		CaDSRObjects caDSRObjects = new CaDSRObjects();
 		caDSRObjects.setConcepts(getObjectClassConcepts());
 		
-		PersisterResult persisterResult = persister.persist(caDSRObjects);
+		PersisterResult persisterResult = persister.persist(caDSRObjects, getDefaultLoadObjects());
 		
 		doAssertions(persisterResult);
 	}
@@ -33,7 +41,7 @@ public class PersisterTestCase extends MainTestCase {
 		caDSRObjects.setObjectClasses(getObjectClassList());
 		caDSRObjects.setConcepts(getObjectClassConcepts());
 		
-		PersisterResult persisterResult = persister.persist(caDSRObjects);
+		PersisterResult persisterResult = persister.persist(caDSRObjects, getDefaultLoadObjects());
 		doAssertions(persisterResult);
 	}
 	
@@ -43,7 +51,7 @@ public class PersisterTestCase extends MainTestCase {
 		caDSRObjects.setProperties(getPropertiesList());
 		caDSRObjects.setConcepts(getPropertiesConcepts());
 		
-		PersisterResult persisterResult = persister.persist(caDSRObjects);
+		PersisterResult persisterResult = persister.persist(caDSRObjects, getDefaultLoadObjects());
 		doAssertions(persisterResult);
 	}
 	
@@ -59,7 +67,7 @@ public class PersisterTestCase extends MainTestCase {
 		caDSRObjects.setConcepts(concepts);
 		caDSRObjects.setDataElementConcepts(getDECList());
 		
-		PersisterResult persisterResult = persister.persist(caDSRObjects);
+		PersisterResult persisterResult = persister.persist(caDSRObjects, getDefaultLoadObjects());
 		doAssertions(persisterResult);
 	}
 	
@@ -73,7 +81,7 @@ public class PersisterTestCase extends MainTestCase {
 		caDSRObjects.setConcepts(concepts);
 		caDSRObjects.setValueDomains(getVDList());
 		
-		PersisterResult persisterResult = persister.persist(caDSRObjects);
+		PersisterResult persisterResult = persister.persist(caDSRObjects, getDefaultLoadObjects());
 		doAssertions(persisterResult);
 	}
 	
@@ -91,7 +99,7 @@ public class PersisterTestCase extends MainTestCase {
 		caDSRObjects.setValueDomains(getVDList());
 		caDSRObjects.setDataElements(getDEList());
 		
-		PersisterResult persisterResult = persister.persist(caDSRObjects);
+		PersisterResult persisterResult = persister.persist(caDSRObjects, getDefaultLoadObjects());
 		doAssertions(persisterResult);
 	}
 	

@@ -1,7 +1,8 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.util;
 
-import gov.nih.nci.ncicb.cadsr.bulkloader.CaDSRBulkLoader;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.CaDSRObjects;
+import gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAOFacade;
+import gov.nih.nci.ncicb.cadsr.bulkloader.loader.CaDSRBulkLoaderImpl;
 import gov.nih.nci.ncicb.cadsr.bulkloader.parser.Parser;
 import gov.nih.nci.ncicb.cadsr.bulkloader.parser.bind.ObjectBinder;
 import gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.Translator;
@@ -25,6 +26,8 @@ public class SpringBeansUtil {
 	private static final String VALIDATOR_BEAN_NAME = "validator";
 	private static final String PERSISTER_BEAN_NAME = "persister";
 	
+	private static final String DAO_FACADE = "DAOFacade";
+	
 	private static final String OBJECT_BINDER_BEAN_NAME = "objectBinder";
 	
 	private static final String EXCEL_TRANSFORMER_BEAN_NAME = "excelTransformer";
@@ -35,8 +38,8 @@ public class SpringBeansUtil {
 		return beanFactory.getBean(beanName);
 	}
 	
-	public static CaDSRBulkLoader getBulkLoader() {
-		CaDSRBulkLoader bulkLoader = (CaDSRBulkLoader)beanFactory.getBean(BULK_LOADER_BEAN_NAME);
+	public static CaDSRBulkLoaderImpl getBulkLoader() {
+		CaDSRBulkLoaderImpl bulkLoader = (CaDSRBulkLoaderImpl)beanFactory.getBean(BULK_LOADER_BEAN_NAME);
 		
 		return bulkLoader;
 	}
@@ -51,6 +54,12 @@ public class SpringBeansUtil {
 		Validation validation = (Validation)beanFactory.getBean(VALIDATOR_BEAN_NAME);
 		
 		return validation;
+	}
+	
+	public static BulkLoaderDAOFacade getDAOFacade() {
+		BulkLoaderDAOFacade daoFacade = (BulkLoaderDAOFacade)beanFactory.getBean(DAO_FACADE);
+		
+		return daoFacade;
 	}
 	
 	public static Persister getPersister() {

@@ -11,18 +11,18 @@ import java.util.List;
 
 public class TransformerResult {
 
-	private TransformerUnMarshallResult marshallerResult;
+	private TransformerMarshallerResult marshallerResult;
 	private TransformerValidationResult validationResult;
 	private TransformerTransformationResult transformationResult;
-	private TransformerMarshallerResult unmarshallerResult;
+	private TransformerUnMarshallResult unmarshallerResult;
 	
 	private TransformerStatus status;
 
-	public TransformerUnMarshallResult getMarshallerResult() {
+	public TransformerMarshallerResult getMarshallerResult() {
 		return marshallerResult;
 	}
 
-	public void setMarshallerResult(TransformerUnMarshallResult marshallerResult) {
+	public void setMarshallerResult(TransformerMarshallerResult marshallerResult) {
 		this.marshallerResult = marshallerResult;
 	}
 
@@ -43,12 +43,12 @@ public class TransformerResult {
 		this.transformationResult = transformationResult;
 	}
 
-	public TransformerMarshallerResult getUnmarshallerResult() {
+	public TransformerUnMarshallResult getUnmarshallerResult() {
 		return unmarshallerResult;
 	}
 
 	public void setUnmarshallerResult(
-			TransformerMarshallerResult unmarshallerResult) {
+			TransformerUnMarshallResult unmarshallerResult) {
 		this.unmarshallerResult = unmarshallerResult;
 	}
 

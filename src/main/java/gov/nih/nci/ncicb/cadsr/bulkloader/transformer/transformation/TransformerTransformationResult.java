@@ -1,5 +1,6 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.transformer.transformation;
 
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.LoadProperties;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ISO11179Elements;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class TransformerTransformationResult {
 
 	private ISO11179Elements isoElements;
+	private LoadProperties loadProperties;
 	private List<TransformerTransformationLineItemResult> lineItemResults;
 	private TransformerTransformationStatus status;
 	private Exception transformationException;
@@ -21,6 +23,12 @@ public class TransformerTransformationResult {
 	}
 	public void setIsoElements(ISO11179Elements isoElements) {
 		this.isoElements = isoElements;
+	}
+	public LoadProperties getLoadProperties() {
+		return loadProperties;
+	}
+	public void setLoadProperties(LoadProperties loadProperties) {
+		this.loadProperties = loadProperties;
 	}
 	public List<TransformerTransformationLineItemResult> getLineItemResults() {
 		return lineItemResults;

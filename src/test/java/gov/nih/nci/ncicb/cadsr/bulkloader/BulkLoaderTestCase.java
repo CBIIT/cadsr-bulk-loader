@@ -1,7 +1,11 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader;
 
 import gov.nih.nci.ncicb.cadsr.MainTestCase;
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.LoadProperties;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.LoaderInput;
+import gov.nih.nci.ncicb.cadsr.bulkloader.loader.CaDSRBulkLoaderImpl;
+import gov.nih.nci.ncicb.cadsr.bulkloader.loader.LoadResult;
+import gov.nih.nci.ncicb.cadsr.bulkloader.loader.LoadStatus;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.SpringBeansUtil;
 import gov.nih.nci.ncicb.cadsr.bulkloader.validate.ValidationResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.validate.ValidationStatus;
@@ -12,8 +16,16 @@ import java.io.File;
 
 public class BulkLoaderTestCase extends MainTestCase {
 	
+	protected boolean ignoreVD() {
+		return true;
+	}
+	
+	protected boolean isUsePrivateAPI() {
+		return true;
+	}
+	
 	public void testBulkLoader() {
-		CaDSRBulkLoader bulkLoader = SpringBeansUtil.getBulkLoader();
+		CaDSRBulkLoaderImpl bulkLoader = SpringBeansUtil.getBulkLoader();
 		File fileToLoad = new File("C:\\Docume~1\\mathura2\\Desktop\\11179sample2.xml"); //getValidFile();
 		
 		UserSelections.getInstance().setProperty("ignore-vd", new Boolean(false));
@@ -23,7 +35,9 @@ public class BulkLoaderTestCase extends MainTestCase {
 		input.setFileToLoad(fileToLoad);
 		input.setValidate(true);
 		
-		LoadResult result = bulkLoader.load(input);
+		LoadProperties loadProperties = getDefaultLoadProperties();
+		
+		LoadResult result = bulkLoader.load(input, loadProperties);
 		assertNotNull(result);
 		
 		Throwable exception = result.getExceptionTrace();

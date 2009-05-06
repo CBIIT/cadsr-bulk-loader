@@ -34,7 +34,7 @@ public class ExcelMarshaller implements TransformerMarshaller {
 			
 		} catch (Exception e) {
 			result.setUnmarshallerStatus(ExcelMarshallerStatus.FAILURE);
-			result.setUnmarshallException(e);
+			result.setMarshallException(e);
 		}
 		return result;
 	}

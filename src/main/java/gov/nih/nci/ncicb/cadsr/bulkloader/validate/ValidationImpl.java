@@ -1,7 +1,13 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.validate;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.CaDSRObjects;
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.LoadProperties;
 import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
+import gov.nih.nci.ncicb.cadsr.domain.ClassSchemeClassSchemeItem;
+import gov.nih.nci.ncicb.cadsr.domain.ClassificationScheme;
+import gov.nih.nci.ncicb.cadsr.domain.ClassificationSchemeItem;
+import gov.nih.nci.ncicb.cadsr.domain.Context;
+import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
 import gov.nih.nci.ncicb.cadsr.loader.ElementsLists;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationError;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationFatal;
@@ -10,6 +16,7 @@ import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationItems;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationWarning;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -17,26 +24,17 @@ public class ValidationImpl implements Validation {
 
 	private List<gov.nih.nci.ncicb.cadsr.loader.validator.Validator> validators;
 	private ElementsLists elementsList = ElementsLists.getInstance();
+	private HashMap<String, Context> contextsCache = new HashMap<String, Context>();
+	private HashMap<String, ClassificationScheme> classSchemesCache = new HashMap<String, ClassificationScheme>();
 	
-	public List<gov.nih.nci.ncicb.cadsr.loader.validator.Validator> getValidators() {
-		return validators;
-	}
-
 	public void setValidators(List<gov.nih.nci.ncicb.cadsr.loader.validator.Validator> validators) {
 		this.validators = validators;
 	}
-
-	public ValidationResult validate(CaDSRObjects caDSRObjects, boolean validate) {
-		if (validate) {
-			return validate(caDSRObjects);
-		}
-		else {
-			return getDefaultValidationResult(caDSRObjects);
-		}
-		
+	public List<gov.nih.nci.ncicb.cadsr.loader.validator.Validator> getValidators() {
+		return validators;
 	}
 	
-	private synchronized ValidationResult validate(CaDSRObjects caDSRObjects) {
+	public synchronized ValidationResult validate(CaDSRObjects caDSRObjects, LoadProperties loadProperties) {
 		ValidationResult result = new ValidationResult();
 		result.setValidationItem(caDSRObjects);
 		
@@ -44,14 +42,14 @@ public class ValidationImpl implements Validation {
 		result.setItemResults(itemResults);
 		
 		try {
-			loadElements(caDSRObjects);
+			loadElements(caDSRObjects, loadProperties);
 			
 			for (gov.nih.nci.ncicb.cadsr.loader.validator.Validator validator: validators) {
 				ValidationItems validationItems = validator.validate();
 				processValidationItems(validationItems, itemResults);
 			}
 			
-			unLoadElements(caDSRObjects);
+			unLoadElements(caDSRObjects, loadProperties);
 			
 			result.setValidationStatus(ValidationStatus.SUCCESS);
 		} catch (Exception e) {
@@ -62,26 +60,31 @@ public class ValidationImpl implements Validation {
 		return result;
 	}
 	
-	private ValidationResult getDefaultValidationResult(CaDSRObjects caDSRObjects) {
-		ValidationResult result = new ValidationResult();
-		result.setValidationStatus(ValidationStatus.SUCCESS);
-		result.setValidationItem(caDSRObjects);
-		
-		return result;
-	}
-	
-	private void loadElements(CaDSRObjects caDSRObjects) {
+	private void loadElements(CaDSRObjects caDSRObjects, LoadProperties loadProperties) {
 		List<? extends AdminComponent> adminComponents = caDSRObjects.getList();
 		for (AdminComponent adminComponent: adminComponents) {
 			elementsList.addElement(adminComponent);
 		}
+		
+		Context loadContext = getContext(loadProperties.getContextName());
+		elementsList.addElement(loadContext);
+		
+		ClassificationScheme loadClassScheme = getClassificationScheme(loadProperties.getClassificationSchemeName(), loadProperties.getClassificationSchemeItemName());			
+		elementsList.addElement(loadClassScheme);
+		
 	}
-
-	private void unLoadElements(CaDSRObjects caDSRObjects) {
+	
+	private void unLoadElements(CaDSRObjects caDSRObjects, LoadProperties loadProperties) {
 		List<? extends AdminComponent> adminComponents = caDSRObjects.getList();
 		for (AdminComponent adminComponent: adminComponents) {
 			elementsList.removeElement(adminComponent);
 		}
+		
+		Context loadContext = getContext(loadProperties.getContextName());
+		elementsList.removeElement(loadContext);
+		
+		ClassificationScheme loadClassScheme = getClassificationScheme(loadProperties.getClassificationSchemeName(), loadProperties.getClassificationSchemeItemName());			
+		elementsList.removeElement(loadClassScheme);
 	}
 	
 	private List<ValidationItemResult> processValidationItems(ValidationItems validationItems, List<ValidationItemResult> itemResults) {
@@ -105,6 +108,41 @@ public class ValidationImpl implements Validation {
 		}
 		
 		return itemResults;
+	}
+	
+	private Context getContext(String contextName) {
+		Context loadContext = contextsCache.get(contextName);
+		if ( loadContext == null) {
+			loadContext = DomainObjectFactory.newContext();
+			loadContext.setName(contextName);
+			contextsCache.put(contextName, loadContext);
+		}
+		
+		return loadContext;
+	}
+	
+	private ClassificationScheme getClassificationScheme(String classSchemeName, String classSchemeItemName) {
+		ClassificationScheme loadClassScheme = classSchemesCache.get(classSchemeName);
+		if (loadClassScheme == null) {
+			loadClassScheme = DomainObjectFactory.newClassificationScheme();
+			loadClassScheme.setPreferredName(classSchemeName);
+			
+			ClassificationSchemeItem loadCSI = DomainObjectFactory.newClassificationSchemeItem();
+			loadCSI.setPreferredName(classSchemeItemName);
+			
+			ClassSchemeClassSchemeItem loadCsCSI = DomainObjectFactory.newClassSchemeClassSchemeItem();
+			loadCsCSI.setCs(loadClassScheme);
+			loadCsCSI.setCsi(loadCSI);
+			
+			List<ClassSchemeClassSchemeItem> loadCSCSIs = new ArrayList<ClassSchemeClassSchemeItem>();
+			loadCSCSIs.add(loadCsCSI);
+			
+			loadClassScheme.setCsCsis(loadCSCSIs);
+			
+			classSchemesCache.put(classSchemeName, loadClassScheme);
+		}
+		
+		return loadClassScheme;
 	}
 	
 }

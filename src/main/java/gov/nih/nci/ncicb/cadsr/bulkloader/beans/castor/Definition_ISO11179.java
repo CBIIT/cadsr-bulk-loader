@@ -10,6 +10,7 @@ package gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor;
 public class Definition_ISO11179 {
 
 	private String text;
+	private String type;
 	private boolean preferredDefinition;
 	private ReferenceDocument_ISO11179 sourceReference;
 	
@@ -18,6 +19,12 @@ public class Definition_ISO11179 {
 	}
 	public void setText(String text) {
 		this.text = text;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	public boolean isPreferredDefinition() {
 		return preferredDefinition;

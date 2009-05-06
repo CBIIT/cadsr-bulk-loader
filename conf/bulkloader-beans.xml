@@ -2,7 +2,8 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
  
 <beans>
-
+                                <!-- Transformation -->
+  
 	<bean name="excelTransformer" class="gov.nih.nci.ncicb.cadsr.bulkloader.transformer.TransformerImpl" >
 		<property name="unmarshaller" ref="excelUnMarshaller" />
 		<property name="transformerValidation" ref="excelValidator" />
@@ -15,11 +16,15 @@
 	<bean name="excelTransformation" class="gov.nih.nci.ncicb.cadsr.bulkloader.excel.transformer.transformation.ExcelTransformation" />
 	<bean name="excelMarshaller" class="gov.nih.nci.ncicb.cadsr.bulkloader.excel.transformer.marshall.ExcelMarshaller" />
 
-	<bean name="bulkLoader" class="gov.nih.nci.ncicb.cadsr.bulkloader.CaDSRBulkLoader" >
+
+                                  <!-- Loading -->
+  
+	<bean name="bulkLoader" class="gov.nih.nci.ncicb.cadsr.bulkloader.loader.CaDSRBulkLoaderImpl" >
 	  <property name="parser" ref="parser" />
 	  <property name="validator" ref="validator" />
-	  <!-- <property name="dao" ref="dataElementDAO" /> -->
+	  <property name="daoFacade" ref="DAOFacade" />
 	</bean>
+  
   									<!-- Parser -->
   									
   <bean name="parser" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.ParserImpl" >
@@ -76,8 +81,6 @@
   <bean name="csiTranslator" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.ClassificationSchemeItemTranslator" />
 
 
-
-
   									<!-- Validators -->
   									
   <bean name="validator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.ValidationImpl" >
@@ -96,10 +99,16 @@
     <property name="dao" ref="DAOFacade" />
   </bean>    
     
+    
+                              <!-- Persister -->
+    
   <bean name="persister" class="gov.nih.nci.ncicb.cadsr.bulkloader.persist.PersisterImpl">
     <property name="dao" ref="DAOFacade" />
   </bean>
   
+  
+                                <!-- DAOs -->
+    
   <bean name="DAOFacade" class="gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAOFacadeImpl">
     <constructor-arg ref="daoFactory"/>
     <property name="evsDAO" ref="evsDAO" />
@@ -117,43 +126,17 @@
   </bean>
   
   <bean name="writeDAO" class="gov.nih.nci.ncicb.cadsr.bulkloader.dao.write.BulkLoaderWriteDAOImpl">
-    <property name="persisterMap" >
-      <map>
-        <entry key="concept" value-ref="conceptPersister" />
-        <entry key="objectClass" value-ref="objectClassPersister" />
-        <entry key="property" value-ref="propertyPersister" />
-        <entry key="dataElementConcept" value-ref="decPersister" />
-        <entry key="valueDomain" value-ref="valueDomainPersister" />
-        <entry key="dataElement" value-ref="dePersister" />
-      </map>
+    <property name="persisters" >
+      <list>
+        <ref bean="conceptPersister" />
+        <ref bean="objectClassPersister" />
+        <ref bean="propertyPersister" />
+        <ref bean="decPersister" />
+        <ref bean="valueDomainPersister" />
+        <ref bean="dePersister" />
+      </list>
     </property>
   </bean>
-  
-   									<!-- Loaders -->
-   							
- <!-- <bean name="conceptsLoader" class="gov.nih.nci.ncicb.cadsr.bulkloader.ext.ExternalLoaderImpl">
- 	<property name="persister" ref="conceptPersister" />
-  </bean>
-  
-  <bean name="propertyLoader" class="gov.nih.nci.ncicb.cadsr.bulkloader.ext.ExternalLoaderImpl">
- 	<property name="persister" ref="propertyPersister" />
-  </bean>
-  
-  <bean name="objectClassLoader" class="gov.nih.nci.ncicb.cadsr.bulkloader.ext.ExternalLoaderImpl">
- 	<property name="persister" ref="objectClassPersister" />
-  </bean>
-  
-  <bean name="decLoader" class="gov.nih.nci.ncicb.cadsr.bulkloader.ext.ExternalLoaderImpl">
- 	<property name="persister" ref="decPersister" />
-  </bean>
-  
-  <bean name="valueDomainLoader" class="gov.nih.nci.ncicb.cadsr.bulkloader.ext.ExternalLoaderImpl">
- 	<property name="persister" ref="valueDomainPersister" />
-  </bean>
-  
-  <bean name="dataElementLoader" class="gov.nih.nci.ncicb.cadsr.bulkloader.ext.ExternalLoaderImpl">
- 	<property name="persister" ref="dePersister" />
-  </bean>-->
   
   
                                     <!-- Datasource -->

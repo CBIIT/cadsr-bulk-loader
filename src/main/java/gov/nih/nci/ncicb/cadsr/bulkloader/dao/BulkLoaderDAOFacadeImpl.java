@@ -2,21 +2,29 @@ package gov.nih.nci.ncicb.cadsr.bulkloader.dao;
 
 import gov.nih.nci.evs.domain.DescLogicConcept;
 import gov.nih.nci.evs.domain.Qualifier;
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.CaDSRObjects;
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.LoadObjects;
 import gov.nih.nci.ncicb.cadsr.bulkloader.dao.factory.BulkLoaderDAOFactory;
 import gov.nih.nci.ncicb.cadsr.bulkloader.dao.read.BulkLoaderReadDAO;
 import gov.nih.nci.ncicb.cadsr.bulkloader.dao.read.LexEVSDAO;
 import gov.nih.nci.ncicb.cadsr.bulkloader.dao.write.BulkLoaderWriteDAO;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.CaDSRObjectsUtil;
+import gov.nih.nci.ncicb.cadsr.dao.ClassificationSchemeDAO;
+import gov.nih.nci.ncicb.cadsr.dao.EagerConstants;
 import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
+import gov.nih.nci.ncicb.cadsr.domain.ClassSchemeClassSchemeItem;
+import gov.nih.nci.ncicb.cadsr.domain.ClassificationScheme;
 import gov.nih.nci.ncicb.cadsr.domain.Concept;
+import gov.nih.nci.ncicb.cadsr.domain.Context;
 import gov.nih.nci.ncicb.cadsr.domain.DataElement;
 import gov.nih.nci.ncicb.cadsr.domain.DataElementConcept;
+import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
 import gov.nih.nci.ncicb.cadsr.domain.ObjectClass;
 import gov.nih.nci.ncicb.cadsr.domain.Property;
 import gov.nih.nci.ncicb.cadsr.domain.ValueDomain;
+import gov.nih.nci.ncicb.cadsr.loader.util.DAOAccessor;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
@@ -29,6 +37,7 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 	private LexEVSDAO evsDAO;
 	
 	private HashMap<String, Concept> evsConceptsCache = new HashMap<String, Concept>();
+	private HashMap<String, ClassificationScheme> classSchemeCache = new HashMap<String, ClassificationScheme>();
 	
 	public BulkLoaderDAOFacadeImpl(BulkLoaderDAOFactory _daoFactory) {
 		daoFactory = _daoFactory;
@@ -103,29 +112,8 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 		return readDAO.findValueDomainsById(publicId, version);
 	}
 	
-	public void saveConcepts(Collection<Concept> adminComponents) {
-		writeDAO.saveConcepts(adminComponents);
-	}
-
-	public void saveDataElementConcepts(
-			Collection<DataElementConcept> adminComponents) {
-		writeDAO.saveDataElementConcepts(adminComponents);
-	}
-
-	public void saveDataElements(Collection<DataElement> adminComponents) {
-		writeDAO.saveDataElements(adminComponents);
-	}
-
-	public void saveObjectClasses(Collection<ObjectClass> adminComponents) {
-		writeDAO.saveObjectClasses(adminComponents);
-	}
-
-	public void saveProperties(Collection<Property> adminComponents) {
-		writeDAO.saveProperties(adminComponents);
-	}
-
-	public void saveValueDomains(Collection<ValueDomain> adminComponents) {
-		writeDAO.saveValueDomains(adminComponents);
+	public Context findContextByName(String contextName) {
+		return readDAO.findContextByName(contextName);
 	}
 	
 	public Concept findConceptByCUI(String cui) {
@@ -176,6 +164,47 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 		concept.setEvsSource(source);
 		
 		return concept;
+	}
+	
+	public ClassificationScheme getClassificationScheme(ClassificationScheme classScheme) {
+		String preferredName = classScheme.getPreferredName();
+		if (preferredName != null && classSchemeCache.get(preferredName) != null) {
+			return classSchemeCache.get(preferredName);
+		}
+		
+		ClassificationSchemeDAO classSchemeDAO = DAOAccessor.getClassificationSchemeDAO();
+		List<String> eager = new ArrayList<String>();
+		eager.add(EagerConstants.CS_CSI);
+		List<ClassificationScheme> classificationSchemes = classSchemeDAO.find(classScheme, eager);
+		
+		ClassificationScheme returnCS;
+		
+		if (classificationSchemes != null && classificationSchemes.size() > 0) {
+			returnCS = classificationSchemes.get(0);
+		}
+		else returnCS = DomainObjectFactory.newClassificationScheme();
+		
+		classSchemeCache.put(returnCS.getLongName(), returnCS);
+		return returnCS;
+	}
+	
+	public ClassificationScheme getClassificationScheme(String csName) {
+		ClassificationScheme cs = DomainObjectFactory.newClassificationScheme();
+		cs.setPreferredName(csName);
+		
+		return getClassificationScheme(cs);
+	}
+	
+	public List<ClassSchemeClassSchemeItem> getClassSchemeClassSchemeItems(String csName) {
+		ClassificationSchemeDAO csDAO = DAOAccessor.getClassificationSchemeDAO();
+		List<ClassSchemeClassSchemeItem> csCSIs = csDAO.getCsCsis(csName);
+		
+		return csCSIs;
+	}
+	
+	
+	public void save(CaDSRObjects caDSRObjects, LoadObjects loadObjects) {
+		writeDAO.save(caDSRObjects, loadObjects);
 	}
 	
 }

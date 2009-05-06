@@ -313,6 +313,9 @@
         <field name="name" type="string">
             <bind-xml name="iso11179:name" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179"/>
         </field>
+        <field name="type" type="string">
+            <bind-xml name="iso11179:type" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179"/>
+        </field>
         <field name="preferredDesignation" type="boolean">
             <bind-xml name="iso11179:preferred_designation" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179"/>
         </field>
@@ -324,6 +327,9 @@
     <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Definition_ISO11179">
         <field name="text" type="string">
             <bind-xml name="iso11179:definition_text" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179"/>
+        </field>
+        <field name="type" type="string">
+            <bind-xml name="iso11179:type" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179"/>
         </field>
         <field name="preferredDefinition" type="boolean">
             <bind-xml name="iso11179:preferred_definition" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179"/>

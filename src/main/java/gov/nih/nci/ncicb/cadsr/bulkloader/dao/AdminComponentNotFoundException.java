@@ -1,7 +1,7 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.dao;
 
-import gov.nih.nci.ncicb.cadsr.bulkloader.BulkLoaderException;
-import gov.nih.nci.ncicb.cadsr.bulkloader.ExceptionCode;
+import gov.nih.nci.ncicb.cadsr.bulkloader.loader.BulkLoaderException;
+import gov.nih.nci.ncicb.cadsr.bulkloader.loader.ExceptionCode;
 
 public class AdminComponentNotFoundException extends BulkLoaderException {
 

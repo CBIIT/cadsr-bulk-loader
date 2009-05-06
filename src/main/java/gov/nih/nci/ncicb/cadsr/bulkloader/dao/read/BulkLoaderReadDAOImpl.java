@@ -2,6 +2,7 @@ package gov.nih.nci.ncicb.cadsr.bulkloader.dao.read;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.CaDSRObjectsUtil;
 import gov.nih.nci.ncicb.cadsr.dao.ConceptDAO;
+import gov.nih.nci.ncicb.cadsr.dao.ContextDAO;
 import gov.nih.nci.ncicb.cadsr.dao.DataElementConceptDAO;
 import gov.nih.nci.ncicb.cadsr.dao.DataElementDAO;
 import gov.nih.nci.ncicb.cadsr.dao.ObjectClassDAO;
@@ -9,8 +10,10 @@ import gov.nih.nci.ncicb.cadsr.dao.PropertyDAO;
 import gov.nih.nci.ncicb.cadsr.dao.ValueDomainDAO;
 import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
 import gov.nih.nci.ncicb.cadsr.domain.Concept;
+import gov.nih.nci.ncicb.cadsr.domain.Context;
 import gov.nih.nci.ncicb.cadsr.domain.DataElement;
 import gov.nih.nci.ncicb.cadsr.domain.DataElementConcept;
+import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
 import gov.nih.nci.ncicb.cadsr.domain.ObjectClass;
 import gov.nih.nci.ncicb.cadsr.domain.Property;
 import gov.nih.nci.ncicb.cadsr.domain.ValueDomain;
@@ -79,6 +82,10 @@ public class BulkLoaderReadDAOImpl implements BulkLoaderReadDAO {
 		ObjectClassDAO ocDAO = DAOAccessor.getObjectClassDAO();
 		List<ObjectClass> ocs = ocDAO.find(objectClass);
 		
+		if (ocs == null) {
+			ocs = new ArrayList<ObjectClass>();
+		}
+		
 		return ocs;
 	}
 	
@@ -86,12 +93,22 @@ public class BulkLoaderReadDAOImpl implements BulkLoaderReadDAO {
 		PropertyDAO propDAO = DAOAccessor.getPropertyDAO();
 		List<Property> prop = propDAO.find(property);
 		
+		if (prop == null) {
+			prop = new ArrayList<Property>();
+		}
+		
 		return prop;
 	}
 	
 	public List<ValueDomain> findValueDomains(ValueDomain valueDomain) {
-		ValueDomainDAO propDAO = DAOAccessor.getValueDomainDAO();
-		List<ValueDomain> vd = propDAO.find(valueDomain);
+		ValueDomainDAO vdDAO = DAOAccessor.getValueDomainDAO();
+		List<String> eager = new ArrayList<String>();
+		eager.add("valueDomainPermissibleValues");
+		List<ValueDomain> vd = vdDAO.find(valueDomain, eager);
+		
+		if (vd == null) {
+			vd = new ArrayList<ValueDomain>();
+		}
 		
 		return vd;
 	}
@@ -222,6 +239,18 @@ public class BulkLoaderReadDAOImpl implements BulkLoaderReadDAO {
 		}
 		else {
 			return new ArrayList<Concept>();
+		}
+	}
+	
+	public Context findContextByName(String contextName) {
+		ContextDAO contextDAO = DAOAccessor.getContextDAO();
+		Context context = contextDAO.findByName(contextName);
+		
+		if (context != null) {
+			return context;
+		}
+		else {
+			return CaDSRObjectsUtil.createContext();
 		}
 	}
 	
