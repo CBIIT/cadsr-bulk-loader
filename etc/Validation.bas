@@ -13,8 +13,8 @@ Dim formTable As Range
 
 status = True
 intFirstRow = 5
-firstColumn = "F"
-lastColumn = "Z"
+firstColumn = "H"
+lastColumn = "AB"
 
 ' determine last row in sheet
 
@@ -28,12 +28,15 @@ Call ClearEWSheets
 For intRowLoop = intFirstRow To intLastRow
     If NotEmpty(intRowLoop, firstColumn, lastColumn) Then
         Call DoRules(intRowLoop, firstColumn, lastColumn)
-        'If DoDataRules(intRowLoop, lastColumn) Then status = False
+        If DoDataRules(intRowLoop, lastColumn) Then status = False
     End If
 Next intRowLoop
 
-If (Application.CountA(Worksheets("Error List").UsedRange) > 0 _
+'If (Application.CountA(Worksheets("Error List").UsedRange) > 0 _
 Or Application.CountA(Worksheets("Warning List").UsedRange) > 0) _
+Then status = False
+
+If (Application.CountA(Worksheets("Error List").UsedRange) > 0) _
 Then status = False
 
 CheckData = status
@@ -57,7 +60,7 @@ Private Function CDataFormat(rowNumber As Integer, fc As Range, lc As Range) As 
     Dim lCol As Integer
     Dim status As Boolean
     Dim rng As Range
-    
+
     fCol = fc.Column
     lCol = lc.Column
     status = True
@@ -76,7 +79,7 @@ Private Function CheckConcept(rng As Range) As Boolean
     Dim concept As Integer
     conceptual = InStr(rng.XPath.Value, "conceptual")
     concept = InStr(rng.XPath.Value, "Concepts")
-    cPattern = "C\d{3,6}(:(\s?\w*\s?)*)?"
+    cPattern = "^C\d{3,6}(:(\s?\w*\s?)*)?$"
     If (conceptual = 0) Then
         If (concept > 0) Then CheckConcept = CSplitConcepts(rng, cPattern)
     End If
@@ -89,8 +92,11 @@ Private Function CSplitConcepts(rng As Range, cPattern As String) As Boolean
     avarSplit = Split(rng.Value, ";")
     For intIndex = LBound(avarSplit) To UBound(avarSplit)
         temp = avarSplit(intIndex)
-         If Not (ValidString(cPattern, Trim(temp))) Then CSplitConcepts = False
-         
+         If Not (ValidString(cPattern, Trim(temp))) Then
+            Call SetErrorComment(rng, "Malformed Concept Code")
+            Call SetError(rng, "Malformed Concept Code")
+            CSplitConcepts = False
+         End If
     Next
         
     CSplitConcepts = True
@@ -326,7 +332,7 @@ Private Sub SetError(rng As Range, msg As String)
     Loop
     
     Set errorRng = firstRng.Offset(0, lCol)
-    Call MakeLink(mySheet, errorRng, "'" & rng.Worksheet.Name & "'!" & rng.Address, msg, msg)
+    Call MakeLink(mySheet, errorRng, "'" & rng.Worksheet.Name & "'!" & rng.Address, rng.Address & ":" & msg, msg)
     errorRng.EntireColumn.AutoFit
     
 End Sub
@@ -353,7 +359,7 @@ Private Sub SetWarning(rng As Range, msg As String)
     Loop
     Set errorRng = firstRng.Offset(0, lCol)
     
-    Call MakeLink(mySheet, errorRng, "'" & rng.Worksheet.Name & "'!" & rng.Address, msg, msg)
+    Call MakeLink(mySheet, errorRng, "'" & rng.Worksheet.Name & "'!" & rng.Address, rng.Address & ": " & msg, msg)
     
     errorRng.EntireColumn.AutoFit
     
@@ -454,6 +460,7 @@ Dim intLastRow As Integer
 Dim intFirstRow As Integer
 Dim intRowLoop As Integer
 Dim status As Boolean
+Dim formTable As Range
 
 intFirstRow = 5
 firstColumn = "F"
@@ -462,8 +469,11 @@ lastColumn = "Z"
 ' determine last row in sheet
 
 Set objExcel = CreateObject("Excel.Application")
-Worksheets("Curation Worksheet").UsedRange.SpecialCells(xlCellTypeLastCell).Activate
-intLastRow = ActiveCell.row
+'Worksheets("Curation Worksheet").UsedRange.SpecialCells(xlCellTypeLastCell).Activate
+'intLastRow = ActiveCell.row
+
+Set formTable = Worksheets("Curation Worksheet").ListObjects("FormTable").Range
+intLastRow = formTable.Cells(1, 1).row + formTable.Rows.Count - 1
 
 Call ClearEWSheets
 
