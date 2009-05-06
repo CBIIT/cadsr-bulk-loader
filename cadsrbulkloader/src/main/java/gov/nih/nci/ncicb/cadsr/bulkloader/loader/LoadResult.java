@@ -1,4 +1,4 @@
-package gov.nih.nci.ncicb.cadsr.bulkloader;
+package gov.nih.nci.ncicb.cadsr.bulkloader.loader;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.LoaderInput;
 import gov.nih.nci.ncicb.cadsr.bulkloader.parser.ParseResult;

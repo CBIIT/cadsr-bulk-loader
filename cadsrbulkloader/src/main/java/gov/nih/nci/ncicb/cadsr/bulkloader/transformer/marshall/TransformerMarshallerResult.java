@@ -3,28 +3,28 @@ package gov.nih.nci.ncicb.cadsr.bulkloader.transformer.marshall;
 
 public class TransformerMarshallerResult {
 
-	private TransformerMarshallerStatus unmarshallerStatus;
-	private Exception unmarshallException;
+	private TransformerMarshallerStatus marshallerStatus;
+	private Exception marshallException;
 
-	public TransformerMarshallerStatus getUnmarshallerStatus() {
-		return unmarshallerStatus;
+	public TransformerMarshallerStatus getMarshallerStatus() {
+		return marshallerStatus;
 	}
 
 	public void setUnmarshallerStatus(
 			TransformerMarshallerStatus unmarshallerStatus) {
-		this.unmarshallerStatus = unmarshallerStatus;
+		this.marshallerStatus = unmarshallerStatus;
 	}
 
 	public Exception getUnmarshallException() {
-		return unmarshallException;
+		return marshallException;
 	}
 
-	public void setUnmarshallException(Exception unmarshallException) {
-		this.unmarshallException = unmarshallException;
+	public void setMarshallException(Exception marshallException) {
+		this.marshallException = marshallException;
 	}
 	
 	public boolean hasErrors() {
-		if (unmarshallException != null) {
+		if (marshallException != null) {
 			return true;
 		}
 		

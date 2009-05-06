@@ -1,6 +1,6 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.dao;
 
-import gov.nih.nci.ncicb.cadsr.bulkloader.BulkLoaderRuntimeException;
+import gov.nih.nci.ncicb.cadsr.bulkloader.loader.BulkLoaderRuntimeException;
 
 /**
  * 

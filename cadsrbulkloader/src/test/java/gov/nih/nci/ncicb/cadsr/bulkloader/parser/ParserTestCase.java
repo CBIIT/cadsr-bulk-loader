@@ -22,6 +22,14 @@ public class ParserTestCase extends MainTestCase {
 		parser = SpringBeansUtil.getParser();
 	}
 	
+	protected boolean ignoreVD() {
+		return true;
+	}
+	
+	protected boolean isUsePrivateAPI() {
+		return true;
+	}
+	
 	public void testParse() {
 		File fileToParse = new File("C:\\Docume~1\\mathura2\\Desktop\\test form1.xml");//getValidFile();
 		ParseResult parseResult = parser.parse(fileToParse);

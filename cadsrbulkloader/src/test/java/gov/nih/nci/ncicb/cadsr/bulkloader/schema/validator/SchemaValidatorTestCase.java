@@ -25,6 +25,14 @@ public class SchemaValidatorTestCase extends MainTestCase {
 		classLoader = SchemaValidatorTestCase.class.getClassLoader();
 	}
 	
+	protected boolean ignoreVD() {
+		return true;
+	}
+	
+	protected boolean isUsePrivateAPI() {
+		return true;
+	}
+	
 	public void testValidFile() {
 		File sampleXMLFile = getValidXMLFile();
 		SchemaValidationResult validationResult = validator.validate(sampleXMLFile);

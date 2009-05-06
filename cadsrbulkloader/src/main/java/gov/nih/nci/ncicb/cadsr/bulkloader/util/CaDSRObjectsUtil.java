@@ -4,6 +4,7 @@ import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
 import gov.nih.nci.ncicb.cadsr.domain.ComponentConcept;
 import gov.nih.nci.ncicb.cadsr.domain.Concept;
 import gov.nih.nci.ncicb.cadsr.domain.ConceptDerivationRule;
+import gov.nih.nci.ncicb.cadsr.domain.Context;
 import gov.nih.nci.ncicb.cadsr.domain.DataElement;
 import gov.nih.nci.ncicb.cadsr.domain.DataElementConcept;
 import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
@@ -151,5 +152,19 @@ public class CaDSRObjectsUtil {
 		concept.setPreferredName(cui);
 		
 		return concept;
+	}
+	
+	public static Context createContext() {
+		Context context =  DomainObjectFactory.newContext();
+		
+		return context;
+	}
+	
+	public static Context createContext(String contextName) {
+		Context context = createContext();
+		
+		context.setName(contextName);
+		
+		return context;
 	}
 }

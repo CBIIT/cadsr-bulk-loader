@@ -1,8 +1,11 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.dao;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.dao.read.BulkLoaderReadDAO;
-import gov.nih.nci.ncicb.cadsr.bulkloader.dao.read.LexEVSDAO;
 import gov.nih.nci.ncicb.cadsr.bulkloader.dao.write.BulkLoaderWriteDAO;
+import gov.nih.nci.ncicb.cadsr.domain.ClassSchemeClassSchemeItem;
+import gov.nih.nci.ncicb.cadsr.domain.ClassificationScheme;
+
+import java.util.List;
 
 /**
  * 
@@ -12,5 +15,7 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.dao.write.BulkLoaderWriteDAO;
  */
 
 public interface BulkLoaderDAOFacade extends BulkLoaderReadDAO, BulkLoaderWriteDAO{
-	
+	public ClassificationScheme getClassificationScheme(ClassificationScheme classScheme);
+	public ClassificationScheme getClassificationScheme(String csName);
+	public List<ClassSchemeClassSchemeItem> getClassSchemeClassSchemeItems(String csName);
 }

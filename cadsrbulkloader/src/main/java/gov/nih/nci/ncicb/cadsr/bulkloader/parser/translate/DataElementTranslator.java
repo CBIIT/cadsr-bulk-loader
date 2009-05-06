@@ -45,7 +45,7 @@ public class DataElementTranslator extends AbstractTranslatorTemplate {
 		de.setValueDomain(vd);
 		de.setLongName(getDELongName(dec, vd));
 		
-		//addAlternateNames(isoDE, de);
+		addAlternateNames(isoDE, de);
 		
 		String publicId = util.getIdentifier(isoDE);
 		Float version = util.getIdVersion(isoDE);
@@ -73,9 +73,11 @@ public class DataElementTranslator extends AbstractTranslatorTemplate {
 				List<Designation_ISO11179> designations = langSection.getNamingEntries();
 				for (Designation_ISO11179 designation: designations) {
 					String name = designation.getName();
+					String type = designation.getType();
 					
 					AlternateName altName = DomainObjectFactory.newAlternateName();
 					altName.setName(name);
+					altName.setType(type);
 					
 					de.addAlternateName(altName);
 				}
@@ -96,7 +98,7 @@ public class DataElementTranslator extends AbstractTranslatorTemplate {
 			ClassSchemeClassSchemeItem csCSI = DomainObjectFactory.newClassSchemeClassSchemeItem();
 			csCSI.setCs(cs);
 			csCSI.setCsi(csi);
-			csCSI.setId("4E5E03B0-CEA6-202B-E044-0003BA3F9857");
+			//csCSI.setId("4E5E03B0-CEA6-202B-E044-0003BA3F9857");
 			
 			AdminComponentClassSchemeClassSchemeItem acCSCSI = DomainObjectFactory.newAdminComponentClassSchemeClassSchemeItem();
 			acCSCSI.setCsCsi(csCSI);

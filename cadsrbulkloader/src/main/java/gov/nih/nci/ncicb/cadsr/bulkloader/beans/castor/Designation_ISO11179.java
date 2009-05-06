@@ -10,6 +10,7 @@ package gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor;
 public class Designation_ISO11179 {
 
 	private String name;
+	private String type;
 	private boolean preferredDesignation;
 	private Definition_ISO11179 specificallyReferencing;
 	
@@ -18,6 +19,12 @@ public class Designation_ISO11179 {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	public boolean isPreferredDesignation() {
 		return preferredDesignation;

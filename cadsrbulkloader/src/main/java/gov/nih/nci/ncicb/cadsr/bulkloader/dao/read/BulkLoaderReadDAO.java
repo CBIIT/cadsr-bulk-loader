@@ -2,6 +2,7 @@ package gov.nih.nci.ncicb.cadsr.bulkloader.dao.read;
 
 import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
 import gov.nih.nci.ncicb.cadsr.domain.Concept;
+import gov.nih.nci.ncicb.cadsr.domain.Context;
 import gov.nih.nci.ncicb.cadsr.domain.DataElement;
 import gov.nih.nci.ncicb.cadsr.domain.DataElementConcept;
 import gov.nih.nci.ncicb.cadsr.domain.ObjectClass;
@@ -34,4 +35,7 @@ public interface BulkLoaderReadDAO {
 	public List<ValueDomain> findValueDomains(ValueDomain valueDomain);
 	
 	public Concept findConceptByCUI(String cui);
+	
+	public Context findContextByName(String contextName);
+
 }

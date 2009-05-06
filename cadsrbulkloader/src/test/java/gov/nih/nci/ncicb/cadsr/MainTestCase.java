@@ -1,7 +1,12 @@
 package gov.nih.nci.ncicb.cadsr;
 
-import gov.nih.nci.ncicb.cadsr.bulkloader.beans.DefaultProperties;
-import gov.nih.nci.ncicb.cadsr.bulkloader.parser.ParserTestCase;
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.LoadObjects;
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.LoadProperties;
+import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
+import gov.nih.nci.ncicb.cadsr.domain.AdminComponentClassSchemeClassSchemeItem;
+import gov.nih.nci.ncicb.cadsr.domain.ClassSchemeClassSchemeItem;
+import gov.nih.nci.ncicb.cadsr.domain.ClassificationScheme;
+import gov.nih.nci.ncicb.cadsr.domain.ClassificationSchemeItem;
 import gov.nih.nci.ncicb.cadsr.domain.ComponentConcept;
 import gov.nih.nci.ncicb.cadsr.domain.Concept;
 import gov.nih.nci.ncicb.cadsr.domain.ConceptDerivationRule;
@@ -17,6 +22,8 @@ import gov.nih.nci.ncicb.cadsr.domain.Representation;
 import gov.nih.nci.ncicb.cadsr.domain.ValueDomain;
 import gov.nih.nci.ncicb.cadsr.domain.ValueMeaning;
 import gov.nih.nci.ncicb.cadsr.domain.bean.ConceptBean;
+import gov.nih.nci.ncicb.cadsr.loader.UserSelections;
+import gov.nih.nci.ncicb.cadsr.loader.util.UserPreferences;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -32,7 +39,7 @@ import junit.framework.TestCase;
  * @since 
  */
 
-public class MainTestCase extends TestCase {
+public abstract class MainTestCase extends TestCase {
 
 	protected final String validFilePath = "gov/nih/nci/ncicb/cadsr/bulkloader/schema/validator/nmdp_template_conforming.xml";
 	protected final String invalidFilePath = "gov/nih/nci/ncicb/cadsr/bulkloader/schema/validator/invalid.xml";
@@ -66,6 +73,8 @@ public class MainTestCase extends TestCase {
 	protected void setUp() throws Exception {
 		// TODO Auto-generated method stub
 		super.setUp();
+		UserSelections.getInstance().setProperty("ignore-vd", new Boolean(ignoreVD()));
+		UserPreferences.getInstance().setUsePrivateApi(isUsePrivateAPI());
 	}
 
 	@Override
@@ -73,6 +82,9 @@ public class MainTestCase extends TestCase {
 		// TODO Auto-generated method stub
 		super.tearDown();
 	}
+	
+	protected abstract boolean ignoreVD();
+	protected abstract boolean isUsePrivateAPI();
 	
 	protected File getValidFile() {
 		return getClasspathFile(validFilePath);
@@ -88,16 +100,6 @@ public class MainTestCase extends TestCase {
 		File f  = new File(filePath);
 		
 		return f;
-	}
-
-	protected DefaultProperties getDefaultProperties() {
-		DefaultProperties defaultProperties = new DefaultProperties();
-		
-		defaultProperties.setProjectName("caCORE 3.2");
-		defaultProperties.setVersion(3.2f);
-		defaultProperties.setUsername("SBREXT");
-		
-		return defaultProperties;
 	}
 	
 	protected List<DataElement> getDEList() {
@@ -118,6 +120,7 @@ public class MainTestCase extends TestCase {
 				de.setDataElementConcept(dec);
 				de.setValueDomain(vd);
 				de.setLongName(getDELongName(dec, vd));
+				addCSCSIs(de);
 				
 				dataElements.add(de);
 			}
@@ -399,4 +402,59 @@ public class MainTestCase extends TestCase {
 		return propertiesConcepts;
 	}
 	
+	private void addCSCSIs(AdminComponent adminComp) {
+		List<AdminComponentClassSchemeClassSchemeItem> newACCsCSIs = new ArrayList<AdminComponentClassSchemeClassSchemeItem>();
+		
+		ClassificationScheme classScheme = DomainObjectFactory.newClassificationScheme();
+		classScheme.setLongName("NMDP: CDEs to review");
+		
+		ClassificationSchemeItem classSchemeItem = DomainObjectFactory.newClassificationSchemeItem();
+		classSchemeItem.setLongName("2100: 100 Days Post-HSCT Data");
+		
+		ClassSchemeClassSchemeItem csCsi = DomainObjectFactory.newClassSchemeClassSchemeItem();
+		csCsi.setCs(classScheme);
+		csCsi.setCsi(classSchemeItem);
+		
+		AdminComponentClassSchemeClassSchemeItem acCsCsi = DomainObjectFactory.newAdminComponentClassSchemeClassSchemeItem();
+		acCsCsi.setCsCsi(csCsi);
+		
+		newACCsCSIs.add(acCsCsi);
+		
+		adminComp.setAcCsCsis(newACCsCSIs);
+	}
+	
+	protected Context getDefaultContext() {
+		Context ctx = DomainObjectFactory.newContext();
+		ctx.setName("NHLBI");
+		
+		return ctx;
+	}
+	
+	protected ClassificationScheme getDefaultClassificationScheme() {
+		ClassificationScheme classScheme = DomainObjectFactory.newClassificationScheme();
+		classScheme.setPreferredName("NMDP: CDEs to be Reviewed");
+		classScheme.setLongName("NMDP: CDEs to review");
+		classScheme.setPreferredDefinition("NMDP CDEs to be reviewed");
+		
+		return classScheme;
+	}
+	
+	protected LoadProperties getDefaultLoadProperties() {
+		
+		LoadProperties loadProperties = new LoadProperties();
+		loadProperties.setContextName("NHLBI");
+		loadProperties.setClassificationSchemeName("NMDP: CDEs to be Reviewed");
+		loadProperties.setClassificationSchemeItemName("2100: 100 Days Post-HSCT Data");
+		
+		return loadProperties;
+	}
+	
+	protected LoadObjects getDefaultLoadObjects() {
+		LoadObjects loadObjects = new LoadObjects();
+		
+		loadObjects.setLoadContext(getDefaultContext());
+		loadObjects.setLoadClassScheme(getDefaultClassificationScheme());
+		
+		return loadObjects;
+	}
 }

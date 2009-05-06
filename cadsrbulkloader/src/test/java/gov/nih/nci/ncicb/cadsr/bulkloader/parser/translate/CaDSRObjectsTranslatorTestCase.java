@@ -16,6 +16,14 @@ import java.util.List;
 
 public class CaDSRObjectsTranslatorTestCase extends MainTestCase {
 
+	protected boolean ignoreVD() {
+		return true;
+	}
+	
+	protected boolean isUsePrivateAPI() {
+		return true;
+	}
+	
 	public void testTranslator() {
 		Translator<CaDSRObjects> translator = SpringBeansUtil.getCaDSRObjectsTranslator();
 		ISO11179Elements iso11179Elements = get11179Elements();

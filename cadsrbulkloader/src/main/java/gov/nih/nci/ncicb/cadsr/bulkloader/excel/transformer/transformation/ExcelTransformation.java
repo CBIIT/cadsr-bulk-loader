@@ -1,5 +1,6 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.excel.transformer.transformation;
 
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.LoadProperties;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.AdminItem_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.AdminRecord_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ClassificationSchemeItemList_caDSR11179;
@@ -93,6 +94,13 @@ public class ExcelTransformation implements TransformerTransformation {
 		
 		excelForm = (ExcelForm)marshalledObject;
 		ISO11179Elements isoElements = new ISO11179Elements();
+		
+		LoadProperties loadProperties = new LoadProperties();
+		loadProperties.setContextName(excelForm.getContext());
+		loadProperties.setClassificationSchemeName(excelForm.getClassScheme());
+		loadProperties.setClassificationSchemeItemName(excelForm.getClassSchemeItem());
+		loadProperties.setLoadSource(excelForm.getSource());
+		result.setLoadProperties(loadProperties);
 		
 		List<ExcelQuestion> questions = excelForm.getQuestions();
 		
@@ -204,9 +212,10 @@ public class ExcelTransformation implements TransformerTransformation {
 				
 				String conceptId = idAndNames[i][0];
 				String conceptName = idAndNames[i][1];
+				String source = excelForm.getSource();
 				
 				isoConcept.setCode(conceptId);
-				setNameDefAndSource(conceptName, conceptName, "NMDP", isoConcept);
+				setNameDefAndSource(conceptName, conceptName, source, isoConcept);
 				String randTagId = "CON-"+getRandomString();
 				isoConcept.setTagId(randTagId);
 				
