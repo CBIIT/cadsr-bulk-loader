@@ -6,7 +6,7 @@ public class TransformerUnMarshallResult {
 
 	private Item unMarshalledObject;
 	private TransformerUnMarshallerStatus status;
-	private Exception marshallException;
+	private Exception unMarshallException;
 	
 	public Item getUnMarshalledObject() {
 		return unMarshalledObject;
@@ -20,15 +20,15 @@ public class TransformerUnMarshallResult {
 	public void setStatus(TransformerUnMarshallerStatus status) {
 		this.status = status;
 	}
-	public void setMarshallException(Exception marshallException) {
-		this.marshallException = marshallException;
+	public void setUnMarshallException(Exception unMarshallException) {
+		this.unMarshallException = unMarshallException;
 	}
-	public Exception getMarshallException() {
-		return marshallException;
+	public Exception getUnMarshallException() {
+		return unMarshallException;
 	}
 	
 	public boolean hasErrors() {
-		if (marshallException == null) {
+		if (unMarshallException == null) {
 			if (status != null) {
 				if (status.validationPassed()) {
 					return false;

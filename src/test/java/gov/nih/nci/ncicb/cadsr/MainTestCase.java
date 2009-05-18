@@ -2,6 +2,7 @@ package gov.nih.nci.ncicb.cadsr;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.LoadObjects;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.LoadProperties;
+import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.beans.TransformerInputParams;
 import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
 import gov.nih.nci.ncicb.cadsr.domain.AdminComponentClassSchemeClassSchemeItem;
 import gov.nih.nci.ncicb.cadsr.domain.ClassSchemeClassSchemeItem;
@@ -22,10 +23,9 @@ import gov.nih.nci.ncicb.cadsr.domain.Representation;
 import gov.nih.nci.ncicb.cadsr.domain.ValueDomain;
 import gov.nih.nci.ncicb.cadsr.domain.ValueMeaning;
 import gov.nih.nci.ncicb.cadsr.domain.bean.ConceptBean;
-import gov.nih.nci.ncicb.cadsr.loader.UserSelections;
-import gov.nih.nci.ncicb.cadsr.loader.util.UserPreferences;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -73,8 +73,6 @@ public abstract class MainTestCase extends TestCase {
 	protected void setUp() throws Exception {
 		// TODO Auto-generated method stub
 		super.setUp();
-		UserSelections.getInstance().setProperty("ignore-vd", new Boolean(ignoreVD()));
-		UserPreferences.getInstance().setUsePrivateApi(isUsePrivateAPI());
 	}
 
 	@Override
@@ -82,9 +80,6 @@ public abstract class MainTestCase extends TestCase {
 		// TODO Auto-generated method stub
 		super.tearDown();
 	}
-	
-	protected abstract boolean ignoreVD();
-	protected abstract boolean isUsePrivateAPI();
 	
 	protected File getValidFile() {
 		return getClasspathFile(validFilePath);
@@ -94,12 +89,38 @@ public abstract class MainTestCase extends TestCase {
 		return getClasspathFile(invalidFilePath);
 	}
 	
-	private File getClasspathFile(String fileName) {
+	protected String getClasspath() {
 		ClassLoader classLoader = MainTestCase.class.getClassLoader();
-		String filePath = classLoader.getResource(fileName).getPath();
-		File f  = new File(filePath);
+		String filePath = classLoader.getResource(".").getPath();
 		
+		return filePath;
+	}
+	
+	protected File getClasspathFile(String fileName) {
+		String classpath = getClasspath();
+		File f  = new File(classpath+fileName);
+		
+		if (!f.exists()) {
+			try {
+				f.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		return f;
+	}
+	
+	protected TransformerInputParams getParams(String _inputFilePath, String _outputFilePath) {
+		TransformerInputParams inputParams = new TransformerInputParams();
+		
+		File inputFile = getClasspathFile(_inputFilePath);
+		File outputFile = getClasspathFile(_outputFilePath);
+		
+		inputParams.setInputFile(inputFile);
+		inputParams.setOutputFile(outputFile);
+		inputParams.setValidate(true);
+		
+		return inputParams;
 	}
 	
 	protected List<DataElement> getDEList() {

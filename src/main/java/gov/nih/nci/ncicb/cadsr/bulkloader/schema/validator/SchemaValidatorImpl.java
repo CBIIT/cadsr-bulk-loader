@@ -73,9 +73,9 @@ public class SchemaValidatorImpl implements SchemaValidator {
 	 * @throws SchemaValidationException
 	 */
 	private Schema getSchema() throws SAXException {
-		File xsdFile = getSchemaFile();
+		URL xsdURL = getSchemaURL();
 		SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-		Schema schema = schemaFactory.newSchema(xsdFile);
+		Schema schema = schemaFactory.newSchema(xsdURL);
 		
 		return schema;
 	}
@@ -84,11 +84,10 @@ public class SchemaValidatorImpl implements SchemaValidator {
 	 * Gets the schema file
 	 * @return File
 	 */
-	private File getSchemaFile() {
+	private URL getSchemaURL() {
 		URL xsdURL = classLoader.getResource(xsdFilePath);
-		File xsdFile = new File(xsdURL.getPath());
 		
-		return xsdFile;
+		return xsdURL;
 	}
 	
 	/**

@@ -15,7 +15,7 @@ public class TransformerMarshallerResult {
 		this.marshallerStatus = unmarshallerStatus;
 	}
 
-	public Exception getUnmarshallException() {
+	public Exception getMarshallException() {
 		return marshallException;
 	}
 

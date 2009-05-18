@@ -55,6 +55,9 @@ public class TransformerImpl implements Transformer {
 	public TransformerResult transform(TransformerInputParams _inputParams)
 			throws TransformerException {
 		TransformerResult result = new TransformerResult();
+		result.setStatus(TransformerStatusImpl.FAILED);
+		
+		result.setInputParams(_inputParams);
 		
 		File inputFile = _inputParams.getInputFile();
 		File outputFile = _inputParams.getOutputFile();
@@ -83,7 +86,7 @@ public class TransformerImpl implements Transformer {
 			
 		}
 		
-		
+		result.setStatus(TransformerStatusImpl.PASSED);
 		return result;
 	}
 }

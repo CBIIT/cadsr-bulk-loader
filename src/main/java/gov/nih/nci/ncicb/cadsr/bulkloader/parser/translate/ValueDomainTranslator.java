@@ -39,6 +39,7 @@ public class ValueDomainTranslator extends AbstractTranslatorTemplate {
 		String cdRefId = isoVD.getConceptualDomainRefId();
 		ConceptualDomain conceptDomain = objRegistry.getConceptualDomain(cdRefId);
 		String vdLongName = util.getPreferredQuestionText(isoVD);
+		if (vdLongName == null) vdLongName = "";
 		
 		String enumerated = "N";
 		if (isoVD instanceof  EnumeratedValueDomain_caDSR11179) {

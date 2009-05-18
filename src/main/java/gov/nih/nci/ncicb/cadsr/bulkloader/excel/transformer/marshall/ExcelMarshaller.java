@@ -55,8 +55,8 @@ public class ExcelMarshaller implements TransformerMarshaller {
 		marshaller.setMapping(mapping);
 		marshaller.setNamespaceMapping("iso11179", "http://www.cancergrid.org/schema/ISO11179");
 		marshaller.setNamespaceMapping("caDSR", "http://www.ncicb.nih.gov/caDSR/schema/ISO11179");
-		marshaller.setSchemaLocation("http://www.cancergrid.org/schema/ISO11179 file:/C:/work/code/cadsrbulkloader/src/java/gov/nih/nci/ncicb/cadsr/bulkloader/schema/iso11179_updated.xsd " +
-										"http://www.ncicb.nih.gov/caDSR/schema/ISO11179 file:/C:/work/code/cadsrbulkloader/src/java/gov/nih/nci/ncicb/cadsr/bulkloader/schema/cadsr_iso11179.xsd");
+		marshaller.setSchemaLocation("http://www.cancergrid.org/schema/ISO11179 gov/nih/nci/ncicb/cadsr/bulkloader/schema/iso11179_updated.xsd " +
+										"http://www.ncicb.nih.gov/caDSR/schema/ISO11179 gov/nih/nci/ncicb/cadsr/bulkloader/schema/cadsr_iso11179.xsd");
 		
 		return marshaller;
 	}

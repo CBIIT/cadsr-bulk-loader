@@ -1,40 +1,54 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.excel.transformer;
 
+import gov.nih.nci.ncicb.cadsr.MainTestCase;
 import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.Transformer;
 import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.TransformerResult;
-import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.TransformerStatus;
 import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.beans.TransformerInputParams;
-import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.validation.TransformerValidationLineItemResult;
+import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.unmarshall.TransformerUnMarshallResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.validation.TransformerValidationResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.SpringBeansUtil;
 
-import java.io.File;
-import java.util.List;
+public class ExcelTransformerTestCase extends MainTestCase {
 
-import junit.framework.TestCase;
-
-public class ExcelTransformerTestCase extends TestCase {
-
-	public void testExcelTransformer() {
-		Transformer transformer = SpringBeansUtil.getExcelTransformer();
-		TransformerInputParams inputParams = new TransformerInputParams();
-		
-		inputParams.setInputFile(new File("C:\\Docume~1\\mathura2\\Desktop\\test form1.xml"));
-		inputParams.setOutputFile(new File("C:\\Docume~1\\mathura2\\Desktop\\test form1_11179.xml"));
-		inputParams.setValidate(true);
-		
+	private static Transformer transformer = SpringBeansUtil.getInstance().getExcelTransformer();
+	private static String dataFilePath = "gov/nih/nci/ncicb/cadsr/bulkloader/excel/transformer";
+	
+	public void testValidTransform() {
+		String inputFile = dataFilePath+"/valid_form1.xml";
+		String outputFile = dataFilePath+"/valid_form1_11179.xml";
+		TransformerInputParams inputParams = getParams(inputFile, outputFile);
 		TransformerResult result = transformer.transform(inputParams);
 		
-		TransformerValidationResult validationResult = result.getValidationResult();
-		if (validationResult != null) {
-			List<TransformerValidationLineItemResult> lineItemResults = validationResult.getLineItemResults();
-			for (TransformerValidationLineItemResult lineItemResult: lineItemResults) {
-				List<TransformerStatus> statuses = lineItemResult.getStatuses();
-				for (TransformerStatus status: statuses) {
-					System.out.println(status.getMessage());
-				}
-			}
-		}
-		//assertTrue(!result.hasErrors());
+		assertTrue(!result.hasErrors());
 	}
+	
+	public void testValidationErrors() {
+		String inputFile = dataFilePath+"/header_error_form1.xml";
+		String outputFile = dataFilePath+"/header_error_form1_11179.xml";
+		TransformerInputParams inputParams = getParams(inputFile, outputFile);
+		
+		TransformerResult result = transformer.transform(inputParams);
+		TransformerValidationResult validationResult = result.getValidationResult();
+		
+		assertNotNull(result);
+		assertNotNull(validationResult);
+		assertTrue(result.hasErrors());
+		assertTrue(validationResult.hasErrors());
+	}
+	
+	public void testUnMarshallErrors() {
+		String inputFile = dataFilePath+"/invalid_ques_form1.xml";
+		String outputFile = dataFilePath+"/invalid_ques_form1_11179.xml";
+		TransformerInputParams inputParams = getParams(inputFile, outputFile);
+		
+		TransformerResult result = transformer.transform(inputParams);
+		TransformerUnMarshallResult unMarshallResult = result.getUnmarshallerResult();
+		
+		assertNotNull(result);
+		assertNotNull(unMarshallResult);
+		assertTrue(result.hasErrors());
+		assertTrue(unMarshallResult.hasErrors());
+	}
+	
+	
 }

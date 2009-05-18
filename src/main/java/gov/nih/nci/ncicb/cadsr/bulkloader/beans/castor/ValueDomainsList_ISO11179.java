@@ -12,11 +12,17 @@ import java.util.List;
 
 public class ValueDomainsList_ISO11179 {
 
-	private List<ValueDomain_caDSR11179> valueDomains = new ArrayList<ValueDomain_caDSR11179>();
 	private List<ValueDomain_caDSR11179> enumVDs;
 	private List<ValueDomain_caDSR11179> nonEnumVDs;
 
 	public List<ValueDomain_caDSR11179> getValueDomains() {
+		List<ValueDomain_caDSR11179> valueDomains = new ArrayList<ValueDomain_caDSR11179>();
+		if (enumVDs != null) {
+			valueDomains.addAll(enumVDs);
+		}
+		if (nonEnumVDs != null) {
+			valueDomains.addAll(nonEnumVDs);
+		}
 		return valueDomains;
 	}
 
@@ -25,9 +31,7 @@ public class ValueDomainsList_ISO11179 {
 	}
 
 	public void setEnumVDs(List<ValueDomain_caDSR11179> enumVDs) {
-		valueDomains.removeAll(enumVDs);
 		this.enumVDs = enumVDs;
-		valueDomains.addAll(enumVDs);
 	}
 
 	public List<ValueDomain_caDSR11179> getNonEnumVDs() {
@@ -35,9 +39,7 @@ public class ValueDomainsList_ISO11179 {
 	}
 
 	public void setNonEnumVDs(List<ValueDomain_caDSR11179> nonEnumVDs) {
-		valueDomains.removeAll(nonEnumVDs);
 		this.nonEnumVDs = nonEnumVDs;
-		valueDomains.addAll(nonEnumVDs);
 	}
 	
 	

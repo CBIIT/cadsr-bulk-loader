@@ -32,6 +32,12 @@ public class ExcelValidationStatus implements TransformerValidationStatus {
 	
 	public static final ExcelValidationStatus INVALID_ENUMERATED = new ExcelValidationStatus(33, "The data entered in the 'Enumerated' field is invalid");
 	
+	public static final ExcelValidationStatus BLANK_FORM_NAME = new ExcelValidationStatus(35, "Form Name cannot be blank");
+	public static final ExcelValidationStatus BLANK_CONTEXT_NAME = new ExcelValidationStatus(37, "Context Name cannot be blank");
+	public static final ExcelValidationStatus BLANK_CS = new ExcelValidationStatus(39, "Classification Scheme cannot be blank");
+	public static final ExcelValidationStatus BLANK_CSI = new ExcelValidationStatus(41, "Classification Scheme Item cannot be blank");
+	public static final ExcelValidationStatus BLANK_SOURCE = new ExcelValidationStatus(43, "Source cannot be blank");
+	
 	private int errorCode;
 	private String message;
 	

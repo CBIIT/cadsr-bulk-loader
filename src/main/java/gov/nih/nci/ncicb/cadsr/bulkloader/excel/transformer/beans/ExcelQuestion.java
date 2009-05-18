@@ -39,6 +39,8 @@ public class ExcelQuestion extends Item {
 	private String vmConcepts;
 	private String vmNotes;
 	
+	private boolean isBlank = true;
+	
 	@Override
 	public int getItemNumber() {
 		return 0;
@@ -130,12 +132,16 @@ public class ExcelQuestion extends Item {
 	}
 	public void setQuestionNumber(int questionNumber) {
 		this.questionNumber = questionNumber;
+		if (isBlank) {
+			isBlank = false;
+		}
 	}
 	public String getAlternateName() {
 		return alternateName;
 	}
 	public void setAlternateName(String alternateName) {
 		this.alternateName = alternateName;
+		if (isBlank) { isBlank = false; }
 	}
 	public String getAlternateNameType() {
 		return alternateNameType;
@@ -143,6 +149,7 @@ public class ExcelQuestion extends Item {
 
 	public void setAlternateNameType(String alternateNameType) {
 		this.alternateNameType = alternateNameType;
+		if (isBlank) { isBlank = false; }
 	}
 
 	public String getPreferredQuestion() {
@@ -150,72 +157,84 @@ public class ExcelQuestion extends Item {
 	}
 	public void setPreferredQuestion(String preferredQuestion) {
 		this.preferredQuestion = preferredQuestion;
+		if (isBlank) { isBlank = false; }
 	}
 	public String getAlternateQuestion() {
 		return alternateQuestion;
 	}
 	public void setAlternateQuestion(String alternateQuestion) {
 		this.alternateQuestion = alternateQuestion;
+		if (isBlank) { isBlank = false; }
 	}
 	public String getQuestionNotes() {
 		return questionNotes;
 	}
 	public void setQuestionNotes(String questionNotes) {
 		this.questionNotes = questionNotes;
+		if (isBlank) { isBlank = false; }
 	}
 	public String getCdeId() {
 		return cdeId;
 	}
 	public void setCdeId(String cdeId) {
 		this.cdeId = cdeId;
+		if (isBlank) { isBlank = false; }
 	}
 	public String getCdeLongName() {
 		return cdeLongName;
 	}
 	public void setCdeLongName(String cdeLongName) {
 		this.cdeLongName = cdeLongName;
+		if (isBlank) { isBlank = false; }
 	}
 	public String getCdeNotes() {
 		return cdeNotes;
 	}
 	public void setCdeNotes(String cdeNotes) {
 		this.cdeNotes = cdeNotes;
+		if (isBlank) { isBlank = false; }
 	}
 	public String getDecId() {
 		return decId;
 	}
 	public void setDecId(String decId) {
 		this.decId = decId;
+		if (isBlank) { isBlank = false; }
 	}
 	public String getOcQualConcepts() {
 		return ocQualConcepts;
 	}
 	public void setOcQualConcepts(String ocQualConcepts) {
 		this.ocQualConcepts = ocQualConcepts;
+		if (isBlank) { isBlank = false; }
 	}
 	public String getOcPrimConcepts() {
 		return ocPrimConcepts;
 	}
 	public void setOcPrimConcepts(String ocPrimConcepts) {
 		this.ocPrimConcepts = ocPrimConcepts;
+		if (isBlank) { isBlank = false; }
 	}
 	public String getPropQualConcepts() {
 		return propQualConcepts;
 	}
 	public void setPropQualConcepts(String propQualConcepts) {
 		this.propQualConcepts = propQualConcepts;
+		if (isBlank) { isBlank = false; }
 	}
 	public String getPropPrimConcepts() {
 		return propPrimConcepts;
 	}
 	public void setPropPrimConcepts(String propPrimConcepts) {
 		this.propPrimConcepts = propPrimConcepts;
+		if (isBlank) { isBlank = false; }
 	}
 	public String getDecConceptualDomainId() {
 		return decConceptualDomainId;
 	}
 	public void setDecConceptualDomainId(String decConceptualDomainId) {
 		this.decConceptualDomainId = decConceptualDomainId;
+		if (isBlank) { isBlank = false; }
 	}
 	public String getDecNotes() {
 		return decNotes;
@@ -228,60 +247,70 @@ public class ExcelQuestion extends Item {
 	}
 	public void setVdId(String vdId) {
 		this.vdId = vdId;
+		if (isBlank) { isBlank = false; }
 	}
 	public String getRepTermQualConcepts() {
 		return repTermQualConcepts;
 	}
 	public void setRepTermQualConcepts(String repTermQualConcepts) {
 		this.repTermQualConcepts = repTermQualConcepts;
+		if (isBlank) { isBlank = false; }
 	}
 	public String getRepTermPrimConcepts() {
 		return repTermPrimConcepts;
 	}
 	public void setRepTermPrimConcepts(String repTermPrimConcepts) {
 		this.repTermPrimConcepts = repTermPrimConcepts;
+		if (isBlank) { isBlank = false; }
 	}
 	public String getVdConceptualDomainId() {
 		return vdConceptualDomainId;
 	}
 	public void setVdConceptualDomainId(String vdConceptualDomainId) {
 		this.vdConceptualDomainId = vdConceptualDomainId;
+		if (isBlank) { isBlank = false; }
 	}
 	public String getDataType() {
 		return dataType;
 	}
 	public void setDataType(String dataType) {
 		this.dataType = dataType;
+		if (isBlank) { isBlank = false; }
 	}
 	public String getVdMaxLength() {
 		return vdMaxLength;
 	}
 	public void setVdMaxLength(String vdMaxLength) {
 		this.vdMaxLength = vdMaxLength;
+		if (isBlank) { isBlank = false; }
 	}
 	public String getEnumerated() {
 		return enumerated;
 	}
 	public void setEnumerated(String enumerated) {
 		this.enumerated = enumerated;
+		if (isBlank) { isBlank = false; }
 	}
 	public String getPv() {
 		return pv;
 	}
 	public void setPv(String pv) {
 		this.pv = pv;
+		if (isBlank) { isBlank = false; }
 	}
 	public String getPvLength() {
 		return pvLength;
 	}
 	public void setPvLength(String pvLength) {
 		this.pvLength = pvLength;
+		if (isBlank) { isBlank = false; }
 	}
 	public String getVmConcepts() {
 		return vmConcepts;
 	}
 	public void setVmConcepts(String vmConcepts) {
 		this.vmConcepts = vmConcepts;
+		if (isBlank) { isBlank = false; }
 	}
 	public String getVmNotes() {
 		return vmNotes;
@@ -290,4 +319,7 @@ public class ExcelQuestion extends Item {
 		this.vmNotes = vmNotes;
 	}
 	
+	public boolean isBlank() {
+		return isBlank;
+	}
 }

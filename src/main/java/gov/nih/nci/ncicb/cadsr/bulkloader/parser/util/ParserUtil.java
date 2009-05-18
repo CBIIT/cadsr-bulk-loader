@@ -142,15 +142,24 @@ public class ParserUtil {
 	}
 	
 	public String deriveLongName(ConceptDerivationRule cdr) {
+		StringBuffer longName = new StringBuffer();
+		
 		if (cdr != null) {
 			List<ComponentConcept> compConcepts = cdr.getComponentConcepts();
-			String longName = "";
 			for (ComponentConcept compCon: compConcepts) {
 				String conLongName = compCon.getConcept().getLongName();
-				longName = longName.length()==0?conLongName:longName+" "+conLongName;
+				if (conLongName != null) {
+					longName.append(" ");
+					longName.append(conLongName);
+				}
 			}
 			
-			return longName;
+			if (longName.length() > 0) {
+				return longName.substring(1);
+			}
+			else {
+				return "";
+			}
 		}
 		return null;
 	}
@@ -162,17 +171,26 @@ public class ParserUtil {
 	}
 	
 	public String getLongName(ConceptDerivationRule cdr) {
-		String longName = "";
+		StringBuffer longName = new StringBuffer();
 		
 		if (cdr != null) {
 			List<ComponentConcept> compCons = cdr.getComponentConcepts();
 			for (ComponentConcept compCon: compCons) {
 				String conLongName = compCon.getConcept().getLongName();
-				longName = longName.length()==0?conLongName:longName+" "+conLongName;
+				if (conLongName != null) {
+					longName.append(" ");
+					longName.append(conLongName);
+					
+				}
 			}
 		}
 		
-		return longName;
+		if (longName.length() > 0) {
+			return longName.substring(1);
+		}
+		else {
+			return "";
+		}
 	}
 	
 	public String getDefinition(ConceptDerivationRule cdr) {

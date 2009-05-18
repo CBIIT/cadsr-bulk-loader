@@ -46,7 +46,7 @@ public class CSCSIValidator implements Validator {
 				ClassificationScheme cs = csCSI.getCs();
 				ClassificationSchemeItem csi = csCSI.getCsi();
 				
-				if (cs == null || cs.getLongName()==null || csi==null || csi.getLongName()==null) {
+				if (cs == null || cs.getPreferredName()==null || csi==null || csi.getLongName()==null) {
 					ValidationItem validationItem = new ValidationError("All Data Elements need to have a Classification Scheme and a Classification Scheme Item", dataElement);
 					validationItems.addItem(validationItem);
 				}

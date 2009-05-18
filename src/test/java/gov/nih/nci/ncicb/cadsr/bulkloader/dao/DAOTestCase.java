@@ -12,7 +12,7 @@ import java.util.List;
 
 public class DAOTestCase extends MainTestCase {
 
-	private BulkLoaderDAOFacade dao = SpringBeansUtil.getDAOFacade();
+	private BulkLoaderDAOFacade dao = SpringBeansUtil.getInstance().getDAOFacade();
 	
 	protected boolean ignoreVD() {
 		return true;
