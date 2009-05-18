@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     May 8, 2009 12:08:16 PM                                                        
+
+     caDSR Bulk Loader    
+                
+     mathura2                                                                
+     ====================================================================== -->
+<project name="caDSR Bulk Loader" default="compile">
+
+	<property file="build.properties"/>
+		
+	<path id="src.compile.path">
+		<fileset dir="${LIB.DIR}">
+        	<include name="**/*.jar"/>
+      	</fileset>
+	</path>
+	
+	<path id="test.compile.path">
+		<fileset dir="${LIB.DIR}">
+        	<include name="**/*.jar"/>
+      	</fileset>
+		<pathelement location="${SRC.CLASSES.DIR}"/>
+	</path>
+	
+	<patternset id="test.src">
+		<include name="${TEST.DIR}"/>
+		<include name="${TEST.DATA.DIR}"/>
+	</patternset>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: init                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="init">
+        <mkdir dir="${SRC.CLASSES.DIR}"/>
+    	<mkdir dir="${TEST.CLASSES.DIR}"/>
+    	<mkdir dir="${OUT.CONF.DIR}"/>
+    	<mkdir dir="${JAR.DIR}"/>
+    	<mkdir dir="${PACKAGE.WIN.DIR}"/>
+    	<mkdir dir="${PACKAGE.WIN.LIB.DIR}"/>
+    </target>
+
+	<!-- ================================= 
+          target: clean              
+         ================================= -->
+    <target name="clean">
+    	<delete dir="${OUT.DIR}"/>
+    </target>
+
+    <!-- ================================= 
+          target: default              
+         ================================= -->
+    <target name="compile-src" depends="init" description="description">
+    	
+        <javac srcdir="${SRC.DIR}"
+         destdir="${SRC.CLASSES.DIR}"
+         classpathref="src.compile.path"
+         debug="on" />
+    	
+    </target>
+	
+	<target name="compile-test" depends="init" description="description">
+	    
+    	<javac srcdir="${TEST.DIR}"
+	         destdir="${TEST.CLASSES.DIR}"
+	         classpathref="test.compile.path"
+	         debug="on" />
+        	
+    </target>
+
+	<!-- ================================= 
+          target: compile              
+         ================================= -->
+    <target name="compile" depends="compile-src, compile-test" description="description" />
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: conf                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="conf">
+    	<copy todir="${OUT.CONF.DIR}">
+    		<fileset dir="${CONF.DIR}" >
+			    <include name="**/*"/>
+			</fileset>
+    	</copy>
+    </target>
+
+	<!-- ================================= 
+          target: jar              
+         ================================= -->
+    <target name="jar" depends="compile, conf" description="description">
+        <jar destfile="${JAR.DIR}/${PROJECT.NAME}.jar">
+        	<fileset dir="${SRC.CLASSES.DIR}">
+			    <include name="**/*.class"/>
+			</fileset>
+			<fileset dir="${OUT.CONF.DIR}" >
+			    <include name="**/*.*"/>
+			</fileset>
+        </jar>
+    </target>
+	
+	<target name="jar-src">
+        <jar destfile="${JAR.DIR}/${PROJECT.NAME}-src.jar">
+        	<fileset dir="${SRC.DIR}">
+			    <include name="**/*.*"/>
+			</fileset>
+        </jar>
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: copy-lib                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="copy-lib">
+        
+    </target>
+
+
+	<!-- ================================= 
+	          target: dist              
+	         ================================= -->
+	    <target name="dist" depends="jar" />
+	
+	<!-- ================================= 
+          target: package              
+         ================================= -->
+    <target name="package" depends="compile, conf" description="description">
+    	<jar destfile="${PACKAGE.WIN.DIR}/${PROJECT.NAME}.jar">
+        	<fileset dir="${SRC.CLASSES.DIR}">
+			    <include name="**/*.class"/>
+			</fileset>
+			<fileset dir="${OUT.CONF.DIR}" >
+			    <include name="**/*.*"/>
+			</fileset>
+        </jar>
+    	<copy todir="${PACKAGE.WIN.LIB.DIR}">
+    		<fileset dir="${LIB.DIR}" >
+			    <include name="*.jar"/>
+			</fileset>
+    	</copy>
+    	<copy todir="${PACKAGE.WIN.DIR}">
+    		<fileset dir="${SCRIPTS.DIR}" >
+			    <include name="*.*"/>
+			</fileset>
+    	</copy>
+    </target>
+
+</project>
