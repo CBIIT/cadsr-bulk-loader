@@ -17,7 +17,7 @@ public class ClassificationScheme_ISO11179 extends AdminItem_ISO11179{
 
 	private String typeName;
 	private String name;
-	private float version;
+	private Float version;
 	private List<ClassificationSchemeItemRef_ISO11179> containing;
 	
 	public String getTypeName() {
@@ -32,10 +32,10 @@ public class ClassificationScheme_ISO11179 extends AdminItem_ISO11179{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public float getVersion() {
+	public Float getVersion() {
 		return version;
 	}
-	public void setVersion(float version) {
+	public void setVersion(Float version) {
 		this.version = version;
 	}
 	public List<ClassificationSchemeItemRef_ISO11179> getContaining() {

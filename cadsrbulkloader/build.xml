@@ -6,7 +6,7 @@
                 
      mathura2                                                                
      ====================================================================== -->
-<project name="caDSR Bulk Loader" default="compile">
+<project name="caDSR Bulk Loader" default="package">
 
 	<property file="build.properties"/>
 		

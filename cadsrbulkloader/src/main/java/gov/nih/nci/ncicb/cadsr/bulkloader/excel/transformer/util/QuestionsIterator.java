@@ -7,10 +7,21 @@ import java.util.List;
 
 public class QuestionsIterator {
 	private final List<ExcelQuestion> questions;
-	int i = 0;
+	private int i = 0;
 	
 	public QuestionsIterator(List<ExcelQuestion> _questions) {
-		this.questions = _questions;
+		this.questions = removeBlanks(_questions);
+	}
+	
+	private List<ExcelQuestion> removeBlanks(List<ExcelQuestion> _questions) {
+		List<ExcelQuestion> questions = new ArrayList<ExcelQuestion>();
+		for (ExcelQuestion question: _questions) {
+			if (!question.isBlank()) {
+				questions.add(question);
+			}
+		}
+		
+		return questions;
 	}
 	
 	public boolean hasNext() {

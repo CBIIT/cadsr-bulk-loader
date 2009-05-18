@@ -19,7 +19,7 @@ public class ObjectBinderTestCase extends MainTestCase {
 	public void testBind() {
 		try {
 			File toTest = getValidFile();
-			ObjectBinder objBinder = SpringBeansUtil.getObjectBinder();
+			ObjectBinder objBinder = SpringBeansUtil.getInstance().getObjectBinder();
 			ISO11179Elements isoElements = objBinder.bind(toTest);
 			assertNotNull(isoElements);
 		} catch (Exception e) {

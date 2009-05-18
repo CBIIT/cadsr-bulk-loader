@@ -17,7 +17,7 @@ import gov.nih.nci.ncicb.cadsr.domain.Concept;
 
 public class PersisterTestCase extends MainTestCase {
 
-	private static Persister persister = SpringBeansUtil.getPersister();
+	private static Persister persister = SpringBeansUtil.getInstance().getPersister();
 	
 	protected boolean ignoreVD() {
 		return false;

@@ -21,8 +21,8 @@ public class ValidatorTestCase extends MainTestCase {
 	}
 	
 	public void testValidator() {
-		Validation validation = SpringBeansUtil.getValidator();
-		ValidationResult validationResult = validation.validate(getObject(), getDefaultLoadProperties());
+		Validation validation = SpringBeansUtil.getInstance().getValidator();
+		ValidationResult validationResult = validation.validate(getObject(), getDefaultLoadObjects());
 		
 		assertNotNull(validationResult);
 		if (!validationResult.isSuccessful() || validationResult.hasErrors() ) {

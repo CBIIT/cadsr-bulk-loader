@@ -1,22 +1,29 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.transformer;
 
+import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.beans.TransformerInputParams;
 import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.marshall.TransformerMarshallerResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.transformation.TransformerTransformationResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.unmarshall.TransformerUnMarshallResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.validation.TransformerValidationResult;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class TransformerResult {
 
+	private TransformerInputParams inputParams;
 	private TransformerMarshallerResult marshallerResult;
 	private TransformerValidationResult validationResult;
 	private TransformerTransformationResult transformationResult;
 	private TransformerUnMarshallResult unmarshallerResult;
 	
 	private TransformerStatus status;
+
+	public TransformerInputParams getInputParams() {
+		return inputParams;
+	}
+
+	public void setInputParams(TransformerInputParams inputParams) {
+		this.inputParams = inputParams;
+	}
 
 	public TransformerMarshallerResult getMarshallerResult() {
 		return marshallerResult;

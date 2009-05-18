@@ -25,14 +25,14 @@ public class ClassificationSchemeTranslator extends AbstractTranslatorTemplate {
 		String publicId = util.getIdentifier(isoCS);
 		String name = isoCS.getName();
 		String type = isoCS.getTypeName();
-		float version = isoCS.getVersion();
+		Float version = isoCS.getVersion();
 		
 		cs.setPublicId(publicId);
 		cs.setVersion(version);
 		cs.setPreferredName(name);
-		cs.setPreferredDefinition(name);
+//		cs.setPreferredDefinition(name);
 		cs.setType(type);
-		cs.setLongName(name);
+//		cs.setLongName(name);
 		
 		return cs;
 	}

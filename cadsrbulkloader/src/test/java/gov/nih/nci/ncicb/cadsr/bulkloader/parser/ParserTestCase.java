@@ -19,7 +19,7 @@ public class ParserTestCase extends MainTestCase {
 	private Parser parser;
 	
 	public ParserTestCase() {
-		parser = SpringBeansUtil.getParser();
+		parser = SpringBeansUtil.getInstance().getParser();
 	}
 	
 	protected boolean ignoreVD() {
@@ -31,7 +31,7 @@ public class ParserTestCase extends MainTestCase {
 	}
 	
 	public void testParse() {
-		File fileToParse = new File("C:\\Docume~1\\mathura2\\Desktop\\test form1.xml");//getValidFile();
+		File fileToParse = new File("C:\\Docume~1\\mathura2\\Desktop\\test form1_11179.xml");//getValidFile();
 		ParseResult parseResult = parser.parse(fileToParse);
 		
 		assertNotNull(parseResult);

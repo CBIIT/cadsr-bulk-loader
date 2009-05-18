@@ -20,6 +20,14 @@ public class ExcelValidation implements TransformerValidation {
 		TransformerValidationResult result = new TransformerValidationResult();
 		
 		ExcelForm form = (ExcelForm) toValidate;
+		
+		List<Item> formItems = new ArrayList<Item>();
+		formItems.add(form);
+		TransformerValidationLineItemResult formLineItemResult = new TransformerValidationLineItemResult(0, formItems);
+		result.addLineItemResult(formLineItemResult);
+		
+		validateFormHeader(form, formLineItemResult);
+		
 		List<ExcelQuestion> questions = form.getQuestions();
 		
 		QuestionsIterator questionsIter = new QuestionsIterator(questions);
@@ -55,6 +63,36 @@ public class ExcelValidation implements TransformerValidation {
 		}
 		
 		return result;
+	}
+	
+	private TransformerValidationLineItemResult validateFormHeader(ExcelForm excelForm, TransformerValidationLineItemResult lineItemResult) {
+		String formName = excelForm.getFormName();
+		String contextName = excelForm.getContext();
+		String classScheme = excelForm.getClassScheme();
+		String classSchemeItem = excelForm.getClassSchemeItem();
+		String source = excelForm.getSource();
+		
+		if (formName == null || formName.trim().equals("")) {
+			lineItemResult.addStatus(ExcelValidationStatus.BLANK_FORM_NAME);
+		}
+		if (contextName == null || contextName.trim().equals("")) {
+			lineItemResult.addStatus(ExcelValidationStatus.BLANK_CONTEXT_NAME);
+		}
+		if (classScheme == null || classScheme.trim().equals("")) {
+			lineItemResult.addStatus(ExcelValidationStatus.BLANK_CS);
+		}
+		if (classSchemeItem == null || classSchemeItem.trim().equals("")) {
+			lineItemResult.addStatus(ExcelValidationStatus.BLANK_CSI);
+		}
+		if (source == null || source.trim().equals("")) {
+			lineItemResult.addStatus(ExcelValidationStatus.BLANK_SOURCE);
+		}
+		
+		if (!lineItemResult.hasErrors()) {
+			lineItemResult.addStatus(ExcelValidationStatus.PASSED);
+		}
+		
+		return lineItemResult;
 	}
 
 	private TransformerValidationLineItemResult validateCDE(ExcelQuestion question, TransformerValidationLineItemResult lineItemResult){

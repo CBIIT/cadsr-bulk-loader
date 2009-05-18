@@ -24,10 +24,6 @@ public class LoadResult {
 		return input;
 	}
 
-	public void setLoadStatus(LoadStatus loadStatus) {
-		this.loadStatus = loadStatus;
-	}
-
 	public ParseResult getParseResult() {
 		return parseResult;
 	}
@@ -48,11 +44,26 @@ public class LoadResult {
 		return message;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
-	
 	public LoadStatus getLoadStatus() {
+		if (loadStatus == null) {
+			if (isSuccessful()) {
+				loadStatus = LoadStatus.SUCCESSFUL;
+			}
+			else {
+				if (!parseResult.isSuccessful() || parseResult.hasErrors()) {
+					loadStatus = LoadStatus.FAILED_WITH_PARSING_ERROR;
+				}
+				else if (!validationResult.isSuccessful() || validationResult.hasErrors()) {
+					loadStatus = LoadStatus.FAILED_WITH_VALIDATION_ERROR;
+				}
+				else if (!persisterResult.isSuccessful()) {
+					loadStatus = LoadStatus.FAILED_WITH_PERSISTANCE_ERROR;
+				}
+				else {
+					loadStatus = LoadStatus.FAILED_WITH_UNKNOWN_ERROR;
+				}
+			}
+		}
 		return loadStatus;
 	}
 

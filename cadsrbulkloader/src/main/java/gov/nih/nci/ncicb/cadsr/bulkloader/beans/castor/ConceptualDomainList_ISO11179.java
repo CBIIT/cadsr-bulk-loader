@@ -12,11 +12,17 @@ import java.util.List;
 
 public class ConceptualDomainList_ISO11179 {
 
-	private List<ConceptualDomain_caDSR11179> conceptualDomains = new ArrayList<ConceptualDomain_caDSR11179>();
 	private List<EnumeratedConceptualDomain_caDSR11179> enumCDs;
 	private List<NonEnumeratedConceptualDomain_caDSR11179> nonEnumCDs;
 
 	public List<ConceptualDomain_caDSR11179> getConceptualDomains() {
+		List<ConceptualDomain_caDSR11179> conceptualDomains = new ArrayList<ConceptualDomain_caDSR11179>();
+		if (enumCDs != null) {
+			conceptualDomains.addAll(enumCDs);
+		}
+		if (nonEnumCDs != null) {
+			conceptualDomains.addAll(nonEnumCDs);
+		}
 		return conceptualDomains;
 	}
 
@@ -25,9 +31,7 @@ public class ConceptualDomainList_ISO11179 {
 	}
 
 	public void setEnumCDs(List<EnumeratedConceptualDomain_caDSR11179> enumCDs) {
-		conceptualDomains.removeAll(enumCDs);
 		this.enumCDs = enumCDs;
-		conceptualDomains.addAll(enumCDs);
 	}
 
 	public List<NonEnumeratedConceptualDomain_caDSR11179> getNonEnumCDs() {
@@ -35,9 +39,7 @@ public class ConceptualDomainList_ISO11179 {
 	}
 
 	public void setNonEnumCDs(List<NonEnumeratedConceptualDomain_caDSR11179> nonEnumCDs) {
-		conceptualDomains.removeAll(nonEnumCDs);
 		this.nonEnumCDs = nonEnumCDs;
-		conceptualDomains.addAll(nonEnumCDs);
 	}
 	
 	

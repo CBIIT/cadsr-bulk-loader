@@ -29,10 +29,10 @@ public class ClassificationSchemeItemTranslator extends
 		String isoCSIValue = isoCSI.getCsiValue();
 		csi.setPreferredName(publicId);
 		csi.setLongName(isoCSIValue);
-		csi.setDescription(isoCSIValue);
-		csi.setPreferredDefinition(isoCSIValue);
-		csi.setType("TEST");
-		csi.setVersion(1.0f);
+		//csi.setDescription(isoCSIValue);
+		//csi.setPreferredDefinition(isoCSIValue);
+		//csi.setType("TEST");
+		//csi.setVersion(1.0f);
 		
 		return csi;
 	}

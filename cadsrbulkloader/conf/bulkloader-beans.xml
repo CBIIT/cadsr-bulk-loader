@@ -2,6 +2,11 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
  
 <beans>
+  
+  <bean name="bulkLoadProcessor" class="gov.nih.nci.ncicb.cadsr.bulkloader.CaDSRBulkLoadProcessor">
+    <property name="transformer" ref="excelTransformer" />
+    <property name="bulkLoader" ref="bulkLoader" />
+  </bean>
                                 <!-- Transformation -->
   
 	<bean name="excelTransformer" class="gov.nih.nci.ncicb.cadsr.bulkloader.transformer.TransformerImpl" >
@@ -86,8 +91,10 @@
   <bean name="validator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.ValidationImpl" >
   	<property name="validators">
   		<list>
-  			<ref bean="idValidator" />
-  			<ref bean="conceptValidator" />
+  		  <ref bean="idValidator" />
+  		  <ref bean="conceptValidator" />
+  		  <ref bean="csCSIValidator" />
+  		  <ref bean="loaderValueDomainValidator"/>
   		</list>
   	</property>
   </bean>
@@ -97,7 +104,10 @@
   </bean>
   <bean name="conceptValidator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators.ConceptValidator" >
     <property name="dao" ref="DAOFacade" />
-  </bean>    
+  </bean> 
+  <bean name="csCSIValidator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators.CSCSIValidator" >
+    <property name="dao" ref="DAOFacade" />
+  </bean>
     
     
                               <!-- Persister -->
@@ -137,15 +147,6 @@
       </list>
     </property>
   </bean>
-  
-  
-                                    <!-- Datasource -->
-  <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-    <property name="url" value="jdbc:oracle:thin:@cbiodb540.nci.nih.gov:1551:DSRDEV" />
-    <property name="username" value="sbrext" />
-    <property name="password" value="jjuser" />
-  </bean>
-  
   
   									<!-- CaDSR Objects -->
   

@@ -47,7 +47,7 @@ public class SchemaValidatorTestCase extends MainTestCase {
 	
 	private File getValidXMLFile() {
 		URL xmlFileURL = classLoader.getResource(validFilePath);
-		File xmlFile = new File("c:/docume~1/mathura2/desktop/test form1_11179.xml");//new File(xmlFileURL.getPath());
+		File xmlFile = new File(xmlFileURL.getPath());
 		
 		return xmlFile;
 	}

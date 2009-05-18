@@ -54,32 +54,23 @@ public class CaDSRBulkLoaderImpl implements CaDSRBulkLoader{
 		result.setParseResult(parseResult);
 		if (!parseResult.hasErrors()) {
 			CaDSRObjects caDSRObjects = parseResult.getCaDSRObjects();
+			LoadObjects loadObjects = getLoadObjects(loadProperties);
 			
-			ValidationResult validationResult = performValidation(input, loadProperties, caDSRObjects);
+			ValidationResult validationResult = performValidation(input, loadObjects, caDSRObjects);
 			result.setValidationResult(validationResult);
 			if (validationResult.isSuccessful() && !validationResult.hasErrors()) {
-				LoadObjects loadObjects = getLoadObjects(loadProperties);
 				PersisterResult persisterResult = persister.persist(caDSRObjects, loadObjects);
 				result.setPersisterResult(persisterResult);
 			}
-			else {
-				result.setLoadStatus(LoadStatus.FAILED_WITH_VALIDATION_ERROR);
-			}
-		}
-		else {
-			result.setLoadStatus(LoadStatus.FAILED_WITH_PARSING_ERROR);
 		}
 		
-		if (result.isSuccessful()) {
-			result.setLoadStatus(LoadStatus.SUCCESSFUL);
-		}
 		return result;
 	}
 	
-	private ValidationResult performValidation(LoaderInput input, LoadProperties loadProperties, CaDSRObjects caDSRObjects) {
+	private ValidationResult performValidation(LoaderInput input, LoadObjects loadObjects, CaDSRObjects caDSRObjects) {
 		ValidationResult validationResult = null;
 		if (input.isValidate()) {
-			validationResult = validator.validate(caDSRObjects,loadProperties);
+			validationResult = validator.validate(caDSRObjects,loadObjects);
 		}
 		else {
 			validationResult = new ValidationResult();

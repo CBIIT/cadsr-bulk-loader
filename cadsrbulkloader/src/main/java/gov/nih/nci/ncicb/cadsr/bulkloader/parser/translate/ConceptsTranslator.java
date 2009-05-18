@@ -42,17 +42,18 @@ public class ConceptsTranslator extends AbstractTranslatorTemplate {
 	
 	private Concept addAlternateNamesAndDefinitions(Concept concept, Concept_caDSR11179 isoConcept) {
 		List<TerminologicalEntry_ISO11179> termEntries = isoConcept.getHaving();
-		for (TerminologicalEntry_ISO11179 termEntry: termEntries) {
-			List<LanguageSection_ISO11179> langSections = termEntry.getContainingEntries();
-			for (LanguageSection_ISO11179 langSection: langSections) {
-				List<Designation_ISO11179> isoAltNames = langSection.getNamingEntries();
-				List<Definition_ISO11179> isoDefs = langSection.getDefiningEntries();
-				
-				concept = addAlternateNames(concept, isoAltNames);
-				concept = addDefinitions(concept, isoDefs);
+		if (termEntries != null) {
+			for (TerminologicalEntry_ISO11179 termEntry: termEntries) {
+				List<LanguageSection_ISO11179> langSections = termEntry.getContainingEntries();
+				for (LanguageSection_ISO11179 langSection: langSections) {
+					List<Designation_ISO11179> isoAltNames = langSection.getNamingEntries();
+					List<Definition_ISO11179> isoDefs = langSection.getDefiningEntries();
+					
+					concept = addAlternateNames(concept, isoAltNames);
+					concept = addDefinitions(concept, isoDefs);
+				}
 			}
 		}
-		
 		return concept;
 	}
 	
