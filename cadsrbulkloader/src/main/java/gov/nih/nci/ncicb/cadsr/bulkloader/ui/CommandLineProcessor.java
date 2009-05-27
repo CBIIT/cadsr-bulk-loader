@@ -15,7 +15,6 @@ public class CommandLineProcessor {
 	private static Log log = LogFactory.getLog(CommandLineProcessor.class);
 	
 	public static void main(String[] args) {
-
 		UserInterface userInterface = new CommandLineUserInterfaceImpl();
 		UserInput userInput = userInterface.getUserInput();
 		
