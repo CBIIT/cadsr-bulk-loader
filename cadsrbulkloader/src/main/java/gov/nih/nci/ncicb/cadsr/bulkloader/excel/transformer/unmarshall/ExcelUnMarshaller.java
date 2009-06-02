@@ -1,6 +1,8 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.excel.transformer.unmarshall;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.excel.transformer.beans.ExcelForm;
+import gov.nih.nci.ncicb.cadsr.bulkloader.excel.transformer.beans.ExcelQuestion;
+import gov.nih.nci.ncicb.cadsr.bulkloader.excel.transformer.util.ExcelTransformerUtil;
 import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.unmarshall.TransformerUnMarshallResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.unmarshall.TransformerUnMarshaller;
 
@@ -9,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.net.URL;
+import java.util.List;
 
 import org.exolab.castor.mapping.Mapping;
 import org.exolab.castor.mapping.MappingException;
@@ -27,6 +30,8 @@ public class ExcelUnMarshaller implements TransformerUnMarshaller {
 			
 			Reader ipFileReader = new FileReader(inputFile);
 			ExcelForm excelForm = (ExcelForm)unmarshaller.unmarshal(ipFileReader);
+			
+			cleanForm(excelForm);
 			
 			result.setUnMarshalledObject(excelForm);
 			result.setStatus(ExcelUnmarshallerStatus.SUCCESS);
@@ -68,6 +73,20 @@ public class ExcelUnMarshaller implements TransformerUnMarshaller {
 		unmarshaller.setClass(ExcelForm.class);
 		
 		return unmarshaller; 
+	}
+	
+	private void cleanForm(ExcelForm excelForm) {
+		List<ExcelQuestion> excelQuestions = excelForm.getQuestions();
+		if (excelQuestions != null) {
+			for (ExcelQuestion excelQuestion: excelQuestions) {
+				excelQuestion.setCdeId(ExcelTransformerUtil.getPublicIdFromCompositeString(excelQuestion.getCdeId()));
+				excelQuestion.setDecId(ExcelTransformerUtil.getPublicIdFromCompositeString(excelQuestion.getDecId()));
+				excelQuestion.setVdId(ExcelTransformerUtil.getPublicIdFromCompositeString(excelQuestion.getVdId()));
+				excelQuestion.setVdConceptualDomainId(ExcelTransformerUtil.getPublicIdFromCompositeString(excelQuestion.getVdConceptualDomainId()));
+				excelQuestion.setDecConceptualDomainId(ExcelTransformerUtil.getPublicIdFromCompositeString(excelQuestion.getDecConceptualDomainId()));
+			}
+		}
+		
 	}
 
 }
