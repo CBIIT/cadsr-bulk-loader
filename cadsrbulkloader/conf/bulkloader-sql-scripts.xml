@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+    <bean name="blUnclassifier" class="gov.nih.nci.ncicb.cadsr.bulkloader.util.BulkLoaderUnclassifier">
+        <property name="csCheckQuery">
+            <value>
+                <![CDATA[
+                    select count(*) from classification_schemes cs  
+                    where cs.preferred_name = ? and cs.Version = ?"
+                ]]>
+            </value>
+        </property>
+    </bean>
+</beans>

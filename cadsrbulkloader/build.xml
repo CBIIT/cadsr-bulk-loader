@@ -36,8 +36,8 @@
     	<mkdir dir="${TEST.CLASSES.DIR}"/>
     	<mkdir dir="${OUT.CONF.DIR}"/>
     	<mkdir dir="${JAR.DIR}"/>
-    	<mkdir dir="${PACKAGE.WIN.DIR}"/>
-    	<mkdir dir="${PACKAGE.WIN.LIB.DIR}"/>
+    	<mkdir dir="${PACKAGE.DIR}"/>
+    	<mkdir dir="${PACKAGE.LIB.DIR}"/>
     </target>
 
 	<!-- ================================= 
@@ -92,9 +92,6 @@
         	<fileset dir="${SRC.CLASSES.DIR}">
 			    <include name="**/*.class"/>
 			</fileset>
-			<fileset dir="${OUT.CONF.DIR}" >
-			    <include name="**/*.*"/>
-			</fileset>
         </jar>
     </target>
 	
@@ -123,24 +120,51 @@
           target: package              
          ================================= -->
     <target name="package" depends="compile, conf" description="description">
-    	<jar destfile="${PACKAGE.WIN.DIR}/${PROJECT.NAME}.jar">
+    	<jar destfile="${PACKAGE.DIR}/${PROJECT.NAME}.jar">
         	<fileset dir="${SRC.CLASSES.DIR}">
 			    <include name="**/*.class"/>
 			</fileset>
-			<fileset dir="${OUT.CONF.DIR}" >
-			    <include name="**/*.*"/>
-			</fileset>
         </jar>
-    	<copy todir="${PACKAGE.WIN.LIB.DIR}">
+    	<copy todir="${PACKAGE.LIB.DIR}">
     		<fileset dir="${LIB.DIR}" >
 			    <include name="*.jar"/>
 			</fileset>
     	</copy>
-    	<copy todir="${PACKAGE.WIN.DIR}">
+    	<copy todir="${PACKAGE.DIR}">
     		<fileset dir="${SCRIPTS.DIR}" >
 			    <include name="*.*"/>
 			</fileset>
     	</copy>
+    	<copy todir="${PACKAGE.DIR}">
+    		<fileset dir="${OUT.CONF.DIR}" >
+			    <include name="**/*.*"/>
+			</fileset>
+    	</copy>
+    </target>
+
+	<!-- ================================= 
+          target: unit-test              
+         ================================= -->
+    <target name="unit-test" depends="compile, conf" description="description">
+    	<mkdir dir="${TEST.REPORT.DIR}"/>
+    	<junit printsummary="yes" >
+		 <classpath>
+		 	<pathelement path="${TEST.CLASSES.DIR}"/>
+		 	<pathelement path="${SRC.CLASSES.DIR}"/>
+		 	<fileset dir="${LIB.DIR}" id="id">
+			    <include name="**/*.jar"/>
+			</fileset>
+
+		  </classpath>
+    		
+    		<formatter type="plain"/>
+
+ 	  		<batchtest fork="yes" todir="${TEST.REPORT.DIR}">
+			    <fileset dir="${TEST.DIR}">
+			      <include name="**/*TestCase.java"/>
+			    </fileset>
+			</batchtest>
+    	</junit>
     </target>
 
 </project>

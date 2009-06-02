@@ -53,7 +53,7 @@ public abstract class MainTestCase extends AbstractSpringContextTests
     static PropertyManager propertyManager;
     static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
     static String propertyLocation = "/junit/datasource.properties";
-    static String ddlLocation = "/ddl/ticketquotes.sql";
+    static String ddlLocation = "/junit/ddl/cadsr.sql";
     static List tableNames;
     protected String schema;
     protected URL dataURL;
@@ -64,7 +64,6 @@ public abstract class MainTestCase extends AbstractSpringContextTests
     protected Log log;
     private static Pattern createTablePattern = Pattern.compile("CREATE\\s+TABLE");
     protected boolean runInRealContainer;
-    //private static EntityManagerFactory emf;
 
     static
     {

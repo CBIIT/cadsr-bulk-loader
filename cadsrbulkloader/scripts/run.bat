@@ -2,11 +2,9 @@
 
 set CLASSPATH=.
 
-for %%x in (lib/*.jar) do call :appendCP lib/%%x
-
 for %%x in (*.jar) do call :appendCP %%x
 
-echo CLASSPATH=%CLASSPATH%
+for %%x in (lib/*.jar) do call :appendCP lib/%%x
 
 java -cp %CLASSPATH% gov.nih.nci.ncicb.cadsr.bulkloader.ui.CommandLineProcessor
 

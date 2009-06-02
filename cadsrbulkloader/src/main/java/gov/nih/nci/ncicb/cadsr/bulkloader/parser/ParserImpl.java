@@ -64,12 +64,16 @@ public class ParserImpl implements Parser {
 			
 			ISO11179Elements iso11179Elements = binder.bind(_xmlFile);
 			TranslatorResult<CaDSRObjects> translatorResult = translator.translate(iso11179Elements);
+			CaDSRObjects translatedObject = translatorResult.getTranslatedObject();
 			
 			result.setTranslatorResult(translatorResult);
-			result.setCaDSRObjects(translatorResult.getTranslatedObject());
+			result.setCaDSRObjects(translatedObject);
 			
 			if (!translatorResult.isSuccessful() || translatorResult.hasErrors()) {
 				result.setStatus(ParseStatus.TRANSLATION_FAILURE);
+			}
+			else {
+				result.setCaDSRObjects(CaDSRObjectsRefiner.refine(translatedObject));
 			}
 			
 		} catch (Exception e) {

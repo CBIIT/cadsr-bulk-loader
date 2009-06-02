@@ -71,22 +71,29 @@ public class ConceptsTranslator extends AbstractTranslatorTemplate {
 	}
 	
 	private Concept addDefinitions(Concept concept, List<Definition_ISO11179> isoDefs) {
-		for (Definition_ISO11179 isoDef: isoDefs) {
-			String defStr = isoDef.getText();
-			
-			Definition def = DomainObjectFactory.newDefinition();
-			def.setDefinition(defStr);
-			
-			concept.addDefinition(def);
-			if (isoDef.isPreferredDefinition()) {
-				concept.setPreferredDefinition(defStr);
-				ReferenceDocument_ISO11179 isoRefDoc = isoDef.getSourceReference();
-				List<Organization_ISO11179> isoOrgs = isoRefDoc.getProvidedBy();
-				String orgName = "";
-				for (Organization_ISO11179 isoOrg: isoOrgs) {
-					orgName = orgName.equals("")?isoOrg.getName():orgName+"_"+isoOrg.getName();
+		if (isoDefs != null) {
+			for (Definition_ISO11179 isoDef: isoDefs) {
+				String defStr = isoDef.getText();
+				
+				Definition def = DomainObjectFactory.newDefinition();
+				def.setDefinition(defStr);
+				
+				concept.addDefinition(def);
+				if (isoDef.isPreferredDefinition()) {
+					concept.setPreferredDefinition(defStr);
+					ReferenceDocument_ISO11179 isoRefDoc = isoDef.getSourceReference();
+					String orgName = "";
+					
+					if(isoRefDoc != null) {
+						List<Organization_ISO11179> isoOrgs = isoRefDoc.getProvidedBy();
+						
+						for (Organization_ISO11179 isoOrg: isoOrgs) {
+							orgName = orgName.equals("")?isoOrg.getName():orgName+"_"+isoOrg.getName();
+						}
+					}
+					
+					concept.setDefinitionSource(orgName);
 				}
-				concept.setDefinitionSource(orgName);
 			}
 		}
 		

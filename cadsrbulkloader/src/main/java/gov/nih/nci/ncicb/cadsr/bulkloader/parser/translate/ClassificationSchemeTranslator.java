@@ -30,9 +30,7 @@ public class ClassificationSchemeTranslator extends AbstractTranslatorTemplate {
 		cs.setPublicId(publicId);
 		cs.setVersion(version);
 		cs.setPreferredName(name);
-//		cs.setPreferredDefinition(name);
 		cs.setType(type);
-//		cs.setLongName(name);
 		
 		return cs;
 	}
