@@ -219,7 +219,7 @@ public class ExcelUtility
                 return null;
             }
         }
-        catch (NumberFormatException t)
+        catch (Exception t)
         {
         }
 

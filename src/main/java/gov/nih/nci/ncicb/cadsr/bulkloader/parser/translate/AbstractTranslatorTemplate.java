@@ -55,6 +55,7 @@ public abstract class AbstractTranslatorTemplate implements Translator<CaDSRObje
 			result.setStatus(TranslatorStatus.SUCCESS);
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			result.setException(e);
 			result.setStatus(TranslatorStatus.FAILURE);
 		}

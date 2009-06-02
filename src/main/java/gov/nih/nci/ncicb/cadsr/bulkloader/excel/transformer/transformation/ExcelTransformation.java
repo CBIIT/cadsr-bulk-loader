@@ -54,6 +54,7 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueDomain_caDSR11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueDomainsList_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueMeaning_caDSR11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueMeaningsList_ISO11179;
+import gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAOFacade;
 import gov.nih.nci.ncicb.cadsr.bulkloader.excel.transformer.beans.ExcelForm;
 import gov.nih.nci.ncicb.cadsr.bulkloader.excel.transformer.beans.ExcelQuestion;
 import gov.nih.nci.ncicb.cadsr.bulkloader.excel.transformer.util.QuestionsIterator;
@@ -61,6 +62,9 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.beans.Item;
 import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.transformation.TransformerTransformation;
 import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.transformation.TransformerTransformationLineItemResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.transformation.TransformerTransformationResult;
+import gov.nih.nci.ncicb.cadsr.domain.AlternateName;
+import gov.nih.nci.ncicb.cadsr.domain.Concept;
+import gov.nih.nci.ncicb.cadsr.domain.Definition;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -88,7 +92,16 @@ public class ExcelTransformation implements TransformerTransformation {
 	private static Log log = LogFactory.getLog(ExcelTransformation.class);
 	
 	private ExcelForm excelForm;
+	private BulkLoaderDAOFacade dao;
 	
+	public BulkLoaderDAOFacade getDao() {
+		return dao;
+	}
+
+	public void setDao(BulkLoaderDAOFacade dao) {
+		this.dao = dao;
+	}
+
 	public TransformerTransformationResult transform(Item marshalledObject) {
 		TransformerTransformationResult result = new TransformerTransformationResult();
 		
@@ -206,24 +219,114 @@ public class ExcelTransformation implements TransformerTransformation {
 			String[][] idAndNames = getIdAndName(conceptsStr);
 			
 			for (int i=0;i<idAndNames.length;i++) {
-				Concept_caDSR11179 isoConcept = new Concept_caDSR11179();
-				//fillupAdminItem(isoConcept);
-				isoConcept.setSubmittedBy(getBlankSubmittedBy());
-				
 				String conceptId = idAndNames[i][0];
-				String conceptName = idAndNames[i][1];
-				String source = excelForm.getSource();
+				Concept_caDSR11179 isoConcept = get11179Concept(conceptId);
 				
-				isoConcept.setCode(conceptId);
-				//setNameDefAndSource(conceptName, conceptName, source, isoConcept);
-				String randTagId = "CON-"+getRandomString();
-				isoConcept.setTagId(randTagId);
+				isoConcept.setSubmittedBy(getBlankSubmittedBy());
 				
 				isoConcepts.add(isoConcept);
 			}
 		}
 		
 		return isoConcepts;
+	}
+	
+	private Concept_caDSR11179 get11179Concept(String conceptId) {
+		Concept_caDSR11179 isoConcept = new Concept_caDSR11179();
+		isoConcept.setCode(conceptId);
+		
+		if (conceptId != null) {
+			Concept con = dao.findConceptByCUI(conceptId);
+			if (con.getPreferredName() != null) {
+				isoConcept.setHaving(getHaving(con));
+			}
+		}
+		
+		String randTagId = "CON-"+getRandomString();
+		isoConcept.setTagId(randTagId);
+		
+		return isoConcept;
+	}
+	
+	private List<TerminologicalEntry_ISO11179> getHaving(Concept con) {
+		List<TerminologicalEntry_ISO11179> termEntries = new ArrayList<TerminologicalEntry_ISO11179>();
+		
+		TerminologicalEntry_ISO11179 termEntry = new TerminologicalEntry_ISO11179();
+		
+		List<LanguageSection_ISO11179> langSections = new ArrayList<LanguageSection_ISO11179>();
+		
+		LanguageSection_ISO11179 langSection = new LanguageSection_ISO11179();
+		List<Definition_ISO11179> defs = get11179Defs(con);
+		langSection.setDefiningEntries(defs);
+		langSection.setIdentifier(this.getBlankLanguageIdentifiers().get(0));
+		List<Designation_ISO11179> namingEntries = get11179Desigs(con);
+		langSection.setNamingEntries(namingEntries);
+		
+		langSections.add(langSection);
+		termEntry.setContainingEntries(langSections);
+		termEntries.add(termEntry);
+		return termEntries;
+	}
+	
+	private List<Designation_ISO11179> get11179Desigs(Concept con) {
+		List<Designation_ISO11179> isoDesigs = new ArrayList<Designation_ISO11179>();
+		if (con != null) {
+			String prefDesig = con.getPreferredName();
+			if (prefDesig != null && !prefDesig.trim().equals("")) {
+				Designation_ISO11179 isoPrefDesig = new Designation_ISO11179();
+				isoPrefDesig.setName(prefDesig);
+				isoPrefDesig.setPreferredDesignation(true);
+				isoPrefDesig.setType("");
+				
+				isoDesigs.add(isoPrefDesig);
+			}
+			
+			List<AlternateName> altNames = con.getAlternateNames();
+			if (altNames != null) {
+				for (AlternateName altName: altNames) {
+					String altNameText = altName.getName();
+					if (altNameText != null && !altNameText.trim().equals("")) {
+						Designation_ISO11179 isoDesig = new Designation_ISO11179();
+						isoDesig.setName(altNameText);
+						isoDesig.setType(altName.getType());
+						isoDesig.setPreferredDesignation(false);
+						
+						isoDesigs.add(isoDesig);
+					}
+				}
+			}
+		}
+		return isoDesigs;
+	}
+	
+	private List<Definition_ISO11179> get11179Defs(Concept con) {
+		List<Definition_ISO11179> isoDefs = new ArrayList<Definition_ISO11179>();
+		if (con != null) {
+			String prefDef = con.getPreferredDefinition();
+			if (prefDef != null && !prefDef.trim().equals("")) {
+				Definition_ISO11179 isoPrefDef = new Definition_ISO11179();
+				isoPrefDef.setText(prefDef);
+				isoPrefDef.setPreferredDefinition(true);
+				isoPrefDef.setType("");
+				isoDefs.add(isoPrefDef);
+			}
+			
+			List<Definition> defs = con.getDefinitions();
+			if (defs != null) {
+				for (Definition def: defs) {
+					String defText = def.getDefinition();
+					if (defText != null && !defText.trim().equals("")) {
+						Definition_ISO11179 isoDef = new Definition_ISO11179();
+						isoDef.setText(defText);
+						isoDef.setType(def.getType());
+						isoDef.setPreferredDefinition(false);
+						
+						isoDefs.add(isoDef);
+					}
+				}
+			}
+		}
+		return isoDefs;
 	}
 	
 	private String[][] getIdAndName(String str) {

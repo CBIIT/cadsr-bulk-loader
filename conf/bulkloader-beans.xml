@@ -18,7 +18,9 @@
 	
 	<bean name="excelUnMarshaller" class="gov.nih.nci.ncicb.cadsr.bulkloader.excel.transformer.unmarshall.ExcelUnMarshaller" />
 	<bean name="excelValidator" class="gov.nih.nci.ncicb.cadsr.bulkloader.excel.transformer.validation.ExcelValidation" />
-	<bean name="excelTransformation" class="gov.nih.nci.ncicb.cadsr.bulkloader.excel.transformer.transformation.ExcelTransformation" />
+    <bean name="excelTransformation" class="gov.nih.nci.ncicb.cadsr.bulkloader.excel.transformer.transformation.ExcelTransformation" >
+      <property name="dao" ref="DAOFacade" />
+    </bean>
 	<bean name="excelMarshaller" class="gov.nih.nci.ncicb.cadsr.bulkloader.excel.transformer.marshall.ExcelMarshaller" />
 
 
@@ -92,7 +94,7 @@
   	<property name="validators">
   		<list>
   		  <ref bean="idValidator" />
-  		  <ref bean="conceptValidator" />
+  		  <ref bean="blConceptValidator" />
   		  <ref bean="csCSIValidator" />
   		  <ref bean="loaderValueDomainValidator"/>
   		</list>
@@ -102,7 +104,7 @@
   <bean name="idValidator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators.IdValidator" >
     <property name="dao" ref="DAOFacade" />
   </bean>
-  <bean name="conceptValidator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators.ConceptValidator" >
+  <bean name="blConceptValidator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators.ConceptValidator" >
     <property name="dao" ref="DAOFacade" />
   </bean> 
   <bean name="csCSIValidator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators.CSCSIValidator" >

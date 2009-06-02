@@ -847,49 +847,6 @@ public class DBExcelUtility {
 
     private String appendOtherTables(ArrayList allTablesList)
     {
-        /*
-         * String AllTablesList[] = {
-         * "AMRT_PRCS",
-         * "CURR_MTH_AMRT",
-         * "FINS_CHRSC",
-         * "FINS_COHORT_RLSP",
-         * "FINS_HSTRC_DTL",
-         * "IVTY_POS",
-         * "LN",
-         * "LN_CDT_RLSP",
-         * "LN_CDT_TYP",
-         * "LN_COST_BSE_POS",
-         * "LN_HSTRC_CFLW",
-         * "LN_PRC_ADJM",
-         * "LN_PRC_ADJM_TYP",
-         * "PRDC_TYP",
-         * "PRDC_TYP_AMRT_MTHD_RLSP",
-         * "PSUDO_SECU",
-         * "PSUDO_SECU_COHORT_RLSP",
-         * "PSUDO_SECU_COST_BSE_POS",
-         * "PSUDO_SECU_CURR_MTH_AMRT",
-         * "PSUDO_SECU_DTL_AMRT_SCH",
-         * "PSUDO_SECU_HSTRC_DTL",
-         * "PSUDO_SECU_LN_RLSP",
-         * "PSUDO_SECU_PRC_ADJM",
-         * "PSUDO_SECU_PRC_ADJM_TYP",
-         * "SECU_AMRT_MTHD",
-         * "SECU_ARM_CHRSC_DTL",
-         * "SECU_ARM_IDX_RT_TYP",
-         * "SECU_BLBG_CUSIP_FRCT_CFLW",
-         * "SECU_BLBG_CUSIP_SPD",
-         * "SECU_BLBG_PPAY_FRCT_CFLW",
-         * "SECU_BLBG_TKR_SPD",
-         * "SECU_COHORT",
-         * "SECU_COST_BSE_POS",
-         * "SECU_DTL_AMRT_SCH",
-         * "SECU_ISSN_COST_BAS_POS",
-         * "SECU_ISSN_POS",
-         * "SECU_PPAY_SNRO",
-         * "SECU_PRC_ADJM",
-         * "SECU_PRC_ADJM_TYP"
-         * };
-         */
         if (allTablesList == null)
         {
             return "";
