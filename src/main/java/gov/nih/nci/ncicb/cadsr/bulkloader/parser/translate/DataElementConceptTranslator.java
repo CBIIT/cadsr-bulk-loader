@@ -35,6 +35,11 @@ public class DataElementConceptTranslator extends AbstractTranslatorTemplate {
 		dec.setObjectClass(obj);
 		dec.setProperty(prop);
 		
+		String publicId = util.getIdentifier(isoDEC);
+		Float version = util.getIdVersion(isoDEC);
+		dec.setPublicId(publicId);
+		dec.setVersion(version);
+		
 		return dec;
 	}
 

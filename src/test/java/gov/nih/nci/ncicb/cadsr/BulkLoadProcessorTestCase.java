@@ -52,8 +52,8 @@ public class BulkLoadProcessorTestCase extends gov.nih.nci.ncicb.cadsr.bulkloade
 	public void testProcessor() {
 		Properties props = new Properties();
 		props.put("db.url", "jdbc:oracle:thin:@cbiodb530.nci.nih.gov:1521:DSRQA");
-		props.put("db.username", "mathura");
-		props.put("db.password", "mathura");
+		props.put("db.username", "chenr_qa");
+		props.put("db.password", "chenr_qa");
 		SpringBeansUtil.getInstance().initialize(props);
 		
 		CaDSRBulkLoadProcessor blProcessor = SpringBeansUtil.getInstance().getBulkLoadProcessor();

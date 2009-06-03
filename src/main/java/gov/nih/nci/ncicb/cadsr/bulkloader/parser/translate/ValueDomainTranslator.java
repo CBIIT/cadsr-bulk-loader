@@ -63,6 +63,7 @@ public class ValueDomainTranslator extends AbstractTranslatorTemplate {
 		vd.setDataType(dataType);
 		
 		String id = util.getIdentifier(isoVD);
+		Float version = util.getIdVersion(isoVD);
 		
 		if (id == null) {
 			RepresentationClass_caDSR11179 repTerm = isoVD.getRepresentationClass();
@@ -82,7 +83,7 @@ public class ValueDomainTranslator extends AbstractTranslatorTemplate {
 		}
 		else {
 			vd.setPublicId(id);
-			vd.setVersion(1.0f);
+			vd.setVersion(version);
 		}
 		
 		return vd;
