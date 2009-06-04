@@ -30,6 +30,7 @@
 	  <property name="parser" ref="parser" />
 	  <property name="validator" ref="validator" />
 	  <property name="daoFacade" ref="DAOFacade" />
+	  <property name="persister" ref="persister" />
 	</bean>
   
   									<!-- Parser -->
