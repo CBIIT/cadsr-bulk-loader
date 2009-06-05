@@ -5,6 +5,7 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.DataElement_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Designation_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ISO11179Elements;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.LanguageSection_ISO11179;
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ReferenceDocument_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.TerminologicalEntry_ISO11179;
 import gov.nih.nci.ncicb.cadsr.domain.AdminComponentClassSchemeClassSchemeItem;
 import gov.nih.nci.ncicb.cadsr.domain.AlternateName;
@@ -14,6 +15,7 @@ import gov.nih.nci.ncicb.cadsr.domain.ClassificationSchemeItem;
 import gov.nih.nci.ncicb.cadsr.domain.DataElement;
 import gov.nih.nci.ncicb.cadsr.domain.DataElementConcept;
 import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
+import gov.nih.nci.ncicb.cadsr.domain.ReferenceDocument;
 import gov.nih.nci.ncicb.cadsr.domain.ValueDomain;
 
 import java.util.ArrayList;
@@ -21,6 +23,8 @@ import java.util.List;
 
 public class DataElementTranslator extends AbstractTranslatorTemplate {
 
+	private static final int DOC_NAME_COL_LENGTH = 255;
+	
 	@Override
 	protected CaDSRObjectRegistry translateElement(ISO11179Elements iso11179Elements, CaDSRObjectRegistry objRegistry) {
 		List<DataElement_ISO11179> isoDEs = iso11179Elements.getDataElements().getDataElements();
@@ -46,6 +50,7 @@ public class DataElementTranslator extends AbstractTranslatorTemplate {
 		de.setLongName(getDELongName(dec, vd));
 		
 		addAlternateNames(isoDE, de);
+		addReferenceDocs(isoDE, de);
 		
 		String publicId = util.getIdentifier(isoDE);
 		Float version = util.getIdVersion(isoDE);
@@ -85,6 +90,30 @@ public class DataElementTranslator extends AbstractTranslatorTemplate {
 		}
 	}
 	
+	private void addReferenceDocs(DataElement_ISO11179 isoDE, DataElement de) {
+		List<ReferenceDocument_ISO11179> isoRefDocs = isoDE.getDescribedBy();
+		if (isoRefDocs != null) {
+			List<ReferenceDocument> refDocs = new ArrayList<ReferenceDocument>(isoRefDocs.size());
+			for (ReferenceDocument_ISO11179 isoRefDoc: isoRefDocs) {
+				ReferenceDocument refDoc = DomainObjectFactory.newReferenceDocument();
+				String docText = isoRefDoc.getTitle();
+				String docName = docText;
+				
+				if (docName.length() > DOC_NAME_COL_LENGTH) { //truncate length of 'name' to size of column
+					docName = docName.substring(0, DOC_NAME_COL_LENGTH);
+				}
+				
+				refDoc.setType(isoRefDoc.getDescription());
+				refDoc.setText(docText);
+				refDoc.setName(docName);
+				
+				refDocs.add(refDoc);
+			}
+			
+			de.setReferenceDocuments(refDocs);
+		}
+	}
+	
 	private List<AdminComponentClassSchemeClassSchemeItem> getAdminComponentCSCSI(DataElement_ISO11179 isoDE, CaDSRObjectRegistry objRegistry) {
 		List<AdminComponentClassSchemeClassSchemeItem> acCSCSIList = new ArrayList<AdminComponentClassSchemeClassSchemeItem>();
 		List<ClassificationSchemeItemRef_ISO11179> isoCSIRefs = isoDE.getClassifiedBy();
@@ -98,7 +127,6 @@ public class DataElementTranslator extends AbstractTranslatorTemplate {
 			ClassSchemeClassSchemeItem csCSI = DomainObjectFactory.newClassSchemeClassSchemeItem();
 			csCSI.setCs(cs);
 			csCSI.setCsi(csi);
-			//csCSI.setId("4E5E03B0-CEA6-202B-E044-0003BA3F9857");
 			
 			AdminComponentClassSchemeClassSchemeItem acCSCSI = DomainObjectFactory.newAdminComponentClassSchemeClassSchemeItem();
 			acCSCSI.setCsCsi(csCSI);
