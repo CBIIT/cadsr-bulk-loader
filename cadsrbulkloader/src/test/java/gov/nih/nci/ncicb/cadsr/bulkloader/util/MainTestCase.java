@@ -30,6 +30,7 @@ import javax.naming.spi.InitialContextFactory;
 import javax.naming.spi.NamingManager;
 import javax.sql.DataSource;
 
+import junit.framework.TestCase;
 import oracle.jdbc.pool.OracleDataSource;
 
 import org.apache.commons.logging.Log;
@@ -44,9 +45,8 @@ import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.filter.ITableFilter;
 import org.dbunit.operation.DatabaseOperation;
 import org.springframework.mock.jndi.SimpleNamingContextBuilder;
-import org.springframework.test.AbstractSpringContextTests;
 
-public abstract class MainTestCase extends AbstractSpringContextTests
+public abstract class MainTestCase extends TestCase
 {
     static ITableFilter filter;
     static List allDeleteCmds;
@@ -154,7 +154,7 @@ public abstract class MainTestCase extends AbstractSpringContextTests
         this(name, clazz, dataURLLocation, containerCategory);
         runInRealContainer = runInContainer.booleanValue();
     }
-
+    
 	protected String formatDate(Date date) {
 		String returnValue = null;
 		DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
@@ -323,6 +323,16 @@ public abstract class MainTestCase extends AbstractSpringContextTests
         }
 
         return properties;
+    }
+    
+    protected static Properties getDBProperties() {
+    	Properties properties = new Properties();
+    	
+    	properties.put("db.url", getPropertyManager().getUnitDataSourceURL());
+    	properties.put("db.username", getPropertyManager().getUnitDataSourceUser());
+    	properties.put("db.password", getPropertyManager().getUnitDataSourcePassword());
+    	
+    	return properties;
     }
 
     protected DataSource getDataSource()

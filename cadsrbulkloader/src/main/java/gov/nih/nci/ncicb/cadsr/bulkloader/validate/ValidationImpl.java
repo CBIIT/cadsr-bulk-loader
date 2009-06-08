@@ -39,7 +39,7 @@ public class ValidationImpl implements Validation {
 			for (gov.nih.nci.ncicb.cadsr.loader.validator.Validator validator: validators) {
 				ValidationItems validationItems = validator.validate();
 				processValidationItems(validationItems, itemResults);
-				validationItems.clear();
+				clearValidationItems(validationItems);
 			}
 			
 			handler.unLoadElements(caDSRObjects, loadObjects);
@@ -64,7 +64,7 @@ public class ValidationImpl implements Validation {
 		List<ValidationItem> errors = new ArrayList<ValidationItem>();
 		errors.addAll(validationErrors);
 		errors.addAll(validationFatals);
-		errors.addAll(validationWarnings);
+		//errors.addAll(validationWarnings);
 			
 		for (ValidationItem error: errors) {
 			Object item = error.getRootCause();
@@ -76,6 +76,12 @@ public class ValidationImpl implements Validation {
 		}
 		
 		return itemResults;
+	}
+	
+	private void clearValidationItems(ValidationItems validationItems){
+		validationItems.getErrors().clear();
+		validationItems.getFatals().clear();
+		validationItems.getWarnings().clear();
 	}
 	
 }
