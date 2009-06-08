@@ -5,10 +5,12 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.beans.LoadObjects;
 import gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAOFacade;
 import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
 import gov.nih.nci.ncicb.cadsr.domain.AdminComponentClassSchemeClassSchemeItem;
+import gov.nih.nci.ncicb.cadsr.domain.AlternateName;
 import gov.nih.nci.ncicb.cadsr.domain.ClassSchemeClassSchemeItem;
 import gov.nih.nci.ncicb.cadsr.domain.ClassificationScheme;
 import gov.nih.nci.ncicb.cadsr.domain.ClassificationSchemeItem;
 import gov.nih.nci.ncicb.cadsr.domain.DataElement;
+import gov.nih.nci.ncicb.cadsr.domain.DataElementConcept;
 import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
 import gov.nih.nci.ncicb.cadsr.domain.ValueDomain;
 
@@ -33,16 +35,26 @@ public class PersisterImpl implements Persister {
 		
 		try {
 
-			List<ValueDomain> valueDomains = cadsrObjects.getValueDomains();
 			List<DataElement> dataElements = cadsrObjects.getDataElements();
+			List<DataElementConcept> dataElementConcepts = cadsrObjects.getDataElementConcepts();
+			List<ValueDomain> valueDomains = cadsrObjects.getValueDomains();
+			
+			if (dataElements != null) {
+				List<DataElement> lookedUpDataElements = loadDataElements(dataElements);
+				replaceCSCSIs(lookedUpDataElements);
+				cadsrObjects.setDataElements(lookedUpDataElements);
+			}
+			
+			if (dataElementConcepts != null) {
+				List<DataElementConcept> lookedUpDataElementConcepts = loadDataElementConcepts(dataElementConcepts);
+				cadsrObjects.setDataElementConcepts(lookedUpDataElementConcepts);
+			}
 			
 			if (valueDomains != null) {
 				List<ValueDomain> lookedUpValueDomains = loadValueDomains(valueDomains);
 				cadsrObjects.setValueDomains(lookedUpValueDomains);
 			}
-			if (dataElements != null) {
-				replaceCSCSIs(dataElements);
-			}
+			
 			
 			dao.save(cadsrObjects, loadObjects);
 			
@@ -85,6 +97,48 @@ public class PersisterImpl implements Persister {
 		}
 		
 		adminComp.setAcCsCsis(newACCsCSIs);
+	}
+	
+	private List<DataElement> loadDataElements(List<DataElement> createdDataElements) {
+		List<DataElement> lookedUpDEs = new ArrayList<DataElement>();
+		
+		for (DataElement createdDE: createdDataElements) {
+			List<DataElement> foundDEs = dao.findDataElements(createdDE);
+			if (foundDEs.size() > 0) {
+				DataElement foundDE = foundDEs.get(0);
+				lookedUpDEs.add(foundDE);
+				if (createdDE.getAcCsCsis() != null) {
+					foundDE.setAcCsCsis(createdDE.getAcCsCsis());
+				}
+				if (createdDE.getAlternateNames() != null) {
+					for (AlternateName altName: createdDE.getAlternateNames()) {
+						foundDE.addAlternateName(altName);
+					}
+				}
+			}
+			else {
+				lookedUpDEs.add(createdDE);
+			}
+		}
+		
+		return lookedUpDEs;
+	}
+	
+	private List<DataElementConcept> loadDataElementConcepts(List<DataElementConcept> createdDataElementConcepts) {
+		List<DataElementConcept> lookedUpDECs = new ArrayList<DataElementConcept>();
+		
+		for (DataElementConcept createdDEC: createdDataElementConcepts) {
+			List<DataElementConcept> foundDECs = dao.findDataElementConcepts(createdDEC);
+			if (foundDECs.size() > 0) {
+				DataElementConcept foundDEC = foundDECs.get(0);
+				lookedUpDECs.add(foundDEC);
+			}
+			else {
+				lookedUpDECs.add(createdDEC);
+			}
+		}
+		
+		return lookedUpDECs;
 	}
 	
 	private List<ValueDomain> loadValueDomains(List<ValueDomain> createdValueDomains) {

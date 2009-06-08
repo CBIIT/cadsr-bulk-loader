@@ -71,7 +71,7 @@ public class CSCSIValidator implements Validator {
 						}
 						
 						if (!csiValidated) {
-							ValidationItem validationItem = new ValidationError("Classification scheme ["+cs.getLongName()+"] does not contain the Classification Scheme Item ["+csi.getLongName()+"]", csi);
+							ValidationItem validationItem = new ValidationError("Classification scheme ["+cs.getPreferredName()+"] does not contain the Classification Scheme Item ["+csi.getLongName()+"]", csi);
 							validationItems.addItem(validationItem);
 						}
 					}

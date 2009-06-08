@@ -1,28 +1,53 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.validate;
 
-import gov.nih.nci.ncicb.cadsr.MainTestCase;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.CaDSRObjects;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.SpringBeansUtil;
+import gov.nih.nci.ncicb.cadsr.bulkloader.util.UnitTestsUtil;
 import gov.nih.nci.ncicb.cadsr.domain.Concept;
 import gov.nih.nci.ncicb.cadsr.domain.DataElement;
 import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
-public class ValidatorTestCase extends MainTestCase {
+public class ValidatorTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.MainTestCase {
 
-	protected boolean ignoreVD() {
-		return true;
+	private final static String dataURL = "/gov/nih/nci/ncicb/cadsr/bulkloader/validate/server_validation.xls";
+	
+	public ValidatorTestCase() {
+		super("ValidatorTestCase", ValidatorTestCase.class, dataURL);
 	}
 	
-	protected boolean isUsePrivateAPI() {
+	@Override
+	protected void containerSetUp() throws Exception {
+		
+	}
+
+	@Override
+	protected boolean requiresDatabase() {
 		return true;
 	}
+
+	@Override
+	protected boolean runInRealContainer() {
+		return false;
+	}
 	
+	public void setUp() {
+		try {
+			super.setUp();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	public void testValidator() {
+		Properties dbProps = getDBProperties();
+		SpringBeansUtil.getInstance().initialize(dbProps);
 		Validation validation = SpringBeansUtil.getInstance().getValidator();
-		ValidationResult validationResult = validation.validate(getObject(), getDefaultLoadObjects());
+		ValidationResult validationResult = validation.validate(getObject(), UnitTestsUtil.getDefaultLoadObjects());
 		
 		assertNotNull(validationResult);
 		if (!validationResult.isSuccessful() || validationResult.hasErrors() ) {
