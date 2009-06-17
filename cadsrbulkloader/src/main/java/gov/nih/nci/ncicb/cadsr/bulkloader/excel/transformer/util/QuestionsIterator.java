@@ -4,10 +4,11 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.excel.transformer.beans.ExcelQuestion;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class QuestionsIterator {
 	private final List<ExcelQuestion> questions;
-	private int i = 0;
+	private AtomicInteger i = new AtomicInteger(0);
 	
 	public QuestionsIterator(List<ExcelQuestion> _questions) {
 		this.questions = removeBlanks(_questions);
@@ -25,37 +26,35 @@ public class QuestionsIterator {
 	}
 	
 	public boolean hasNext() {
-		return i < questions.size();
+		return i.get() < questions.size();
 	}
 	
 	public synchronized List<ExcelQuestion> next() {
-		ExcelQuestion question = questions.get(i);
+		List<ExcelQuestion> subList = new ArrayList<ExcelQuestion>();
+		
+		if (hasNext()) {
+			ExcelQuestion question = questions.get(i.get());
+			subList.add(question);
+			i.incrementAndGet();
 
-		String enumerated = question.getEnumerated();
-		if (enumerated == null || enumerated.equalsIgnoreCase("no")) {
-			i++;
-			return questions.subList(i-1, i);
-		}
-		else {
-			int questionNumber = question.getQuestionNumber();
-			int nextQuestionNumber = questionNumber;
-			int startIndex = i;
-			
-			while (i < questions.size()-1 && nextQuestionNumber <= questionNumber) {
-				i++;
-				question = questions.get(i);
-				nextQuestionNumber = question.getQuestionNumber();
-			}
-			
-			if (startIndex == i) {
-				i++;
-				List<ExcelQuestion> deSubList = new ArrayList<ExcelQuestion>();
-				deSubList.add(questions.get(startIndex));
-				return deSubList;
+			String enumerated = question.getEnumerated();
+			if (enumerated == null || enumerated.equalsIgnoreCase("no")) {
+				return subList;
 			}
 			else {
-				return questions.subList(startIndex, i);
+				while (hasNext()) {
+					ExcelQuestion nextQuestion = questions.get(i.get());
+					if (nextQuestion.getQuestionNumber() <= question.getQuestionNumber()) {
+						subList.add(nextQuestion);
+						i.incrementAndGet();
+					}
+					else {
+						break;
+					}
+				}
 			}
 		}
+		
+		return subList;
 	}
 }

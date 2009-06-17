@@ -23,8 +23,9 @@ public class ISO11179SchemaBinder implements ObjectBinder {
 		XMLContext context = new XMLContext();
 		context.addMapping(mapping);
 		
-		Unmarshaller unmarshaller = context.createUnmarshaller();
+		Unmarshaller unmarshaller = new Unmarshaller(mapping); //context.createUnmarshaller();
 		unmarshaller.setClass(ISO11179Elements.class);
+		unmarshaller.setClearCollections(true);
 		
 		Reader reader = new FileReader(_xmlFile);
 		ISO11179Elements elements = (ISO11179Elements)unmarshaller.unmarshal(reader);

@@ -37,5 +37,7 @@ public interface BulkLoaderReadDAO {
 	public Concept findConceptByCUI(String cui);
 	
 	public Context findContextByName(String contextName);
+	
+	public List<String> getAlternateNameTypes();
 
 }
