@@ -98,6 +98,7 @@
   		  <ref bean="blConceptValidator" />
   		  <ref bean="csCSIValidator" />
   		  <ref bean="loaderValueDomainValidator"/>
+  		  <ref bean="altNameTypeValidator"/>
   		</list>
   	</property>
   </bean>
@@ -111,7 +112,9 @@
   <bean name="csCSIValidator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators.CSCSIValidator" >
     <property name="dao" ref="DAOFacade" />
   </bean>
-    
+  <bean name="altNameTypeValidator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators.AlternateNameTypeValidator" >
+    <property name="dao" ref="DAOFacade" />
+  </bean>
     
                               <!-- Persister -->
     

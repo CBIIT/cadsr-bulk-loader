@@ -13,12 +13,13 @@ import gov.nih.nci.ncicb.cadsr.domain.Concept;
 import gov.nih.nci.ncicb.cadsr.domain.Context;
 import gov.nih.nci.ncicb.cadsr.domain.DataElement;
 import gov.nih.nci.ncicb.cadsr.domain.DataElementConcept;
-import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
 import gov.nih.nci.ncicb.cadsr.domain.ObjectClass;
 import gov.nih.nci.ncicb.cadsr.domain.Property;
 import gov.nih.nci.ncicb.cadsr.domain.ValueDomain;
 import gov.nih.nci.ncicb.cadsr.loader.util.DAOAccessor;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -26,9 +27,14 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
+
 public class BulkLoaderReadDAOImpl implements BulkLoaderReadDAO {
 
 	private DataSource dataSource;
+	private List<String> alternateNameTypes;
 
 	public DataSource getDataSource() {
 		return dataSource;
@@ -252,6 +258,27 @@ public class BulkLoaderReadDAOImpl implements BulkLoaderReadDAO {
 		else {
 			return CaDSRObjectsUtil.createContext();
 		}
+	}
+	
+	public List<String> getAlternateNameTypes() {
+		if (alternateNameTypes == null) {
+			String sql = "select distinct DETL_NAME from DESIGNATION_TYPES_LOV";
+			JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+			
+			alternateNameTypes = (List<String>)jdbcTemplate.query(sql, new ResultSetExtractor() {
+				@Override
+				public Object extractData(ResultSet rs) throws SQLException,
+						DataAccessException {
+					List<String> altNameTypes = new ArrayList<String>();
+					while (rs.next()) {
+						altNameTypes.add(rs.getString(1));
+					}
+					return altNameTypes;
+				}	
+			});
+		}
+		
+		return alternateNameTypes;
 	}
 	
 }

@@ -67,6 +67,10 @@ public class ValidatorTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.M
 		}
 	}
 	
+	public void testValidatorFail() {
+		
+	}
+	
 	private CaDSRObjects getObject() {
 		CaDSRObjects caDSRObjects = new CaDSRObjects();
 		
@@ -84,7 +88,29 @@ public class ValidatorTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.M
 		concepts.add(con);
 		
 		caDSRObjects.setDataElements(dataElements);
-		caDSRObjects.setConcepts(concepts);
+		//caDSRObjects.setConcepts(concepts);
+		
+		return caDSRObjects;
+	}
+	
+	private CaDSRObjects getInvalidObject() {
+		CaDSRObjects caDSRObjects = new CaDSRObjects();
+		
+		DataElement de = DomainObjectFactory.newDataElement();
+		de.setPublicId("6565343");
+		de.setVersion(new Float(1.0));
+		
+		List<DataElement> dataElements = new ArrayList<DataElement>();
+		dataElements.add(de);
+		
+		Concept con = DomainObjectFactory.newConcept();
+		con.setPreferredName("C0000");
+		
+		List<Concept> concepts = new ArrayList<Concept>();
+		concepts.add(con);
+		
+		caDSRObjects.setDataElements(dataElements);
+		//caDSRObjects.setConcepts(concepts);
 		
 		return caDSRObjects;
 	}

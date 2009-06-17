@@ -468,6 +468,10 @@ public abstract class MainTestCase extends TestCase
             {
                 databaseWrapper = new DatabaseTestWrapper(dataSource, dataURL, schema, runInRealContainer());
                 databaseWrapper.setUp();
+                
+                databaseWrapper = new DatabaseTestWrapper(dataSource, dataURL, schema, runInRealContainer());
+                databaseWrapper.setUpdate(true);
+                databaseWrapper.setUp();
             }
         }
     }
@@ -806,9 +810,20 @@ public abstract class MainTestCase extends TestCase
         protected DatabaseConnection dbconnection = null;
         protected boolean inContainer;
         protected IDataSet dataSetInUse;
+        private boolean update;
+        
+        
 
 
-        public DatabaseTestWrapper(DataSource dataSource, URL dataURL, String schema, boolean inContainer)
+        public boolean isUpdate() {
+			return update;
+		}
+
+		public void setUpdate(boolean update) {
+			this.update = update;
+		}
+
+		public DatabaseTestWrapper(DataSource dataSource, URL dataURL, String schema, boolean inContainer)
                 throws Exception
         {
             super(dataURL);
@@ -928,12 +943,15 @@ public abstract class MainTestCase extends TestCase
         protected DatabaseOperation getSetUpOperation()
                 throws Exception
         {
-            if (doCleanInsert())
-            {
-                return DatabaseOperation.CLEAN_INSERT;
-            }
+        	if (!update) {
+        		if (doCleanInsert())
+                {
+                    return DatabaseOperation.CLEAN_INSERT;
+                }
 
-            return DatabaseOperation.REFRESH;
+                return DatabaseOperation.REFRESH;
+        	}
+            return DatabaseOperation.UPDATE;
         }
 
         protected IDataSet getFilteredDataset(IDataSet dataset)

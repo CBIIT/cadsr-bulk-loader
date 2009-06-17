@@ -207,4 +207,8 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 		writeDAO.save(caDSRObjects, loadObjects);
 	}
 	
+	@Override
+	public List<String> getAlternateNameTypes() {
+		return readDAO.getAlternateNameTypes();
+	}
 }
