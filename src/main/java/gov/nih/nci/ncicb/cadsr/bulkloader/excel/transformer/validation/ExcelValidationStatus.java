@@ -25,6 +25,7 @@ public class ExcelValidationStatus implements TransformerValidationStatus {
 	public static final ExcelValidationStatus INVALID_VDID = new ExcelValidationStatus(21, "The VD Id entered is invalid");
 	public static final ExcelValidationStatus INVALID_DEC_CD_ID = new ExcelValidationStatus(23, "The DEC CD Id entered is invalid");
 	public static final ExcelValidationStatus INVALID_VD_CD_ID = new ExcelValidationStatus(25, "The VD CD Id entered is invalid");
+	public static final ExcelValidationStatus DUPLICATE_VM_CONCEPT = new ExcelValidationStatus(25, "Duplicate VM concepts found for the same VD");
 	
 	public static final ExcelValidationStatus INVALID_CONCEPT_ID = new ExcelValidationStatus(27, "The Concept Id entered is invalid");
 	public static final ExcelValidationStatus INVALID_QUAL_CONCEPT_ID = new ExcelValidationStatus(29, "The Qualifier Concept Ids entered are invalid");
@@ -37,6 +38,7 @@ public class ExcelValidationStatus implements TransformerValidationStatus {
 	public static final ExcelValidationStatus BLANK_CS = new ExcelValidationStatus(39, "Classification Scheme cannot be blank");
 	public static final ExcelValidationStatus BLANK_CSI = new ExcelValidationStatus(41, "Classification Scheme Item cannot be blank");
 	public static final ExcelValidationStatus BLANK_SOURCE = new ExcelValidationStatus(43, "Source cannot be blank");
+	public static final ExcelValidationStatus PV_NO_VM = new ExcelValidationStatus(45, "The Permissible Value entered does not have any Value Meaning concepts");
 	
 	private int errorCode;
 	private String message;

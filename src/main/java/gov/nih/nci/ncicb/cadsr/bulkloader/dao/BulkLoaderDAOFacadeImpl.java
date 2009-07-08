@@ -37,7 +37,11 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 	private LexEVSDAO evsDAO;
 	
 	private HashMap<String, Concept> evsConceptsCache = new HashMap<String, Concept>();
+	private HashMap<String, Concept> caDSRConceptsCache = new HashMap<String, Concept>();
 	private HashMap<String, ClassificationScheme> classSchemeCache = new HashMap<String, ClassificationScheme>();
+	private HashMap<String, DataElement> dataElementCache = new HashMap<String, DataElement>();
+	private HashMap<String, DataElementConcept> dataElementConceptCache = new HashMap<String, DataElementConcept>();
+	private HashMap<String, ValueDomain> valueDomainCache = new HashMap<String, ValueDomain>();
 	
 	public BulkLoaderDAOFacadeImpl(BulkLoaderDAOFactory _daoFactory) {
 		daoFactory = _daoFactory;
@@ -63,16 +67,30 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 	}
 
 	public DataElement findDataElementById(int publicId, double version) {
-		return readDAO.findDataElementById(publicId, version);
+		String deIdStr = getAdminCompIdString(publicId, version);
+		DataElement cachedDataElement = dataElementCache.get(deIdStr);
+		
+		if (cachedDataElement == null) {
+			cachedDataElement = readDAO.findDataElementById(publicId, version);
+			dataElementCache.put(deIdStr, cachedDataElement);
+		}
+		
+		return cachedDataElement;
 	}
 
-	public DataElementConcept findDataElementConceptById(int publicId,
-			double version) {
-		return readDAO.findDataElementConceptById(publicId, version);
+	public DataElementConcept findDataElementConceptById(int publicId, double version) {
+		String decIdStr = getAdminCompIdString(publicId, version);
+		DataElementConcept cachedDataElementConcept = dataElementConceptCache.get(decIdStr);
+		
+		if (cachedDataElementConcept == null) {
+			cachedDataElementConcept = readDAO.findDataElementConceptById(publicId, version);
+			dataElementConceptCache.put(decIdStr, cachedDataElementConcept);
+		}
+		
+		return cachedDataElementConcept;
 	}
 
-	public List<DataElementConcept> findDataElementConcepts(
-			DataElementConcept dataElementConcept) {
+	public List<DataElementConcept> findDataElementConcepts(DataElementConcept dataElementConcept) {
 		return readDAO.findDataElementConcepts(dataElementConcept);
 	}
 
@@ -109,14 +127,22 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 	}
 
 	public ValueDomain findValueDomainsById(int publicId, double version) {
-		return readDAO.findValueDomainsById(publicId, version);
+		String vdIdStr = getAdminCompIdString(publicId, version);
+		ValueDomain cachedValueDomain = valueDomainCache.get(vdIdStr);
+		
+		if (cachedValueDomain == null) {
+			cachedValueDomain = readDAO.findValueDomainsById(publicId, version);
+			valueDomainCache.put(vdIdStr, cachedValueDomain);
+		}
+		
+		return cachedValueDomain;
 	}
 	
 	public Context findContextByName(String contextName) {
 		return readDAO.findContextByName(contextName);
 	}
 	
-	public Concept findConceptByCUI(String cui) {
+	public Concept findEVSConceptByCUI(String cui) {
 		Concept cachedConcept = evsConceptsCache.get(cui);
 		if (cachedConcept != null) {
 			return cachedConcept;
@@ -126,6 +152,18 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 			
 			Concept concept = getConcept(descLogicConcept);
 			evsConceptsCache.put(cui, concept);
+			return concept;
+		}
+	}
+	
+	public Concept findCaDSRConceptByCUI(String cui) {
+		Concept cachedConcept = caDSRConceptsCache.get(cui);
+		if (cachedConcept != null) {
+			return cachedConcept;
+		}
+		else {
+			Concept concept = readDAO.findCaDSRConceptByCUI(cui);
+			caDSRConceptsCache.put(cui, concept);
 			return concept;
 		}
 	}
@@ -210,5 +248,9 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 	@Override
 	public List<String> getAlternateNameTypes() {
 		return readDAO.getAlternateNameTypes();
+	}
+	
+	private String getAdminCompIdString(int publicId, double version) {
+		return publicId+"v"+version;
 	}
 }

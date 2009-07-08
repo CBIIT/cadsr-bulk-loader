@@ -10,11 +10,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+public class NewDEExistingDECVDTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.MainTestCase {
 
-public class BulkLoadProcessorTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.MainTestCase {
-
+	private static String dataURL = "/gov/nih/nci/ncicb/cadsr/8_33_1_fail.xls";
+	
 	@Override
 	protected void containerSetUp() throws Exception {
 		// TODO Auto-generated method stub
@@ -40,11 +39,11 @@ public class BulkLoadProcessorTestCase extends gov.nih.nci.ncicb.cadsr.bulkloade
 		}
 	}
 
-	public BulkLoadProcessorTestCase() {
-		super("BulkLoadProcessorTestCase", BulkLoadProcessorTestCase.class, "/gov/nih/nci/ncicb/cadsr/8_29_1_3.xls");
+	public NewDEExistingDECVDTestCase() {
+		super("NewDEExistingDECVDTestCase", NewDEExistingDECVDTestCase.class, dataURL);
 	}
 	
-	public void testProcessor() {
+	public void testGF21785() {
 		Properties props = new Properties();
 		props.put("db.url", getPropertyManager().getUnitDataSourceURL());
 		props.put("db.username", getPropertyManager().getUnitDataSourceUser());
@@ -62,6 +61,7 @@ public class BulkLoadProcessorTestCase extends gov.nih.nci.ncicb.cadsr.bulkloade
 		String outputFileDir = getClasspath()+"gov/nih/nci/ncicb/cadsr/out";
 		
 		BulkLoadProcessResult[] processResults = blProcessor.process(inputFileDir, outputFileDir, true);
+		
 		UIReportWriter reportWriter = new UIReportWriterImpl();
 		
 		for (BulkLoadProcessResult processResult: processResults) {

@@ -226,7 +226,7 @@ public class BulkLoaderReadDAOImpl implements BulkLoaderReadDAO {
 		}
 	}
 	
-	public Concept findConceptByCUI(String cui) {
+	public Concept findCaDSRConceptByCUI(String cui) {
 		Concept toSearch = CaDSRObjectsUtil.createConcept(cui);
 		List<Concept> foundConcepts = findConcepts(toSearch);
 		if (foundConcepts.isEmpty()) {

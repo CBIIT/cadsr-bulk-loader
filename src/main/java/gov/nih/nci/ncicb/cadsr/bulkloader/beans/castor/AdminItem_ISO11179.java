@@ -21,6 +21,7 @@ public class AdminItem_ISO11179 {
 	private Submission_ISO11179 submittedBy;
 	private Stewardship_ISO11179 administeredBy;
 	private List<TerminologicalEntry_ISO11179> having;
+	private String longName;
 	
 	public String getTagId() {
 		return tagId;
@@ -70,6 +71,12 @@ public class AdminItem_ISO11179 {
 	}
 	public void setHaving(List<TerminologicalEntry_ISO11179> having) {
 		this.having = having;
+	}
+	public String getLongName() {
+		return longName;
+	}
+	public void setLongName(String longName) {
+		this.longName = longName;
 	}
 
 	

@@ -281,6 +281,7 @@
             <xs:element name="submitted_by" type="Submission" minOccurs="0"/>
             <xs:element name="administered_by" type="Stewardship" minOccurs="0"/>
             <xs:element name="having" type="Terminological_Entry" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="longName" type="xs:string" minOccurs="0" maxOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
     

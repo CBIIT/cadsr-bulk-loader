@@ -34,7 +34,7 @@ public interface BulkLoaderReadDAO {
 	public ValueDomain findValueDomainsById(int publicId, double version);
 	public List<ValueDomain> findValueDomains(ValueDomain valueDomain);
 	
-	public Concept findConceptByCUI(String cui);
+	public Concept findCaDSRConceptByCUI(String cui);
 	
 	public Context findContextByName(String contextName);
 	

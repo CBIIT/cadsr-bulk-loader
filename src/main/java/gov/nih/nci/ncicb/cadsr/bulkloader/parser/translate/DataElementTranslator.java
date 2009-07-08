@@ -7,6 +7,7 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ISO11179Elements;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.LanguageSection_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ReferenceDocument_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.TerminologicalEntry_ISO11179;
+import gov.nih.nci.ncicb.cadsr.bulkloader.util.ProjectPropertiesUtil;
 import gov.nih.nci.ncicb.cadsr.domain.AdminComponentClassSchemeClassSchemeItem;
 import gov.nih.nci.ncicb.cadsr.domain.AlternateName;
 import gov.nih.nci.ncicb.cadsr.domain.ClassSchemeClassSchemeItem;
@@ -76,17 +77,31 @@ public class DataElementTranslator extends AbstractTranslatorTemplate {
 			List<LanguageSection_ISO11179> langSections = termEntry.getContainingEntries();
 			for (LanguageSection_ISO11179 langSection: langSections) {
 				List<Designation_ISO11179> designations = langSection.getNamingEntries();
-				for (Designation_ISO11179 designation: designations) {
-					String name = designation.getName();
-					String type = designation.getType();
-					
-					AlternateName altName = DomainObjectFactory.newAlternateName();
-					altName.setName(name);
-					altName.setType(type);
-					
-					de.addAlternateName(altName);
+				if (designations != null) {
+					for (Designation_ISO11179 designation: designations) {
+						String name = designation.getName();
+						String type = designation.getType();
+						
+						AlternateName altName = DomainObjectFactory.newAlternateName();
+						altName.setName(name);
+						altName.setType(type);
+						
+						de.addAlternateName(altName);
+					}
 				}
 			}
+		}
+		addLongNameAsAltName(isoDE, de);
+	}
+	
+	private void addLongNameAsAltName(DataElement_ISO11179 isoDE, DataElement de) {
+		String isoLongName = isoDE.getLongName();
+		if (isoLongName != null && !isoLongName.trim().equals("")) {
+			AlternateName altName = DomainObjectFactory.newAlternateName();
+			altName.setName(isoLongName);
+			altName.setType(ProjectPropertiesUtil.getDefaultAlternateNameType());
+			
+			de.addAlternateName(altName);
 		}
 	}
 	

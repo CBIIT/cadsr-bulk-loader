@@ -9,17 +9,24 @@ import gov.nih.nci.ncicb.cadsr.domain.AlternateName;
 import gov.nih.nci.ncicb.cadsr.domain.ClassSchemeClassSchemeItem;
 import gov.nih.nci.ncicb.cadsr.domain.ClassificationScheme;
 import gov.nih.nci.ncicb.cadsr.domain.ClassificationSchemeItem;
+import gov.nih.nci.ncicb.cadsr.domain.Context;
 import gov.nih.nci.ncicb.cadsr.domain.DataElement;
 import gov.nih.nci.ncicb.cadsr.domain.DataElementConcept;
 import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
+import gov.nih.nci.ncicb.cadsr.domain.PermissibleValue;
 import gov.nih.nci.ncicb.cadsr.domain.ValueDomain;
+import gov.nih.nci.ncicb.cadsr.domain.ValueMeaning;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class PersisterImpl implements Persister {
 
 	private BulkLoaderDAOFacade dao;
+	
+	private HashMap<String, DataElementConcept> lookedUpDECsCache = new HashMap<String, DataElementConcept>();
+	private HashMap<String, ValueDomain> lookedUpVDsCache = new HashMap<String, ValueDomain>();
 	
 	public BulkLoaderDAOFacade getDao() {
 		return dao;
@@ -38,23 +45,22 @@ public class PersisterImpl implements Persister {
 			List<DataElement> dataElements = cadsrObjects.getDataElements();
 			List<DataElementConcept> dataElementConcepts = cadsrObjects.getDataElementConcepts();
 			List<ValueDomain> valueDomains = cadsrObjects.getValueDomains();
-			
-			if (dataElements != null) {
-				List<DataElement> lookedUpDataElements = loadDataElements(dataElements);
-				replaceCSCSIs(lookedUpDataElements);
-				cadsrObjects.setDataElements(lookedUpDataElements);
-			}
-			
+						
 			if (dataElementConcepts != null) {
 				List<DataElementConcept> lookedUpDataElementConcepts = loadDataElementConcepts(dataElementConcepts);
 				cadsrObjects.setDataElementConcepts(lookedUpDataElementConcepts);
 			}
 			
 			if (valueDomains != null) {
-				List<ValueDomain> lookedUpValueDomains = loadValueDomains(valueDomains);
+				List<ValueDomain> lookedUpValueDomains = loadValueDomains(valueDomains, loadObjects);
 				cadsrObjects.setValueDomains(lookedUpValueDomains);
 			}
 			
+			if (dataElements != null) {
+				List<DataElement> lookedUpDataElements = loadDataElements(dataElements);
+				replaceCSCSIs(lookedUpDataElements);
+				cadsrObjects.setDataElements(lookedUpDataElements);
+			}
 			
 			dao.save(cadsrObjects, loadObjects);
 			
@@ -99,6 +105,55 @@ public class PersisterImpl implements Persister {
 		adminComp.setAcCsCsis(newACCsCSIs);
 	}
 	
+	private List<DataElementConcept> loadDataElementConcepts(List<DataElementConcept> createdDataElementConcepts) {
+		List<DataElementConcept> lookedUpDECs = new ArrayList<DataElementConcept>();
+		
+		for (DataElementConcept createdDEC: createdDataElementConcepts) {
+			List<DataElementConcept> foundDECs = dao.findDataElementConcepts(createdDEC);
+			if (foundDECs.size() > 0) {
+				DataElementConcept foundDEC = foundDECs.get(0);
+				lookedUpDECsCache.put(foundDEC.getPublicId(), foundDEC);
+				lookedUpDECs.add(foundDEC);
+			}
+			else {
+				lookedUpDECs.add(createdDEC);
+			}
+		}
+		
+		return lookedUpDECs;
+	}
+	
+	private List<ValueDomain> loadValueDomains(List<ValueDomain> createdValueDomains, LoadObjects loadObjects) {
+		List<ValueDomain> lookedUpVDs = new ArrayList<ValueDomain>();
+		
+		for (ValueDomain createdVD: createdValueDomains) {
+			List<ValueDomain> foundVDs = dao.findValueDomains(createdVD);
+			if (foundVDs.size() > 0) {
+				ValueDomain foundVD = foundVDs.get(0);
+				lookedUpVDsCache.put(foundVD.getPublicId(), foundVD);
+				lookedUpVDs.add(foundVD);
+			}
+			else {
+				setVMContext(createdVD, loadObjects.getLoadContext());
+				lookedUpVDs.add(createdVD);
+			}
+		}
+		
+		return lookedUpVDs;
+	}
+	
+	private void setVMContext(ValueDomain createdVD, Context loadContext) {
+		List<PermissibleValue> permissibleValues = createdVD.getPermissibleValues();
+		if (permissibleValues != null) {
+			for (PermissibleValue permissibleValue: permissibleValues) {
+				ValueMeaning valueMeaning = permissibleValue.getValueMeaning();
+				if (valueMeaning != null) {
+					valueMeaning.setContext(loadContext);
+				}
+			}
+		}
+	}
+
 	private List<DataElement> loadDataElements(List<DataElement> createdDataElements) {
 		List<DataElement> lookedUpDEs = new ArrayList<DataElement>();
 		
@@ -111,50 +166,40 @@ public class PersisterImpl implements Persister {
 					foundDE.setAcCsCsis(createdDE.getAcCsCsis());
 				}
 				if (createdDE.getAlternateNames() != null) {
+					String foundDELongName = foundDE.getLongName();
 					for (AlternateName altName: createdDE.getAlternateNames()) {
-						foundDE.addAlternateName(altName);
+						String altLongName = altName.getName();
+						if (altLongName!=null && !foundDELongName.equalsIgnoreCase(altLongName)) {
+							foundDE.addAlternateName(altName);
+						}
 					}
 				}
 			}
 			else {
+				DataElementConcept dec = createdDE.getDataElementConcept();
+				ValueDomain vd = createdDE.getValueDomain();
+				
+				if (dec != null) {
+					String decPublicId = dec.getPublicId();
+					DataElementConcept lookedUpDEC = lookedUpDECsCache.get(decPublicId);
+					if (lookedUpDEC != null) {
+						createdDE.setDataElementConcept(lookedUpDEC);
+					}
+				}
+				
+				if (vd != null) {
+					String vdPublicId = vd.getPublicId();
+					ValueDomain lookedUpVD = lookedUpVDsCache.get(vdPublicId);
+					if (lookedUpVD != null) {
+						createdDE.setValueDomain(lookedUpVD);
+					}
+				}
+				
 				lookedUpDEs.add(createdDE);
 			}
 		}
 		
 		return lookedUpDEs;
-	}
-	
-	private List<DataElementConcept> loadDataElementConcepts(List<DataElementConcept> createdDataElementConcepts) {
-		List<DataElementConcept> lookedUpDECs = new ArrayList<DataElementConcept>();
-		
-		for (DataElementConcept createdDEC: createdDataElementConcepts) {
-			List<DataElementConcept> foundDECs = dao.findDataElementConcepts(createdDEC);
-			if (foundDECs.size() > 0) {
-				DataElementConcept foundDEC = foundDECs.get(0);
-				lookedUpDECs.add(foundDEC);
-			}
-			else {
-				lookedUpDECs.add(createdDEC);
-			}
-		}
-		
-		return lookedUpDECs;
-	}
-	
-	private List<ValueDomain> loadValueDomains(List<ValueDomain> createdValueDomains) {
-		List<ValueDomain> lookedUpVDs = new ArrayList<ValueDomain>();
-		
-		for (ValueDomain createdVD: createdValueDomains) {
-			List<ValueDomain> foundVDs = dao.findValueDomains(createdVD);
-			if (foundVDs.size() > 0) {
-				lookedUpVDs.add(foundVDs.get(0));
-			}
-			else {
-				lookedUpVDs.add(createdVD);
-			}
-		}
-		
-		return lookedUpVDs;
 	}
 
 }

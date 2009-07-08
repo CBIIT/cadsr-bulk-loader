@@ -7,6 +7,7 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ISO11179Elements;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.PermissibleValue_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.RepresentationClass_caDSR11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueDomain_caDSR11179;
+import gov.nih.nci.ncicb.cadsr.domain.Concept;
 import gov.nih.nci.ncicb.cadsr.domain.ConceptDerivationRule;
 import gov.nih.nci.ncicb.cadsr.domain.ConceptualDomain;
 import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
@@ -40,6 +41,7 @@ public class ValueDomainTranslator extends AbstractTranslatorTemplate {
 		ConceptualDomain conceptDomain = objRegistry.getConceptualDomain(cdRefId);
 		String vdLongName = util.getPreferredQuestionText(isoVD);
 		if (vdLongName == null) vdLongName = "";
+		int maxLength = isoVD.getMaxCharacters();
 		
 		String enumerated = "N";
 		if (isoVD instanceof  EnumeratedValueDomain_caDSR11179) {
@@ -61,6 +63,9 @@ public class ValueDomainTranslator extends AbstractTranslatorTemplate {
 		vd.setPreferredDefinition(vdLongName);
 		vd.setVdType(enumerated);
 		vd.setDataType(dataType);
+		if (maxLength > 0) {
+			vd.setMaximumLength(maxLength);
+		}
 		
 		String id = util.getIdentifier(isoVD);
 		Float version = util.getIdVersion(isoVD);
@@ -73,9 +78,13 @@ public class ValueDomainTranslator extends AbstractTranslatorTemplate {
 			String longName = util.getLongName(cdr);
 			String definition = util.getDefinition(cdr);
 			
+			List<String> conceptRefs = util.getConceptReferences(repTermCDR);
+			List<Concept> concepts = util.getConceptsFromRegistry(conceptRefs, objRegistry);
+			String preferredName = util.getPreferredNameFromConcepts(concepts);
+			
 			Representation rep = DomainObjectFactory.newRepresentation();
 			rep.setLongName(longName);
-			rep.setPreferredName(longName);
+			rep.setPreferredName(preferredName);
 			
 			vd.setLongName(longName);
 			vd.setPreferredDefinition(definition);

@@ -20,16 +20,29 @@ import java.util.Map;
 
 public class CaDSRObjectRegistry {
 	
-	private static final Map<String, Concept> conceptsMap = new HashMap<String, Concept>();
-	private static final Map<String, Property> propertiesMap = new HashMap<String, Property>();
-	private static final Map<String, ObjectClass> objectClassMap = new HashMap<String, ObjectClass>();
-	private static final Map<String, ValueDomain> valueDomainMap = new HashMap<String, ValueDomain>();
-	private static final Map<String, DataElementConcept> dataElementConceptMap = new HashMap<String, DataElementConcept>();
-	private static final Map<String, DataElement> dataElementMap = new HashMap<String, DataElement>();
-	private static final Map<String, ConceptualDomain> conceptualDomainMap = new HashMap<String, ConceptualDomain>();
-	private static final Map<String, ValueMeaning> valueMeaningMap = new HashMap<String, ValueMeaning>();
-	private static final Map<String, ClassificationSchemeItem> csiMap = new HashMap<String, ClassificationSchemeItem>();
-	private static final Map<String, ClassificationScheme> csMap = new HashMap<String, ClassificationScheme>();
+	private final Map<String, Concept> conceptsMap;
+	private final Map<String, Property> propertiesMap;
+	private final Map<String, ObjectClass> objectClassMap;
+	private final Map<String, ValueDomain> valueDomainMap;
+	private final Map<String, DataElementConcept> dataElementConceptMap;
+	private final Map<String, DataElement> dataElementMap;
+	private final Map<String, ConceptualDomain> conceptualDomainMap;
+	private final Map<String, ValueMeaning> valueMeaningMap;
+	private final Map<String, ClassificationSchemeItem> csiMap;
+	private final Map<String, ClassificationScheme> csMap;
+	
+	public CaDSRObjectRegistry() {
+		conceptsMap = new HashMap<String, Concept>();
+		propertiesMap = new HashMap<String, Property>();
+		objectClassMap = new HashMap<String, ObjectClass>();
+		valueDomainMap = new HashMap<String, ValueDomain>();
+		dataElementConceptMap = new HashMap<String, DataElementConcept>();
+		dataElementMap = new HashMap<String, DataElement>();
+		conceptualDomainMap = new HashMap<String, ConceptualDomain>();
+		valueMeaningMap = new HashMap<String, ValueMeaning>();
+		csiMap = new HashMap<String, ClassificationSchemeItem>();
+		csMap = new HashMap<String, ClassificationScheme>();
+	}
 	
 	public void addConcept(String tagId, Concept con) {
 		conceptsMap.put(tagId, con);
