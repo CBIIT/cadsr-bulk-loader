@@ -148,9 +148,16 @@
         <ref bean="objectClassPersister" />
         <ref bean="propertyPersister" />
         <ref bean="decPersister" />
+        <ref bean="repTermPersister" />
         <ref bean="valueDomainPersister" />
         <ref bean="dePersister" />
       </list>
+    </property>
+  </bean>
+  
+  <bean name="repTermPersister" class="gov.nih.nci.ncicb.cadsr.loader.persister.RepresentationPersister">
+    <property name="persisterUtil">
+      <ref bean="persisterUtil"/>
     </property>
   </bean>
   

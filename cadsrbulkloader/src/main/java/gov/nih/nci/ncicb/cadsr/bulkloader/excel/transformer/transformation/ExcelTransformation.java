@@ -77,17 +77,17 @@ import org.apache.commons.logging.LogFactory;
 
 public class ExcelTransformation implements TransformerTransformation {
 
-	private final Map<String, Concept_caDSR11179> conceptsMap = new HashMap<String, Concept_caDSR11179>();
-	private final Map<String, ObjectClass_caDSR11179> ocMap = new HashMap<String, ObjectClass_caDSR11179>();
-	private final Map<String, Property_caDSR11179> propMap = new HashMap<String, Property_caDSR11179>();
-	private final Map<String, ValueMeaning_caDSR11179> vmMap = new HashMap<String, ValueMeaning_caDSR11179>();
-	private final Map<String, NonEnumeratedConceptualDomain_caDSR11179> cdMap = new HashMap<String, NonEnumeratedConceptualDomain_caDSR11179>();
-	private final Map<String, DataElementConcept_ISO11179> decMap = new HashMap<String, DataElementConcept_ISO11179>();
-	private final Map<String, NonEnumeratedValueDomain_caDSR11179> nonEnumVDMap = new HashMap<String, NonEnumeratedValueDomain_caDSR11179>();
-	private final Map<String, EnumeratedValueDomain_caDSR11179> enumVDMap = new HashMap<String, EnumeratedValueDomain_caDSR11179>();
-	private final Map<String, ClassificationScheme_ISO11179> csMap = new HashMap<String, ClassificationScheme_ISO11179>();
-	private final Map<String, ClassificationSchemeItem_caDSR11179> csiMap = new HashMap<String, ClassificationSchemeItem_caDSR11179>();
-	private final Map<String, DataElement_ISO11179> deMap = new HashMap<String, DataElement_ISO11179>();
+	private Map<String, Concept_caDSR11179> conceptsMap;
+	private Map<String, ObjectClass_caDSR11179> ocMap;
+	private Map<String, Property_caDSR11179> propMap;
+	private Map<String, ValueMeaning_caDSR11179> vmMap;
+	private Map<String, NonEnumeratedConceptualDomain_caDSR11179> cdMap;
+	private Map<String, DataElementConcept_ISO11179> decMap;
+	private Map<String, NonEnumeratedValueDomain_caDSR11179> nonEnumVDMap;
+	private Map<String, EnumeratedValueDomain_caDSR11179> enumVDMap;
+	private Map<String, ClassificationScheme_ISO11179> csMap;
+	private Map<String, ClassificationSchemeItem_caDSR11179> csiMap;
+	private Map<String, DataElement_ISO11179> deMap;
 	
 	private static Log log = LogFactory.getLog(ExcelTransformation.class);
 	
@@ -101,8 +101,24 @@ public class ExcelTransformation implements TransformerTransformation {
 	public void setDao(BulkLoaderDAOFacade dao) {
 		this.dao = dao;
 	}
+	
+	private void createPlaceholders() {
+		conceptsMap = new HashMap<String, Concept_caDSR11179>();
+		ocMap = new HashMap<String, ObjectClass_caDSR11179>();
+		propMap = new HashMap<String, Property_caDSR11179>();
+		vmMap = new HashMap<String, ValueMeaning_caDSR11179>();
+		cdMap = new HashMap<String, NonEnumeratedConceptualDomain_caDSR11179>();
+		decMap = new HashMap<String, DataElementConcept_ISO11179>();
+		nonEnumVDMap = new HashMap<String, NonEnumeratedValueDomain_caDSR11179>();
+		enumVDMap = new HashMap<String, EnumeratedValueDomain_caDSR11179>();
+		csMap = new HashMap<String, ClassificationScheme_ISO11179>();
+		csiMap = new HashMap<String, ClassificationSchemeItem_caDSR11179>();
+		deMap = new HashMap<String, DataElement_ISO11179>();
+	}
 
-	public TransformerTransformationResult transform(Item marshalledObject) {
+	public synchronized TransformerTransformationResult transform(Item marshalledObject) {
+		createPlaceholders();
+		
 		TransformerTransformationResult result = new TransformerTransformationResult();
 		
 		excelForm = (ExcelForm)marshalledObject;
@@ -220,7 +236,8 @@ public class ExcelTransformation implements TransformerTransformation {
 			
 			for (int i=0;i<idAndNames.length;i++) {
 				String conceptId = idAndNames[i][0];
-				Concept_caDSR11179 isoConcept = get11179Concept(conceptId);
+				String longName = idAndNames[i][1];
+				Concept_caDSR11179 isoConcept = get11179Concept(conceptId, longName);
 				
 				isoConcept.setSubmittedBy(getBlankSubmittedBy());
 				
@@ -231,12 +248,13 @@ public class ExcelTransformation implements TransformerTransformation {
 		return isoConcepts;
 	}
 	
-	private Concept_caDSR11179 get11179Concept(String conceptId) {
+	private Concept_caDSR11179 get11179Concept(String conceptId, String longName) {
 		Concept_caDSR11179 isoConcept = new Concept_caDSR11179();
 		isoConcept.setCode(conceptId);
+		isoConcept.setLongName(longName);
 		
 		if (conceptId != null) {
-			Concept con = dao.findConceptByCUI(conceptId);
+			Concept con = dao.findEVSConceptByCUI(conceptId);
 			if (con.getPreferredName() != null) {
 				isoConcept.setHaving(getHaving(con));
 			}
@@ -587,6 +605,20 @@ public class ExcelTransformation implements TransformerTransformation {
 		}
 		isoDatatype.setSchemeReference("");
 		isoVD.setDatatype(isoDatatype);
+		
+		String vdMaxLengthStr = mainQuestion.getVdMaxLength();
+		int vdMaxLength = 0;
+		
+		if (vdMaxLengthStr != null) {
+			try {
+				vdMaxLength = Integer.parseInt(vdMaxLengthStr);
+			} catch (NumberFormatException e) {
+			}
+		}
+		
+		if (vdMaxLength > 0) {
+			isoVD.setMaxCharacters(vdMaxLength);
+		}
 		
 		ConceptualDomain_caDSR11179 isoCD = getConceptualDomain(mainQuestion.getVdConceptualDomainId());
 		if (isoCD != null) {
@@ -987,48 +1019,46 @@ public class ExcelTransformation implements TransformerTransformation {
 		List<Designation_ISO11179> isoDesigns = isoLangSection.getNamingEntries();
 		List<Definition_ISO11179> isoDefs = isoLangSection.getDefiningEntries();
 		
-		if (isPreferred) {
+		if (designation != null && isPreferred) {
 			for (Designation_ISO11179 isoDesign: isoDesigns) {
 				isoDesign.setPreferredDesignation(false);
 			}
-			
+			isoDesigns.add(designation);
+		}
+		
+		if (definition != null && isPreferred) {
 			for (Definition_ISO11179 isoDef: isoDefs) {
 				isoDef.setPreferredDefinition(false);
 			}
+			isoDefs.add(definition);
 		}
-
-		isoDesigns.add(designation);
-		isoDefs.add(definition);
 	}
 	
 	private Designation_ISO11179 getDesignation(String name, String type, boolean isPreferred) {
-		Designation_ISO11179 isoDesig = new Designation_ISO11179();
+		
 		if (name == null) {
-			isoDesig.setName("");
-			isoDesig.setType("");
+			return null;
 		}
 		else {
+			Designation_ISO11179 isoDesig = new Designation_ISO11179();
 			isoDesig.setName(name);
 			isoDesig.setType(type);
+			return isoDesig;
 		}
-		
-		return isoDesig;
 	}
 	
 	private Definition_ISO11179 getDefinition(String text, String type, boolean isPreferred) {
-		Definition_ISO11179 isoDef = new Definition_ISO11179();
+		
 		if (text == null) {
-			isoDef.setText("");
-			isoDef.setType("");
+			return null;
 		}
 		else {
+			Definition_ISO11179 isoDef = new Definition_ISO11179();
 			isoDef.setText(text);
 			isoDef.setType(type);
+			isoDef.setPreferredDefinition(isPreferred);
+			return isoDef;
 		}
-		
-		isoDef.setPreferredDefinition(isPreferred);
-		
-		return isoDef;
 	}
 	
 	private TerminologicalEntry_ISO11179 getBlankTermEntry() {

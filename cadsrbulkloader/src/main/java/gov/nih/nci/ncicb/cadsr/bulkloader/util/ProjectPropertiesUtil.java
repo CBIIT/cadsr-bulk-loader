@@ -14,6 +14,8 @@ public class ProjectPropertiesUtil {
 	public static final String VALIDATION_STOP_ON_FATALITY = "validation.stop.on.fatality";
 	public static final String VALIDATION_STOP_ON_WARNING = "validation.stop.on.warning";
 	
+	public static final String DEFAULT_ALT_NAME_PROP = "default.altname.type";
+	
 	private static final String PROPERTIES_FILE_STR = "bulkloader.properties";
 	private static ClassLoader classLoader = ProjectPropertiesUtil.class.getClassLoader();
 	private static Properties props = new Properties();
@@ -58,5 +60,9 @@ public class ProjectPropertiesUtil {
 	
 	public String getValidationStopOnWarning() {
 		return props.getProperty(VALIDATION_STOP_ON_WARNING);
+	}
+	
+	public static String getDefaultAlternateNameType() {
+		return props.getProperty(DEFAULT_ALT_NAME_PROP);
 	}
 }

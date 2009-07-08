@@ -33,7 +33,7 @@ public class ConceptsTranslator extends AbstractTranslatorTemplate {
 
 		Concept concept = DomainObjectFactory.newConcept();
 		concept.setPreferredName(iso11179Concept.getCode());
-		concept.setLongName(util.getDesignation(iso11179Concept));
+		concept.setLongName(iso11179Concept.getLongName());
 		
 		concept = addAlternateNamesAndDefinitions(concept, iso11179Concept);
 		

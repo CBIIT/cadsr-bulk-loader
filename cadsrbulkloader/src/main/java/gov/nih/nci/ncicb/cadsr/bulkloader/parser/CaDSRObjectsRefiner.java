@@ -6,6 +6,7 @@ import gov.nih.nci.ncicb.cadsr.domain.Concept;
 import gov.nih.nci.ncicb.cadsr.domain.ConceptDerivationRule;
 import gov.nih.nci.ncicb.cadsr.domain.DataElement;
 import gov.nih.nci.ncicb.cadsr.domain.DataElementConcept;
+import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
 import gov.nih.nci.ncicb.cadsr.domain.ObjectClass;
 import gov.nih.nci.ncicb.cadsr.domain.PermissibleValue;
 import gov.nih.nci.ncicb.cadsr.domain.Property;
@@ -62,11 +63,11 @@ public class CaDSRObjectsRefiner {
 			if (dataElement.getPublicId() != null) {
 				if (dec != null) {
 					deletedDECs.add(dec);
-					dataElement.setDataElementConcept(null);
+					dataElement.setDataElementConcept(DomainObjectFactory.newDataElementConcept());
 				}
 				if (vd != null) {
 					deletedVDs.add(vd);
-					dataElement.setValueDomain(null);
+					dataElement.setValueDomain(DomainObjectFactory.newValueDomain());
 				}
 			}
 			else {
@@ -86,11 +87,11 @@ public class CaDSRObjectsRefiner {
 			if (dataElementConcept.getPublicId() != null || deletedDECs.contains(dataElementConcept)) {
 				if (oc != null) {
 					deletedOCs.add(oc);
-					dataElementConcept.setObjectClass(null);
+					dataElementConcept.setObjectClass(DomainObjectFactory.newObjectClass());
 				}
 				if (prop != null) {
 					deletedProps.add(prop);
-					dataElementConcept.setProperty(null);
+					dataElementConcept.setProperty(DomainObjectFactory.newProperty());
 				}
 			}
 			else {
@@ -142,6 +143,7 @@ public class CaDSRObjectsRefiner {
 			if (valueDomain.getPublicId() != null || deletedVDs.contains(valueDomain)) {
 				retain = false;
 				valueDomain.setRepresentation(null);
+				caDSRObjects.getRepTerms().remove(representation);
 			}
 			
 			if (representation != null) {

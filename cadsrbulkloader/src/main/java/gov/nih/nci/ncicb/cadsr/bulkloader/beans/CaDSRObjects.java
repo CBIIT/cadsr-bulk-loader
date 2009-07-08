@@ -8,6 +8,7 @@ import gov.nih.nci.ncicb.cadsr.domain.DataElement;
 import gov.nih.nci.ncicb.cadsr.domain.DataElementConcept;
 import gov.nih.nci.ncicb.cadsr.domain.ObjectClass;
 import gov.nih.nci.ncicb.cadsr.domain.Property;
+import gov.nih.nci.ncicb.cadsr.domain.Representation;
 import gov.nih.nci.ncicb.cadsr.domain.ValueDomain;
 import gov.nih.nci.ncicb.cadsr.domain.ValueMeaning;
 
@@ -30,6 +31,7 @@ public class CaDSRObjects {
 	private List<Property> properties;
 	private List<Concept> concepts;
 	private List<ValueMeaning> valueMeanings;
+	private List<Representation> repTerms;
 	
 	private Context loadContext;
 	private ClassificationScheme loadClassificationScheme;
@@ -81,6 +83,12 @@ public class CaDSRObjects {
 		this.valueMeanings = valueMeanings;
 	}
 	
+	public List<Representation> getRepTerms() {
+		return repTerms;
+	}
+	public void setRepTerms(List<Representation> repTerms) {
+		this.repTerms = repTerms;
+	}
 	public Context getLoadContext() {
 		return loadContext;
 	}
@@ -103,6 +111,9 @@ public class CaDSRObjects {
 		}
 		else if (element instanceof Property) {
 			return getNonNullList(properties);
+		}
+		else if (element instanceof Representation) {
+			return getNonNullList(repTerms);
 		}
 		else if (element instanceof ValueDomain) {
 			return getNonNullList(valueDomains);
@@ -138,6 +149,9 @@ public class CaDSRObjects {
 		}
 		if (dataElements != null) {
 			adminComponents.addAll(dataElements);
+		}
+		if (repTerms != null) {
+			adminComponents.addAll(repTerms);
 		}
 		
 		return adminComponents;

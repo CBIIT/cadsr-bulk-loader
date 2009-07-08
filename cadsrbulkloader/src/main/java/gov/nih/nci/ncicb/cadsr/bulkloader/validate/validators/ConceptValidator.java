@@ -16,10 +16,19 @@ public class ConceptValidator extends AbstractValidator {
 		List<Concept> conceptsToValidate = elementsList.getElements(concept);
 		for (Concept conceptToValidate: conceptsToValidate) {
 			String cui = conceptToValidate.getPreferredName();
-			Concept foundConcept = dao.findConceptByCUI(cui);
-			if (foundConcept.getPreferredName() == null) {
-				ValidationItem validationItem = new ValidationError("Concept ["+cui+"] does not exist in EVS", conceptToValidate);
+			String longName = conceptToValidate.getLongName();
+			if (longName == null || longName.trim().equals("")) {
+				ValidationItem validationItem = new ValidationError("Long name for the Concept ["+cui+"] is null or empty", conceptToValidate);
 				validationItems.addItem(validationItem);
+			}
+			
+			Concept foundEVSConcept = dao.findEVSConceptByCUI(cui);
+			if (foundEVSConcept.getPreferredName() == null) {
+				Concept foundCaDSRConcept = dao.findCaDSRConceptByCUI(cui);
+				if (foundCaDSRConcept.getPreferredName() == null) {
+					ValidationItem validationItem = new ValidationError("Concept ["+cui+"] does not exist either in EVS or in caDSR", conceptToValidate);
+					validationItems.addItem(validationItem);
+				}
 			}
 		}
 		

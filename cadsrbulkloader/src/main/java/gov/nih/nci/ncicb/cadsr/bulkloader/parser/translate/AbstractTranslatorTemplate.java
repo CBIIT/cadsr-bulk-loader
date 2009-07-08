@@ -4,6 +4,11 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.beans.CaDSRObjects;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ISO11179Elements;
 import gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAOFacade;
 import gov.nih.nci.ncicb.cadsr.bulkloader.parser.util.ParserUtil;
+import gov.nih.nci.ncicb.cadsr.domain.Representation;
+import gov.nih.nci.ncicb.cadsr.domain.ValueDomain;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -47,20 +52,37 @@ public abstract class AbstractTranslatorTemplate implements Translator<CaDSRObje
 			caDSRObjects.setProperties(objRegistry.getProperties());
 			caDSRObjects.setObjectClasses(objRegistry.getObjectClasses());
 			caDSRObjects.setValueDomains(objRegistry.getValueDomains());
+			caDSRObjects.setRepTerms(getRepTerms(objRegistry.getValueDomains()));
 			caDSRObjects.setDataElementConcepts(objRegistry.getDataElementConcepts());
 			caDSRObjects.setDataElements(objRegistry.getDataElements());
 			caDSRObjects.setValueMeanings(objRegistry.getValueMeanings());
+			
+			
 			
 			result.setTranslatedObject(caDSRObjects);
 			result.setStatus(TranslatorStatus.SUCCESS);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
 			result.setException(e);
 			result.setStatus(TranslatorStatus.FAILURE);
 		}
 		
 		return result;
+	}
+	
+	private List<Representation> getRepTerms(List<ValueDomain> valueDomains) {
+		List<Representation> repTerms = new ArrayList<Representation>();
+		
+		if (valueDomains != null) {
+			for (ValueDomain valueDomain: valueDomains) {
+				Representation repTerm = valueDomain.getRepresentation();
+				if (repTerm != null) {
+					repTerms.add(repTerm);
+				}
+			}
+		}
+		
+		return repTerms;
 	}
 	
 	private CaDSRObjectRegistry callChildAndTranslateElement(ISO11179Elements iso11179Elements, CaDSRObjectRegistry objRegistry) {

@@ -10,11 +10,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+public class CreateNonEnumVDTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.MainTestCase {
 
-public class BulkLoadProcessorTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.MainTestCase {
-
+	private static String dataURL = "/gov/nih/nci/ncicb/cadsr/8_18_oneQualifer.xls";
+	
 	@Override
 	protected void containerSetUp() throws Exception {
 		// TODO Auto-generated method stub
@@ -40,11 +39,11 @@ public class BulkLoadProcessorTestCase extends gov.nih.nci.ncicb.cadsr.bulkloade
 		}
 	}
 
-	public BulkLoadProcessorTestCase() {
-		super("BulkLoadProcessorTestCase", BulkLoadProcessorTestCase.class, "/gov/nih/nci/ncicb/cadsr/8_29_1_3.xls");
+	public CreateNonEnumVDTestCase() {
+		super("CreateNonEnumVDTestCase", CreateNonEnumVDTestCase.class, dataURL);
 	}
 	
-	public void testProcessor() {
+	public void testGF21708() {
 		Properties props = new Properties();
 		props.put("db.url", getPropertyManager().getUnitDataSourceURL());
 		props.put("db.username", getPropertyManager().getUnitDataSourceUser());

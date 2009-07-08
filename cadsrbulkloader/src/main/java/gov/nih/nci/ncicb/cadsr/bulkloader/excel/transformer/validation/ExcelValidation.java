@@ -15,6 +15,8 @@ import java.util.regex.Pattern;
 
 public class ExcelValidation implements TransformerValidation {
 
+	private static final Pattern CONCEPTS_PATTERN = Pattern.compile("[[a-zA-Z0-9 ]+[:|;]?]*");
+	
 	public TransformerValidationResult validate(Item toValidate) {
 		
 		TransformerValidationResult result = new TransformerValidationResult();
@@ -47,6 +49,7 @@ public class ExcelValidation implements TransformerValidation {
 			
 			try {
 				lineItemResult = validateCDE(question, lineItemResult);
+				lineItemResult = validateVM(oneRecord, lineItemResult);
 			} catch(Exception e) {
 				result.setValidationException(e);
 				result.setStatus(ExcelValidationStatus.FAILED_UNKNOWN);
@@ -298,6 +301,9 @@ public class ExcelValidation implements TransformerValidation {
 					&& !enumerated.trim().equalsIgnoreCase("no"))) {
 				lineItemResult.addStatus(ExcelValidationStatus.INVALID_ENUMERATED);
 			}
+			if (pv != null && vmConceptIds == null) {
+				lineItemResult.addStatus(ExcelValidationStatus.PV_NO_VM);
+			}
 		}
 		else {
 			if (!(repTermQualConcepts == null || repTermQualConcepts.trim().equals("")
@@ -316,15 +322,40 @@ public class ExcelValidation implements TransformerValidation {
 		return lineItemResult;
 	}
 	
+	private TransformerValidationLineItemResult validateVM(List<ExcelQuestion> oneRecord, TransformerValidationLineItemResult lineItemResult) {
+		ExcelQuestion mainQuestion = oneRecord.get(0);
+		String enumerated = mainQuestion.getEnumerated();
+		if (enumerated!=null && enumerated.equalsIgnoreCase("yes")) {
+			List<String> vmConcepts = new ArrayList<String>();
+			for (ExcelQuestion excelQuestion: oneRecord) {
+				String vmConceptStrs = excelQuestion.getVmConcepts();
+				if (vmConceptStrs != null) {
+					String[] vmConceptsAsArray = vmConceptStrs.split(";");
+					for (String vmConceptWithName: vmConceptsAsArray) {
+						String[] vmConceptAndName = vmConceptWithName.split(":");
+						String vmConcept = vmConceptAndName[0];
+						if (vmConcepts.contains(vmConcept)) {
+							lineItemResult.addStatus(ExcelValidationStatus.DUPLICATE_VM_CONCEPT);
+						}
+						else {
+							vmConcepts.add(vmConcept);
+						}
+					}
+				}
+			}
+			
+		}
+		
+		return lineItemResult;
+	}
+	
 	private boolean testIdFormat(String id) {
 		Pattern idPattern = Pattern.compile("[0-9]*v[0-9]*\\.?[0-9]+");
 		return patternMatch(id, idPattern);
 	}
 	
 	private boolean testQualifierConceptFormat(String qualConcepts) {
-		Pattern qualConceptPattern = Pattern.compile("[[a-zA-Z]*[0-9]*;?]+");
-		
-		return patternMatch(qualConcepts, qualConceptPattern);
+		return CONCEPTS_PATTERN.matcher(qualConcepts).matches();
 	}
 	
 	private boolean testPrimaryConceptFormat(String primConcept) {
