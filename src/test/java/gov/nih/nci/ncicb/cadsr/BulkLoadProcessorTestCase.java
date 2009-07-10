@@ -4,6 +4,7 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.BulkLoadProcessResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.CaDSRBulkLoadProcessor;
 import gov.nih.nci.ncicb.cadsr.bulkloader.ui.UIReportWriter;
 import gov.nih.nci.ncicb.cadsr.bulkloader.ui.UIReportWriterImpl;
+import gov.nih.nci.ncicb.cadsr.bulkloader.util.FileUtil;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.SpringBeansUtil;
 
 import java.io.File;
@@ -15,6 +16,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class BulkLoadProcessorTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.MainTestCase {
 
+	private static String[] XML_IP_FILES = {"/gov/nih/nci/ncicb/cadsr/8_14_1_2.xml"};
+	private static String dataURL = "/gov/nih/nci/ncicb/cadsr/8_29_1_3.xls";
+	
 	@Override
 	protected void containerSetUp() throws Exception {
 		// TODO Auto-generated method stub
@@ -33,7 +37,9 @@ public class BulkLoadProcessorTestCase extends gov.nih.nci.ncicb.cadsr.bulkloade
 	
 	public void setUp() {
 		try {
-			//super.setUp();
+			super.setUp();
+			FileUtil fileUtil = new FileUtil();
+			fileUtil.copyFilesToWorkingDir(WORKING_IN_DIR, WORKING_OUT_DIR, XML_IP_FILES);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -41,7 +47,7 @@ public class BulkLoadProcessorTestCase extends gov.nih.nci.ncicb.cadsr.bulkloade
 	}
 
 	public BulkLoadProcessorTestCase() {
-		super("BulkLoadProcessorTestCase", BulkLoadProcessorTestCase.class, "/gov/nih/nci/ncicb/cadsr/8_29_1_3.xls");
+		super("BulkLoadProcessorTestCase", BulkLoadProcessorTestCase.class, dataURL);
 	}
 	
 	public void testProcessor() {
@@ -50,18 +56,11 @@ public class BulkLoadProcessorTestCase extends gov.nih.nci.ncicb.cadsr.bulkloade
 		props.put("db.username", getPropertyManager().getUnitDataSourceUser());
 		props.put("db.password", getPropertyManager().getUnitDataSourcePassword());
 		
-		/*props.put("db.url", "jdbc:oracle:thin:@cbiodb530.nci.nih.gov:1551:DSRQA");
-		props.put("db.username", "chenr_qa");
-		props.put("db.password", "chenr_qa");*/
-		
 		SpringBeansUtil.getInstance().initialize(props);
 		
 		CaDSRBulkLoadProcessor blProcessor = SpringBeansUtil.getInstance().getBulkLoadProcessor();
 		
-		String inputFileDir = getClasspath()+"gov/nih/nci/ncicb/cadsr";
-		String outputFileDir = getClasspath()+"gov/nih/nci/ncicb/cadsr/out";
-		
-		BulkLoadProcessResult[] processResults = blProcessor.process(inputFileDir, outputFileDir, true);
+		BulkLoadProcessResult[] processResults = blProcessor.process(WORKING_IN_DIR, WORKING_OUT_DIR, true);
 		UIReportWriter reportWriter = new UIReportWriterImpl();
 		
 		for (BulkLoadProcessResult processResult: processResults) {

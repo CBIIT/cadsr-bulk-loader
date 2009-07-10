@@ -9,13 +9,14 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-public class VDMaxLengthCheckTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.MainTestCase {
+public class DECVDIdsWithLongNameTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.MainTestCase {
 
-	private static String[] XML_IP_FILES = {"/gov/nih/nci/ncicb/cadsr/8_11_1.xml"};
-	private static String dataURL = "/gov/nih/nci/ncicb/cadsr/8_11_1.xls";
+	private static String[] XML_IP_FILES = {"/gov/nih/nci/ncicb/cadsr/8_27_1.xls"};
+	private static String dataURL = "/gov/nih/nci/ncicb/cadsr/8_27_1.xls";
 	
 	@Override
 	protected void containerSetUp() throws Exception {
@@ -44,11 +45,11 @@ public class VDMaxLengthCheckTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader
 		}
 	}
 
-	public VDMaxLengthCheckTestCase() {
-		super("VDMaxLengthCheckTestCase", VDMaxLengthCheckTestCase.class, dataURL);
+	public DECVDIdsWithLongNameTestCase() {
+		super("DECVDIdsWithLongNameTestCase", DECVDIdsWithLongNameTestCase.class, dataURL);
 	}
 	
-	public void testGF21785() {
+	public void testProcessor() {
 		Properties props = new Properties();
 		props.put("db.url", getPropertyManager().getUnitDataSourceURL());
 		props.put("db.username", getPropertyManager().getUnitDataSourceUser());
@@ -60,18 +61,22 @@ public class VDMaxLengthCheckTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader
 		
 		BulkLoadProcessResult[] processResults = blProcessor.process(WORKING_IN_DIR, WORKING_OUT_DIR, true);
 		
-		boolean matches = false;
+		boolean compare = false;
 		
 		try {
 			Connection con = getDataSource().getConnection();
 			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery("select * from VALUE_DOMAINS");
-			matches = compareResultSet(rs, "VALUE_DOMAINS");
+			ResultSet rs = st.executeQuery("select * from DATA_ELEMENTS");
+			
+			compare = compareResultSet(rs, "DATA_ELEMENTS");
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		assertTrue(matches);
+		
+		assertTrue(compare);
+		
 	}
 	
 	protected String getClasspath() {
@@ -94,5 +99,4 @@ public class VDMaxLengthCheckTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader
 		}
 		return f;
 	}
-
 }
