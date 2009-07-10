@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns1:Form xmlns:ns1="urn:nci:caDSR">
+	<ns1:formName>8_14_1_2</ns1:formName>
+	<ns1:context>caBIG</ns1:context>
+	<ns1:cs>TEST_Bulk_Loader_0.5</ns1:cs>
+	<ns1:csi>TEST_8_14</ns1:csi>
+	<ns1:source>BulK Loader</ns1:source>
+	<ns1:questions>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:alternateName>Alternate Name 8_14_1_2</ns1:alternateName>
+			<ns1:alternateNameType>XML Tag</ns1:alternateNameType>
+			<ns1:preferredQuestion>CDE ID/DEC Id/VD ID empty</ns1:preferredQuestion>
+			<ns1:alternateQuestion>Test case 8.14.1</ns1:alternateQuestion>
+			<ns1:questionNotes>Should create new CDE/DEC successfully.</ns1:questionNotes>
+			<ns1:cdeLongName>BulkLoaderTest CDE 8.14.1</ns1:cdeLongName>
+			<ns1:cdeNotes>All the fields to create OC/Prop/DEC are filled.</ns1:cdeNotes>
+			<ns1:ocQualConcepts>C42614:Con Long Name1;C72648:Con Long Name2</ns1:ocQualConcepts>
+			<ns1:ocPrimConcepts>C41096:Con Long Name3</ns1:ocPrimConcepts>
+			<ns1:propQualConcepts>C12434:Con Long Name4</ns1:propQualConcepts>
+			<ns1:propPrimConcepts>C64234:Con Long Name5</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2008543v1.0</ns1:decConceptualDomainId>
+			<ns1:vdId>2425528v1.0</ns1:vdId>
+		</ns1:Question>
+	</ns1:questions>
+</ns1:Form>

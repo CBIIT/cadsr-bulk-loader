@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns1:Form xmlns:ns1="urn:nci:caDSR">
+	<ns1:formName>8_33_1</ns1:formName>
+	<ns1:context>caBIG</ns1:context>
+	<ns1:cs>TEST_Bulk_Loader_0.5</ns1:cs>
+	<ns1:csi>TEST_8_33</ns1:csi>
+	<ns1:source>BulK Loader</ns1:source>
+	<ns1:questions>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:alternateName>Alternate Name 8.33.1</ns1:alternateName>
+			<ns1:alternateNameType>XML Tag</ns1:alternateNameType>
+			<ns1:preferredQuestion>CDE ID is empty; DEC Id and VD Id has valid data</ns1:preferredQuestion>
+			<ns1:alternateQuestion>Test case 8.33.1</ns1:alternateQuestion>
+			<ns1:questionNotes>To test create new PQT and AQT</ns1:questionNotes>
+			<ns1:decId>2322234v1.0</ns1:decId>
+			<ns1:vdId>2016948v3.0</ns1:vdId>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>4</ns1:questionNumber>
+			<ns1:alternateName>Alternate Name 8.33.4</ns1:alternateName>
+			<ns1:alternateNameType>USED_BY</ns1:alternateNameType>
+			<ns1:preferredQuestion>Test - Should not see this PQT!</ns1:preferredQuestion>
+			<ns1:alternateQuestion>Test - Should not see this AQT!</ns1:alternateQuestion>
+			<ns1:cdeId>2862938v1.0</ns1:cdeId>
+		</ns1:Question>
+		<ns1:Question/>
+		<ns1:Question/>
+		<ns1:Question/>
+	</ns1:questions>
+</ns1:Form>

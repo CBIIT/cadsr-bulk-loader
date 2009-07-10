@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns1:Form xmlns:ns1="urn:nci:caDSR">
+	<ns1:formName>8_11_2_QualiferOneConcept</ns1:formName>
+	<ns1:context>caBIG</ns1:context>
+	<ns1:cs>TEST_Bulk_Loader_0.5</ns1:cs>
+	<ns1:csi>TEST_8_11</ns1:csi>
+	<ns1:source>BulK Loader</ns1:source>
+	<ns1:questions>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:cdeLongName>BulkLoaderTest CDE 8.11.1</ns1:cdeLongName>
+			<ns1:cdeNotes>All the fields to create DEC/VD are filled.</ns1:cdeNotes>
+			<ns1:ocQualConcepts>C42614</ns1:ocQualConcepts>
+			<ns1:ocPrimConcepts>C41096</ns1:ocPrimConcepts>
+			<ns1:propQualConcepts>C16443:Gene Cloning</ns1:propQualConcepts>
+			<ns1:propPrimConcepts>C26004</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2008543v1.0</ns1:decConceptualDomainId>
+			<ns1:repTermQualConcepts>C48933</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C20195</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2435027v1.0</ns1:vdConceptualDomainId>
+			<ns1:dataType>CHARACTER</ns1:dataType>
+			<ns1:vdMaxLength>128</ns1:vdMaxLength>
+			<ns1:enumerated>No</ns1:enumerated>
+		</ns1:Question>
+		<ns1:Question /> 
+	</ns1:questions>
+</ns1:Form>

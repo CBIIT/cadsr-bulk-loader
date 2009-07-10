@@ -48,6 +48,9 @@ import org.springframework.mock.jndi.SimpleNamingContextBuilder;
 
 public abstract class MainTestCase extends TestCase
 {
+	protected static final String WORKING_IN_DIR = "/tmp";
+	protected static final String WORKING_OUT_DIR = WORKING_IN_DIR+"/out";
+	
     static ITableFilter filter;
     static List allDeleteCmds;
     static PropertyManager propertyManager;

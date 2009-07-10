@@ -55,6 +55,7 @@ public class SpringBeansUtil {
 		reader.loadBeanDefinitions(new ClassPathResource("loader-spring.xml"));
 		reader.loadBeanDefinitions(new ClassPathResource("bulkloader-beans.xml"));
 		reader.loadBeanDefinitions(new ClassPathResource("bulkloader-datasources-beans.xml"));
+		reader.loadBeanDefinitions(new ClassPathResource("application-config-client.xml"));
 	}
 	
 	private static SpringBeansUtil instance;

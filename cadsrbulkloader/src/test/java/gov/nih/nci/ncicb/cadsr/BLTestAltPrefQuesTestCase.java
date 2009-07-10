@@ -2,16 +2,20 @@ package gov.nih.nci.ncicb.cadsr;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.BulkLoadProcessResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.CaDSRBulkLoadProcessor;
-import gov.nih.nci.ncicb.cadsr.bulkloader.ui.UIReportWriter;
-import gov.nih.nci.ncicb.cadsr.bulkloader.ui.UIReportWriterImpl;
+import gov.nih.nci.ncicb.cadsr.bulkloader.util.FileUtil;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.SpringBeansUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
-public class BLTestAltNameTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.MainTestCase {
+public class BLTestAltPrefQuesTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.MainTestCase {
 
+	private static String[] XML_IP_FILES = {"/gov/nih/nci/ncicb/cadsr/8_14_1_2.xml"};
 	private static String dataURL = "/gov/nih/nci/ncicb/cadsr/8_14_1_2.xls";
 	
 	@Override
@@ -33,14 +37,16 @@ public class BLTestAltNameTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.ut
 	public void setUp() {
 		try {
 			super.setUp();
+			FileUtil fileUtil = new FileUtil();
+			fileUtil.copyFilesToWorkingDir(WORKING_IN_DIR, WORKING_OUT_DIR, XML_IP_FILES);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public BLTestAltNameTestCase() {
-		super("BLTestAltNameTestCase", BLTestAltNameTestCase.class, dataURL);
+	public BLTestAltPrefQuesTestCase() {
+		super("BLTestAltPrefQuesTestCase", BLTestAltPrefQuesTestCase.class, dataURL);
 	}
 	
 	public void testProcessor() {
@@ -49,24 +55,26 @@ public class BLTestAltNameTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.ut
 		props.put("db.username", getPropertyManager().getUnitDataSourceUser());
 		props.put("db.password", getPropertyManager().getUnitDataSourcePassword());
 		
-		/*props.put("db.url", "jdbc:oracle:thin:@cbiodb530.nci.nih.gov:1551:DSRQA");
-		props.put("db.username", "chenr_qa");
-		props.put("db.password", "chenr_qa");*/
-		
 		SpringBeansUtil.getInstance().initialize(props);
 		
 		CaDSRBulkLoadProcessor blProcessor = SpringBeansUtil.getInstance().getBulkLoadProcessor();
 		
-		String inputFileDir = getClasspath()+"gov/nih/nci/ncicb/cadsr";
-		String outputFileDir = getClasspath()+"gov/nih/nci/ncicb/cadsr/out";
+		BulkLoadProcessResult[] processResults = blProcessor.process(WORKING_IN_DIR, WORKING_OUT_DIR, true);
+
+		boolean compare = false;
 		
-		BulkLoadProcessResult[] processResults = blProcessor.process(inputFileDir, outputFileDir, true);
-		UIReportWriter reportWriter = new UIReportWriterImpl();
-		
-		for (BulkLoadProcessResult processResult: processResults) {
-			reportWriter.writeReport(processResult);
+		try {
+			Connection con = super.getDataSource().getConnection();
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery("select * from REFERENCE_DOCUMENTS");
+			
+			compare = compareResultSet(rs, "REFERENCE_DOCUMENTS");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
+		assertTrue(compare);
 	}
 	
 	protected String getClasspath() {
