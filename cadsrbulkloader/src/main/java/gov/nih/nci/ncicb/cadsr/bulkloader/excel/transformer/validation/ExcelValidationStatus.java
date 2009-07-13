@@ -39,6 +39,7 @@ public class ExcelValidationStatus implements TransformerValidationStatus {
 	public static final ExcelValidationStatus BLANK_CSI = new ExcelValidationStatus(41, "Classification Scheme Item cannot be blank");
 	public static final ExcelValidationStatus BLANK_SOURCE = new ExcelValidationStatus(43, "Source cannot be blank");
 	public static final ExcelValidationStatus PV_NO_VM = new ExcelValidationStatus(45, "The Permissible Value entered does not have any Value Meaning concepts");
+	public static final ExcelValidationStatus INVALID_MAX_LENGTH = new ExcelValidationStatus(47, "The VD Max Length entered is not a number");
 	
 	private int errorCode;
 	private String message;

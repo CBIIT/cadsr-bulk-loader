@@ -15,10 +15,10 @@
 			<ns1:questionNotes>Should create new CDE/DEC successfully.</ns1:questionNotes>
 			<ns1:cdeLongName>BulkLoaderTest CDE 8.14.1</ns1:cdeLongName>
 			<ns1:cdeNotes>All the fields to create OC/Prop/DEC are filled.</ns1:cdeNotes>
-			<ns1:ocQualConcepts>C42614:Con Long Name1;C72648:Con Long Name2</ns1:ocQualConcepts>
-			<ns1:ocPrimConcepts>C41096:Con Long Name3</ns1:ocPrimConcepts>
-			<ns1:propQualConcepts>C12434:Con Long Name4</ns1:propQualConcepts>
-			<ns1:propPrimConcepts>C64234:Con Long Name5</ns1:propPrimConcepts>
+			<ns1:ocQualConcepts>C42614:conLongName1;C72648:conLongName2</ns1:ocQualConcepts>
+			<ns1:ocPrimConcepts>C41096:conLongName3</ns1:ocPrimConcepts>
+			<ns1:propQualConcepts>C12434:conLongName4</ns1:propQualConcepts>
+			<ns1:propPrimConcepts>C64234:conLongName5</ns1:propPrimConcepts>
 			<ns1:decConceptualDomainId>2008543v1.0</ns1:decConceptualDomainId>
 			<ns1:vdId>2425528v1.0</ns1:vdId>
 		</ns1:Question>
