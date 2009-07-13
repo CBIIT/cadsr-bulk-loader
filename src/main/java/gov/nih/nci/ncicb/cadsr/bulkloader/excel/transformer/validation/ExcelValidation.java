@@ -137,16 +137,16 @@ public class ExcelValidation implements TransformerValidation {
 				lineItemResult.addStatus(ExcelValidationStatus.DECID_AND_DATA_NOT_PRESENT);
 			}
 			else {
-				if (!testQualifierConceptFormat(ocQualConcepts)) {
+				if (ocQualConcepts != null && !testConceptFormat(ocQualConcepts)) {
 					lineItemResult.addStatus(ExcelValidationStatus.INVALID_QUAL_CONCEPT_ID);
 				}
-				if (!testQualifierConceptFormat(ocPrimConcepts)) {
+				if (!testConceptFormat(ocPrimConcepts)) {
 					lineItemResult.addStatus(ExcelValidationStatus.INVALID_PRIM_CONCEPT_ID);
 				}
-				if (!testQualifierConceptFormat(propQualConcepts)) {
+				if (propQualConcepts != null && !testConceptFormat(propQualConcepts)) {
 					lineItemResult.addStatus(ExcelValidationStatus.INVALID_QUAL_CONCEPT_ID);
 				}
-				if (!testQualifierConceptFormat(propPrimConcepts)) {
+				if (!testConceptFormat(propPrimConcepts)) {
 					lineItemResult.addStatus(ExcelValidationStatus.INVALID_PRIM_CONCEPT_ID);
 				}
 				if (!testIdFormat(decConceptualDomainId)) {
@@ -168,16 +168,12 @@ public class ExcelValidation implements TransformerValidation {
 	}
 	
 	private boolean isAnyDECFieldBlank(ExcelQuestion question) {
-		String ocQualConcepts = question.getOcQualConcepts();
 		String ocPrimConcepts = question.getOcPrimConcepts();
-		String propQualConcepts = question.getPropQualConcepts();
 		String propPrimConcepts = question.getPropPrimConcepts();
 		String decConceptualDomainId = question.getDecConceptualDomainId();
 		
 		List<String> decFieldValues = new ArrayList<String>();
-		decFieldValues.add(ocQualConcepts);
 		decFieldValues.add(ocPrimConcepts);
-		decFieldValues.add(propQualConcepts);
 		decFieldValues.add(propPrimConcepts);
 		decFieldValues.add(decConceptualDomainId);
 		
@@ -270,16 +266,13 @@ public class ExcelValidation implements TransformerValidation {
 		String vdMaxLength = question.getVdMaxLength();
 		String enumerated = question.getEnumerated();
 		String pv = question.getPv();
-		String pvLength = question.getPvLength();
 		String vmConceptIds = question.getVmConcepts();
 		
 		if (vdId == null || vdId.trim().equals("")) {
 			List<String> vdFieldValues = new ArrayList<String>();
-			vdFieldValues.add(repTermQualConcepts);
 			vdFieldValues.add(repTermPrimConcepts);
 			vdFieldValues.add(vdCdId);
 			vdFieldValues.add(datatype);
-			vdFieldValues.add(vdMaxLength);
 			vdFieldValues.add(enumerated);
 			
 			if (anyFieldBlank(vdFieldValues)) {
@@ -287,10 +280,10 @@ public class ExcelValidation implements TransformerValidation {
 				return lineItemResult;
 			}
 						
-			if (!testQualifierConceptFormat(repTermQualConcepts)) {
+			if (repTermQualConcepts!=null && !testConceptFormat(repTermQualConcepts)) {
 				lineItemResult.addStatus(ExcelValidationStatus.INVALID_QUAL_CONCEPT_ID);
 			}
-			if (!testQualifierConceptFormat(repTermPrimConcepts)) {
+			if (!testConceptFormat(repTermPrimConcepts)) {
 				lineItemResult.addStatus(ExcelValidationStatus.INVALID_PRIM_CONCEPT_ID);
 			}
 			if (!testIdFormat(vdCdId)) {
@@ -303,6 +296,13 @@ public class ExcelValidation implements TransformerValidation {
 			}
 			if (pv != null && vmConceptIds == null) {
 				lineItemResult.addStatus(ExcelValidationStatus.PV_NO_VM);
+			}
+			if (vdMaxLength != null) {
+				try {
+					Integer.parseInt(vdMaxLength);
+				} catch (Exception e) {
+					lineItemResult.addStatus(ExcelValidationStatus.INVALID_MAX_LENGTH);
+				}
 			}
 		}
 		else {
@@ -354,7 +354,7 @@ public class ExcelValidation implements TransformerValidation {
 		return patternMatch(id, idPattern);
 	}
 	
-	private boolean testQualifierConceptFormat(String qualConcepts) {
+	private boolean testConceptFormat(String qualConcepts) {
 		return CONCEPTS_PATTERN.matcher(qualConcepts).matches();
 	}
 	
