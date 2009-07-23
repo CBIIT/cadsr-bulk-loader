@@ -387,6 +387,7 @@ public class ExcelTransformation implements TransformerTransformation {
 		DataElement_ISO11179 isoDE = new DataElement_ISO11179();
 		fillupAdminItem(isoDE);
 		setItemId(isoDE, idAndVer[0], idAndVer[1]);
+		isoDE.setLongName(mainQuestion.getCdeLongName());
 		
 		DataElementConcept_ISO11179 isoDEC = getDEC(mainQuestion);
 		ValueDomain_caDSR11179 isoVD = getVD(excelQuestions);
