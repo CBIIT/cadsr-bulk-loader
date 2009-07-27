@@ -110,10 +110,21 @@ public class ValueDomainTranslator extends AbstractTranslatorTemplate {
 	}
 	
 	private PermissibleValue getPermissibleValue(PermissibleValue_ISO11179 isoPV, CaDSRObjectRegistry objRegistry) {
-		String vmRefId = isoPV.getValueMeaningRefId();
-		ValueMeaning valueMeaning = objRegistry.getValueMeaning(vmRefId);
-		
 		PermissibleValue pv = DomainObjectFactory.newPermissibleValue();
+		String pvValue = isoPV.getValue();
+		pv.setValue(pvValue);
+		
+		String vmRefId = isoPV.getValueMeaningRefId();
+		ValueMeaning valueMeaning = null;
+		
+		if (vmRefId != null && !vmRefId.trim().equals("")) {
+			valueMeaning = objRegistry.getValueMeaning(vmRefId);			
+		}
+		else {
+			valueMeaning = DomainObjectFactory.newValueMeaning();
+			valueMeaning.setLongName(pvValue);
+		}
+		
 		pv.setValueMeaning(valueMeaning);
 		
 		return pv;

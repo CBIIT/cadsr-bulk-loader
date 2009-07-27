@@ -161,6 +161,9 @@ public class PersisterImpl implements Persister {
 			List<DataElement> foundDEs = dao.findDataElements(createdDE);
 			if (foundDEs.size() > 0) {
 				DataElement foundDE = foundDEs.get(0);
+				foundDE.removeAlternateNames();
+				foundDE.removeDefinitions();
+				
 				lookedUpDEs.add(foundDE);
 				if (createdDE.getAcCsCsis() != null) {
 					foundDE.setAcCsCsis(createdDE.getAcCsCsis());
