@@ -111,9 +111,9 @@ public class ExcelValidation implements TransformerValidation {
 			if (!testIdFormat(cdeId)) {
 				lineItemResult.addStatus(ExcelValidationStatus.INVALID_CDEID);
 			}
-			if (decId!=null || !areAllDECFieldsBlank(question) || vdId!=null || !areAllVDFieldsBlank(question)) {
+			/*if (decId!=null || !areAllDECFieldsBlank(question) || vdId!=null || !areAllVDFieldsBlank(question)) {
 				lineItemResult.addStatus(ExcelValidationStatus.CDEID_AND_DATA_PRESENT);
-			}
+			}*/
 		}
 		
 		if (!lineItemResult.hasErrors()) {
@@ -265,8 +265,6 @@ public class ExcelValidation implements TransformerValidation {
 		String datatype = question.getDataType();
 		String vdMaxLength = question.getVdMaxLength();
 		String enumerated = question.getEnumerated();
-		String pv = question.getPv();
-		String vmConceptIds = question.getVmConcepts();
 		
 		if (vdId == null || vdId.trim().equals("")) {
 			List<String> vdFieldValues = new ArrayList<String>();
@@ -294,9 +292,7 @@ public class ExcelValidation implements TransformerValidation {
 					&& !enumerated.trim().equalsIgnoreCase("no"))) {
 				lineItemResult.addStatus(ExcelValidationStatus.INVALID_ENUMERATED);
 			}
-			if (pv != null && vmConceptIds == null) {
-				lineItemResult.addStatus(ExcelValidationStatus.PV_NO_VM);
-			}
+			
 			if (vdMaxLength != null) {
 				try {
 					Integer.parseInt(vdMaxLength);
