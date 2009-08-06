@@ -2,10 +2,11 @@ package gov.nih.nci.ncicb.cadsr.bulkloader.dao;
 
 import gov.nih.nci.ncicb.cadsr.MainTestCase;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.SpringBeansUtil;
-import gov.nih.nci.ncicb.cadsr.domain.ClassificationScheme;
-import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
+import gov.nih.nci.ncicb.cadsr.domain.Concept;
 import gov.nih.nci.ncicb.cadsr.domain.PermissibleValue;
 import gov.nih.nci.ncicb.cadsr.domain.ValueDomain;
+import gov.nih.nci.ncicb.cadsr.loader.ext.EvsModule;
+import gov.nih.nci.ncicb.cadsr.loader.ext.EvsResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,5 +71,19 @@ public class DAOTestCase extends MainTestCase {
 			}
 		}
 		
+	}
+	
+	public void testGetPreNCIConcepts() {
+		Concept con = dao.findEVSConceptByCUI("C15657");
+		assertNotNull(con);
+		System.out.println(con.getPreferredDefinition());
+	}
+	
+	public void testEVSModule() {
+		EvsModule evsModule = new EvsModule("Pre NCI Thesaurus");
+		EvsResult result = evsModule.findByConceptCode("C15657", false);
+		Concept con = result.getConcept();
+		assertNotNull(con);
+		System.out.println(con.getPreferredDefinition());
 	}
 }

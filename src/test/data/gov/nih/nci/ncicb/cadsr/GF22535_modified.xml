@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns1:Form xmlns:ns1="urn:nci:caDSR">
+	<ns1:formName>GF22535</ns1:formName>
+	<ns1:context>caBIG</ns1:context>
+	<ns1:cs>TEST_Bulk_Loader_0.5</ns1:cs>
+	<ns1:csi>TEST_8_12</ns1:csi>
+	<ns1:source>BulK Loader</ns1:source>
+	<ns1:questions>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:alternateName>GF22535: fix PV loading issue</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:alternateQuestion>GF22535 Alternate Question</ns1:alternateQuestion>
+			<ns1:questionNotes>All the concepts are in caDSR</ns1:questionNotes>
+			<ns1:ocQualConcepts>C43520:Gene Ontology</ns1:ocQualConcepts>
+			<ns1:ocPrimConcepts>C45520:Gene Object</ns1:ocPrimConcepts>
+			<ns1:propQualConcepts>C48664:Gene Identifier</ns1:propQualConcepts>
+			<ns1:propPrimConcepts>C51963:Blood Bank</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2008557v1.0:Lab Results</ns1:decConceptualDomainId>
+			<ns1:repTermQualConcepts>C51963:Blood Bank;C28133:Blood Cell Count</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C48933:Gene Function</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2008557v1.0:Lab Results</ns1:vdConceptualDomainId>
+			<ns1:dataType>ALPHANUMERIC</ns1:dataType>
+			<ns1:vdMaxLength>90</ns1:vdMaxLength>
+			<ns1:enumerated>Yes</ns1:enumerated>
+			<ns1:pv>PVOne</ns1:pv>
+			<ns1:vmConcepts>C20185:Gene Transfer</ns1:vmConcepts>
+			<ns1:vmNotes>1 concept</ns1:vmNotes>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>PVTwo</ns1:pv>
+			<ns1:vmConcepts>C48193:Generator Dosage Form</ns1:vmConcepts>
+			<ns1:vmNotes>multiple concepts</ns1:vmNotes>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>PVThree</ns1:pv>
+			<ns1:vmNotes>No concept</ns1:vmNotes>
+		</ns1:Question>
+		<ns1:Question/>
+		<ns1:Question/>
+	</ns1:questions>
+</ns1:Form>

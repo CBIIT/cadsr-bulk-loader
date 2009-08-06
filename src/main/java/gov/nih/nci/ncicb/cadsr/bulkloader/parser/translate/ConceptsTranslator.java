@@ -8,6 +8,7 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.LanguageSection_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Organization_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ReferenceDocument_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.TerminologicalEntry_ISO11179;
+import gov.nih.nci.ncicb.cadsr.bulkloader.util.UMLLoaderHandler;
 import gov.nih.nci.ncicb.cadsr.domain.AlternateName;
 import gov.nih.nci.ncicb.cadsr.domain.Concept;
 import gov.nih.nci.ncicb.cadsr.domain.Definition;
@@ -31,11 +32,28 @@ public class ConceptsTranslator extends AbstractTranslatorTemplate {
 	private Concept getCaDSRAPIConcept(Concept_caDSR11179 iso11179Concept) {
 		if (iso11179Concept == null) return null;
 
-		Concept concept = DomainObjectFactory.newConcept();
-		concept.setPreferredName(iso11179Concept.getCode());
+		String conCode = iso11179Concept.getCode();
+		
+		Concept concept = daoFacade.findCaDSRConceptByCUI(conCode);
+		
+		if (concept == null || concept.getPreferredName() == null || concept.getPreferredName().equals("")) {
+			concept = daoFacade.findEVSConceptByCUI(conCode);
+		}
+		
+		if (concept == null || concept.getPreferredName() == null || concept.getPreferredName().equals("")) {
+			concept = DomainObjectFactory.newConcept();
+		}
+		
+		concept.setPreferredName(conCode);
 		concept.setLongName(iso11179Concept.getLongName());
 		
 		concept = addAlternateNamesAndDefinitions(concept, iso11179Concept);
+		concept.setDefinitionSource(concept.getDefinitionSource());
+		
+		String prefDef = concept.getPreferredDefinition();
+		if (prefDef == null || prefDef.equals("")) {
+			concept.setPreferredDefinition(UMLLoaderHandler.getDefaultEVSDefinition());
+		}
 		
 		return concept;
 	}

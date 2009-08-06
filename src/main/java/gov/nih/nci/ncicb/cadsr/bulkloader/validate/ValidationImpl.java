@@ -47,14 +47,12 @@ public class ValidationImpl implements Validation {
 			result.setException(e);
 			result.setValidationStatus(ValidationStatus.FAILURE);
 		} finally {
-			handler.unLoadElements(caDSRObjects, loadObjects);
+			handler.unLoadElements();
 		}
 		
 		return result;
 	}
-	
-	
-	
+		
 	private List<ValidationItemResult> processValidationItems(ValidationItems validationItems, List<ValidationItemResult> itemResults) {
 		
 		Set<ValidationError> validationErrors = validationItems.getErrors();

@@ -30,10 +30,12 @@ public class ObjectClassTranslator extends AbstractTranslatorTemplate {
 		List<String> conceptRefs = util.getConceptReferences(conDerRule);
 		List<Concept> concepts = util.getConceptsFromRegistry(conceptRefs, objRegistry);
 		
+		String longName = util.getLongNameFromConcepts(concepts);
 		String preferredName = util.getPreferredNameFromConcepts(concepts);
 		String preferredDefinition = util.getDefinitionFromConcepts(concepts);
 		
 		ObjectClass objClass = DomainObjectFactory.newObjectClass();
+		objClass.setLongName(longName);
 		objClass.setConceptDerivationRule(cdr);
 		objClass.setPreferredName(preferredName);
 		objClass.setPreferredDefinition(preferredDefinition);

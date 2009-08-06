@@ -7,6 +7,7 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ISO11179Elements;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.PermissibleValue_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.RepresentationClass_caDSR11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueDomain_caDSR11179;
+import gov.nih.nci.ncicb.cadsr.bulkloader.util.CaDSRObjectsUtil;
 import gov.nih.nci.ncicb.cadsr.domain.Concept;
 import gov.nih.nci.ncicb.cadsr.domain.ConceptDerivationRule;
 import gov.nih.nci.ncicb.cadsr.domain.ConceptualDomain;
@@ -121,7 +122,7 @@ public class ValueDomainTranslator extends AbstractTranslatorTemplate {
 			valueMeaning = objRegistry.getValueMeaning(vmRefId);			
 		}
 		else {
-			valueMeaning = DomainObjectFactory.newValueMeaning();
+			valueMeaning = CaDSRObjectsUtil.createValueMeaning();
 			valueMeaning.setLongName(pvValue);
 		}
 		

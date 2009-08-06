@@ -6,7 +6,6 @@ import gov.nih.nci.evs.domain.MetaThesaurusConcept;
 import gov.nih.nci.evs.query.EVSQuery;
 import gov.nih.nci.evs.query.EVSQueryImpl;
 import gov.nih.nci.evs.security.SecurityToken;
-import gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAOException;
 import gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAORuntimeException;
 import gov.nih.nci.system.applicationservice.ApplicationException;
 import gov.nih.nci.system.applicationservice.EVSApplicationService;
@@ -24,6 +23,9 @@ import java.util.List;
 
 public class LexEVSDAOImpl implements LexEVSDAO {
 
+	private static final String EVS_NCIT_VOCAB_NAME = "NCI_Thesaurus";
+	private static final String EVS_PRE_NCIT_VOCAB_NAME = "Pre NCI Thesaurus";
+	
 	private String _service = "EvsServiceInfo";
 	
 	public MetaThesaurusConcept getMetaThesaurusConcept(String cui) {
@@ -39,12 +41,34 @@ public class LexEVSDAOImpl implements LexEVSDAO {
 		}
 	}
 	
-	public DescLogicConcept getDescLogicConcept(String code) {
+	public DescLogicConcept getEVSNCItConcept(String code) {
 		try {
-			DescLogicConcept descConcept = getDescLogicConceptByCode(code);
-			DescLogicConcept searchedDescLogicConcept = doEVSSearch(descConcept);
+			EVSApplicationService evsAppService = getEVSAppService();
+			EVSQuery query = new EVSQueryImpl();
+			SecurityToken token = new SecurityToken();
+			token.setAccessToken("NCI2006_10D");
+			query.addSecurityToken(EVS_NCIT_VOCAB_NAME, token);
 			
-			return searchedDescLogicConcept;
+			query.searchDescLogicConcepts(EVS_NCIT_VOCAB_NAME, code, 1);
+			List<Object> searchResults = evsAppService.evsSearch(query);
+			return getDefaultDescLogicConcept(searchResults);
+			
+		} catch (ApplicationException e) {
+			throw new BulkLoaderDAORuntimeException(e);
+		} catch (Exception e) {
+			throw new BulkLoaderDAORuntimeException(e);
+		}
+	}
+	
+	public DescLogicConcept getEVSPreNCItConcept(String code) {
+		try {
+			EVSApplicationService evsAppService = getEVSAppService();
+			EVSQuery query = new EVSQueryImpl();
+			
+			query.searchDescLogicConcepts(EVS_PRE_NCIT_VOCAB_NAME, code, 1);
+			List<Object> searchResults = evsAppService.evsSearch(query);
+			return getDefaultDescLogicConcept(searchResults);
+			
 		} catch (ApplicationException e) {
 			throw new BulkLoaderDAORuntimeException(e);
 		} catch (Exception e) {
@@ -62,18 +86,6 @@ public class LexEVSDAOImpl implements LexEVSDAO {
 		EVSApplicationService evsAppService = getEVSAppService();
 		List<Object> searchResults = evsAppService.search(gov.nih.nci.evs.domain.MetaThesaurusConcept.class, metaConcept);
 		return getDefaultMetaConcept(searchResults);
-	}
-	
-	private DescLogicConcept doEVSSearch(DescLogicConcept descConcept) throws ApplicationException, Exception{
-		EVSApplicationService evsAppService = getEVSAppService();
-		EVSQuery query = new EVSQueryImpl();
-		SecurityToken token = new SecurityToken();
-		token.setAccessToken("NCI2006_10D");
-		query.addSecurityToken("NCI_Thesaurus", token);
-		
-		query.searchDescLogicConcepts("NCI_Thesaurus", descConcept.getCode(), 1);
-		List<Object> searchResults = evsAppService.evsSearch(query);
-		return getDefaultDescLogicConcept(searchResults);
 	}
 	
 	private MetaThesaurusConcept getDefaultMetaConcept(List<Object> metaConcepts) {

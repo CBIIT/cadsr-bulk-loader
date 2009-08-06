@@ -31,13 +31,14 @@ public class PropertiesTranslator extends AbstractTranslatorTemplate {
 		List<String> conceptRefs = util.getConceptReferences(conDerRule);
 		List<Concept> concepts = util.getConceptsFromRegistry(conceptRefs, objRegistry);
 		
+		String longName = util.getLongNameFromConcepts(concepts);
 		String preferredName = util.getPreferredNameFromConcepts(concepts);
 		String preferredDefinition = util.getDefinitionFromConcepts(concepts);
 		
 		Property property = DomainObjectFactory.newProperty();
 		property.setConceptDerivationRule(cdr);
 		property.setPreferredName(preferredName);
-		property.setLongName(preferredName);
+		property.setLongName(longName);
 		property.setPreferredDefinition(preferredDefinition);
 		
 		return property;

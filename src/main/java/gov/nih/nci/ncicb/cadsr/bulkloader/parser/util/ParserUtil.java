@@ -11,14 +11,12 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ItemIdentifier_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.LanguageSection_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.TerminologicalEntry_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.CaDSRObjectRegistry;
+import gov.nih.nci.ncicb.cadsr.bulkloader.util.CaDSRObjectsUtil;
 import gov.nih.nci.ncicb.cadsr.domain.ComponentConcept;
 import gov.nih.nci.ncicb.cadsr.domain.Concept;
 import gov.nih.nci.ncicb.cadsr.domain.ConceptDerivationRule;
 import gov.nih.nci.ncicb.cadsr.domain.DataElementConcept;
-import gov.nih.nci.ncicb.cadsr.domain.Definition;
 import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
-import gov.nih.nci.ncicb.cadsr.domain.ObjectClass;
-import gov.nih.nci.ncicb.cadsr.domain.Property;
 import gov.nih.nci.ncicb.cadsr.domain.ValueDomain;
 
 import java.util.ArrayList;
@@ -28,8 +26,8 @@ import java.util.ListIterator;
 import java.util.Map;
 
 public class ParserUtil {
-
-	private final String CONCEPT_CONCAT_STRING = ":";
+	
+	private CaDSRObjectsUtil caDSRUtil = new CaDSRObjectsUtil();
 	
 	public String getDesignation(AdminItem_ISO11179 adminItem) {
 		List<TerminologicalEntry_ISO11179> termEntries = adminItem.getHaving();
@@ -71,6 +69,8 @@ public class ParserUtil {
 		return cdr;
 	}
 	
+	
+
 	public String getIdentifier(AdminItem_ISO11179 adminItem) {
 		AdminRecord_ISO11179 adminRecord = adminItem.getAdminRecord();
 		ItemIdentifier_ISO11179 itemId = adminRecord.getIdentifier();
@@ -123,96 +123,6 @@ public class ParserUtil {
 		return null;
 	}
 	
-	public String getDELongName(DataElementConcept dec, ValueDomain vd) {
-		String decLongName = getDECLongName(dec);
-		String vdLongName = getVDLongName(vd);
-		
-		return decLongName+" "+vdLongName;
-	}
-	
-	public String getDECLongName(DataElementConcept dec) {
-		return deriveLongName(dec.getObjectClass(), dec.getProperty());
-	}
-	
-	public String deriveLongName(ObjectClass oc, Property prop) {
-		String ocLongName = deriveLongName(oc.getConceptDerivationRule());
-		String propLongName = deriveLongName(prop.getConceptDerivationRule());
-		
-		return ocLongName+" "+propLongName;
-	}
-	
-	public String deriveLongName(ConceptDerivationRule cdr) {
-		StringBuffer longName = new StringBuffer();
-		
-		if (cdr != null) {
-			List<ComponentConcept> compConcepts = cdr.getComponentConcepts();
-			for (ComponentConcept compCon: compConcepts) {
-				String conLongName = compCon.getConcept().getLongName();
-				if (conLongName != null) {
-					longName.append(" ");
-					longName.append(conLongName);
-				}
-			}
-			
-			if (longName.length() > 0) {
-				return longName.substring(1);
-			}
-			else {
-				return "";
-			}
-		}
-		return null;
-	}
-	
-	public String getVDLongName(ValueDomain vd) {
-		if (vd == null) return "";
-		
-		return deriveLongName(vd.getConceptDerivationRule());
-	}
-	
-	public String getLongName(ConceptDerivationRule cdr) {
-		StringBuffer longName = new StringBuffer();
-		
-		if (cdr != null) {
-			List<ComponentConcept> compCons = cdr.getComponentConcepts();
-			for (ComponentConcept compCon: compCons) {
-				String conLongName = compCon.getConcept().getLongName();
-				if (conLongName != null) {
-					longName.append(" ");
-					longName.append(conLongName);
-					
-				}
-			}
-		}
-		
-		if (longName.length() > 0) {
-			return longName.substring(1);
-		}
-		else {
-			return "";
-		}
-	}
-	
-	public String getDefinition(ConceptDerivationRule cdr) {
-		if (cdr == null) return "";
-		
-		List<ComponentConcept> compCons = cdr.getComponentConcepts();
-		StringBuffer sb = new StringBuffer();
-		for (ComponentConcept compCon: compCons) {
-			List<Definition> defs = compCon.getConcept().getDefinitions();
-			for (Definition def: defs) {
-				if (sb.length()==0) {
-					sb.append(def.getDefinition());
-				}
-				else {
-					sb.append(CONCEPT_CONCAT_STRING+def.getDefinition());
-				}
-			}
-		}
-		
-		return sb.toString();
-	}
-	
 	public List<ComponentConcept> getComponentConcepts(List<ComponentConcept_caDSR11179> caDSRCompConcepts, List<Concept_caDSR11179> concepts) {
 		List<ComponentConcept> compConcepts = new ArrayList<ComponentConcept>();
 		Map<String, Concept_caDSR11179> conceptMap = mapTagIdToConcept(concepts);
@@ -234,7 +144,7 @@ public class ParserUtil {
 		
 		return compConcepts;
 	}
-	
+
 	private Map<String, Concept_caDSR11179> mapTagIdToConcept(List<Concept_caDSR11179> caDSRConcepts) {
 		Map<String, Concept_caDSR11179> conceptMap = new HashMap<String, Concept_caDSR11179>();
 		
@@ -243,25 +153,6 @@ public class ParserUtil {
 		}
 		
 		return conceptMap;
-	}
-	
-	public List<ComponentConcept> getComponentConceptsFromConcepts(List<Concept> concepts) {
-		List<ComponentConcept> compConcepts = new ArrayList<ComponentConcept>();
-		for (Concept concept: concepts) {
-			ComponentConcept compCon = DomainObjectFactory.newComponentConcept();
-			compCon.setConcept(concept);
-			
-			compConcepts.add(compCon);
-		}
-		
-		return compConcepts;
-	}
-	
-	public Concept getConcept(String preferredName) {
-		Concept con = DomainObjectFactory.newConcept();
-		con.setPreferredName(preferredName);
-		
-		return con;
 	}
 	
 	public List<String> getConceptReferences(ConceptDerivationRule_caDSR11179 conceptDerivationRule) {
@@ -291,39 +182,6 @@ public class ParserUtil {
 		return concepts;
 	}
 	
-	public String getPreferredNameFromConcepts(List<Concept> concepts) {
-		StringBuffer concatConceptsBuffer = new StringBuffer();
-		
-		for (Concept concept: concepts) {
-			concatConceptsBuffer.append(concept.getPreferredName());
-			concatConceptsBuffer.append(CONCEPT_CONCAT_STRING);
-		}
-		
-		int lastIndexOfConcatStr = concatConceptsBuffer.lastIndexOf(CONCEPT_CONCAT_STRING);
-		
-		String concatConceptsStr = lastIndexOfConcatStr>=0?concatConceptsBuffer.substring(0, lastIndexOfConcatStr):concatConceptsBuffer.toString();
-		
-		return concatConceptsStr;
-	}
-	
-	public String getDefinitionFromConcepts(List<Concept> concepts) {
-		StringBuffer concatConceptsBuffer = new StringBuffer();
-		
-		for (Concept concept: concepts) {
-			List<Definition> defs = concept.getDefinitions();
-			for (Definition def: defs) {
-				concatConceptsBuffer.append(def.getDefinition());
-				concatConceptsBuffer.append(CONCEPT_CONCAT_STRING);
-			}
-		}
-		
-		int lastIndexOfConcatStr = concatConceptsBuffer.lastIndexOf(CONCEPT_CONCAT_STRING);
-		
-		String concatConceptsStr = lastIndexOfConcatStr>=0?concatConceptsBuffer.substring(0, lastIndexOfConcatStr):concatConceptsBuffer.toString();
-		
-		return concatConceptsStr;
-	}
-	
 	public String getAdminComponentId(AdminItem_ISO11179 adminItem) {
 		try {
 			AdminRecord_ISO11179 adminRecord = adminItem.getAdminRecord();
@@ -335,5 +193,42 @@ public class ParserUtil {
 		catch (Exception e) {
 			return null;
 		}
+	}
+	
+	private List<ComponentConcept> getComponentConceptsFromConcepts(
+			List<Concept> concepts) {
+		return caDSRUtil.getComponentConceptsFromConcepts(concepts);
+	}
+	
+	private Concept getConcept(String code) {
+		return caDSRUtil.getConcept(code);
+	}
+	
+	public String getLongNameFromConcepts(List<Concept> concepts) {
+		return caDSRUtil.getLongNameFromConcepts(concepts);
+	}
+
+	public String getPreferredNameFromConcepts(List<Concept> concepts) {
+		return caDSRUtil.getPreferredNameFromConcepts(concepts);
+	}
+
+	public String getDefinitionFromConcepts(List<Concept> concepts) {
+		return caDSRUtil.getDefinitionFromConcepts(concepts);
+	}
+
+	public String getLongName(ConceptDerivationRule cdr) {
+		return caDSRUtil.getLongName(cdr);
+	}
+
+	public String getDefinition(ConceptDerivationRule cdr) {
+		return caDSRUtil.getDefinition(cdr);
+	}
+
+	public String getDECLongName(DataElementConcept dec) {
+		return caDSRUtil.getDECLongName(dec);
+	}
+
+	public String getVDLongName(ValueDomain vd) {
+		return caDSRUtil.getVDLongName(vd);
 	}
 }

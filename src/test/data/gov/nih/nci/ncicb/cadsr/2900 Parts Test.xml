@@ -1,0 +1,1421 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns1:Form xmlns:ns1="urn:nci:caDSR">
+	<ns1:formName>2900 Recipient Death Data</ns1:formName>
+	<ns1:context>caBIG</ns1:context>
+	<ns1:cs>TEST_Bulk_Loader_0.5</ns1:cs>
+	<ns1:csi>Test_1_0</ns1:csi>
+	<ns1:source>NMDP</ns1:source>
+	<ns1:questions>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:alternateName>key_seq_num</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:alternateQuestion>Sequence Number:</ns1:alternateQuestion>
+			<ns1:cdeId>2527889v1.0</ns1:cdeId>
+			<ns1:cdeLongName>Clinical Data Form Sequence Number</ns1:cdeLongName>
+			<ns1:decId>2527787v1.0:Clinical Data Form</ns1:decId>
+			<ns1:ocPrimConcepts>C15783:Clinical Data</ns1:ocPrimConcepts>
+			<ns1:propPrimConcepts>C19464:Form</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2008555v1.0:Medical Records and Forms</ns1:decConceptualDomainId>
+			<ns1:vdId>2527835v1.0:Sequence Number</ns1:vdId>
+			<ns1:repTermQualConcepts>C25673:Sequence</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C25337:Number</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2008555v1.0:Medical Records and Forms</ns1:vdConceptualDomainId>
+			<ns1:dataType>Number</ns1:dataType>
+			<ns1:vdMaxLength>100</ns1:vdMaxLength>
+			<ns1:enumerated>No</ns1:enumerated>
+			<ns1:pv>N/A</ns1:pv>
+			<ns1:pvLength>3</ns1:pvLength>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>2</ns1:questionNumber>
+			<ns1:alternateName>key_rcv_dte</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:alternateQuestion>Date Received:</ns1:alternateQuestion>
+			<ns1:cdeId>2866943v1.0</ns1:cdeId>
+			<ns1:cdeLongName>Clinical Data Form Received Date</ns1:cdeLongName>
+			<ns1:decId>2527787v1.0:Clinical Data Form</ns1:decId>
+			<ns1:ocPrimConcepts>C15783:Clinical Data</ns1:ocPrimConcepts>
+			<ns1:propPrimConcepts>C19464:Form</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2008555v1.0:Medical Records and Forms</ns1:decConceptualDomainId>
+			<ns1:vdId>2527887v2.0:Received Date</ns1:vdId>
+			<ns1:repTermQualConcepts>C25639:Receive</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C25164:Date</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2008561v1.0:Occurrences</ns1:vdConceptualDomainId>
+			<ns1:dataType>Date</ns1:dataType>
+			<ns1:vdMaxLength>10</ns1:vdMaxLength>
+			<ns1:enumerated>No</ns1:enumerated>
+			<ns1:pv>N/A</ns1:pv>
+			<ns1:pvLength>3</ns1:pvLength>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>3</ns1:questionNumber>
+			<ns1:alternateName>key_cibmtr_ctr_num</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:alternateQuestion>CIBMTR Center Number:</ns1:alternateQuestion>
+			<ns1:cdeId>2527895v1.0</ns1:cdeId>
+			<ns1:cdeLongName>Hematopoietic Stem Cell Transplantation Recipient Institution::Center for International Blood and Marrow Transplant Research Facility Number</ns1:cdeLongName>
+			<ns1:decId>2532107v1.0:Hematopoietic Stem Cell Transplantation Recipient</ns1:decId>
+			<ns1:ocQualConcepts>C12551:Hematopoietic Stem Cell</ns1:ocQualConcepts>
+			<ns1:ocPrimConcepts>C15342:Transplantation</ns1:ocPrimConcepts>
+			<ns1:propPrimConcepts>C53268:Recipient</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2008532v1.0:Individuals</ns1:decConceptualDomainId>
+			<ns1:vdId>2527838v1.0:Institution::Center for International Blood and Marrow Transplant Research Facility Number</ns1:vdId>
+			<ns1:repTermQualConcepts>C41206:Institution;C62574:Facility</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C25337:Number</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2008529v1.0:Research Protocols</ns1:vdConceptualDomainId>
+			<ns1:dataType>Number</ns1:dataType>
+			<ns1:vdMaxLength>100</ns1:vdMaxLength>
+			<ns1:enumerated>No</ns1:enumerated>
+			<ns1:pv>N/A</ns1:pv>
+			<ns1:pvLength>3</ns1:pvLength>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>4</ns1:questionNumber>
+			<ns1:alternateName>key_rcip_id</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:alternateQuestion>CIBMTR Recipient ID:</ns1:alternateQuestion>
+			<ns1:cdeId>2527897v1.0</ns1:cdeId>
+			<ns1:cdeLongName>Hematopoietic Stem Cell Transplantation Recipient Identification Number</ns1:cdeLongName>
+			<ns1:decId>2532107v1.0:Hematopoietic Stem Cell Transplantation Recipient</ns1:decId>
+			<ns1:ocQualConcepts>C12551:Hematopoietic Stem Cell</ns1:ocQualConcepts>
+			<ns1:ocPrimConcepts>C15342:Transplantation</ns1:ocPrimConcepts>
+			<ns1:propPrimConcepts>C53268:Recipient</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2008532v1.0:Individuals</ns1:decConceptualDomainId>
+			<ns1:vdId>2527837v1.0:Identification Number</ns1:vdId>
+			<ns1:repTermQualConcepts>C25737:Identification</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C25337:Number</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2008541v1.0:Numbers</ns1:vdConceptualDomainId>
+			<ns1:dataType>Number</ns1:dataType>
+			<ns1:vdMaxLength>100</ns1:vdMaxLength>
+			<ns1:enumerated>No</ns1:enumerated>
+			<ns1:pv>N/A</ns1:pv>
+			<ns1:pvLength>3</ns1:pvLength>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>5</ns1:questionNumber>
+			<ns1:alternateName>key_entr_dte</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:alternateQuestion>Today's Date:</ns1:alternateQuestion>
+			<ns1:cdeId>2866737v1.0</ns1:cdeId>
+			<ns1:cdeLongName>Clinical Data Form Today Date</ns1:cdeLongName>
+			<ns1:decId>2527787v1.0:Clinical Data Form</ns1:decId>
+			<ns1:ocPrimConcepts>C15783:Clinical Data</ns1:ocPrimConcepts>
+			<ns1:propPrimConcepts>C19464:Form</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2008555v1.0:Medical Records and Forms</ns1:decConceptualDomainId>
+			<ns1:vdId>2527869v1.1:Today Date</ns1:vdId>
+			<ns1:repTermQualConcepts>C41134:Today</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C25164:Date</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2008561v1.0:Occurrences</ns1:vdConceptualDomainId>
+			<ns1:dataType>Date</ns1:dataType>
+			<ns1:vdMaxLength>10</ns1:vdMaxLength>
+			<ns1:enumerated>No</ns1:enumerated>
+			<ns1:pv>N/A</ns1:pv>
+			<ns1:pvLength>3</ns1:pvLength>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>6</ns1:questionNumber>
+			<ns1:alternateName>key_hsct_dte</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:alternateQuestion>Date of HSCT for which this form is being completed:</ns1:alternateQuestion>
+			<ns1:cdeId>2866938v1.0</ns1:cdeId>
+			<ns1:cdeLongName>Hematopoietic Stem Cell Transplantation Occurrence Date</ns1:cdeLongName>
+			<ns1:decId>2532117v1.0:Hematopoietic Stem Cell Transplantation Occurrence</ns1:decId>
+			<ns1:ocQualConcepts>C12551:Hematopoietic Stem Cell</ns1:ocQualConcepts>
+			<ns1:ocPrimConcepts>C15342:Transplantation</ns1:ocPrimConcepts>
+			<ns1:propPrimConcepts>C25275:Occurrence</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2008538v1.0:Therapies</ns1:decConceptualDomainId>
+			<ns1:vdId>2527871v2.0:Transplantation Date</ns1:vdId>
+			<ns1:repTermQualConcepts>C15342:Transplantation</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C25164:Date</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2008538v1.0:Therapies</ns1:vdConceptualDomainId>
+			<ns1:dataType>Date</ns1:dataType>
+			<ns1:vdMaxLength>10</ns1:vdMaxLength>
+			<ns1:enumerated>No</ns1:enumerated>
+			<ns1:pv>N/A</ns1:pv>
+			<ns1:pvLength>3</ns1:pvLength>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>7</ns1:questionNumber>
+			<ns1:alternateName>death_dte</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:alternateQuestion>Date of death:</ns1:alternateQuestion>
+			<ns1:cdeId>2866512v1.0</ns1:cdeId>
+			<ns1:cdeLongName>Death Occurrence Date</ns1:cdeLongName>
+			<ns1:decId>2762821v1.0:Death Occurrence</ns1:decId>
+			<ns1:ocPrimConcepts>C28554:Death</ns1:ocPrimConcepts>
+			<ns1:propPrimConcepts>C25275:Occurrence</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2008561v1.0:Occurrences</ns1:decConceptualDomainId>
+			<ns1:vdId>2018550v1.0:Date</ns1:vdId>
+			<ns1:repTermPrimConcepts>C25164:Date</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2008561v1.0:Occurrences</ns1:vdConceptualDomainId>
+			<ns1:dataType>Date</ns1:dataType>
+			<ns1:vdMaxLength>10</ns1:vdMaxLength>
+			<ns1:enumerated>No</ns1:enumerated>
+			<ns1:pv>N/A</ns1:pv>
+			<ns1:pvLength>3</ns1:pvLength>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>8</ns1:questionNumber>
+			<ns1:alternateName>death_dte_est_ind</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:alternateQuestion>date estimated</ns1:alternateQuestion>
+			<ns1:cdeId>2768794v1.0</ns1:cdeId>
+			<ns1:cdeLongName>Death Occurrence Date Validation Indicator</ns1:cdeLongName>
+			<ns1:decId>2762821v1.0:Death Occurrence</ns1:decId>
+			<ns1:ocPrimConcepts>C28554:Death</ns1:ocPrimConcepts>
+			<ns1:propPrimConcepts>C25275:Occurrence</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2008561v1.0:Occurrences</ns1:decConceptualDomainId>
+			<ns1:vdId>2775114v1.0:Date Validation Indicator</ns1:vdId>
+			<ns1:repTermQualConcepts>C25164:Date;C16237:Validation</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C25180:Indicator</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2008561v1.0:Occurrences</ns1:vdConceptualDomainId>
+			<ns1:dataType>Character</ns1:dataType>
+			<ns1:vdMaxLength>60</ns1:vdMaxLength>
+			<ns1:enumerated>Yes</ns1:enumerated>
+			<ns1:pv>checked</ns1:pv>
+			<ns1:pvLength>7</ns1:pvLength>
+			<ns1:vmConcepts>C49488:Yes</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>9</ns1:questionNumber>
+			<ns1:alternateName>autopsy_cnfrm_cde</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:alternateQuestion>Was cause of death confirmed by autopsy?</ns1:alternateQuestion>
+			<ns1:cdeId>2768960v1.0</ns1:cdeId>
+			<ns1:cdeLongName>Death Reason Confirmed Autopsy Indicator</ns1:cdeLongName>
+			<ns1:decId>2768796v1.0:Death Reason</ns1:decId>
+			<ns1:ocPrimConcepts>C28554:Death</ns1:ocPrimConcepts>
+			<ns1:propPrimConcepts>C25638:Reason</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2008551v1.0:Assessments</ns1:decConceptualDomainId>
+			<ns1:vdId>2768957v1.0:Confirmed Autopsy Indicator</ns1:vdId>
+			<ns1:repTermQualConcepts>C25458:Confirmation;C25153:Autopsy</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C25180:Indicator</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2008561v1.0:Occurrences</ns1:vdConceptualDomainId>
+			<ns1:dataType>Character</ns1:dataType>
+			<ns1:vdMaxLength>60</ns1:vdMaxLength>
+			<ns1:enumerated>Yes</ns1:enumerated>
+			<ns1:pv>autopsy pending</ns1:pv>
+			<ns1:pvLength>15</ns1:pvLength>
+			<ns1:vmConcepts>C25153:Autopsy;C53470:Pending</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>No</ns1:pv>
+			<ns1:pvLength>2</ns1:pvLength>
+			<ns1:vmConcepts>C49487:No</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>unknown</ns1:pv>
+			<ns1:pvLength>7</ns1:pvLength>
+			<ns1:vmConcepts>C17998:Unknown</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Yes</ns1:pv>
+			<ns1:pvLength>3</ns1:pvLength>
+			<ns1:vmConcepts>C49488:Yes</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>10</ns1:questionNumber>
+			<ns1:alternateName>autopsy_rpt_attached_ind</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:alternateQuestion>Is an autopsy report attached?</ns1:alternateQuestion>
+			<ns1:cdeId>2768969v1.0</ns1:cdeId>
+			<ns1:cdeLongName>Autopsy Report Submission Indicator</ns1:cdeLongName>
+			<ns1:decId>2768967v1.0:Autopsy Report Submission</ns1:decId>
+			<ns1:ocQualConcepts>C25153:Autopsy</ns1:ocQualConcepts>
+			<ns1:ocPrimConcepts>C25375:Report</ns1:ocPrimConcepts>
+			<ns1:propPrimConcepts>C25694:Submission</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2008561v1.0:Occurrences</ns1:decConceptualDomainId>
+			<ns1:vdId>2784450v1.0:Yes No Unk ND NA Indicator</ns1:vdId>
+			<ns1:repTermQualConcepts>C49488:Yes;C49487:No;C17998:Unknown;C49484:Not Done;C48660:Not Applicable</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C25180:Indicator</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2008556v1.0:Assessment Results</ns1:vdConceptualDomainId>
+			<ns1:dataType>Character</ns1:dataType>
+			<ns1:vdMaxLength>60</ns1:vdMaxLength>
+			<ns1:enumerated>Yes</ns1:enumerated>
+			<ns1:pv>No</ns1:pv>
+			<ns1:pvLength>2</ns1:pvLength>
+			<ns1:vmConcepts>C49487:No</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:enumerated/>
+			<ns1:pv>Yes</ns1:pv>
+			<ns1:pvLength>3</ns1:pvLength>
+			<ns1:vmConcepts>C49488:Yes</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>11</ns1:questionNumber>
+			<ns1:alternateName>prim_cause_dth</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:alternateQuestion>Cause of death:</ns1:alternateQuestion>
+			<ns1:cdeId>2769017v1.0</ns1:cdeId>
+			<ns1:cdeLongName>Primary Death Reason Type</ns1:cdeLongName>
+			<ns1:decId>2768972v1.0:Primary Death Reason</ns1:decId>
+			<ns1:ocQualConcepts>C25251:Primary</ns1:ocQualConcepts>
+			<ns1:ocPrimConcepts>C28554:Death</ns1:ocPrimConcepts>
+			<ns1:propPrimConcepts>C25638:Reason</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2008551v1.0:Assessments</ns1:decConceptualDomainId>
+			<ns1:vdId>2768974v1.0:Death Reason Type</ns1:vdId>
+			<ns1:repTermQualConcepts>C28554:Death;C25638:Reason</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C25284:Type</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2008551v1.0:Assessments</ns1:vdConceptualDomainId>
+			<ns1:dataType>Character</ns1:dataType>
+			<ns1:vdMaxLength>88</ns1:vdMaxLength>
+			<ns1:enumerated>Yes</ns1:enumerated>
+			<ns1:pv>Secondary malignancy(new malignancy post-HSCT)</ns1:pv>
+			<ns1:pvLength>46</ns1:pvLength>
+			<ns1:vmConcepts>C25667:Secondary;C2991:Disease or Disorder</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Accidental death</ns1:pv>
+			<ns1:pvLength>16</ns1:pvLength>
+			<ns1:vmConcepts>C34340:Accident;C28554:Death</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Acute GVHD</ns1:pv>
+			<ns1:pvLength>10</ns1:pvLength>
+			<ns1:vmConcepts>C4980:Acute Graft Versus Host Disease</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Adult Respiratory Distress Syndrome(ARDS) (other than IPS)</ns1:pv>
+			<ns1:pvLength>58</ns1:pvLength>
+			<ns1:vmConcepts>C58020:Adult Respiratory Distress Syndrome Adverse Event</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Bacterial infection</ns1:pv>
+			<ns1:pvLength>19</ns1:pvLength>
+			<ns1:vmConcepts>C2890:Bacterial Infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Cardiac failure</ns1:pv>
+			<ns1:pvLength>15</ns1:pvLength>
+			<ns1:vmConcepts>C13306:Cardiac;C25745:Failure</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Chronic GVHD</ns1:pv>
+			<ns1:pvLength>12</ns1:pvLength>
+			<ns1:vmConcepts>C4981:Chronic Graft Versus Host Disease</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Central nervous system(CNS) failure</ns1:pv>
+			<ns1:pvLength>35</ns1:pvLength>
+			<ns1:vmConcepts>C12438:Central Nervous System;C25745:Failure</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Disseminated intravascular coagulation(DIC)</ns1:pv>
+			<ns1:pvLength>43</ns1:pvLength>
+			<ns1:vmConcepts>C2992:Disseminated Intravascular Coagulation</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Fungal infection</ns1:pv>
+			<ns1:pvLength>16</ns1:pvLength>
+			<ns1:vmConcepts>C3245:Fungal Infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Gastrointestinal hemorrhage</ns1:pv>
+			<ns1:pvLength>27</ns1:pvLength>
+			<ns1:vmConcepts>C48592:Gastrointestinal Hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Gastrointestinal(GI)failure (not liver)</ns1:pv>
+			<ns1:pvLength>39</ns1:pvLength>
+			<ns1:vmConcepts>C13359:Gastrointestinal;C25745:Failure</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Graft rejection or failure</ns1:pv>
+			<ns1:pvLength>26</ns1:pvLength>
+			<ns1:vmConcepts>C75570:Graft Rejection;C37998:Or;C25745:Failure</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Hemorrhagic cystitis</ns1:pv>
+			<ns1:pvLength>20</ns1:pvLength>
+			<ns1:vmConcepts>C26791:Hemorrhage;C26738:Cystitis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Hemorrhage, not otherwise specified</ns1:pv>
+			<ns1:pvLength>35</ns1:pvLength>
+			<ns1:vmConcepts>C26791:Hemorrhage;C17649:Other</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Thrombotic thrombocytopenic purpura(HUS/TTP)</ns1:pv>
+			<ns1:pvLength>44</ns1:pvLength>
+			<ns1:vmConcepts>C78797:Thrombotic Thrombocytopenic Purpura</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>IPS, idiopathic</ns1:pv>
+			<ns1:pvLength>15</ns1:pvLength>
+			<ns1:vmConcepts>C62590:Idiopathic Pneumonia Syndrome</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Intracranial hemorrhage</ns1:pv>
+			<ns1:pvLength>23</ns1:pvLength>
+			<ns1:vmConcepts>C50438:Intracranial Hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Liver failure (not VOD)</ns1:pv>
+			<ns1:pvLength>23</ns1:pvLength>
+			<ns1:vmConcepts>C12392:Liver;C25745:Failure</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Multiple organ failure, specify</ns1:pv>
+			<ns1:pvLength>31</ns1:pvLength>
+			<ns1:vmConcepts>C75568:Multiple Organ Failure;C25685:Specify</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Organ failure, not otherwise specified</ns1:pv>
+			<ns1:pvLength>38</ns1:pvLength>
+			<ns1:vmConcepts>C75568:Multiple Organ Failure;C17649:Other</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Infection, organism not identified</ns1:pv>
+			<ns1:pvLength>34</ns1:pvLength>
+			<ns1:vmConcepts>C26726:Infection;C14250:Organism;C17998:Unknown</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Other cause, specify</ns1:pv>
+			<ns1:pvLength>20</ns1:pvLength>
+			<ns1:vmConcepts>C17649:Other;C25685:Specify</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Other hemorrhage, specify</ns1:pv>
+			<ns1:pvLength>25</ns1:pvLength>
+			<ns1:vmConcepts>C17649:Other;C26791:Hemorrhage;C25685:Specify</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Other infection,Specify</ns1:pv>
+			<ns1:pvLength>23</ns1:pvLength>
+			<ns1:vmConcepts>C17649:Other;C26726:Infection;C25685:Specify</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Other organ failure, special</ns1:pv>
+			<ns1:pvLength>28</ns1:pvLength>
+			<ns1:vmConcepts>C17649:Other;C13018:Organ;C25745:Failure;C25685:Specify</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Other IPS, specify</ns1:pv>
+			<ns1:pvLength>18</ns1:pvLength>
+			<ns1:vmConcepts>C17649:Other;C62590:Idiopathic Pneumonia Syndrome;C25685:Specify</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Other vascular, specify</ns1:pv>
+			<ns1:pvLength>23</ns1:pvLength>
+			<ns1:vmConcepts>C17649:Other;C13311:Vascular;C25685:Specify</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Prior malignancy (prior to HSCT, and reported on baseline form at history of malignancy)</ns1:pv>
+			<ns1:pvLength>88</ns1:pvLength>
+			<ns1:vmConcepts>C25629:Prior;C2991:Disease or Disorder;C80137:Known</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Protozoal infection</ns1:pv>
+			<ns1:pvLength>19</ns1:pvLength>
+			<ns1:vmConcepts>C34953:Protozoal Infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Pulmonary hemorrhage</ns1:pv>
+			<ns1:pvLength>20</ns1:pvLength>
+			<ns1:vmConcepts>C78578:Pulmonary Hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Pulmonary failure</ns1:pv>
+			<ns1:pvLength>17</ns1:pvLength>
+			<ns1:vmConcepts>C13304:Pulmonary;C25745:Failure</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Recurrence/persistence/progresssion of disease reported for first HSCT</ns1:pv>
+			<ns1:pvLength>70</ns1:pvLength>
+			<ns1:vmConcepts>C2991:Disease or Disorder;C3352:Recurrence;C25331:Progression</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Renal failure</ns1:pv>
+			<ns1:pvLength>13</ns1:pvLength>
+			<ns1:vmConcepts>C4376:Renal Failure</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Suicide</ns1:pv>
+			<ns1:pvLength>7</ns1:pvLength>
+			<ns1:vmConcepts>C3394:Suicide</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Thromboembolic</ns1:pv>
+			<ns1:pvLength>14</ns1:pvLength>
+			<ns1:vmConcepts>C28195:Thromboembolism</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Vascular, not otherwise specified</ns1:pv>
+			<ns1:pvLength>33</ns1:pvLength>
+			<ns1:vmConcepts>C13311:Vascular;C49487:No;C17649:Other;C38024:Specified</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>IPS, viral, cytomegalovirus(CMV)</ns1:pv>
+			<ns1:pvLength>32</ns1:pvLength>
+			<ns1:vmConcepts>C62590:Idiopathic Pneumonia Syndrome;C27985:Viral;C14196:Cytomegalovirus</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Viral infection</ns1:pv>
+			<ns1:pvLength>15</ns1:pvLength>
+			<ns1:vmConcepts>C3439:Viral Infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>IPS, viral, other</ns1:pv>
+			<ns1:pvLength>17</ns1:pvLength>
+			<ns1:vmConcepts>C62590:Idiopathic Pneumonia Syndrome;C27985:Viral;C17649:Other</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Veno-occlusive disease(VOD)/sinusodial obstruction syndrome(SOS)</ns1:pv>
+			<ns1:pvLength>64</ns1:pvLength>
+			<ns1:vmConcepts>C8301:Veno-Occlusive Disease;C33556:Sinus;C3284:Obstruction;C28193:Syndrome</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>13</ns1:questionNumber>
+			<ns1:alternateName>prim_cause_dth_spec</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:alternateQuestion>Specify:</ns1:alternateQuestion>
+			<ns1:cdeId>2769109v1.0</ns1:cdeId>
+			<ns1:cdeLongName>Primary Death Reason Assessment Other Specify</ns1:cdeLongName>
+			<ns1:decId>2768972v1.0:Primary Death Reason</ns1:decId>
+			<ns1:ocQualConcepts>C25251:Primary</ns1:ocQualConcepts>
+			<ns1:ocPrimConcepts>C28554:Death</ns1:ocPrimConcepts>
+			<ns1:propPrimConcepts>C25638:Reason</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2008551v1.0:Assessments</ns1:decConceptualDomainId>
+			<ns1:vdId>2534689v1.0:Other Specify</ns1:vdId>
+			<ns1:repTermQualConcepts>C17649:Other</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C25685:Specify</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2008551v1.0:Assessments</ns1:vdConceptualDomainId>
+			<ns1:dataType>Character</ns1:dataType>
+			<ns1:vdMaxLength>100</ns1:vdMaxLength>
+			<ns1:enumerated>No</ns1:enumerated>
+			<ns1:pv>N/A</ns1:pv>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>14</ns1:questionNumber>
+			<ns1:alternateName>cause_dth_contrib_1</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:alternateQuestion>Contributing:</ns1:alternateQuestion>
+			<ns1:cdeId>2769114v1.0</ns1:cdeId>
+			<ns1:cdeLongName>Contribution Death Reason Type</ns1:cdeLongName>
+			<ns1:decId>2769112v1.0:Contribution Death Reason</ns1:decId>
+			<ns1:ocQualConcepts>C61412:Contribution</ns1:ocQualConcepts>
+			<ns1:ocPrimConcepts>C28554:Death</ns1:ocPrimConcepts>
+			<ns1:propPrimConcepts>C25638:Reason</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2008551v1.0:Assessments</ns1:decConceptualDomainId>
+			<ns1:vdId>2768974v1.0:Death Reason Type</ns1:vdId>
+			<ns1:repTermQualConcepts>C28554:Death;C25638:Reason</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C25284:Type</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2008551v1.0:Assessments</ns1:vdConceptualDomainId>
+			<ns1:dataType>Character</ns1:dataType>
+			<ns1:vdMaxLength>88</ns1:vdMaxLength>
+			<ns1:enumerated>Yes</ns1:enumerated>
+			<ns1:pv>Secondary malignancy(new malignancy post-HSCT)</ns1:pv>
+			<ns1:pvLength>46</ns1:pvLength>
+			<ns1:vmConcepts>C25667:Secondary;C2991:Disease or Disorder</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Accidental death</ns1:pv>
+			<ns1:pvLength>16</ns1:pvLength>
+			<ns1:vmConcepts>C34340:Accident;C28554:Death</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Acute GVHD</ns1:pv>
+			<ns1:pvLength>10</ns1:pvLength>
+			<ns1:vmConcepts>C4980:Acute Graft Versus Host Disease</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Adult Respiratory Distress Syndrome(ARDS) (other than IPS)</ns1:pv>
+			<ns1:pvLength>58</ns1:pvLength>
+			<ns1:vmConcepts>C58020:Adult Respiratory Distress Syndrome Adverse Event</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Bacterial infection</ns1:pv>
+			<ns1:pvLength>19</ns1:pvLength>
+			<ns1:vmConcepts>C2890:Bacterial Infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Cardiac failure</ns1:pv>
+			<ns1:pvLength>15</ns1:pvLength>
+			<ns1:vmConcepts>C13306:Cardiac;C25745:Failure</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Chronic GVHD</ns1:pv>
+			<ns1:pvLength>12</ns1:pvLength>
+			<ns1:vmConcepts>C4981:Chronic Graft Versus Host Disease</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Central nervous system(CNS) failure</ns1:pv>
+			<ns1:pvLength>35</ns1:pvLength>
+			<ns1:vmConcepts>C12438:Central Nervous System;C25745:Failure</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Disseminated intravascular coagulation(DIC)</ns1:pv>
+			<ns1:pvLength>43</ns1:pvLength>
+			<ns1:vmConcepts>C2992:Disseminated Intravascular Coagulation</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Fungal infection</ns1:pv>
+			<ns1:pvLength>16</ns1:pvLength>
+			<ns1:vmConcepts>C3245:Fungal Infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Gastrointestinal hemorrhage</ns1:pv>
+			<ns1:pvLength>27</ns1:pvLength>
+			<ns1:vmConcepts>C48592:Gastrointestinal Hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Gastrointestinal(GI)failure (not liver)</ns1:pv>
+			<ns1:pvLength>39</ns1:pvLength>
+			<ns1:vmConcepts>C13359:Gastrointestinal;C25745:Failure</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Graft rejection or failure</ns1:pv>
+			<ns1:pvLength>26</ns1:pvLength>
+			<ns1:vmConcepts>C75570:Graft Rejection;C37998:Or;C25745:Failure</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Hemorrhagic cystitis</ns1:pv>
+			<ns1:pvLength>20</ns1:pvLength>
+			<ns1:vmConcepts>C26791:Hemorrhage;C26738:Cystitis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Hemorrhage, not otherwise specified</ns1:pv>
+			<ns1:pvLength>35</ns1:pvLength>
+			<ns1:vmConcepts>C26791:Hemorrhage;C17649:Other</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Thrombotic thrombocytopenic purpura(HUS/TTP)</ns1:pv>
+			<ns1:pvLength>44</ns1:pvLength>
+			<ns1:vmConcepts>C78797:Thrombotic Thrombocytopenic Purpura</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>IPS, idiopathic</ns1:pv>
+			<ns1:pvLength>15</ns1:pvLength>
+			<ns1:vmConcepts>C62590:Idiopathic Pneumonia Syndrome</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Intracranial hemorrhage</ns1:pv>
+			<ns1:pvLength>23</ns1:pvLength>
+			<ns1:vmConcepts>C50438:Intracranial Hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Liver failure (not VOD)</ns1:pv>
+			<ns1:pvLength>23</ns1:pvLength>
+			<ns1:vmConcepts>C12392:Liver;C25745:Failure</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Multiple organ failure, specify</ns1:pv>
+			<ns1:pvLength>31</ns1:pvLength>
+			<ns1:vmConcepts>C75568:Multiple Organ Failure;C25685:Specify</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Organ failure, not otherwise specified</ns1:pv>
+			<ns1:pvLength>38</ns1:pvLength>
+			<ns1:vmConcepts>C75568:Multiple Organ Failure;C17649:Other</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Infection, organism not identified</ns1:pv>
+			<ns1:pvLength>34</ns1:pvLength>
+			<ns1:vmConcepts>C26726:Infection;C14250:Organism;C17998:Unknown</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Other cause, specify</ns1:pv>
+			<ns1:pvLength>20</ns1:pvLength>
+			<ns1:vmConcepts>C17649:Other;C25685:Specify</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Other hemorrhage, specify</ns1:pv>
+			<ns1:pvLength>25</ns1:pvLength>
+			<ns1:vmConcepts>C17649:Other;C26791:Hemorrhage;C25685:Specify</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Other infection,Specify</ns1:pv>
+			<ns1:pvLength>23</ns1:pvLength>
+			<ns1:vmConcepts>C17649:Other;C26726:Infection;C25685:Specify</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Other organ failure, special</ns1:pv>
+			<ns1:pvLength>28</ns1:pvLength>
+			<ns1:vmConcepts>C17649:Other;C13018:Organ;C25745:Failure;C25685:Specify</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Other IPS, specify</ns1:pv>
+			<ns1:pvLength>18</ns1:pvLength>
+			<ns1:vmConcepts>C17649:Other;C62590:Idiopathic Pneumonia Syndrome;C25685:Specify</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Other vascular, specify</ns1:pv>
+			<ns1:pvLength>23</ns1:pvLength>
+			<ns1:vmConcepts>C17649:Other;C13311:Vascular;C25685:Specify</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Prior malignancy (prior to HSCT, and reported on baseline form at history of malignancy)</ns1:pv>
+			<ns1:pvLength>88</ns1:pvLength>
+			<ns1:vmConcepts>C25629:Prior;C2991:Disease or Disorder;C80137:Known</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Protozoal infection</ns1:pv>
+			<ns1:pvLength>19</ns1:pvLength>
+			<ns1:vmConcepts>C34953:Protozoal Infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Pulmonary hemorrhage</ns1:pv>
+			<ns1:pvLength>20</ns1:pvLength>
+			<ns1:vmConcepts>C78578:Pulmonary Hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Pulmonary failure</ns1:pv>
+			<ns1:pvLength>17</ns1:pvLength>
+			<ns1:vmConcepts>C13304:Pulmonary;C25745:Failure</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Recurrence/persistence/progresssion of disease reported for first HSCT</ns1:pv>
+			<ns1:pvLength>70</ns1:pvLength>
+			<ns1:vmConcepts>C2991:Disease or Disorder;C3352:Recurrence;C25331:Progression</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Renal failure</ns1:pv>
+			<ns1:pvLength>13</ns1:pvLength>
+			<ns1:vmConcepts>C4376:Renal Failure</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Suicide</ns1:pv>
+			<ns1:pvLength>7</ns1:pvLength>
+			<ns1:vmConcepts>C3394:Suicide</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Thromboembolic</ns1:pv>
+			<ns1:pvLength>14</ns1:pvLength>
+			<ns1:vmConcepts>C28195:Thromboembolism</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Vascular, not otherwise specified</ns1:pv>
+			<ns1:pvLength>33</ns1:pvLength>
+			<ns1:vmConcepts>C13311:Vascular;C49487:No;C17649:Other;C38024:Specified</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>IPS, viral, cytomegalovirus(CMV)</ns1:pv>
+			<ns1:pvLength>32</ns1:pvLength>
+			<ns1:vmConcepts>C62590:Idiopathic Pneumonia Syndrome;C27985:Viral;C14196:Cytomegalovirus</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Viral infection</ns1:pv>
+			<ns1:pvLength>15</ns1:pvLength>
+			<ns1:vmConcepts>C3439:Viral Infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>IPS, viral, other</ns1:pv>
+			<ns1:pvLength>17</ns1:pvLength>
+			<ns1:vmConcepts>C62590:Idiopathic Pneumonia Syndrome;C27985:Viral;C17649:Other</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>Veno-occlusive disease(VOD)/sinusodial obstruction syndrome(SOS)</ns1:pv>
+			<ns1:pvLength>64</ns1:pvLength>
+			<ns1:vmConcepts>C8301:Veno-Occlusive Disease;C33556:Sinus;C3284:Obstruction;C28193:Syndrome</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>15</ns1:questionNumber>
+			<ns1:alternateName>cause_dth_contrib_1_spec</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:alternateQuestion>Specify:</ns1:alternateQuestion>
+			<ns1:cdeId>2769129v1.0</ns1:cdeId>
+			<ns1:cdeLongName>Contribution Death Reason Assessment Other Specify</ns1:cdeLongName>
+			<ns1:decId>2769112v1.0:Contribution Death Reason</ns1:decId>
+			<ns1:ocQualConcepts>C61412:Contribution</ns1:ocQualConcepts>
+			<ns1:ocPrimConcepts>C28554:Death</ns1:ocPrimConcepts>
+			<ns1:propPrimConcepts>C25638:Reason</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2008551v1.0:Assessments</ns1:decConceptualDomainId>
+			<ns1:vdId>2534689v1.0:Other Specify</ns1:vdId>
+			<ns1:repTermQualConcepts>C17649:Other</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C25685:Specify</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2008551v1.0:Assessments</ns1:vdConceptualDomainId>
+			<ns1:dataType>Character</ns1:dataType>
+			<ns1:vdMaxLength>100</ns1:vdMaxLength>
+			<ns1:enumerated>No</ns1:enumerated>
+			<ns1:pv>N/A</ns1:pv>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>16</ns1:questionNumber>
+			<ns1:alternateName>auth_first_name</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:alternateQuestion>First Name:</ns1:alternateQuestion>
+			<ns1:cdeId>2179589v2.0</ns1:cdeId>
+			<ns1:cdeLongName>Person Given/First Name</ns1:cdeLongName>
+			<ns1:decId>2222025v1.0:Person Identifier First Name</ns1:decId>
+			<ns1:ocPrimConcepts>C25190:Person</ns1:ocPrimConcepts>
+			<ns1:propQualConcepts>C40974:First Name</ns1:propQualConcepts>
+			<ns1:propPrimConcepts>C25364:Identifier</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2008532v1.0:Individuals</ns1:decConceptualDomainId>
+			<ns1:vdId>2018284v1.0:Individuals Name</ns1:vdId>
+			<ns1:repTermPrimConcepts>C25191:Person Name</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2008532v1.0:Individuals</ns1:vdConceptualDomainId>
+			<ns1:dataType>Character</ns1:dataType>
+			<ns1:vdMaxLength>30</ns1:vdMaxLength>
+			<ns1:enumerated>No</ns1:enumerated>
+			<ns1:pv>N/A</ns1:pv>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>17</ns1:questionNumber>
+			<ns1:alternateName>auth_last_name</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:alternateQuestion>Last Name:</ns1:alternateQuestion>
+			<ns1:cdeId>2179591v2.0</ns1:cdeId>
+			<ns1:cdeLongName>Person Family/Last Name</ns1:cdeLongName>
+			<ns1:decId>2222031v1.0:Person Identifier Last Name</ns1:decId>
+			<ns1:ocPrimConcepts>C25190:Person</ns1:ocPrimConcepts>
+			<ns1:propQualConcepts>C40975:Last Name</ns1:propQualConcepts>
+			<ns1:propPrimConcepts>C25364:Identifier</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2008532v1.0:Individuals</ns1:decConceptualDomainId>
+			<ns1:vdId>2018284v1.0:Individuals Name</ns1:vdId>
+			<ns1:repTermPrimConcepts>C25191:Person Name</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2008532v1.0:Individuals</ns1:vdConceptualDomainId>
+			<ns1:dataType>Character</ns1:dataType>
+			<ns1:vdMaxLength>30</ns1:vdMaxLength>
+			<ns1:enumerated>No</ns1:enumerated>
+			<ns1:pv>N/A</ns1:pv>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>18</ns1:questionNumber>
+			<ns1:alternateName>auth_phone</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:alternateQuestion>Phone number:</ns1:alternateQuestion>
+			<ns1:cdeId>2518194v1.0</ns1:cdeId>
+			<ns1:cdeLongName>Contact Person Telephone Number</ns1:cdeLongName>
+			<ns1:decId>2518192v1.0:Contact Person Location</ns1:decId>
+			<ns1:ocQualConcepts>C25461:Contact Person</ns1:ocQualConcepts>
+			<ns1:ocPrimConcepts>C25190:Person</ns1:ocPrimConcepts>
+			<ns1:propPrimConcepts>C25341:Location</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2008532v1.0:Individuals</ns1:decConceptualDomainId>
+			<ns1:vdId>2481489v1.0:Template [Affliation/Role][Organization Role][Telephone Number Type] Telephone Number</ns1:vdId>
+			<ns1:repTermQualConcepts>C45677:Template</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C25337:Number</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2008544v1.0:Telecommunications</ns1:vdConceptualDomainId>
+			<ns1:dataType>Character</ns1:dataType>
+			<ns1:vdMaxLength>100</ns1:vdMaxLength>
+			<ns1:enumerated>No</ns1:enumerated>
+			<ns1:pv>N/A</ns1:pv>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>19</ns1:questionNumber>
+			<ns1:alternateName>auth_fax</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:alternateQuestion>Fax number:</ns1:alternateQuestion>
+			<ns1:cdeId>58319v4.0</ns1:cdeId>
+			<ns1:cdeLongName>Person Fax Number</ns1:cdeLongName>
+			<ns1:decId>2011276v3.0:Person Fax</ns1:decId>
+			<ns1:ocPrimConcepts>C25190:Person</ns1:ocPrimConcepts>
+			<ns1:propPrimConcepts>C25210:Fax</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2008544v1.0:Telecommunications</ns1:decConceptualDomainId>
+			<ns1:vdId>2019271v1.0:Person Fax Number</ns1:vdId>
+			<ns1:repTermQualConcepts>C25210:Fax</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C25337:Number</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2008544v1.0:Telecommunications</ns1:vdConceptualDomainId>
+			<ns1:dataType>Character</ns1:dataType>
+			<ns1:vdMaxLength>100</ns1:vdMaxLength>
+			<ns1:enumerated>No</ns1:enumerated>
+			<ns1:pv>N/A</ns1:pv>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>20</ns1:questionNumber>
+			<ns1:alternateName>auth_email</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:alternateQuestion>E-mail address:</ns1:alternateQuestion>
+			<ns1:cdeId>2517550v1.0</ns1:cdeId>
+			<ns1:cdeLongName>Person Email Address Text</ns1:cdeLongName>
+			<ns1:decId>2237942v1.0:Person Email Address</ns1:decId>
+			<ns1:ocPrimConcepts>C25190:Person</ns1:ocPrimConcepts>
+			<ns1:propPrimConcepts>C42775:E-mail Address</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2222502v1.0:UML DEFAULT CD</ns1:decConceptualDomainId>
+			<ns1:vdId>2484074v1.0:Email Address Text</ns1:vdId>
+			<ns1:repTermPrimConcepts>C25704:Text</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2008544v1.0:Telecommunications</ns1:vdConceptualDomainId>
+			<ns1:dataType>Character</ns1:dataType>
+			<ns1:vdMaxLength>100</ns1:vdMaxLength>
+			<ns1:enumerated>No</ns1:enumerated>
+			<ns1:pv>N/A</ns1:pv>
+		</ns1:Question>
+	</ns1:questions>
+</ns1:Form>

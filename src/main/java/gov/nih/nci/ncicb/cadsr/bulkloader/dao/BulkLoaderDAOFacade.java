@@ -1,5 +1,7 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.dao;
 
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.CaDSRObjects;
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.LoadObjects;
 import gov.nih.nci.ncicb.cadsr.bulkloader.dao.read.BulkLoaderReadDAO;
 import gov.nih.nci.ncicb.cadsr.bulkloader.dao.write.BulkLoaderWriteDAO;
 import gov.nih.nci.ncicb.cadsr.domain.ClassSchemeClassSchemeItem;
@@ -20,4 +22,5 @@ public interface BulkLoaderDAOFacade extends BulkLoaderReadDAO, BulkLoaderWriteD
 	public ClassificationScheme getClassificationScheme(String csName);
 	public List<ClassSchemeClassSchemeItem> getClassSchemeClassSchemeItems(String csName);
 	public Concept findEVSConceptByCUI(String cui);
+	public CaDSRObjects loadFromCaDSR(CaDSRObjects caDSRObjects, LoadObjects loadObjects);
 }

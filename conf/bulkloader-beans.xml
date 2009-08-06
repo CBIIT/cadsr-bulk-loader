@@ -52,41 +52,52 @@
   									  
   <bean name="deTranslator" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.DataElementTranslator" >
   	<property name="child" ref="decTranslator" />
+    <property name="daoFacade" ref="DAOFacade" />
   </bean>
   
   <bean name="decTranslator" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.DataElementConceptTranslator" >
   	<property name="child" ref="ocTranslator" />
+    <property name="daoFacade" ref="DAOFacade" />
   </bean>
   
   <bean name="ocTranslator" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.ObjectClassTranslator" >
   	<property name="child" ref="propertiesTranslator" />
+    <property name="daoFacade" ref="DAOFacade" />
   </bean>
   
   <bean name="propertiesTranslator" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.PropertiesTranslator" >
   	<property name="child" ref="vdTranslator" />
+    <property name="daoFacade" ref="DAOFacade" />
   </bean>
   
   <bean name="vdTranslator" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.ValueDomainTranslator" >
   	<property name="child" ref="cdTranslator" />
+    <property name="daoFacade" ref="DAOFacade" />
   </bean>
   
   <bean name="cdTranslator" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.ConceptualDomainTranslator" >
   	<property name="child" ref="vmTranslator" />
+    <property name="daoFacade" ref="DAOFacade" />
   </bean>
   
   <bean name="vmTranslator" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.ValueMeaningTranslator" >
   	<property name="child" ref="conceptsTranslator" />
+    <property name="daoFacade" ref="DAOFacade" />
   </bean>
   
   <bean name="conceptsTranslator" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.ConceptsTranslator" >
   	<property name="child" ref="csTranslator" />
+    <property name="daoFacade" ref="DAOFacade" />
   </bean>
   
   <bean name="csTranslator" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.ClassificationSchemeTranslator" >
   	<property name="child" ref="csiTranslator" />
+    <property name="daoFacade" ref="DAOFacade" />
   </bean>
   
-  <bean name="csiTranslator" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.ClassificationSchemeItemTranslator" />
+  <bean name="csiTranslator" class="gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.ClassificationSchemeItemTranslator" >
+    <property name="daoFacade" ref="DAOFacade" />
+  </bean>
 
 
   									<!-- Validators -->
@@ -99,6 +110,8 @@
   		  <ref bean="csCSIValidator" />
   		  <ref bean="loaderValueDomainValidator"/>
   		  <ref bean="altNameTypeValidator"/>
+  		  <ref bean="defLengthValidator"/>
+  		  <ref bean="retElemValidator"/>
   		</list>
   	</property>
   </bean>
@@ -113,6 +126,12 @@
     <property name="dao" ref="DAOFacade" />
   </bean>
   <bean name="altNameTypeValidator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators.AlternateNameTypeValidator" >
+    <property name="dao" ref="DAOFacade" />
+  </bean>
+  <bean name="defLengthValidator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators.DefinitionLengthValidator" >
+    <property name="dao" ref="DAOFacade" />
+  </bean>
+  <bean name="retElemValidator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators.RetiredElementsValidator" >
     <property name="dao" ref="DAOFacade" />
   </bean>
     
