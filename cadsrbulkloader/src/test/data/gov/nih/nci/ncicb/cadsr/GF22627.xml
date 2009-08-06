@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns1:Form xmlns:ns1="urn:nci:caDSR">
+	<ns1:formName>8_19</ns1:formName>
+	<ns1:context>caBIG</ns1:context>
+	<ns1:cs>TEST_Bulk_Loader_0.5</ns1:cs>
+	<ns1:csi>TEST_8_19</ns1:csi>
+	<ns1:source>BulK Loader</ns1:source>
+	<ns1:questions>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:alternateName>To test VD Name</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:decId>2867791v1.0:Gene Ontology Gene Object Gene Identifier Blood Bank</ns1:decId>
+			<ns1:repTermQualConcepts>C16443:Gene Cloning;C16611:Gene Rearrangement</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C16607:Gene Duplication</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2778092v1.0:COPPA Generic Conceptual Domain</ns1:vdConceptualDomainId>
+			<ns1:dataType>ALPHANUMERIC</ns1:dataType>
+			<ns1:enumerated>Yes</ns1:enumerated>
+			<ns1:pv>Blood Group B Gene Cloning Gene Duplication</ns1:pv>
+			<ns1:vmConcepts>C76247:Blood Group B;C16443:Gene Cloning;C16607:Gene Duplication</ns1:vmConcepts>
+			<ns1:vmNotes>multiple concepts</ns1:vmNotes>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Gene Amplification</ns1:pv>
+			<ns1:vmConcepts>C16605:Gene Amplification</ns1:vmConcepts>
+		</ns1:Question>
+	</ns1:questions>
+</ns1:Form>

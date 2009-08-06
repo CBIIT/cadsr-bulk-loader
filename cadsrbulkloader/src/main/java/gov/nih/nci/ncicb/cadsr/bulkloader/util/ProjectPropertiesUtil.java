@@ -16,14 +16,11 @@ public class ProjectPropertiesUtil {
 	
 	public static final String DEFAULT_ALT_NAME_PROP = "default.altname.type";
 	
-	private static final String PROPERTIES_FILE_STR = "bulkloader.properties";
+	private static final String PROPERTIES_FILE_STR = "/bulkloader.properties";
 	private static ClassLoader classLoader = ProjectPropertiesUtil.class.getClassLoader();
 	private static Properties props = new Properties();
 	
-	private static File propsFile;
-	
 	static {
-		propsFile = getClasspathFile(PROPERTIES_FILE_STR);
 		loadProperties();
 	}
 	
@@ -38,7 +35,7 @@ public class ProjectPropertiesUtil {
 	
 	private static void loadProperties() {
 		try {
-			InputStream fis = new FileInputStream(propsFile);
+			InputStream fis = ProjectPropertiesUtil.class.getResourceAsStream(PROPERTIES_FILE_STR);
 			props.load(fis);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns1:Form xmlns:ns1="urn:nci:caDSR">
+	<ns1:formName>2005 Test Export_Q70_Simulate</ns1:formName>
+	<ns1:context>caBIG</ns1:context>
+	<ns1:cs>TEST_Bulk_Loader_0.5</ns1:cs>
+	<ns1:csi>Test_8_14</ns1:csi>
+	<ns1:source>BulK Loader</ns1:source>
+	<ns1:questions>
+		<ns1:Question>
+			<ns1:questionNumber>70</ns1:questionNumber>
+			<ns1:alternateName>hla_srlgy_num_2_b_atgn_sp</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:alternateQuestion>Test Alt Ques</ns1:alternateQuestion>
+			<ns1:cdeId>2002232v1.0</ns1:cdeId>
+			<ns1:ocPrimConcepts>C17004:Genetic Polymorphism</ns1:ocPrimConcepts>
+			<ns1:propQualConcepts>C25666:Second</ns1:propQualConcepts>
+			<ns1:propPrimConcepts>C45520:Gene Object</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2008557v1.0:Lab Results</ns1:decConceptualDomainId>
+			<ns1:vdId>2695156v1.0:HLA-B Gene Antigen Name</ns1:vdId>
+		</ns1:Question>
+	</ns1:questions>
+</ns1:Form>

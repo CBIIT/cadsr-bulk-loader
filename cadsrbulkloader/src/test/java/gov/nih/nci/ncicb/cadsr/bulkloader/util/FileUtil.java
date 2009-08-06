@@ -1,16 +1,14 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.util;
 
-import gov.nih.nci.ncicb.cadsr.MainTestCase;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.URL;
 
 public class FileUtil
 {	
@@ -37,10 +35,10 @@ public class FileUtil
 		try {
 			createIPAndOPDirs(workingInDir, workingOutDir);
 			for (String ipFileStr: ipFiles) {
-				File fromFile = getClasspathFile(ipFileStr);
-				File toFile = new File(workingInDir+File.separatorChar+fromFile.getName());
+				InputStream is = getClasspathStream(ipFileStr);
+				File toFile = new File(workingInDir+File.separatorChar+new File(ipFileStr).getName());
 				toFile.createNewFile();
-				BufferedReader in = new BufferedReader(new FileReader(fromFile));
+				BufferedReader in = new BufferedReader(new InputStreamReader(is));
 				PrintWriter out = new PrintWriter(new FileOutputStream(toFile));
 				
 				try {
@@ -92,17 +90,17 @@ public class FileUtil
 		return filePath;
 	}
 	
-	protected File getClasspathFile(String fileName) {
-		String classpath = getClasspath();
-		File f  = new File(classpath+fileName);
-		
-		if (!f.exists()) {
-			try {
-				f.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+	protected InputStream getClasspathStream(String fileName) {
+		try {
+			URL fileURL = FileUtil.class.getResource(fileName);
+			
+			return fileURL.openStream();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return f;
+		
+		return null;
+		
 	}
 }

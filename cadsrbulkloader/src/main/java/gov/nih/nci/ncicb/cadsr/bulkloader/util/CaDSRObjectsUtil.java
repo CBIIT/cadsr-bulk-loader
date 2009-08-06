@@ -7,16 +7,20 @@ import gov.nih.nci.ncicb.cadsr.domain.ConceptDerivationRule;
 import gov.nih.nci.ncicb.cadsr.domain.Context;
 import gov.nih.nci.ncicb.cadsr.domain.DataElement;
 import gov.nih.nci.ncicb.cadsr.domain.DataElementConcept;
+import gov.nih.nci.ncicb.cadsr.domain.Definition;
 import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
 import gov.nih.nci.ncicb.cadsr.domain.ObjectClass;
 import gov.nih.nci.ncicb.cadsr.domain.Property;
 import gov.nih.nci.ncicb.cadsr.domain.ValueDomain;
+import gov.nih.nci.ncicb.cadsr.domain.ValueMeaning;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CaDSRObjectsUtil {
 
+	private final String CONCEPT_CONCAT_STRING = ":";
+	
 	public static DataElement createDataElement() {
 		return DomainObjectFactory.newDataElement();
 	}
@@ -131,7 +135,11 @@ public class CaDSRObjectsUtil {
 			sb.append(":");
 			sb.append(concept.getPreferredName());
 		}
-		return sb.substring(1);
+		if (sb.length() > 0) {
+			return sb.substring(1);
+		}
+		
+		return sb.toString();
 	}
 	
 	public static AdminComponent setPublicIdAndVersion(AdminComponent adminComp, int publicId, double version) {
@@ -139,6 +147,12 @@ public class CaDSRObjectsUtil {
 		adminComp.setVersion(new Float(version));
 		
 		return adminComp;
+	}
+	
+	public static Definition createDefinition() {
+		Definition definition = DomainObjectFactory.newDefinition();
+		
+		return definition;
 	}
 	
 	public static Concept createConcept() {
@@ -166,5 +180,169 @@ public class CaDSRObjectsUtil {
 		context.setName(contextName);
 		
 		return context;
+	}
+	
+	public static ValueMeaning createValueMeaning() {
+		ValueMeaning vm = DomainObjectFactory.newValueMeaning();
+		vm.setConceptDerivationRule(createConceptDerivationRule(new ArrayList<Concept>()));
+		
+		return vm;
+	}
+	
+	public String getDELongName(DataElementConcept dec, ValueDomain vd) {
+		String decLongName = getDECLongName(dec);
+		String vdLongName = getVDLongName(vd);
+		
+		return decLongName+" "+vdLongName;
+	}
+	
+	public String getDECLongName(DataElementConcept dec) {
+		return deriveLongName(dec.getObjectClass(), dec.getProperty());
+	}
+	
+	public String deriveLongName(ObjectClass oc, Property prop) {
+		String ocLongName = deriveLongName(oc.getConceptDerivationRule());
+		String propLongName = deriveLongName(prop.getConceptDerivationRule());
+		
+		return ocLongName+" "+propLongName;
+	}
+	
+	public String deriveLongName(ConceptDerivationRule cdr) {
+		StringBuffer longName = new StringBuffer();
+		
+		if (cdr != null) {
+			List<ComponentConcept> compConcepts = cdr.getComponentConcepts();
+			for (ComponentConcept compCon: compConcepts) {
+				String conLongName = compCon.getConcept().getLongName();
+				if (conLongName != null) {
+					longName.append(" ");
+					longName.append(conLongName);
+				}
+			}
+			
+			if (longName.length() > 0) {
+				return longName.substring(1);
+			}
+			else {
+				return "";
+			}
+		}
+		return null;
+	}
+	
+	public String getVDLongName(ValueDomain vd) {
+		if (vd == null) return "";
+		
+		return deriveLongName(vd.getConceptDerivationRule());
+	}
+	
+	public String getLongName(ConceptDerivationRule cdr) {
+		StringBuffer longName = new StringBuffer();
+		
+		if (cdr != null) {
+			List<ComponentConcept> compCons = cdr.getComponentConcepts();
+			for (ComponentConcept compCon: compCons) {
+				String conLongName = compCon.getConcept().getLongName();
+				if (conLongName != null) {
+					longName.append(" ");
+					longName.append(conLongName);
+					
+				}
+			}
+		}
+		
+		if (longName.length() > 0) {
+			return longName.substring(1);
+		}
+		else {
+			return "";
+		}
+	}
+	
+	public String getDefinition(ConceptDerivationRule cdr) {
+		if (cdr == null) return "";
+		
+		List<ComponentConcept> compCons = cdr.getComponentConcepts();
+		StringBuffer sb = new StringBuffer();
+		for (ComponentConcept compCon: compCons) {
+			List<Definition> defs = compCon.getConcept().getDefinitions();
+			for (Definition def: defs) {
+				if (sb.length()==0) {
+					sb.append(def.getDefinition());
+				}
+				else {
+					sb.append(CONCEPT_CONCAT_STRING+def.getDefinition());
+				}
+			}
+		}
+		
+		return sb.toString();
+	}
+	
+	public List<ComponentConcept> getComponentConceptsFromConcepts(List<Concept> concepts) {
+		List<ComponentConcept> compConcepts = new ArrayList<ComponentConcept>();
+		for (Concept concept: concepts) {
+			ComponentConcept compCon = DomainObjectFactory.newComponentConcept();
+			compCon.setConcept(concept);
+			
+			compConcepts.add(compCon);
+		}
+		
+		return compConcepts;
+	}
+	
+	public Concept getConcept(String preferredName) {
+		Concept con = DomainObjectFactory.newConcept();
+		con.setPreferredName(preferredName);
+		
+		return con;
+	}
+	
+	public String getLongNameFromConcepts(List<Concept> concepts) {
+		StringBuffer concatConceptsBuffer = new StringBuffer();
+		
+		for (Concept concept: concepts) {
+			concatConceptsBuffer.append(concept.getLongName());
+			concatConceptsBuffer.append(" ");
+		}
+		
+		int lastIndexOfConcatStr = concatConceptsBuffer.lastIndexOf(CONCEPT_CONCAT_STRING);
+		
+		String concatConceptsStr = lastIndexOfConcatStr>=0?concatConceptsBuffer.substring(0, lastIndexOfConcatStr):concatConceptsBuffer.toString();
+		
+		return concatConceptsStr;
+	}
+	
+	public String getPreferredNameFromConcepts(List<Concept> concepts) {
+		StringBuffer concatConceptsBuffer = new StringBuffer();
+		
+		for (Concept concept: concepts) {
+			concatConceptsBuffer.append(concept.getPreferredName());
+			concatConceptsBuffer.append(CONCEPT_CONCAT_STRING);
+		}
+		
+		int lastIndexOfConcatStr = concatConceptsBuffer.lastIndexOf(CONCEPT_CONCAT_STRING);
+		
+		String concatConceptsStr = lastIndexOfConcatStr>=0?concatConceptsBuffer.substring(0, lastIndexOfConcatStr):concatConceptsBuffer.toString();
+		
+		return concatConceptsStr;
+	}
+	
+	public String getDefinitionFromConcepts(List<Concept> concepts) {
+		StringBuffer concatConceptsBuffer = new StringBuffer();
+		
+		for (Concept concept: concepts) {
+			List<Definition> defs = concept.getDefinitions();
+			for (Definition def: defs) {
+				concatConceptsBuffer.append(def.getDefinition());
+				concatConceptsBuffer.append(CONCEPT_CONCAT_STRING);
+			}
+		}
+		
+		int lastIndexOfConcatStr = concatConceptsBuffer.lastIndexOf(CONCEPT_CONCAT_STRING);
+		
+		String concatConceptsStr = lastIndexOfConcatStr>=0?concatConceptsBuffer.substring(0, lastIndexOfConcatStr):concatConceptsBuffer.toString();
+		
+		return concatConceptsStr;
 	}
 }

@@ -14,6 +14,7 @@ import gov.nih.nci.ncicb.cadsr.loader.ElementsLists;
 import gov.nih.nci.ncicb.cadsr.loader.UserSelections;
 import gov.nih.nci.ncicb.cadsr.loader.defaults.UMLDefaults;
 import gov.nih.nci.ncicb.cadsr.loader.persister.PersisterException;
+import gov.nih.nci.ncicb.cadsr.loader.util.PropertyAccessor;
 import gov.nih.nci.ncicb.cadsr.loader.util.UserPreferences;
 
 import java.util.Collection;
@@ -44,19 +45,8 @@ public class UMLLoaderHandler {
 		
 	}
 	
-	public synchronized void unLoadElements(CaDSRObjects caDSRObjects, LoadObjects loadObjects) {
-		List<? extends AdminComponent> adminComponents = caDSRObjects.getList();
-		for (AdminComponent adminComponent: adminComponents) {
-			elements.removeElement(adminComponent);
-		}
-		
-		Context loadContext = loadObjects.getLoadContext();
-		List<Context> loadedContexts = elements.getElements(loadContext);
-		loadedContexts.clear();
-		
-		ClassificationScheme loadClassScheme = loadObjects.getLoadClassScheme();			
-		List<ClassificationScheme> loadedCSs = elements.getElements(loadClassScheme);
-		loadedCSs.clear();
+	public synchronized void unLoadElements() {
+		elements.clear();
 	}
 	
 	public synchronized void loadDefaultsIfNotLoaded(LoadObjects loadObjects) throws BulkLoaderDAORuntimeException{
@@ -109,6 +99,10 @@ public class UMLLoaderHandler {
 		ClassificationSchemeItem csi = csCSI.getCsi();
 		String csiLongName = csi.getLongName();
 		defaults.getPackageCsCsis().put(csiLongName, csCSI);
+	}
+	
+	public static String getDefaultEVSDefinition() {
+		return PropertyAccessor.getProperty("default.evs.definition");
 	}
 	
 	private LoaderDefault getLoaderDefault(LoadObjects loadObjects) {

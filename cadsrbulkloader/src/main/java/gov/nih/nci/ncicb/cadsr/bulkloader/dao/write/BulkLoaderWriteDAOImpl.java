@@ -35,7 +35,7 @@ public class BulkLoaderWriteDAOImpl implements BulkLoaderWriteDAO {
 			throw new BulkLoaderDAORuntimeException(e);
 		}
 		finally {
-			handler.unLoadElements(cadsrObjects, loadObjects);
+			handler.unLoadElements();
 		}
 	}
 	

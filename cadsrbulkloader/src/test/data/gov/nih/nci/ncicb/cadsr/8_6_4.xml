@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns1:Form xmlns:ns1="urn:nci:caDSR">
+	<ns1:formName>2005_test_export_Question6</ns1:formName>
+	<ns1:context>caBIG</ns1:context>
+	<ns1:cs>TEST_Bulk_Loader_0.5</ns1:cs>
+	<ns1:csi>TEST_8_12</ns1:csi>
+	<ns1:source>BulK Loader</ns1:source>
+	<ns1:questions>
+		<ns1:Question>
+		  <ns1:questionNumber>6</ns1:questionNumber> 
+		  <ns1:alternateName>GenebankAccession_11</ns1:alternateName> 
+		  <ns1:alternateNameType>NMDP_FN</ns1:alternateNameType> 
+		  <ns1:alternateQuestion>A</ns1:alternateQuestion> 
+		  <ns1:cdeId>2727459v1.0</ns1:cdeId> 
+		  <ns1:cdeLongName>Menses Regular Occurrence Indicator</ns1:cdeLongName> 
+		  <ns1:decId>2684958v1.0:HLA-A Gene Genotyping</ns1:decId> 
+		  <ns1:vdId>2693326v1.0:Allele Count</ns1:vdId> 
+		</ns1:Question>
+	</ns1:questions>
+</ns1:Form>

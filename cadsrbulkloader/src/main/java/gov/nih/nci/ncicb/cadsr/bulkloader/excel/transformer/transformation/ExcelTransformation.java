@@ -321,13 +321,6 @@ public class ExcelTransformation implements TransformerTransformation {
 		List<Definition_ISO11179> isoDefs = new ArrayList<Definition_ISO11179>();
 		if (con != null) {
 			String prefDef = con.getPreferredDefinition();
-			if (prefDef != null && !prefDef.trim().equals("")) {
-				Definition_ISO11179 isoPrefDef = new Definition_ISO11179();
-				isoPrefDef.setText(prefDef);
-				isoPrefDef.setPreferredDefinition(true);
-				isoPrefDef.setType("");
-				isoDefs.add(isoPrefDef);
-			}
 			
 			List<Definition> defs = con.getDefinitions();
 			if (defs != null) {
@@ -337,7 +330,13 @@ public class ExcelTransformation implements TransformerTransformation {
 						Definition_ISO11179 isoDef = new Definition_ISO11179();
 						isoDef.setText(defText);
 						isoDef.setType(def.getType());
-						isoDef.setPreferredDefinition(false);
+						
+						if (prefDef != null && defText.equalsIgnoreCase(prefDef)) {
+							isoDef.setPreferredDefinition(true);
+						}
+						else {
+							isoDef.setPreferredDefinition(false);
+						}
 						
 						isoDefs.add(isoDef);
 					}
@@ -639,10 +638,13 @@ public class ExcelTransformation implements TransformerTransformation {
 		isoPV.setBeginDate(new Date());
 		
 		String vmConIdStr = question.getVmConcepts();
-		List<Concept_caDSR11179> vmConcepts = getConcepts(vmConIdStr);
-		ValueMeaning_caDSR11179 isoVM = getValueMeaning(vmConcepts);
-		if (isoVM != null) {
-			isoPV.setValueMeaningRefId(isoVM.getTagId());
+		
+		if (vmConIdStr != null && !vmConIdStr.trim().equals("")) {
+			List<Concept_caDSR11179> vmConcepts = getConcepts(vmConIdStr);
+			ValueMeaning_caDSR11179 isoVM = getValueMeaning(vmConcepts);
+			if (isoVM != null) {
+				isoPV.setValueMeaningRefId(isoVM.getTagId());
+			}
 		}
 		
 		return isoPV;

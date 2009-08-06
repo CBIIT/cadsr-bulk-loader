@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns1:Form xmlns:ns1="urn:nci:caDSR">
+	<ns1:formName>2005 Test Export</ns1:formName>
+	<ns1:context>caBIG</ns1:context>
+	<ns1:cs>TEST_Bulk_Loader_0.5</ns1:cs>
+	<ns1:csi>TEST_8_14</ns1:csi>
+	<ns1:source>NMDP</ns1:source>
+	<ns1:questions>
+		<ns1:Question>
+			<ns1:moduleName>Note: In order to automatically expand the table, please add rows directly under the shaded area.</ns1:moduleName>
+			<ns1:questionNumber>925</ns1:questionNumber>
+			<ns1:alternateName>TEST_8_14</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:alternateQuestion>TEST_8_14: add new ALternate Question</ns1:alternateQuestion>
+			<ns1:ocQualConcepts>C12981:Graft</ns1:ocQualConcepts>
+			<ns1:ocPrimConcepts>C48284:Donor</ns1:ocPrimConcepts>
+			<ns1:propPrimConcepts>C17357:Gender</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2008556v1.0:Assessment Results</ns1:decConceptualDomainId>
+			<ns1:vdId>2180387v1.0:Gender Type</ns1:vdId>
+			<ns1:repTermPrimConcepts>C25284:Type</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2008551v1.0:Assessments</ns1:vdConceptualDomainId>
+			<ns1:dataType>Character</ns1:dataType>
+			<ns1:vdMaxLength>60</ns1:vdMaxLength>
+			<ns1:enumerated>Yes</ns1:enumerated>
+			<ns1:pv>female</ns1:pv>
+			<ns1:pvLength>6</ns1:pvLength>
+			<ns1:vmConcepts>C16576:Female</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber/>
+			<ns1:alternateName/>
+			<ns1:alternateNameType/>
+			<ns1:alternateQuestion/>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated/>
+			<ns1:pv>male</ns1:pv>
+			<ns1:pvLength>4</ns1:pvLength>
+			<ns1:vmConcepts>C20197:Male</ns1:vmConcepts>
+		</ns1:Question>
+	</ns1:questions>
+</ns1:Form>

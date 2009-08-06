@@ -16,8 +16,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Parts2900TestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.MainTestCase {
 
-	private static String[] XML_IP_FILES = {"/gov/nih/nci/ncicb/cadsr/2900 Parts Test.xml"};
-	private static String dataURL = "/gov/nih/nci/ncicb/cadsr/8_29_1_3.xls";
+	private static String[] XML_IP_FILES = {"/gov/nih/nci/ncicb/cadsr/2005 Test Export_Q925.xml"};
+	private static String dataURL = "/gov/nih/nci/ncicb/cadsr/2005 Test Export_Q925.xls";
 	
 	@Override
 	protected void containerSetUp() throws Exception {
@@ -52,9 +52,13 @@ public class Parts2900TestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.M
 	
 	public void testProcessor() {
 		Properties props = new Properties();
-		props.put("db.url", getPropertyManager().getUnitDataSourceURL());
+		/*props.put("db.url", getPropertyManager().getUnitDataSourceURL());
 		props.put("db.username", getPropertyManager().getUnitDataSourceUser());
-		props.put("db.password", getPropertyManager().getUnitDataSourcePassword());
+		props.put("db.password", getPropertyManager().getUnitDataSourcePassword());*/
+		
+		props.put("db.url", "jdbc:oracle:thin:@cbiodb530.nci.nih.gov:1551:DSRQA");
+		props.put("db.username","chenr_qa");
+		props.put("db.password","chenr_qa");
 		
 		SpringBeansUtil.getInstance().initialize(props);
 		

@@ -159,9 +159,9 @@ public class ExcelValidation implements TransformerValidation {
 				lineItemResult.addStatus(ExcelValidationStatus.INVALID_DECID);
 			}
 			
-			if (!areAllDECFieldsBlank(question)) {
+			/*if (!areAllDECFieldsBlank(question)) {
 				lineItemResult.addStatus(ExcelValidationStatus.DECID_AND_DATA_PRESENT);
-			}
+			}*/
 		}
 		
 		return lineItemResult;
@@ -302,14 +302,14 @@ public class ExcelValidation implements TransformerValidation {
 			}
 		}
 		else {
-			if (!(repTermQualConcepts == null || repTermQualConcepts.trim().equals("")
+			/*if (!(repTermQualConcepts == null || repTermQualConcepts.trim().equals("")
 					|| repTermPrimConcepts == null || repTermPrimConcepts.trim().equals("")
 					|| vdCdId == null || vdCdId.trim().equals("")
 					|| datatype == null || datatype.trim().equals("")
 					|| vdMaxLength == null || vdMaxLength.trim().equals("")
 					|| enumerated == null || enumerated.trim().equals(""))) {
 				lineItemResult.addStatus(ExcelValidationStatus.VDID_AND_DATA_PRESENT);
-			}
+			}*/
 			if (!testIdFormat(vdId)) {
 				lineItemResult.addStatus(ExcelValidationStatus.INVALID_VDID);
 			}
@@ -321,7 +321,8 @@ public class ExcelValidation implements TransformerValidation {
 	private TransformerValidationLineItemResult validateVM(List<ExcelQuestion> oneRecord, TransformerValidationLineItemResult lineItemResult) {
 		ExcelQuestion mainQuestion = oneRecord.get(0);
 		String enumerated = mainQuestion.getEnumerated();
-		if (enumerated!=null && enumerated.equalsIgnoreCase("yes")) {
+		String vdId = mainQuestion.getVdId();
+		if (vdId == null && enumerated != null && enumerated.equalsIgnoreCase("yes")) {
 			List<String> vmConcepts = new ArrayList<String>();
 			for (ExcelQuestion excelQuestion: oneRecord) {
 				String vmConceptStrs = excelQuestion.getVmConcepts();
@@ -331,7 +332,7 @@ public class ExcelValidation implements TransformerValidation {
 						String[] vmConceptAndName = vmConceptWithName.split(":");
 						String vmConcept = vmConceptAndName[0];
 						if (vmConcepts.contains(vmConcept)) {
-							lineItemResult.addStatus(ExcelValidationStatus.DUPLICATE_VM_CONCEPT);
+							lineItemResult.addStatus(ExcelValidationStatus.generateErrorStatus("Duplicate VM concept ["+vmConcept+"] for the Question # ["+excelQuestion.getQuestionNumber()+"]"));
 						}
 						else {
 							vmConcepts.add(vmConcept);

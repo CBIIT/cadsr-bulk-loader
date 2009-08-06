@@ -17,6 +17,7 @@ import java.util.List;
 public interface LexEVSDAO {
 
 	public MetaThesaurusConcept getMetaThesaurusConcept(String cui);
-	public DescLogicConcept getDescLogicConcept(String code);
+	public DescLogicConcept getEVSNCItConcept(String code);
+	public DescLogicConcept getEVSPreNCItConcept(String code);
 	public List<Atom> getAtoms(String cui);
 }
