@@ -105,35 +105,39 @@
   <bean name="validator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.ValidationImpl" >
   	<property name="validators">
   		<list>
-  		  <ref bean="idValidator" />
+  		  <!-- Bulk Loader Validators -->
+  		  
   		  <ref bean="blConceptValidator" />
-  		  <ref bean="csCSIValidator" />
+  		  <ref bean="propValidator" />
+  		  <ref bean="ocValidator" />
+  		  <ref bean="decValidator"/>
+  		  <ref bean="blVDValidator"/>
+  		  <ref bean="deValidator"/>
+  		  
+  		  <!-- UML Loader Validators -->
   		  <ref bean="loaderValueDomainValidator"/>
-  		  <ref bean="altNameTypeValidator"/>
-  		  <ref bean="defLengthValidator"/>
-  		  <ref bean="retElemValidator"/>
   		</list>
   	</property>
   </bean>
   
-  <bean name="idValidator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators.IdValidator" >
+  <bean name="deValidator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators.DataElementValidator" >
+    <property name="dao" ref="DAOFacade" />
+  </bean>
+  <bean name="decValidator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators.DataElementConceptValidator" >
+    <property name="dao" ref="DAOFacade" />
+  </bean>
+  <bean name="ocValidator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators.ObjectClassValidator" >
+    <property name="dao" ref="DAOFacade" />
+  </bean>
+  <bean name="propValidator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators.PropertyValidator" >
+    <property name="dao" ref="DAOFacade" />
+  </bean>
+  <bean name="blVDValidator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators.ValueDomainValidator" >
     <property name="dao" ref="DAOFacade" />
   </bean>
   <bean name="blConceptValidator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators.ConceptValidator" >
     <property name="dao" ref="DAOFacade" />
   </bean> 
-  <bean name="csCSIValidator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators.CSCSIValidator" >
-    <property name="dao" ref="DAOFacade" />
-  </bean>
-  <bean name="altNameTypeValidator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators.AlternateNameTypeValidator" >
-    <property name="dao" ref="DAOFacade" />
-  </bean>
-  <bean name="defLengthValidator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators.DefinitionLengthValidator" >
-    <property name="dao" ref="DAOFacade" />
-  </bean>
-  <bean name="retElemValidator" class="gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators.RetiredElementsValidator" >
-    <property name="dao" ref="DAOFacade" />
-  </bean>
     
                               <!-- Persister -->
     
