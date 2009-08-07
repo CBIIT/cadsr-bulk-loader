@@ -9,6 +9,8 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.unmarshall.TransformerUnMa
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.util.List;
@@ -23,23 +25,46 @@ public class ExcelUnMarshaller implements TransformerUnMarshaller {
 	private static final String FORM_MAPPING_FILE = "gov/nih/nci/ncicb/cadsr/bulkloader/excel/transformer/unmarshall/bl_form_mapping.xml";
 	
 	public TransformerUnMarshallResult read(File inputFile) {
-		TransformerUnMarshallResult result = new TransformerUnMarshallResult();
+		TransformerUnMarshallResult result = null;
 		
 		try {
-			Unmarshaller unmarshaller = getDefaultUnmarshaller();
-			
 			Reader ipFileReader = new FileReader(inputFile);
-			ExcelForm excelForm = (ExcelForm)unmarshaller.unmarshal(ipFileReader);
-			
-			cleanForm(excelForm);
-			
-			result.setUnMarshalledObject(excelForm);
-			result.setStatus(ExcelUnmarshallerStatus.SUCCESS);
-			
+			result = unmarshal(ipFileReader);
 		} catch (Exception e) {
+			result = new TransformerUnMarshallResult();
 			result.setStatus(ExcelUnmarshallerStatus.FAILURE);
 			result.setUnMarshallException(e);
-		} 
+		}
+		
+		return result;
+	}
+	
+	public TransformerUnMarshallResult read(InputStream is) {
+		TransformerUnMarshallResult result = null;
+		
+		try {
+			Reader reader = new InputStreamReader(is);
+			result = unmarshal(reader);
+		} catch (Exception e) {
+			result = new TransformerUnMarshallResult();
+			result.setStatus(ExcelUnmarshallerStatus.FAILURE);
+			result.setUnMarshallException(e);
+		}
+		
+		return result;
+	}
+	
+	private TransformerUnMarshallResult unmarshal(Reader reader) throws Exception{
+		TransformerUnMarshallResult result = new TransformerUnMarshallResult();
+		
+		Unmarshaller unmarshaller = getDefaultUnmarshaller();
+		
+		ExcelForm excelForm = (ExcelForm)unmarshaller.unmarshal(reader);
+		
+		cleanForm(excelForm);
+		
+		result.setUnMarshalledObject(excelForm);
+		result.setStatus(ExcelUnmarshallerStatus.SUCCESS);
 		
 		return result;
 	}
