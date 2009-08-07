@@ -130,8 +130,8 @@ public class SpringBeansUtil {
 	}
 
 	
-	public Translator<CaDSRObjects> getCaDSRObjectsTranslator() {
-		Translator<CaDSRObjects> translator = (Translator<CaDSRObjects>)beanFactory.getBean("caDSRObjectsTranslator");
+	public Translator<CaDSRObjects> getTranslator() {
+		Translator<CaDSRObjects> translator = (Translator<CaDSRObjects>)beanFactory.getBean("deTranslator");
 		
 		return translator;
 	}	
