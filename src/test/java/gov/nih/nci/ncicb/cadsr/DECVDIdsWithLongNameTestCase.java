@@ -15,7 +15,7 @@ import java.util.Properties;
 
 public class DECVDIdsWithLongNameTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.MainTestCase {
 
-	private static String[] XML_IP_FILES = {"/gov/nih/nci/ncicb/cadsr/8_27_1.xls"};
+	private static String[] XML_IP_FILES = {"/gov/nih/nci/ncicb/cadsr/8_27_1.xml"};
 	private static String dataURL = "/gov/nih/nci/ncicb/cadsr/8_27_1.xls";
 	
 	@Override

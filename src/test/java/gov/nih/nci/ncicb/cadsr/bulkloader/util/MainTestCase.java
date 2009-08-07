@@ -67,6 +67,7 @@ public abstract class MainTestCase extends TestCase
     protected Log log;
     private static Pattern createTablePattern = Pattern.compile("CREATE\\s+TABLE");
     protected boolean runInRealContainer;
+    
 
     static
     {
@@ -467,9 +468,9 @@ public abstract class MainTestCase extends TestCase
                 }
             }
 
-            if (dataURL != null)
-            {
-                databaseWrapper = new DatabaseTestWrapper(dataSource, dataURL, schema, runInRealContainer());
+            if (dataURL != null) {
+
+            	databaseWrapper = new DatabaseTestWrapper(dataSource, dataURL, schema, runInRealContainer());
                 databaseWrapper.setUp();
                 
                 databaseWrapper = new DatabaseTestWrapper(dataSource, dataURL, schema, runInRealContainer());

@@ -14,15 +14,13 @@ import java.net.URL;
 
 public class SchemaValidatorTestCase extends MainTestCase {
 
-	private final String validFilePath = "gov/nih/nci/ncicb/cadsr/bulkloader/schema/validator/valid.xml";
-	private final String invalidFilePath = "gov/nih/nci/ncicb/cadsr/bulkloader/schema/validator/invalid.xml";
+	private final String validFilePath = "/gov/nih/nci/ncicb/cadsr/bulkloader/schema/validator/valid.xml";
+	private final String invalidFilePath = "/gov/nih/nci/ncicb/cadsr/bulkloader/schema/validator/invalid.xml";
 	
 	private SchemaValidator validator;
-	private ClassLoader classLoader;
 	
 	public void setUp() {
 		validator = new SchemaValidatorImpl();
-		classLoader = SchemaValidatorTestCase.class.getClassLoader();
 	}
 	
 	protected boolean ignoreVD() {
@@ -46,15 +44,13 @@ public class SchemaValidatorTestCase extends MainTestCase {
 	}
 	
 	private File getValidXMLFile() {
-		URL xmlFileURL = classLoader.getResource(validFilePath);
-		File xmlFile = new File(xmlFileURL.getPath());
+		File xmlFile = getClasspathFile(validFilePath);
 		
 		return xmlFile;
 	}
 	
 	private File getInvalidXMLFile() {
-		URL xmlFileURL = classLoader.getResource(invalidFilePath);
-		File xmlFile = new File(xmlFileURL.getPath());
+		File xmlFile = getClasspathFile(invalidFilePath);
 		
 		return xmlFile;
 	}

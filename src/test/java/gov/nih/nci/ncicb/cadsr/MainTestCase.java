@@ -41,7 +41,7 @@ import junit.framework.TestCase;
 
 public abstract class MainTestCase extends TestCase {
 
-	protected final String validFilePath = "gov/nih/nci/ncicb/cadsr/bulkloader/schema/validator/nmdp_template_conforming.xml";
+	protected final String validFilePath = "gov/nih/nci/ncicb/cadsr/bulkloader/schema/validator/valid.xml";
 	protected final String invalidFilePath = "gov/nih/nci/ncicb/cadsr/bulkloader/schema/validator/invalid.xml";
 	
 	protected final String OBJECT_CLASS_QUALIFIER_CONCEPT_ID = "C12551";
