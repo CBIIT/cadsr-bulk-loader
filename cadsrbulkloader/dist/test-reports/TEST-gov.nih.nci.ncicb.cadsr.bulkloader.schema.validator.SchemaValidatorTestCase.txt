@@ -1,0 +1,5 @@
+Testsuite: gov.nih.nci.ncicb.cadsr.bulkloader.schema.validator.SchemaValidatorTestCase
+Tests run: 2, Failures: 0, Errors: 0, Time elapsed: 0.5 sec
+
+Testcase: testValidFile took 0.391 sec
+Testcase: testInvalidFile took 0.109 sec
