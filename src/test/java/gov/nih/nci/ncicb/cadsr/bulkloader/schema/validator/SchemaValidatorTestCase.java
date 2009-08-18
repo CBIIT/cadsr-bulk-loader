@@ -1,6 +1,6 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.schema.validator;
 
-import gov.nih.nci.ncicb.cadsr.MainTestCase;
+import gov.nih.nci.ncicb.cadsr.bulkloader.util.TestCaseHelper;
 
 import java.io.File;
 import java.net.URL;
@@ -12,7 +12,7 @@ import java.net.URL;
  * @since 
  */
 
-public class SchemaValidatorTestCase extends MainTestCase {
+public class SchemaValidatorTestCase extends TestCaseHelper {
 
 	private final String validFilePath = "/gov/nih/nci/ncicb/cadsr/bulkloader/schema/validator/valid.xml";
 	private final String invalidFilePath = "/gov/nih/nci/ncicb/cadsr/bulkloader/schema/validator/invalid.xml";

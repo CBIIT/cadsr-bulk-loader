@@ -9,10 +9,10 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Properties;
 
-public class Parts2900TestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.MainTestCase {
+public class ExistingVDTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.MainTestCase {
 
-	private static String[] XML_IP_FILES = {"/gov/nih/nci/ncicb/cadsr/2900 Parts Test.xml"};
-	private static String dataURL = "/gov/nih/nci/ncicb/cadsr/2900_Parts_Test.xls";
+	private static String[] XML_IP_FILES = {"/gov/nih/nci/ncicb/cadsr/gf22618.xml"};
+	private static String dataURL = "/gov/nih/nci/ncicb/cadsr/gf22618.xls";
 	
 	@Override
 	protected void containerSetUp() throws Exception {
@@ -41,11 +41,11 @@ public class Parts2900TestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.M
 		}
 	}
 
-	public Parts2900TestCase() {
-		super("Parts2900TestCase", Parts2900TestCase.class, dataURL);
+	public ExistingVDTestCase() {
+		super("ExistingVDTestCase", ExistingVDTestCase.class, dataURL);
 	}
 	
-	public void testProcessor() {
+	public void testGF22618() {
 		Properties props = new Properties();
 		props.put("db.url", getPropertyManager().getUnitDataSourceURL());
 		props.put("db.username", getPropertyManager().getUnitDataSourceUser());
@@ -60,12 +60,11 @@ public class Parts2900TestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.M
 		boolean compare = false;
 		
 		try {
-			Connection con = getDataSource().getConnection();
+			Connection con = super.getDataSource().getConnection();
 			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery("select * from DESIGNATIONS");
+			ResultSet rs = st.executeQuery("select * from DATA_ELEMENTS");
 			
-			compare = compareResultSet(rs, "DESIGNATIONS");
-			
+			compare = compareResultSet(rs, "DATA_ELEMENTS");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -74,5 +73,4 @@ public class Parts2900TestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.M
 		assertTrue(compare);
 		
 	}
-	
 }

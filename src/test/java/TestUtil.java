@@ -518,7 +518,9 @@ public class TestUtil {
 				String[] cdeIdParts = concept.split(":");
 				
 				if (cdeIdParts != null && cdeIdParts.length>=2 && !conIds.contains(cdeIdParts[0])) {
-					conIds.add(cdeIdParts[0]);
+					String cdeId = cdeIdParts[0].trim();
+					String longName = cdeIdParts[1].trim();
+					conIds.add(cdeId);
 					conRowNum++;
 					id++;
 					
@@ -545,8 +547,8 @@ public class TestUtil {
 					idCell.setCellValue(Double.parseDouble(id+""));
 					versionCell.setCellValue(Double.parseDouble("1.0"));
 					
-					prefNameCell.setCellValue(new HSSFRichTextString(cdeIdParts[0]));
-					longNameCell.setCellValue(new HSSFRichTextString(cdeIdParts[1]));
+					prefNameCell.setCellValue(new HSSFRichTextString(cdeId));
+					longNameCell.setCellValue(new HSSFRichTextString(longName));
 					prefDefCell.setCellValue(new HSSFRichTextString("DEC Pref Def"+i));
 					aslNameCell.setCellValue(new HSSFRichTextString("RELEASED"));
 					defSourceCell.setCellValue(new HSSFRichTextString("NCI"));
@@ -557,8 +559,8 @@ public class TestUtil {
 	
 	public static void main(String[] args) {
 		TestUtil testUtil = new TestUtil();
-		Document doc = testUtil.readXMLInput(new File("C:\\work\\code\\cadsrbulkloader\\src\\test\\data\\gov\\nih\\nci\\ncicb\\cadsr\\2005 Test Export_Q925.xml"));
-		File xcelFile = testUtil.createExcelFile("c:\\docume~1\\mathura2\\desktop\\2005 Test Export_Q925.xls");
+		Document doc = testUtil.readXMLInput(new File("C:\\work\\code\\cadsrbulkloader\\src\\test\\data\\gov\\nih\\nci\\ncicb\\cadsr\\gf22618.xml"));
+		File xcelFile = testUtil.createExcelFile("c:\\docume~1\\mathura2\\desktop\\gf22618.xls");
 		testUtil.extractToExcel(xcelFile, doc);
 	}
 }

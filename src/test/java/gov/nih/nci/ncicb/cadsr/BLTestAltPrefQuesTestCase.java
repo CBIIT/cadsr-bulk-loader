@@ -76,25 +76,4 @@ public class BLTestAltPrefQuesTestCase extends gov.nih.nci.ncicb.cadsr.bulkloade
 		
 		assertTrue(compare);
 	}
-	
-	protected String getClasspath() {
-		ClassLoader classLoader = MainTestCase.class.getClassLoader();
-		String filePath = classLoader.getResource(".").getPath();
-		
-		return filePath;
-	}
-	
-	protected File getClasspathFile(String fileName) {
-		String classpath = getClasspath();
-		File f  = new File(classpath+fileName);
-		
-		if (!f.exists()) {
-			try {
-				f.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return f;
-	}
 }

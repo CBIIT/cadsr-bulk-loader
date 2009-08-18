@@ -1,14 +1,14 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.excel.transformer;
 
-import gov.nih.nci.ncicb.cadsr.MainTestCase;
 import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.Transformer;
 import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.TransformerResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.beans.TransformerInputParams;
 import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.unmarshall.TransformerUnMarshallResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.validation.TransformerValidationResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.SpringBeansUtil;
+import gov.nih.nci.ncicb.cadsr.bulkloader.util.TestCaseHelper;
 
-public class ExcelTransformerTestCase extends MainTestCase {
+public class ExcelTransformerTestCase extends TestCaseHelper {
 
 	private static Transformer transformer = SpringBeansUtil.getInstance().getExcelTransformer();
 	private static String dataFilePath = "gov/nih/nci/ncicb/cadsr/bulkloader/excel/transformer";

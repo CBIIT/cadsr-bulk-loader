@@ -58,7 +58,7 @@ public class VDMaxLengthCheckTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader
 		
 		CaDSRBulkLoadProcessor blProcessor = SpringBeansUtil.getInstance().getBulkLoadProcessor();
 		
-		BulkLoadProcessResult[] processResults = blProcessor.process(WORKING_IN_DIR, WORKING_OUT_DIR, true);
+		blProcessor.process(WORKING_IN_DIR, WORKING_OUT_DIR, true);
 		
 		boolean matches = false;
 		
@@ -73,26 +73,4 @@ public class VDMaxLengthCheckTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader
 		}
 		assertTrue(matches);
 	}
-	
-	protected String getClasspath() {
-		ClassLoader classLoader = MainTestCase.class.getClassLoader();
-		String filePath = classLoader.getResource(".").getPath();
-		
-		return filePath;
-	}
-	
-	protected File getClasspathFile(String fileName) {
-		String classpath = getClasspath();
-		File f  = new File(classpath+fileName);
-		
-		if (!f.exists()) {
-			try {
-				f.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return f;
-	}
-
 }
