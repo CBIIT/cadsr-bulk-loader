@@ -1,7 +1,7 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.dao;
 
-import gov.nih.nci.ncicb.cadsr.MainTestCase;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.SpringBeansUtil;
+import gov.nih.nci.ncicb.cadsr.bulkloader.util.TestCaseHelper;
 import gov.nih.nci.ncicb.cadsr.domain.Concept;
 import gov.nih.nci.ncicb.cadsr.domain.PermissibleValue;
 import gov.nih.nci.ncicb.cadsr.domain.ValueDomain;
@@ -11,10 +11,10 @@ import gov.nih.nci.ncicb.cadsr.loader.ext.EvsResult;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAOTestCase extends MainTestCase {
+public class DAOTestCase extends TestCaseHelper {
 
 	private BulkLoaderDAOFacade dao = SpringBeansUtil.getInstance().getDAOFacade();
-	
+		
 	protected boolean ignoreVD() {
 		return true;
 	}
@@ -74,14 +74,14 @@ public class DAOTestCase extends MainTestCase {
 	}
 	
 	public void testGetPreNCIConcepts() {
-		Concept con = dao.findEVSConceptByCUI("C15657");
+		Concept con = dao.findEVSConceptByCUI("C27232", false);
 		assertNotNull(con);
 		System.out.println(con.getPreferredDefinition());
 	}
 	
 	public void testEVSModule() {
 		EvsModule evsModule = new EvsModule("Pre NCI Thesaurus");
-		EvsResult result = evsModule.findByConceptCode("C15657", false);
+		EvsResult result = evsModule.findByConceptCode("C27232", false);
 		Concept con = result.getConcept();
 		assertNotNull(con);
 		System.out.println(con.getPreferredDefinition());

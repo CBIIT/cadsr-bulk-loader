@@ -2,13 +2,9 @@ package gov.nih.nci.ncicb.cadsr;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.BulkLoadProcessResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.CaDSRBulkLoadProcessor;
-import gov.nih.nci.ncicb.cadsr.bulkloader.ui.UIReportWriter;
-import gov.nih.nci.ncicb.cadsr.bulkloader.ui.UIReportWriterImpl;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.FileUtil;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.SpringBeansUtil;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Properties;
 
 public class ExistingCDENoAltNameTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.MainTestCase {
@@ -58,32 +54,10 @@ public class ExistingCDENoAltNameTestCase extends gov.nih.nci.ncicb.cadsr.bulklo
 		CaDSRBulkLoadProcessor blProcessor = SpringBeansUtil.getInstance().getBulkLoadProcessor();
 		
 		BulkLoadProcessResult[] processResults = blProcessor.process(WORKING_IN_DIR, WORKING_OUT_DIR, true);
-		UIReportWriter reportWriter = new UIReportWriterImpl();
+
+		assertNotNull(processResults);
+		assertTrue(processResults.length > 0);
+		assertTrue(processResults[0].isSuccessful());
 		
-		for (BulkLoadProcessResult processResult: processResults) {
-			reportWriter.writeReport(processResult);
-		}
-		
-	}
-	
-	protected String getClasspath() {
-		ClassLoader classLoader = MainTestCase.class.getClassLoader();
-		String filePath = classLoader.getResource(".").getPath();
-		
-		return filePath;
-	}
-	
-	protected File getClasspathFile(String fileName) {
-		String classpath = getClasspath();
-		File f  = new File(classpath+fileName);
-		
-		if (!f.exists()) {
-			try {
-				f.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return f;
 	}
 }

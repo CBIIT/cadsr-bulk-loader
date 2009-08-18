@@ -62,25 +62,5 @@ public class RetiredOCTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.M
 		ValidationResult validationResult = results[0].getLoadResult().getValidationResult();
 		assertTrue(validationResult.hasErrors());		
 	}
-	
-	protected String getClasspath() {
-		ClassLoader classLoader = MainTestCase.class.getClassLoader();
-		String filePath = classLoader.getResource(".").getPath();
-		
-		return filePath;
-	}
-	
-	protected File getClasspathFile(String fileName) {
-		String classpath = getClasspath();
-		File f  = new File(classpath+fileName);
-		
-		if (!f.exists()) {
-			try {
-				f.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return f;
-	}
+
 }

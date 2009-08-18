@@ -1,15 +1,11 @@
 package gov.nih.nci.ncicb.cadsr;
 
-import gov.nih.nci.ncicb.cadsr.bulkloader.BulkLoadProcessResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.CaDSRBulkLoadProcessor;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.FileUtil;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.SpringBeansUtil;
 
-import java.io.File;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
@@ -49,7 +45,7 @@ public class DECVDIdsWithLongNameTestCase extends gov.nih.nci.ncicb.cadsr.bulklo
 		super("DECVDIdsWithLongNameTestCase", DECVDIdsWithLongNameTestCase.class, dataURL);
 	}
 	
-	public void testProcessor() {
+	public void testGF21494() {
 		Properties props = new Properties();
 		props.put("db.url", getPropertyManager().getUnitDataSourceURL());
 		props.put("db.username", getPropertyManager().getUnitDataSourceUser());
@@ -59,7 +55,7 @@ public class DECVDIdsWithLongNameTestCase extends gov.nih.nci.ncicb.cadsr.bulklo
 		
 		CaDSRBulkLoadProcessor blProcessor = SpringBeansUtil.getInstance().getBulkLoadProcessor();
 		
-		BulkLoadProcessResult[] processResults = blProcessor.process(WORKING_IN_DIR, WORKING_OUT_DIR, true);
+		blProcessor.process(WORKING_IN_DIR, WORKING_OUT_DIR, true);
 		
 		boolean compare = false;
 		
@@ -77,26 +73,5 @@ public class DECVDIdsWithLongNameTestCase extends gov.nih.nci.ncicb.cadsr.bulklo
 		
 		assertTrue(compare);
 		
-	}
-	
-	protected String getClasspath() {
-		ClassLoader classLoader = MainTestCase.class.getClassLoader();
-		String filePath = classLoader.getResource(".").getPath();
-		
-		return filePath;
-	}
-	
-	protected File getClasspathFile(String fileName) {
-		String classpath = getClasspath();
-		File f  = new File(classpath+fileName);
-		
-		if (!f.exists()) {
-			try {
-				f.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return f;
 	}
 }

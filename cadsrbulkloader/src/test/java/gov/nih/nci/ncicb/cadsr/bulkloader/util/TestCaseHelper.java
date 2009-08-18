@@ -1,4 +1,4 @@
-package gov.nih.nci.ncicb.cadsr;
+package gov.nih.nci.ncicb.cadsr.bulkloader.util;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.LoadObjects;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.LoadProperties;
@@ -39,7 +39,7 @@ import junit.framework.TestCase;
  * @since 
  */
 
-public abstract class MainTestCase extends TestCase {
+public abstract class TestCaseHelper extends TestCase {
 
 	protected final String validFilePath = "gov/nih/nci/ncicb/cadsr/bulkloader/schema/validator/valid.xml";
 	protected final String invalidFilePath = "gov/nih/nci/ncicb/cadsr/bulkloader/schema/validator/invalid.xml";
@@ -90,7 +90,7 @@ public abstract class MainTestCase extends TestCase {
 	}
 	
 	protected String getClasspath() {
-		ClassLoader classLoader = MainTestCase.class.getClassLoader();
+		ClassLoader classLoader = TestCaseHelper.class.getClassLoader();
 		String filePath = classLoader.getResource(".").getPath();
 		
 		return filePath;

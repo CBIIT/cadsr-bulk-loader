@@ -1,12 +1,12 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.parser.bind;
 
-import gov.nih.nci.ncicb.cadsr.MainTestCase;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ISO11179Elements;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.SpringBeansUtil;
+import gov.nih.nci.ncicb.cadsr.bulkloader.util.TestCaseHelper;
 
 import java.io.File;
 
-public class ObjectBinderTestCase extends MainTestCase {
+public class ObjectBinderTestCase extends TestCaseHelper {
 
 	protected boolean ignoreVD() {
 		return true;

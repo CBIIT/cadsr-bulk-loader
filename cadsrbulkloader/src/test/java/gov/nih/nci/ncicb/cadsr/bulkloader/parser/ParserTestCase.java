@@ -1,9 +1,9 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.parser;
 
-import gov.nih.nci.ncicb.cadsr.MainTestCase;
 import gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.TranslatorResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.schema.validator.SchemaValidationResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.SpringBeansUtil;
+import gov.nih.nci.ncicb.cadsr.bulkloader.util.TestCaseHelper;
 
 import java.io.File;
 
@@ -14,7 +14,7 @@ import java.io.File;
  * @since 
  */
 
-public class ParserTestCase extends MainTestCase {
+public class ParserTestCase extends TestCaseHelper {
 
 	private Parser parser;
 	

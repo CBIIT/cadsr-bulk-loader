@@ -1,14 +1,12 @@
 package gov.nih.nci.ncicb.cadsr;
 
-import gov.nih.nci.ncicb.cadsr.bulkloader.BulkLoadProcessResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.CaDSRBulkLoadProcessor;
-import gov.nih.nci.ncicb.cadsr.bulkloader.ui.UIReportWriter;
-import gov.nih.nci.ncicb.cadsr.bulkloader.ui.UIReportWriterImpl;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.FileUtil;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.SpringBeansUtil;
 
-import java.io.File;
-import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Properties;
 
 public class CreateNonEnumVDTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.MainTestCase {
@@ -57,33 +55,31 @@ public class CreateNonEnumVDTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.
 		
 		CaDSRBulkLoadProcessor blProcessor = SpringBeansUtil.getInstance().getBulkLoadProcessor();
 		
-		BulkLoadProcessResult[] processResults = blProcessor.process(WORKING_IN_DIR, WORKING_OUT_DIR, true);
-		UIReportWriter reportWriter = new UIReportWriterImpl();
+		blProcessor.process(WORKING_IN_DIR, WORKING_OUT_DIR, true);
 		
-		for (BulkLoadProcessResult processResult: processResults) {
-			reportWriter.writeReport(processResult);
+		boolean compare = false;
+		
+		try {
+			Connection con = super.getDataSource().getConnection();
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery("select * from VALUE_DOMAINS");
+			
+			compare = compareResultSet(rs, "VALUE_DOMAINS");
+			
+			assertTrue(compare);
+			
+			rs = st.executeQuery("select * from DATA_ELEMENTS");
+			
+			compare = compareResultSet(rs, "DATA_ELEMENTS");
+			
+			assertTrue(compare);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			compare = false;
 		}
 		
-	}
-	
-	protected String getClasspath() {
-		ClassLoader classLoader = MainTestCase.class.getClassLoader();
-		String filePath = classLoader.getResource(".").getPath();
+		assertTrue(compare);
 		
-		return filePath;
-	}
-	
-	protected File getClasspathFile(String fileName) {
-		String classpath = getClasspath();
-		File f  = new File(classpath+fileName);
-		
-		if (!f.exists()) {
-			try {
-				f.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return f;
 	}
 }
