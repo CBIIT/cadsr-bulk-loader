@@ -30,7 +30,7 @@
 			<ns1:questionNumber>3</ns1:questionNumber>
 			<ns1:preferredQuestion>8_14_3</ns1:preferredQuestion>
 			<ns1:alternateQuestion>8_14_3</ns1:alternateQuestion>
-			<ns1:ocQualConcepts>C27232:Blood Test Result</ns1:ocQualConcepts>
+			<ns1:ocQualConcepts>C35655:Normal Blood Test Result</ns1:ocQualConcepts>
 			<ns1:ocPrimConcepts>C27083:Blood Clot</ns1:ocPrimConcepts>
 			<ns1:propQualConcepts>C15192:Blood Transfusion</ns1:propQualConcepts>
 			<ns1:propPrimConcepts>C32213:Blood Vessel Tissue</ns1:propPrimConcepts>

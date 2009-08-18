@@ -281,11 +281,14 @@ public class CaDSRObjectsUtil {
 	
 	public List<ComponentConcept> getComponentConceptsFromConcepts(List<Concept> concepts) {
 		List<ComponentConcept> compConcepts = new ArrayList<ComponentConcept>();
+		int order = 0;
 		for (Concept concept: concepts) {
 			ComponentConcept compCon = DomainObjectFactory.newComponentConcept();
 			compCon.setConcept(concept);
+			compCon.setOrder(order);
 			
 			compConcepts.add(compCon);
+			order++;
 		}
 		
 		return compConcepts;

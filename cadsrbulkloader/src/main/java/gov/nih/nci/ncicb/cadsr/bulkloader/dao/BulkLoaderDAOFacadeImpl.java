@@ -156,7 +156,7 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 		return readDAO.findContextByName(contextName);
 	}
 	
-	public Concept findEVSConceptByCUI(String cui) {
+	public Concept findEVSConceptByCUI(String cui, boolean includeRetired) {
 		Concept cachedConcept = evsConceptsCache.get(cui);
 		if (cachedConcept != null) {
 			return cachedConcept;
@@ -164,7 +164,7 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 		else {
 			DescLogicConcept descLogicConcept = evsDAO.getEVSPreNCItConcept(cui);
 			
-			Concept concept = getConcept(descLogicConcept);
+			Concept concept = getConcept(descLogicConcept, includeRetired);
 			evsConceptsCache.put(cui, concept);
 			return concept;
 		}
@@ -182,10 +182,14 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 		}
 	}
 	
-	private Concept getConcept(DescLogicConcept descLogicConcept) {
+	private Concept getConcept(DescLogicConcept descLogicConcept, boolean includeRetired) {
 		Concept concept = CaDSRObjectsUtil.createConcept();
 		
 		if (descLogicConcept == null) {
+			return concept;
+		}
+		
+		if (!includeRetired && descLogicConcept.getIsRetired()) {
 			return concept;
 		}
 		
@@ -529,7 +533,7 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 					String foundDELongName = foundDE.getLongName();
 					for (AlternateName altName: createdDE.getAlternateNames()) {
 						String altLongName = altName.getName();
-						if (altLongName!=null && !foundDELongName.equalsIgnoreCase(altLongName)) {
+						if (altLongName!=null && (foundDELongName == null || !foundDELongName.equalsIgnoreCase(altLongName))) {
 							foundDE.addAlternateName(altName);
 						}
 					}

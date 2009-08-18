@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns1:Form xmlns:ns1="urn:nci:caDSR">
+	<ns1:formName>TEST_GF22618</ns1:formName>
+	<ns1:context>caBIG</ns1:context>
+	<ns1:cs>TEST_Bulk_Loader_0.5</ns1:cs>
+	<ns1:csi>TEST_GF22618</ns1:csi>
+	<ns1:source>BulK Loader</ns1:source>
+	<ns1:questions>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:preferredQuestion>TEST_GF22618</ns1:preferredQuestion>
+			<ns1:questionNotes>Qualifer concept filed is not empty</ns1:questionNotes>
+			<ns1:decId>11111v1.0</ns1:decId>
+			<ns1:repTermPrimConcepts>C25426:Assignment</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>1111v1.0:caBIG</ns1:vdConceptualDomainId>
+			<ns1:dataType>CHARACTER</ns1:dataType>
+			<ns1:vdMaxLength>180</ns1:vdMaxLength>
+			<ns1:enumerated>Yes</ns1:enumerated>
+			<ns1:pv>One1</ns1:pv>
+			<ns1:vmConcepts>C11111:Con Long Name1</ns1:vmConcepts>
+		</ns1:Question>
+	</ns1:questions>
+</ns1:Form>

@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 
 public class ExcelValidation implements TransformerValidation {
 
-	private static final Pattern CONCEPTS_PATTERN = Pattern.compile("[[a-zA-Z0-9 ]+[:|;]?]*");
+	private static final Pattern CONCEPTS_PATTERN = Pattern.compile("[[a-zA-Z0-9() ]+[:|;]?]*");
 	
 	public TransformerValidationResult validate(Item toValidate) {
 		

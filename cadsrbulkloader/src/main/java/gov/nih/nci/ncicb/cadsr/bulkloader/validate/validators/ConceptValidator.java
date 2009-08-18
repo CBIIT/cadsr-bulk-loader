@@ -2,6 +2,7 @@ package gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.CaDSRObjectsUtil;
 import gov.nih.nci.ncicb.cadsr.domain.Concept;
+import gov.nih.nci.ncicb.cadsr.domain.Definition;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationError;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationItem;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationItems;
@@ -16,6 +17,7 @@ public class ConceptValidator extends AbstractValidator {
 		for (Concept concept: concepts) {
 			validateExistence(concept);
 			validateLongName(concept);
+			validateDefinitions(concept);
 		}
 		
 		return validationItems;
@@ -24,9 +26,9 @@ public class ConceptValidator extends AbstractValidator {
 	private void validateExistence(Concept concept) {
 		String cui = concept.getPreferredName();
 		if (concept.getId() == null) {
-			Concept evsCon = dao.findEVSConceptByCUI(cui);
+			Concept evsCon = dao.findEVSConceptByCUI(cui, false);
 			if (evsCon.getPreferredName() == null || evsCon.getPreferredName().equals("")) {
-				ValidationItem validationItem = new ValidationError("Concept ["+cui+"] does not exist either in EVS or in caDSR", concept);
+				ValidationItem validationItem = new ValidationError("Concept ["+cui+"] does not exist either in EVS or in caDSR or has been retired. Please create it in caDSR manually", concept);
 				validationItems.addItem(validationItem);
 			}
 		}
@@ -37,6 +39,15 @@ public class ConceptValidator extends AbstractValidator {
 		String longName = concept.getLongName();
 		if (longName == null || longName.trim().equals("")) {
 			ValidationItem validationItem = new ValidationError("Long name for the Concept ["+cui+"] is null or empty", concept);
+			validationItems.addItem(validationItem);
+		}
+	}
+	
+	private void validateDefinitions(Concept concept) {
+		String cui = concept.getPreferredName();
+		List<Definition> defs = concept.getDefinitions();
+		if (defs == null || defs.size() < 1) {
+			ValidationItem validationItem = new ValidationError("Concept ["+cui+"] does not have any definitions", concept);
 			validationItems.addItem(validationItem);
 		}
 	}

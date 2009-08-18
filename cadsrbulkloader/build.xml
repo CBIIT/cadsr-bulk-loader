@@ -28,6 +28,14 @@
 		<include name="${TEST.DATA.DIR}"/>
 	</patternset>
 	
+	<path id="cobertura.classpath">
+	    <fileset dir="${LIB.DIR}">
+	        <include name="**/*.jar" />
+	    </fileset>
+	</path>
+
+	<taskdef classpathref="cobertura.classpath" resource="tasks.properties" />
+	
 	<!-- - - - - - - - - - - - - - - - - - 
           target: init                      
          - - - - - - - - - - - - - - - - - -->
@@ -92,6 +100,24 @@
         	<fileset dir="${SRC.CLASSES.DIR}">
 			    <include name="**/*.class"/>
 			</fileset>
+        	<fileset dir="${OUT.CONF.DIR}">
+        		<include name="**/*.*"/>
+        		<exclude name="junit/*.*"/>
+			</fileset>
+        </jar>
+    	
+    	<jar destfile="${JAR.DIR}/${PROJECT.NAME}-test.jar">
+        	<fileset dir="${TEST.CLASSES.DIR}">
+			    <include name="**/*.class"/>
+			</fileset>
+    		
+    		<fileset dir="${TEST.DATA.DIR}">
+			    <include name="**/*.*"/>
+			</fileset>
+    		
+    		<fileset dir="${OUT.CONF.DIR}">
+			    <include name="junit/*.*"/>
+			</fileset>
         </jar>
     </target>
 	
@@ -145,26 +171,70 @@
 	<!-- ================================= 
           target: unit-test              
          ================================= -->
-    <target name="unit-test" depends="compile, conf" description="description">
+    <target name="unit-test" depends="compile, conf, jar" description="description">
     	<mkdir dir="${TEST.REPORT.DIR}"/>
-    	<junit printsummary="yes" >
+    	
+    	<antcall target="cobertura-setup" />
+    	
+    	 <junit fork="yes" forkmode="perTest" maxmemory="1024m" printsummary="yes" >
+    		
+	   	<sysproperty key="net.sourceforge.cobertura.datafile" file="cobertura.ser" />
+  
 		 <classpath>
-		 	<pathelement path="${TEST.CLASSES.DIR}"/>
-		 	<pathelement path="${SRC.CLASSES.DIR}"/>
+		 	
+		 	<fileset dir="${COVERAGE.REPORT.DIR}">
+			    <include name="**/*.jar"/>
+			</fileset>
 		 	<fileset dir="${LIB.DIR}" id="id">
 			    <include name="**/*.jar"/>
 			</fileset>
-
+		 	<fileset dir="${JAR.DIR}" id="id">
+			    <include name="**/*.jar"/>
+			</fileset>
+		 	<fileset dir="." id="id">
+			    <include name="spring-ds.properties"/>
+			</fileset>
+		 	<pathelement path="${TEST.DATA.DIR}"/>
+		 	
 		  </classpath>
+    		
+    	 	<classpath refid="cobertura.classpath" />
     		
     		<formatter type="plain"/>
 
- 	  		<batchtest fork="yes" todir="${TEST.REPORT.DIR}">
+ 	  		<batchtest todir="${TEST.REPORT.DIR}">
 			    <fileset dir="${TEST.DIR}">
 			      <include name="**/*TestCase.java"/>
+			      <exclude name="**/*MainTestCase.java" />
 			    </fileset>
+ 	  			
 			</batchtest>
-    	</junit>
+    	</junit> 
+    	<antcall target="cobertura-report" />
     </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: cobertura-setup                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="cobertura-setup">
+    	<delete file="cobertura.ser" />
+    	<mkdir dir="${COVERAGE.REPORT.DIR}"/>
+
+    	<cobertura-instrument todir="${COVERAGE.REPORT.DIR}">
+    	    <ignore regex="org.apache.log4j.*" />
+		 	<fileset dir="${JAR.DIR}" id="id">
+			    <include name="**/caDSRBulkLoader.jar"/>
+			</fileset>
+    	</cobertura-instrument>
+    </target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: cobertura-report                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="cobertura-report">
+    	<cobertura-report format="html" destdir="${COVERAGE.REPORT.DIR}" srcdir="${SRC.DIR}" />
+    </target>
+
+
 
 </project>
