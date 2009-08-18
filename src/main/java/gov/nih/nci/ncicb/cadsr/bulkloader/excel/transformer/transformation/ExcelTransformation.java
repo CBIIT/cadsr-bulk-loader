@@ -254,7 +254,7 @@ public class ExcelTransformation implements TransformerTransformation {
 		isoConcept.setLongName(longName);
 		
 		if (conceptId != null) {
-			Concept con = dao.findEVSConceptByCUI(conceptId);
+			Concept con = dao.findEVSConceptByCUI(conceptId, false);
 			if (con.getPreferredName() != null) {
 				isoConcept.setHaving(getHaving(con));
 			}

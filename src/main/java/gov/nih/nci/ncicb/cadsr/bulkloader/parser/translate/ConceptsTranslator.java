@@ -8,6 +8,7 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.LanguageSection_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Organization_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ReferenceDocument_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.TerminologicalEntry_ISO11179;
+import gov.nih.nci.ncicb.cadsr.bulkloader.util.CaDSRObjectsUtil;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.UMLLoaderHandler;
 import gov.nih.nci.ncicb.cadsr.domain.AlternateName;
 import gov.nih.nci.ncicb.cadsr.domain.Concept;
@@ -37,7 +38,7 @@ public class ConceptsTranslator extends AbstractTranslatorTemplate {
 		Concept concept = daoFacade.findCaDSRConceptByCUI(conCode);
 		
 		if (concept == null || concept.getPreferredName() == null || concept.getPreferredName().equals("")) {
-			concept = daoFacade.findEVSConceptByCUI(conCode);
+			concept = daoFacade.findEVSConceptByCUI(conCode, false);
 		}
 		
 		if (concept == null || concept.getPreferredName() == null || concept.getPreferredName().equals("")) {
@@ -45,17 +46,31 @@ public class ConceptsTranslator extends AbstractTranslatorTemplate {
 		}
 		
 		concept.setPreferredName(conCode);
-		concept.setLongName(iso11179Concept.getLongName());
+		
+		String isoLongName = iso11179Concept.getLongName();
+		if (isoLongName != null && !isoLongName.trim().equals("")) {
+			concept.setLongName(isoLongName);
+		}
 		
 		concept = addAlternateNamesAndDefinitions(concept, iso11179Concept);
 		concept.setDefinitionSource(concept.getDefinitionSource());
 		
 		String prefDef = concept.getPreferredDefinition();
 		if (prefDef == null || prefDef.equals("")) {
-			concept.setPreferredDefinition(UMLLoaderHandler.getDefaultEVSDefinition());
+			addDefaultDef(concept);
 		}
 		
 		return concept;
+	}
+	
+	private void addDefaultDef(Concept concept) {
+		String defaultDefStr = UMLLoaderHandler.getDefaultEVSDefinition();
+		
+		Definition defaultDef = CaDSRObjectsUtil.createDefinition();
+		defaultDef.setDefinition(defaultDefStr);
+		concept.addDefinition(defaultDef);
+		
+		concept.setPreferredDefinition(defaultDefStr);
 	}
 	
 	private Concept addAlternateNamesAndDefinitions(Concept concept, Concept_caDSR11179 isoConcept) {

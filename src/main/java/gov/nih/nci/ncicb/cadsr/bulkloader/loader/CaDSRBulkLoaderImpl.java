@@ -1,9 +1,5 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.loader;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.CaDSRObjects;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.LoadObjects;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.LoadProperties;
@@ -16,19 +12,8 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.persist.PersisterResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.validate.Validation;
 import gov.nih.nci.ncicb.cadsr.bulkloader.validate.ValidationResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.validate.ValidationStatus;
-import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
-import gov.nih.nci.ncicb.cadsr.domain.AdminComponentClassSchemeClassSchemeItem;
-import gov.nih.nci.ncicb.cadsr.domain.AlternateName;
-import gov.nih.nci.ncicb.cadsr.domain.ClassSchemeClassSchemeItem;
 import gov.nih.nci.ncicb.cadsr.domain.ClassificationScheme;
-import gov.nih.nci.ncicb.cadsr.domain.ClassificationSchemeItem;
 import gov.nih.nci.ncicb.cadsr.domain.Context;
-import gov.nih.nci.ncicb.cadsr.domain.DataElement;
-import gov.nih.nci.ncicb.cadsr.domain.DataElementConcept;
-import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
-import gov.nih.nci.ncicb.cadsr.domain.PermissibleValue;
-import gov.nih.nci.ncicb.cadsr.domain.ValueDomain;
-import gov.nih.nci.ncicb.cadsr.domain.ValueMeaning;
 
 public class CaDSRBulkLoaderImpl implements CaDSRBulkLoader{
 

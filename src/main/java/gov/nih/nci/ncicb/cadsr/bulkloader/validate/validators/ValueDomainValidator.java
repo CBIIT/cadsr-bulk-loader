@@ -1,15 +1,22 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators;
 
-import java.util.List;
-
+import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
 import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
 import gov.nih.nci.ncicb.cadsr.domain.ValueDomain;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationError;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationItem;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationItems;
 
+import java.util.List;
+
 public class ValueDomainValidator extends AbstractValidator {
 
+	private static ValueDomain testVD = DomainObjectFactory.newValueDomain();
+	
+	static {
+		testVD.setWorkflowStatus(AdminComponent.WF_STATUS_ALL);
+	}
+	
 	@Override
 	public ValidationItems validate() {
 		ValueDomain vd = DomainObjectFactory.newValueDomain();
@@ -17,6 +24,7 @@ public class ValueDomainValidator extends AbstractValidator {
 		for (ValueDomain valueDomain: valueDomains) {
 			validateId(valueDomain);
 			validateDefinitionLength(valueDomain);
+			validateRetiredValueDomain(valueDomain);
 		}
 		
 		return validationItems;
@@ -41,6 +49,22 @@ public class ValueDomainValidator extends AbstractValidator {
 			if (vdPrefDef != null && vdPrefDef.length() > MAX_DEF_FIELD_SIZE) {
 				ValidationError error = new ValidationError("Length of VD ("+valueDomain.getLongName()+") definition exceeds the max allowed length of ["+MAX_DEF_FIELD_SIZE+"] characters", valueDomain);
 				validationItems.addItem(error);
+			}
+		}
+	}
+	
+	private void validateRetiredValueDomain(ValueDomain valueDomain) {
+		testVD.setPreferredName(valueDomain.getPreferredName());
+		
+		List<ValueDomain> foundVDs = dao.findValueDomains(testVD);
+		
+		if (foundVDs != null) {
+			for (ValueDomain foundVD: foundVDs) {
+				String foundOCWFStatus = foundVD.getWorkflowStatus();
+				if (foundOCWFStatus.contains("RETIRED")) {
+					ValidationItem error = new ValidationError("The Value Domain to be created ["+valueDomain.getPreferredName()+"] already exists but is retired. Please correct this and reload", valueDomain);
+					validationItems.addItem(error);
+				}
 			}
 		}
 	}

@@ -39,7 +39,6 @@ public class ObjectClassTranslator extends AbstractTranslatorTemplate {
 		objClass.setConceptDerivationRule(cdr);
 		objClass.setPreferredName(preferredName);
 		objClass.setPreferredDefinition(preferredDefinition);
-		objClass.setId(preferredName);
 		
 		return objClass;
 	}

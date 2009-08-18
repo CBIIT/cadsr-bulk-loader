@@ -1,5 +1,6 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators;
 
+import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
 import gov.nih.nci.ncicb.cadsr.domain.AdminComponentClassSchemeClassSchemeItem;
 import gov.nih.nci.ncicb.cadsr.domain.AlternateName;
 import gov.nih.nci.ncicb.cadsr.domain.ClassSchemeClassSchemeItem;
@@ -7,6 +8,7 @@ import gov.nih.nci.ncicb.cadsr.domain.ClassificationScheme;
 import gov.nih.nci.ncicb.cadsr.domain.ClassificationSchemeItem;
 import gov.nih.nci.ncicb.cadsr.domain.DataElement;
 import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
+import gov.nih.nci.ncicb.cadsr.domain.ObjectClass;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationError;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationItem;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationItems;
@@ -15,6 +17,12 @@ import java.util.List;
 
 public class DataElementValidator extends AbstractValidator {
 
+	private static DataElement testDE = DomainObjectFactory.newDataElement();
+	
+	static {
+		testDE.setWorkflowStatus(AdminComponent.WF_STATUS_ALL);
+	}
+	
 	@Override
 	public ValidationItems validate() {
 		DataElement de = DomainObjectFactory.newDataElement();
@@ -24,6 +32,7 @@ public class DataElementValidator extends AbstractValidator {
 			validateAlternateName(dataElement);
 			validateCSCSI(dataElement);
 			validateDefinitionLength(dataElement);
+			validateRetiredDataElements(dataElement);
 		}
 		
 		return validationItems;
@@ -111,6 +120,22 @@ public class DataElementValidator extends AbstractValidator {
 			if (deDef.length() > MAX_DEF_FIELD_SIZE) {
 				ValidationError error = new ValidationError("Length of DE ("+dataElement.getLongName()+") definition exceeds the max allowed length of ["+MAX_DEF_FIELD_SIZE+"] characters", dataElement);
 				validationItems.addItem(error);
+			}
+		}
+	}
+	
+	private void validateRetiredDataElements(DataElement dataElement) {
+		testDE.setPreferredName(dataElement.getPreferredName());
+		
+		List<DataElement> foundDEs = dao.findDataElements(testDE);
+		
+		if (foundDEs != null) {
+			for (DataElement foundDE: foundDEs) {
+				String foundOCWFStatus = foundDE.getWorkflowStatus();
+				if (foundOCWFStatus.contains("RETIRED")) {
+					ValidationItem error = new ValidationError("The Data Element to be created ["+dataElement.getPreferredName()+"] already exists but is retired. Please correct this and reload", dataElement);
+					validationItems.addItem(error);
+				}
 			}
 		}
 	}
