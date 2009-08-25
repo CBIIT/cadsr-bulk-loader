@@ -6,7 +6,7 @@ for %%x in (*.jar) do call :appendCP %%x
 
 for %%x in (lib/*.jar) do call :appendCP lib/%%x
 
-java -cp %CLASSPATH% gov.nih.nci.ncicb.cadsr.bulkloader.ui.CommandLineProcessor
+java -cp %CLASSPATH% gov.nih.nci.ncicb.cadsr.bulkloader.ui.CommandLineProcessor %1
 
 GOTO :end
 

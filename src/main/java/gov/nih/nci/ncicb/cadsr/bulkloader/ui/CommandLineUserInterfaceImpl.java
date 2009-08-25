@@ -16,12 +16,21 @@ public class CommandLineUserInterfaceImpl implements UserInterface {
 	private static Log log = LogFactory.getLog(CommandLineUserInterfaceImpl.class);
 	private static final String SERIALIZE_FILE_NAME = "userinput.ser";
 	
-	public UserInput getUserInput() {
+	public UserInput getLoadUserInput() {
 		UserInput userInput = getSerializedInput();
 		UserInput completedUserInput = getInput(userInput);
 		serializeInput(completedUserInput);
 		
 		return completedUserInput;
+	}
+	
+	public UserInput getUnloadUserInput() {
+		UserInput userInput = new UserInput();
+		UserInput dbDetails = getDBDetails(userInput);
+		
+		UserInput unloadData = getUnloadData(dbDetails);
+		
+		return unloadData;
 	}
 
 	private static UserInput getInput(UserInput userInput) {
@@ -157,6 +166,28 @@ public class CommandLineUserInterfaceImpl implements UserInterface {
 			log.error("Error getting user input", e);
 		}
 		userInput.setInputDir(inputDir);
+		
+		return userInput;
+	}
+	
+	private static UserInput getUnloadData(UserInput userInput) {
+		
+		try {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+			System.out.print("Please enter the unload Classification Scheme: ");
+			userInput.setClassificationSchemeName(reader.readLine());
+			
+			System.out.print("Please enter the unload Classification Scheme Version: ");
+			userInput.setClassificationSchemeVersion(reader.readLine());
+			
+			System.out.print("Please enter the unload Classification Scheme Item: ");
+			userInput.setClassificationSchemeItemName(reader.readLine());
+			
+			System.out.print("Please enter the unload Classification Scheme Item Version: ");
+			userInput.setClassificationSchemeItemVersion(reader.readLine());
+		} catch (Exception e) {
+			log.error("Error getting user input", e);
+		}
 		
 		return userInput;
 	}

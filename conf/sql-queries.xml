@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+    <bean id="checkCsCsiQry" class="java.lang.String">
+        <constructor-arg>
+            <value>
+                <![CDATA[
+                    select count(*) from CS_CSI 
+                    where CS_IDSEQ = (select CS_IDSEQ from CLASSIFICATION_SCHEMES where PREFERRED_NAME = ? and VERSION = ?)
+                    and CSI_IDSEQ = (select CSI_IDSEQ from CS_ITEMS where CSI_NAME = ? and VERSION = ?)
+                ]]>
+            </value>
+        </constructor-arg>
+    </bean>
+    
+    <bean id="csLatestVersionQry" class="java.lang.String">
+        <constructor-arg>
+            <value>
+                <![CDATA[
+                    select VERSION from CLASSIFICATION_SCHEMES 
+                    where PREFERRED_NAME = ?
+                    and LATEST_VERSION_IND = 'Yes'
+                ]]>
+            </value>
+        </constructor-arg>
+    </bean>
+    
+    <bean id="csiLatestVersionQry" class="java.lang.String">
+        <constructor-arg>
+            <value>
+                <![CDATA[
+                    select a.VERSION from CS_ITEMS a, CS_CSI b, CLASSIFICATION_SCHEMES c
+                    where a.CSI_NAME = ?
+                    and a.LATEST_VERSION_IND = 'Yes'
+                    and a.CSI_IDSEQ = b.CSI_IDSEQ 
+                    and b.CS_IDSEQ = c.CS_IDSEQ 
+                    and c.PREFERRED_NAME = ?
+                ]]>
+            </value>
+        </constructor-arg>
+    </bean>
+    
+    <bean id="deleteDefsQry" class="java.lang.String">
+        <constructor-arg>
+            <value>
+                <![CDATA[
+                    delete from definitions where defin_idseq in (
+                    select defin_idseq from definitions ATT 
+                    join AC_ATT_CSCSI_EXT att_csi on att.defin_idseq = att_csi.att_idseq
+                    join CS_CSI csCsi on att_csi.cs_csi_idseq = csCsi.cs_csi_idseq
+                    join classification_schemes cs on cs.cs_idseq = csCsi.cs_idseq
+                    join CS_ITEMS csi on csi.csi_idseq = csCsi.csi_idseq
+                    where cs.preferred_name = ? and cs.Version = ?
+                    and csi.CSI_NAME = ? and csi.version = ?
+                    and 1 = (
+                        select count(distinct p_cs.CS_IDSEQ) 
+                        from AC_ATT_CSCSI_EXT p_att_csi
+                        join CS_CSI p_csCsi on p_att_csi.cs_csi_idseq = p_csCsi.cs_csi_idseq
+                        join classification_schemes p_cs on p_cs.cs_idseq = p_csCsi.cs_idseq
+                        join cs_items p_csi on p_csi.csi_idseq = p_csCsi.csi_idseq
+                        where p_att_csi.ATT_IDSEQ = ATT.defin_idseq
+                        )
+                   )
+                ]]>
+            </value>
+        </constructor-arg>
+    </bean>
+    
+    <bean id="deleteAltNamesQry" class="java.lang.String">
+        <constructor-arg>
+            <value>
+                <![CDATA[
+                    delete from designations where desig_idseq in (
+                    select desig_idseq from designations ATT 
+                    join AC_ATT_CSCSI_EXT att_csi on att.desig_idseq = att_csi.att_idseq 
+                    join CS_CSI csCsi on att_csi.cs_csi_idseq = csCsi.cs_csi_idseq 
+                    join classification_schemes cs on cs.cs_idseq = csCsi.cs_idseq 
+                    join CS_ITEMS csi on csi.csi_idseq = csCsi.csi_idseq
+                    where cs.preferred_name = ? and cs.Version = ? 
+                    and csi.CSI_NAME = ? and csi.version = ?
+                    and 1 = ( 
+                        select count(distinct p_cs.CS_IDSEQ) 
+                        from AC_ATT_CSCSI_EXT p_att_csi
+                        join CS_CSI p_csCsi on p_att_csi.cs_csi_idseq = p_csCsi.cs_csi_idseq
+                        join classification_schemes p_cs on p_cs.cs_idseq = p_csCsi.cs_idseq 
+                        join cs_items p_csi on p_csi.csi_idseq = p_csCsi.csi_idseq
+                        where p_att_csi.ATT_IDSEQ = ATT.desig_idseq
+                        )
+                )
+                ]]>
+            </value>
+        </constructor-arg>
+    </bean>
+    
+    <bean id="deleteAttrsQry" class="java.lang.String">
+        <constructor-arg>
+            <value>
+                <![CDATA[
+                    delete from AC_ATT_CSCSI_EXT 
+                    where CS_CSI_IDSEQ in ( 
+                        select CS_CSI_IDSEQ from CS_CSI 
+                        where CS_IDSEQ in ( 
+                            select CS_IDSEQ from classification_schemes 
+                            where preferred_name = ? and Version = ? 
+                        )
+                        and CSI_IDSEQ in (
+                            select CSI_IDSEQ from CS_ITEMS 
+                            where CSI_NAME = ? and Version = ? 
+                        )
+                    )
+                ]]>
+            </value>
+        </constructor-arg>
+    </bean>
+    
+    <bean id="deleteAdminCompCSCSIQry" class="java.lang.String">
+        <constructor-arg>
+            <value>
+                <![CDATA[
+                    delete from AC_CSI where CS_CSI_IDSEQ in ( 
+                    select CS_CSI_IDSEQ from CS_CSI 
+                    where CS_IDSEQ in ( 
+                        select CS_IDSEQ from Classification_schemes 
+                        where preferred_name = ? and Version = ? 
+                    )
+                    and CSI_IDSEQ in (
+                        select CSI_IDSEQ from CS_ITEMS 
+                        where CSI_NAME = ? and Version = ? 
+                    )
+                )
+                ]]>
+            </value>
+        </constructor-arg>
+    </bean>
+</beans>

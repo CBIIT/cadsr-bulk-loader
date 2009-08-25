@@ -11,6 +11,11 @@ public class UserInput implements Serializable {
 	private transient String dbPassword;
 	private String inputDir;
 	
+	private String classificationSchemeName;
+	private String classificationSchemeItemName;
+	private String classificationSchemeVersion;
+	private String classificationSchemeItemVersion;
+	
 	public String getDbURL() {
 		return dbURL;
 	}
@@ -35,5 +40,29 @@ public class UserInput implements Serializable {
 	public void setInputDir(String inputDir) {
 		this.inputDir = inputDir;
 	}
-		
+	public String getClassificationSchemeName() {
+		return classificationSchemeName;
+	}
+	public void setClassificationSchemeName(String classificationSchemeName) {
+		this.classificationSchemeName = classificationSchemeName;
+	}
+	public String getClassificationSchemeItemName() {
+		return classificationSchemeItemName;
+	}
+	public void setClassificationSchemeItemName(String classificationSchemeItemName) {
+		this.classificationSchemeItemName = classificationSchemeItemName;
+	}
+	public String getClassificationSchemeVersion() {
+		return classificationSchemeVersion;
+	}
+	public void setClassificationSchemeVersion(String classificationSchemeVersion) {
+		this.classificationSchemeVersion = classificationSchemeVersion;
+	}
+	public String getClassificationSchemeItemVersion() {
+		return classificationSchemeItemVersion;
+	}
+	public void setClassificationSchemeItemVersion(
+			String classificationSchemeItemVersion) {
+		this.classificationSchemeItemVersion = classificationSchemeItemVersion;
+	}
 }
