@@ -45,6 +45,8 @@ public class SpringBeansUtil {
 	private static final String EXCEL_TRANSFORMER_BEAN_NAME = "excelTransformer";
 	private static final String USER_PREFERENCES_BEAN_NAME = "usersPreferences";
 	
+	private static final String BL_UNCLASSIFIER_BEAN_NAME = "bulkLoaderUnclassifier";
+	
 	private final String STORE_PROPS_FILE = "spring-ds.properties";
 	private static final Log log = LogFactory.getLog(SpringBeansUtil.class);
 	
@@ -146,6 +148,12 @@ public class SpringBeansUtil {
 		UserPreferences userPrefs = (UserPreferences)beanFactory.getBean(USER_PREFERENCES_BEAN_NAME);
 		
 		return userPrefs;
+	}
+	
+	public BulkLoaderUnclassifier getBulkLoaderUnclassifier() {
+		BulkLoaderUnclassifier blUnclassifier = (BulkLoaderUnclassifier)beanFactory.getBean(BL_UNCLASSIFIER_BEAN_NAME);
+		
+		return blUnclassifier;
 	}
 	
 	private void saveProperties(Properties props) {

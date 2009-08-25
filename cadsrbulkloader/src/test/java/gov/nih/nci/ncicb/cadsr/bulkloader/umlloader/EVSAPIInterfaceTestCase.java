@@ -1,6 +1,5 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.umlloader;
 
-import gov.nih.nci.ncicb.cadsr.bulkloader.util.FileUtil;
 import gov.nih.nci.ncicb.cadsr.loader.ext.EvsModule;
 import gov.nih.nci.ncicb.cadsr.loader.ext.EvsResult;
 
@@ -43,7 +42,7 @@ public class EVSAPIInterfaceTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.
 	}
 	
 	public void testProcessor() {
-		EvsResult evsResult = evsModule.findByConceptCode("C19643", false);
+		EvsResult evsResult = evsModule.findByConceptCode("C63923", false);
 		assertNotNull(evsResult);
 	}
 }

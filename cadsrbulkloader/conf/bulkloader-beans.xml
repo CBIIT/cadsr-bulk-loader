@@ -3,6 +3,8 @@
  
 <beans>
   
+  <import resource="sql-queries.xml"/>
+  
   <bean name="bulkLoadProcessor" class="gov.nih.nci.ncicb.cadsr.bulkloader.CaDSRBulkLoadProcessor">
     <property name="transformer" ref="excelTransformer" />
     <property name="bulkLoader" ref="bulkLoader" />
@@ -182,6 +184,18 @@
     <property name="persisterUtil">
       <ref bean="persisterUtil"/>
     </property>
+  </bean>
+  
+  <bean name="bulkLoaderUnclassifier" class="gov.nih.nci.ncicb.cadsr.bulkloader.util.BulkLoaderUnclassifier">
+    <property name="dataSource" ref="dataSource" />
+    
+    <property name="checkCsCsiQry" ref="checkCsCsiQry" />
+    <property name="csLatestVersionQry" ref="csLatestVersionQry" />
+    <property name="csiLatestVersionQry" ref="csiLatestVersionQry" />
+    <property name="deleteDefsQry" ref="deleteDefsQry" />
+    <property name="deleteAltNamesQry" ref="deleteAltNamesQry" />
+    <property name="deleteAttrsQry" ref="deleteAttrsQry" />
+    <property name="deleteAdminCompCSCSIQry" ref="deleteAdminCompCSCSIQry" />
   </bean>
   
   									<!-- CaDSR Objects -->
