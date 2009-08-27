@@ -3,6 +3,7 @@ package gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators;
 import java.util.List;
 
 import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
+import gov.nih.nci.ncicb.cadsr.domain.DataElement;
 import gov.nih.nci.ncicb.cadsr.domain.DataElementConcept;
 import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
 import gov.nih.nci.ncicb.cadsr.domain.Property;
@@ -12,12 +13,6 @@ import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationItems;
 
 public class PropertyValidator extends AbstractValidator {
 
-	private static Property testProp = DomainObjectFactory.newProperty();
-	
-	static {
-		testProp.setWorkflowStatus(AdminComponent.WF_STATUS_ALL);
-	}
-	
 	@Override
 	public ValidationItems validate() {
 		List<Property> properties = elementsList.getElements(DomainObjectFactory.newProperty());
@@ -40,9 +35,9 @@ public class PropertyValidator extends AbstractValidator {
 	}
 	
 	private void validateRetiredProperty(Property property) {
-		testProp.setPreferredName(property.getPreferredName());
+		Property searchProp = getSearchAC(property, DomainObjectFactory.newProperty());
 		
-		List<Property> foundProps = dao.findProperties(testProp);
+		List<Property> foundProps = dao.findProperties(searchProp);
 		
 		if (foundProps != null) {
 			for (Property foundDEC: foundProps) {

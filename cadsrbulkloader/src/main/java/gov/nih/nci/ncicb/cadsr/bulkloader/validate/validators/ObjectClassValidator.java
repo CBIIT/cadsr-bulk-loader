@@ -1,21 +1,15 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators;
 
-import java.util.List;
-
-import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
 import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
 import gov.nih.nci.ncicb.cadsr.domain.ObjectClass;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationError;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationItem;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationItems;
 
+import java.util.List;
+
 public class ObjectClassValidator extends AbstractValidator {
 
-	private static ObjectClass testOC = DomainObjectFactory.newObjectClass();
-	
-	static {
-		testOC.setWorkflowStatus(AdminComponent.WF_STATUS_ALL);
-	}
 	
 	@Override
 	public ValidationItems validate() {
@@ -41,9 +35,9 @@ public class ObjectClassValidator extends AbstractValidator {
 	}
 	
 	private void validateRetiredObjectClasses(ObjectClass objectClass) {
-		testOC.setPreferredName(objectClass.getPreferredName());
+		ObjectClass searchOC = getSearchAC(objectClass, DomainObjectFactory.newObjectClass());
 		
-		List<ObjectClass> foundOCs = dao.findObjectClasses(testOC);
+		List<ObjectClass> foundOCs = dao.findObjectClasses(searchOC);
 		
 		if (foundOCs != null) {
 			for (ObjectClass foundOC: foundOCs) {

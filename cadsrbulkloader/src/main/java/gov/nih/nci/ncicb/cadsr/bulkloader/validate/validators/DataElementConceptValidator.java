@@ -1,23 +1,16 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators;
 
-import java.util.List;
-
 import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
-import gov.nih.nci.ncicb.cadsr.domain.DataElement;
 import gov.nih.nci.ncicb.cadsr.domain.DataElementConcept;
 import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationError;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationItem;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationItems;
 
+import java.util.List;
+
 public class DataElementConceptValidator extends AbstractValidator {
 
-	private static DataElementConcept testDEC = DomainObjectFactory.newDataElementConcept();
-	
-	static {
-		testDEC.setWorkflowStatus(AdminComponent.WF_STATUS_ALL);
-	}
-	
 	@Override
 	public ValidationItems validate() {
 		DataElementConcept dec = DomainObjectFactory.newDataElementConcept();
@@ -60,9 +53,9 @@ public class DataElementConceptValidator extends AbstractValidator {
 	}
 	
 	private void validateRetiredDataElementConcepts(DataElementConcept dataElementConcept) {
-		testDEC.setPreferredName(dataElementConcept.getPreferredName());
 		
-		List<DataElementConcept> foundDECs = dao.findDataElementConcepts(testDEC);
+		DataElementConcept searchDEC = getSearchAC(dataElementConcept, DomainObjectFactory.newDataElementConcept());
+		List<DataElementConcept> foundDECs = dao.findDataElementConcepts(searchDEC);
 		
 		if (foundDECs != null) {
 			for (DataElementConcept foundDEC: foundDECs) {
@@ -74,5 +67,7 @@ public class DataElementConceptValidator extends AbstractValidator {
 			}
 		}
 	}
+	
+	
 
 }
