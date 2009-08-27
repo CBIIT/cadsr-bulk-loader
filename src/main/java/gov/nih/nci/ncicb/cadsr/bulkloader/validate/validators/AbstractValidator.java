@@ -1,6 +1,7 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAOFacade;
+import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
 import gov.nih.nci.ncicb.cadsr.loader.ElementsLists;
 import gov.nih.nci.ncicb.cadsr.loader.event.ProgressListener;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationItems;
@@ -30,6 +31,18 @@ public abstract class AbstractValidator implements Validator {
 	public void addProgressListener(ProgressListener l) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	protected synchronized <T extends AdminComponent> T getSearchAC(T from, T to) {
+				
+		to.setWorkflowStatus(AdminComponent.WF_STATUS_ALL);
+		to.setPreferredName(from.getPreferredName());
+		to.setLongName(from.getLongName());
+		to.setContext(from.getContext());
+		to.setPublicId(from.getPublicId());
+		to.setVersion(from.getVersion());
+		
+		return to;
 	}
 
 }

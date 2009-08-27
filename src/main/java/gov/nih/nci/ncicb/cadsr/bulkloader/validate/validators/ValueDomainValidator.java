@@ -1,6 +1,5 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators;
 
-import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
 import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
 import gov.nih.nci.ncicb.cadsr.domain.ValueDomain;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationError;
@@ -10,12 +9,6 @@ import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationItems;
 import java.util.List;
 
 public class ValueDomainValidator extends AbstractValidator {
-
-	private static ValueDomain testVD = DomainObjectFactory.newValueDomain();
-	
-	static {
-		testVD.setWorkflowStatus(AdminComponent.WF_STATUS_ALL);
-	}
 	
 	@Override
 	public ValidationItems validate() {
@@ -54,9 +47,9 @@ public class ValueDomainValidator extends AbstractValidator {
 	}
 	
 	private void validateRetiredValueDomain(ValueDomain valueDomain) {
-		testVD.setPreferredName(valueDomain.getPreferredName());
+		ValueDomain searchVD = getSearchAC(valueDomain, DomainObjectFactory.newValueDomain());
 		
-		List<ValueDomain> foundVDs = dao.findValueDomains(testVD);
+		List<ValueDomain> foundVDs = dao.findValueDomains(searchVD);
 		
 		if (foundVDs != null) {
 			for (ValueDomain foundVD: foundVDs) {
