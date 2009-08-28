@@ -336,16 +336,22 @@ public class CaDSRObjectsUtil {
 		
 		for (Concept concept: concepts) {
 			List<Definition> defs = concept.getDefinitions();
+			String prefDef = concept.getPreferredDefinition();
+			concatConceptsBuffer.append(prefDef);
+			
 			for (Definition def: defs) {
-				concatConceptsBuffer.append(def.getDefinition());
-				concatConceptsBuffer.append(CONCEPT_CONCAT_STRING);
+				String defStr = def.getDefinition();
+				if (!defStr.equalsIgnoreCase(prefDef)) {
+					concatConceptsBuffer.append(CONCEPT_CONCAT_STRING);
+					concatConceptsBuffer.append(defStr);
+				}
 			}
 		}
 		
-		int lastIndexOfConcatStr = concatConceptsBuffer.lastIndexOf(CONCEPT_CONCAT_STRING);
+		/*int lastIndexOfConcatStr = concatConceptsBuffer.lastIndexOf(CONCEPT_CONCAT_STRING);
 		
 		String concatConceptsStr = lastIndexOfConcatStr>=0?concatConceptsBuffer.substring(0, lastIndexOfConcatStr):concatConceptsBuffer.toString();
-		
-		return concatConceptsStr;
+		*/
+		return concatConceptsBuffer.toString();
 	}
 }

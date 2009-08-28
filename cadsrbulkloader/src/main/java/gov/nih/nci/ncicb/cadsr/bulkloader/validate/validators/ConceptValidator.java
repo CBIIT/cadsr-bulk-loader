@@ -45,8 +45,9 @@ public class ConceptValidator extends AbstractValidator {
 	
 	private void validateDefinitions(Concept concept) {
 		String cui = concept.getPreferredName();
+		String prefDef = concept.getPreferredDefinition();
 		List<Definition> defs = concept.getDefinitions();
-		if (defs == null || defs.size() < 1) {
+		if ((prefDef==null || prefDef.equals("")) && (defs == null || defs.size() < 1)) {
 			ValidationItem validationItem = new ValidationError("Concept ["+cui+"] does not have any definitions", concept);
 			validationItems.addItem(validationItem);
 		}
