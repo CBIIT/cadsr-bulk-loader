@@ -16,36 +16,50 @@ public class CommandLineProcessor {
 
 	private static Log log = LogFactory.getLog(CommandLineProcessor.class);
 	
+	private static UserInterface userInterface = new CommandLineUserInterfaceImpl();
+	
 	public static void main(String[] args) {
 		
-		UserInterface userInterface = new CommandLineUserInterfaceImpl();
 		if (args.length == 0) {
-			
-			UserInput userInput = userInterface.getLoadUserInput();
-			
-			Properties props = new Properties();
-			props.setProperty("db.url", userInput.getDbURL());
-			props.setProperty("db.username", userInput.getDbUser());
-			props.setProperty("db.password", userInput.getDbPassword());
-			
-			SpringBeansUtil.getInstance().initialize(props);
-			
-			String inputDir = userInput.getInputDir();
-			String outputDir = inputDir+File.separatorChar+"out";
-			CaDSRBulkLoadProcessor processor = SpringBeansUtil.getInstance().getBulkLoadProcessor();
-			BulkLoadProcessResult[] results = processor.process(inputDir, outputDir, true);
-			UIReportWriter reportWriter = new UIReportWriterImpl();
-			for (BulkLoadProcessResult result: results) {
-				reportWriter.writeReport(result);
-			}
+			runLoad();	
 		}
 		else if (args[0].equalsIgnoreCase("unload")) {
-			UserInput userInput = userInterface.getUnloadUserInput();
-			UnloadProperties unloadProps = getUnloadProperties(userInput);
-			BulkLoaderUnclassifier unclassifier = SpringBeansUtil.getInstance().getBulkLoaderUnclassifier();
-			unclassifier.unclassify(unloadProps);
+			runUnLoad();
 		}
+	}
+	
+	private static void runLoad() {
+		UserInput userInput = userInterface.getLoadUserInput();
 		
+		initializeSpringCtx(userInput);
+		
+		String inputDir = userInput.getInputDir();
+		String outputDir = inputDir+File.separatorChar+"out";
+		CaDSRBulkLoadProcessor processor = SpringBeansUtil.getInstance().getBulkLoadProcessor();
+		BulkLoadProcessResult[] results = processor.process(inputDir, outputDir, true);
+		UIReportWriter reportWriter = new UIReportWriterImpl();
+		for (BulkLoadProcessResult result: results) {
+			reportWriter.writeReport(result);
+		}
+	}
+	
+	private static void runUnLoad() {
+		UserInput userInput = userInterface.getUnloadUserInput();
+		
+		initializeSpringCtx(userInput);
+		
+		UnloadProperties unloadProps = getUnloadProperties(userInput);
+		BulkLoaderUnclassifier unclassifier = SpringBeansUtil.getInstance().getBulkLoaderUnclassifier();
+		unclassifier.unclassify(unloadProps);
+	}
+	
+	private static void initializeSpringCtx(UserInput userInput) {
+		Properties props = new Properties();
+		props.setProperty("db.url", userInput.getDbURL());
+		props.setProperty("db.username", userInput.getDbUser());
+		props.setProperty("db.password", userInput.getDbPassword());
+		
+		SpringBeansUtil.getInstance().initialize(props);
 	}
 	
 	private static UnloadProperties getUnloadProperties (UserInput userInput) {
