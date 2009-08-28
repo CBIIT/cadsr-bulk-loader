@@ -1,6 +1,5 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.util;
 
-import gov.nih.nci.ncicb.cadsr.bulkloader.beans.LoadProperties;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.UnloadProperties;
 
 import java.sql.PreparedStatement;
@@ -101,6 +100,7 @@ public class BulkLoaderUnclassifier {
 			log.info("Unclassifying Admin Components...");
 			deleteAdminComponentCSCSI();
 		}
+		log.info("Unclassification complete!");
 	}
 	
 	private void init(UnloadProperties unloadProperties) {
@@ -211,13 +211,13 @@ public class BulkLoaderUnclassifier {
 				for (int i=0;i<args.length;i++) {
 					Object o = args[i];
 					if (o instanceof String) {
-						ps.setString(i, (String) o);
+						ps.setString(i+1, (String) o);
 					}
 					else if (o instanceof Integer) {
-						ps.setInt(i, (Integer) o);
+						ps.setInt(i+1, (Integer) o);
 					}
 					else if (o instanceof Double) {
-						ps.setDouble(i, (Double) o);
+						ps.setDouble(i+1, (Double) o);
 					}
 				}
 				
