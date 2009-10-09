@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns1:Form xmlns:ns1="urn:nci:caDSR">
+	<ns1:formName>8_14</ns1:formName>
+	<ns1:context>caBIG</ns1:context>
+	<ns1:cs>TEST_Bulk_Loader_0.5</ns1:cs>
+	<ns1:csi>TEST_8_14</ns1:csi>
+	<ns1:source>BulK Loader</ns1:source>
+	<ns1:questions>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:preferredQuestion>8_14_1</ns1:preferredQuestion>
+			<ns1:questionNotes>Qualifer concept filed is not empty</ns1:questionNotes>
+			<ns1:ocQualConcepts>C19448:Blood and Blood Products;C19643:Gene Combinations</ns1:ocQualConcepts>
+			<ns1:ocPrimConcepts>C17610:Blood Sample</ns1:ocPrimConcepts>
+			<ns1:propQualConcepts>C314:Blood Substitute</ns1:propQualConcepts>
+			<ns1:propPrimConcepts>C15657:Blood Treatment</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2830648v1.0:Biology</ns1:decConceptualDomainId>
+			<ns1:vdId>2017609v2.0:Common Toxicity Criteria Adverse Event Term Type</ns1:vdId>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>2</ns1:questionNumber>
+			<ns1:alternateQuestion>8_14_2</ns1:alternateQuestion>
+			<ns1:questionNotes>Qualifer concept filed is empty</ns1:questionNotes>
+			<ns1:ocPrimConcepts>C17610:Blood Sample</ns1:ocPrimConcepts>
+			<ns1:propPrimConcepts>C32212:Blood Capillary</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2830648v1.0:Biology</ns1:decConceptualDomainId>
+			<ns1:vdId>2017609v2.0:Common Toxicity Criteria Adverse Event Term Type</ns1:vdId>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>3</ns1:questionNumber>
+			<ns1:preferredQuestion>8_14_3</ns1:preferredQuestion>
+			<ns1:alternateQuestion>8_14_3</ns1:alternateQuestion>
+			<ns1:ocQualConcepts>C19448:Blood and Blood Products</ns1:ocQualConcepts>
+			<ns1:ocPrimConcepts>C27083:Blood Clot</ns1:ocPrimConcepts>
+			<ns1:propQualConcepts>C15192:Blood Transfusion</ns1:propQualConcepts>
+			<ns1:propPrimConcepts>C32213:Blood Vessel Tissue</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2830648v1.0:Biology</ns1:decConceptualDomainId>
+			<ns1:vdId>2017609v2.0:Common Toxicity Criteria Adverse Event Term Type</ns1:vdId>
+		</ns1:Question>
+		<ns1:Question/>
+		<ns1:Question/>
+	</ns1:questions>
+</ns1:Form>
