@@ -12,7 +12,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCallback;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
 public class BulkLoaderUnclassifier {
@@ -202,12 +202,10 @@ public class BulkLoaderUnclassifier {
 	
 	private void runDeleteQry(String qry, final Object[] args) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		jdbcTemplate.execute(qry, new PreparedStatementCallback() {
+		jdbcTemplate.update(qry, new PreparedStatementSetter() {
 
 			@Override
-			public Object doInPreparedStatement(PreparedStatement ps)
-					throws SQLException, DataAccessException {
-				
+			public void setValues(PreparedStatement ps) throws SQLException {
 				for (int i=0;i<args.length;i++) {
 					Object o = args[i];
 					if (o instanceof String) {
@@ -220,8 +218,6 @@ public class BulkLoaderUnclassifier {
 						ps.setDouble(i+1, (Double) o);
 					}
 				}
-				
-				return null;
 			}
 			
 		});
