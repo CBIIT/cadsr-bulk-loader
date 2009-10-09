@@ -116,6 +116,15 @@ public class ValueDomainTranslator extends AbstractTranslatorTemplate {
 		pv.setValue(pvValue);
 		
 		String vmRefId = isoPV.getValueMeaningRefId();
+		ValueMeaning valueMeaning = getValueMeaning(vmRefId, objRegistry);
+		valueMeaning.setLongName(pvValue);
+		
+		pv.setValueMeaning(valueMeaning);
+		
+		return pv;
+	}
+	
+	private ValueMeaning getValueMeaning(String vmRefId, CaDSRObjectRegistry objRegistry) {
 		ValueMeaning valueMeaning = null;
 		
 		if (vmRefId != null && !vmRefId.trim().equals("")) {
@@ -123,14 +132,10 @@ public class ValueDomainTranslator extends AbstractTranslatorTemplate {
 		}
 		else {
 			valueMeaning = CaDSRObjectsUtil.createValueMeaning();
-			valueMeaning.setLongName(pvValue);
 		}
 		
-		pv.setValueMeaning(valueMeaning);
-		
-		return pv;
+		return valueMeaning;
 	}
-	
 	
 
 }
