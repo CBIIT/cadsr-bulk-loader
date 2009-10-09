@@ -214,16 +214,19 @@ public class TestUtil {
 	
 	private void writeDE(List<Node[]> cdeIdNodes, HSSFWorkbook wb) {
 		HSSFSheet sheet = wb.getSheet("tbl_DATA_ELEMENTS");
+		int rowNo = -1;
+		
 		for (int i=0;i<cdeIdNodes.size();i++) {
 			Node[] cdeIdRow = cdeIdNodes.get(i);
 			Node cdeIdNode = cdeIdRow[0];
 
 			if (cdeIdNode != null) {
+				rowNo++;
 				String cdeIdRep = cdeIdNode.getTextContent();
 				String[] cdeIdParts = cdeIdRep.split("v");
 				
 				if (cdeIdParts != null && cdeIdParts.length>=2) {
-					HSSFRow row = sheet.createRow(10+i);
+					HSSFRow row = sheet.createRow(10+rowNo);
 					
 					HSSFCell seqIdCell = row.createCell(1);
 					HSSFCell longNameCell = row.createCell(2);
@@ -238,7 +241,7 @@ public class TestUtil {
 					HSSFCell createdByCell = row.createCell(11);
 					HSSFCell idCell = row.createCell(12);
 					
-					StringBuffer cdeId = new StringBuffer("DE"+i);
+					StringBuffer cdeId = new StringBuffer("DE"+rowNo);
 					while (cdeId.length() < 36) {
 						cdeId.append("x");
 					}
@@ -252,17 +255,17 @@ public class TestUtil {
 						longNameCell.setCellValue(new HSSFRichTextString(cdeIdRow[1].getTextContent()));
 					}
 					
-					prefNameCell.setCellValue(new HSSFRichTextString("DE Pref Name"+i));
-					prefDefCell.setCellValue(new HSSFRichTextString("DE Pref Def"+i));
+					prefNameCell.setCellValue(new HSSFRichTextString("DE Pref Name"+rowNo));
+					prefDefCell.setCellValue(new HSSFRichTextString("DE Pref Def"+rowNo));
 					aslNameCell.setCellValue(new HSSFRichTextString("RELEASED"));
 					dateCreatedCell.setCellValue(new Date());
 					createdByCell.setCellValue(new HSSFRichTextString("MATHURA"));
 					
-					if (cdeIdRow.length > 2) {
+					if (cdeIdRow.length > 2 && cdeIdRow[2] != null) {
 						decIdSeqCell.setCellValue(new HSSFRichTextString(decMap.get(cdeIdRow[2].getTextContent())));
 					}
 					
-					if (cdeIdRow.length > 3) {
+					if (cdeIdRow.length > 3 && cdeIdRow[3] != null) {
 						vdIdSeqCell.setCellValue(new HSSFRichTextString(vdMap.get(cdeIdRow[3].getTextContent())));
 					}
 					
@@ -559,8 +562,8 @@ public class TestUtil {
 	
 	public static void main(String[] args) {
 		TestUtil testUtil = new TestUtil();
-		Document doc = testUtil.readXMLInput(new File("C:\\work\\code\\cadsrbulkloader\\src\\test\\data\\gov\\nih\\nci\\ncicb\\cadsr\\gf22618.xml"));
-		File xcelFile = testUtil.createExcelFile("c:\\docume~1\\mathura2\\desktop\\gf22618.xls");
+		Document doc = testUtil.readXMLInput(new File("C:\\Docume~1\\mathura2\\Desktop\\8_12_2.xml"));
+		File xcelFile = testUtil.createExcelFile("C:\\Docume~1\\mathura2\\Desktop\\8_12_2.xls");
 		testUtil.extractToExcel(xcelFile, doc);
 	}
 }

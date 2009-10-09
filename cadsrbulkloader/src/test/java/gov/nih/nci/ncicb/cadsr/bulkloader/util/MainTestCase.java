@@ -260,7 +260,7 @@ public abstract class MainTestCase extends TestCase
                 if (m.find())
                 {
                     int start = m.end();
-                    int end = line.length() - 1;
+                    int end = line.length();
                     String tableName = line.substring(start, end).trim();
 
 
@@ -1216,7 +1216,7 @@ public abstract class MainTestCase extends TestCase
 					    		"PERSONS",
 					    		"CONTACT_ROLES_EXT",
 					    		"AC_CONTACTS",
-					    		"AC_CSI",
+					    		//"AC_CSI", // moving to the end
 					    		"AC_CSI_BACKUP",
 					    		"AC_CSI_CAT_BU",
 					    		"AC_CSI_DISEASE",
@@ -1545,7 +1545,8 @@ public abstract class MainTestCase extends TestCase
 					    		"XDB$GROUP_REF",
 					    		"XDB$SCHEMA",
 					    		"XDB$SEQUENCE_MODEL",
-					    		"XDB$SIMPLE_TYPE"
+					    		"XDB$SIMPLE_TYPE",
+					    		"AC_CSI"
     };
 
 }

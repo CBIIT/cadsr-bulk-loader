@@ -3,6 +3,7 @@ package gov.nih.nci.ncicb.cadsr.bulkloader.validate;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.CaDSRObjects;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.SpringBeansUtil;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.UnitTestsUtil;
+import gov.nih.nci.ncicb.cadsr.domain.AlternateName;
 import gov.nih.nci.ncicb.cadsr.domain.Concept;
 import gov.nih.nci.ncicb.cadsr.domain.DataElement;
 import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
@@ -77,6 +78,12 @@ public class ValidatorTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.M
 		DataElement de = DomainObjectFactory.newDataElement();
 		de.setPublicId("6565");
 		de.setVersion(new Float(1.0));
+		
+		AlternateName altName = DomainObjectFactory.newAlternateName();
+		altName.setType("NMDP_FN");
+		altName.setName("test alt name");
+		
+		de.addAlternateName(altName);
 		
 		List<DataElement> dataElements = new ArrayList<DataElement>();
 		dataElements.add(de);

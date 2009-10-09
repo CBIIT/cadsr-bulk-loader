@@ -16,8 +16,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class SampleTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.MainTestCase {
 
-	private static String[] XML_IP_FILES = {"/gov/nih/nci/ncicb/cadsr/8_14_3_2.xml"};
-	private static String dataURL = "/gov/nih/nci/ncicb/cadsr/8_14_3_2.xls";
+	private static String[] XML_IP_FILES = {"/gov/nih/nci/ncicb/cadsr/gf23355.xml"};
+	private static String dataURL = "/gov/nih/nci/ncicb/cadsr/gf23355.xls";
 	
 	@Override
 	protected void containerSetUp() throws Exception {
@@ -55,6 +55,10 @@ public class SampleTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.Main
 		props.put("db.url", getPropertyManager().getUnitDataSourceURL());
 		props.put("db.username", getPropertyManager().getUnitDataSourceUser());
 		props.put("db.password", getPropertyManager().getUnitDataSourcePassword());
+		
+		/*props.put("db.url", "jdbc:oracle:thin:@cbiodb530.nci.nih.gov:1521:DSRQA");
+		props.put("db.username", "chenr_qa");
+		props.put("db.password", "chenr_qa");*/
 		
 		SpringBeansUtil.getInstance().initialize(props);
 		
