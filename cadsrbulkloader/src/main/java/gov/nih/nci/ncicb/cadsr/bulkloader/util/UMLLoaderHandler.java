@@ -177,7 +177,7 @@ public class UMLLoaderHandler {
 			return new Float(1.0);
 		}
 		public String getWorkflowStatus() {
-			return "RELEASED";
+			return "DRAFT NEW";
 		}
 		public void setCdContextName(String newCdContextName) {
 			// TODO Auto-generated method stub
