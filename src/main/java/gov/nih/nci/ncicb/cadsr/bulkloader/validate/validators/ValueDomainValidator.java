@@ -1,11 +1,14 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators;
 
 import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
+import gov.nih.nci.ncicb.cadsr.domain.PermissibleValue;
 import gov.nih.nci.ncicb.cadsr.domain.ValueDomain;
+import gov.nih.nci.ncicb.cadsr.domain.ValueMeaning;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationError;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationItem;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationItems;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ValueDomainValidator extends AbstractValidator {
@@ -18,6 +21,7 @@ public class ValueDomainValidator extends AbstractValidator {
 			validateId(valueDomain);
 			validateDefinitionLength(valueDomain);
 			validateRetiredValueDomain(valueDomain);
+			validatePVs(valueDomain);
 		}
 		
 		return validationItems;
@@ -60,6 +64,34 @@ public class ValueDomainValidator extends AbstractValidator {
 				}
 			}
 		}
+	}
+	
+	private void validatePVs(ValueDomain valueDomain) {
+		List<PermissibleValue> pvs = valueDomain.getPermissibleValues();
+		List<String> pvValueCache = new ArrayList<String>();
+		for (PermissibleValue pv: pvs) {
+			String pvValueString = getPVValueString(pv);
+			
+			if (pvValueCache.contains(pvValueString)) {
+				ValidationItem error = new ValidationError("The Value Domain to be created ["+valueDomain.getLongName()+"] has duplicate permissible values ["+pv.getValue()+"]", valueDomain);
+				validationItems.addItem(error);
+			}
+			else {
+				pvValueCache.add(pvValueString);
+			}
+		}
+	}
+	
+	private String getPVValueString(PermissibleValue pv) {
+		StringBuffer sb = new StringBuffer();
+		sb.append(pv.getValue());
+		ValueMeaning vm = pv.getValueMeaning();
+		if (vm != null) {
+			sb.append(":");
+			sb.append(vm.getLongName());
+		}
+		
+		return sb.toString();
 	}
 
 }
