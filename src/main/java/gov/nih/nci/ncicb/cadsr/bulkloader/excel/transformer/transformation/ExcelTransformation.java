@@ -67,6 +67,7 @@ import gov.nih.nci.ncicb.cadsr.domain.Concept;
 import gov.nih.nci.ncicb.cadsr.domain.Definition;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -413,10 +414,18 @@ public class ExcelTransformation implements TransformerTransformation {
 			addReferenceDocument(isoDE, mainQuestion.getAlternateQuestion(),"Alternate Question Text");
 		}
 		
-		Designation_ISO11179 isoDesig = getDesignation(mainQuestion.getAlternateName(),mainQuestion.getAlternateNameType(), true);
-		Definition_ISO11179 isoDef = getDefinition(null, null, false);
+		List<Designation_ISO11179> isoDesigs = new ArrayList<Designation_ISO11179>();
+		List<Definition_ISO11179> isoDefs = new ArrayList<Definition_ISO11179>();
 		
-		addDesignationsAndDefinitions(isoDE,isoDesig, isoDef, true);
+		for (ExcelQuestion excelQuestion: excelQuestions) {
+			Designation_ISO11179 isoDesig = getDesignation(excelQuestion.getAlternateName(),excelQuestion.getAlternateNameType(), false);
+			isoDesigs.add(isoDesig);
+		}
+		
+		Definition_ISO11179 isoDef = getDefinition(null, null, false);
+		isoDefs.add(isoDef);
+		
+		addDesignationsAndDefinitions(isoDE,isoDesigs, isoDefs, true);
 		
 		String tagId = "DE-"+getRandomString();
 		isoDE.setTagId(tagId);
@@ -535,7 +544,9 @@ public class ExcelTransformation implements TransformerTransformation {
 			
 			for (ExcelQuestion question: questions) {
 				PermissibleValue_ISO11179 isoPV = getPV(question);
-				isoPVList.add(isoPV);
+				if (isoPV != null) {
+					isoPVList.add(isoPV);
+				}
 			}
 			isoEnumVD.setPermissibleValues(isoPVList);
 			
@@ -632,22 +643,27 @@ public class ExcelTransformation implements TransformerTransformation {
 	
 	private PermissibleValue_ISO11179 getPV(ExcelQuestion question) {
 		String pvStr = question.getPv();
-		if (pvStr != null) pvStr = pvStr.trim();
-		PermissibleValue_ISO11179 isoPV = new PermissibleValue_ISO11179();
-		isoPV.setValue(pvStr);
-		isoPV.setBeginDate(new Date());
-		
-		String vmConIdStr = question.getVmConcepts();
-		
-		if (vmConIdStr != null && !vmConIdStr.trim().equals("")) {
-			List<Concept_caDSR11179> vmConcepts = getConcepts(vmConIdStr);
-			ValueMeaning_caDSR11179 isoVM = getValueMeaning(vmConcepts);
-			if (isoVM != null) {
-				isoPV.setValueMeaningRefId(isoVM.getTagId());
-			}
+		if (pvStr == null || pvStr.trim().equals("")) {
+			return null;
 		}
-		
-		return isoPV;
+		else {
+			if (pvStr != null) pvStr = pvStr.trim();
+			PermissibleValue_ISO11179 isoPV = new PermissibleValue_ISO11179();
+			isoPV.setValue(pvStr);
+			isoPV.setBeginDate(new Date());
+			
+			String vmConIdStr = question.getVmConcepts();
+			
+			if (vmConIdStr != null && !vmConIdStr.trim().equals("")) {
+				List<Concept_caDSR11179> vmConcepts = getConcepts(vmConIdStr);
+				ValueMeaning_caDSR11179 isoVM = getValueMeaning(vmConcepts);
+				if (isoVM != null) {
+					isoPV.setValueMeaningRefId(isoVM.getTagId());
+				}
+			}
+			
+			return isoPV;
+		}
 	}
 	
 	private ObjectClass_caDSR11179 getObjectClassAndAddConcepts(List<Concept_caDSR11179> isoConcepts) {
@@ -697,6 +713,9 @@ public class ExcelTransformation implements TransformerTransformation {
 		else {
 			ValueMeaning_caDSR11179 isoVM = new ValueMeaning_caDSR11179();
 			//fillupAdminItem(isoVM);
+			
+			rearrangePrimaryAndQualConcepts(isoConcepts);
+			
 			isoVM.setConceptDerivationRule(getCDRAndAddConcepts(isoConcepts));
 			isoVM.setBeginDate(new Date());
 			String tagId = "VM-"+getRandomString();
@@ -707,6 +726,10 @@ public class ExcelTransformation implements TransformerTransformation {
 			
 			return isoVM;
 		}
+	}
+	
+	private void rearrangePrimaryAndQualConcepts(List<Concept_caDSR11179> isoConcepts) {
+		Collections.reverse(isoConcepts);
 	}
 	
 	private ConceptualDomain_caDSR11179 getConceptualDomain(String conDomainStr) {
@@ -1006,7 +1029,7 @@ public class ExcelTransformation implements TransformerTransformation {
 		isoAdminItem.setDescribedBy(refDocs);
 	}
 	
-	private void addDesignationsAndDefinitions(AdminItem_ISO11179 isoAdminItem, Designation_ISO11179 designation, Definition_ISO11179 definition, boolean isPreferred) {
+	private void addDesignationsAndDefinitions(AdminItem_ISO11179 isoAdminItem, List<Designation_ISO11179> designations, List<Definition_ISO11179> definitions, boolean isPreferred) {
 		List<TerminologicalEntry_ISO11179> isoTermEntries = isoAdminItem.getHaving();
 		TerminologicalEntry_ISO11179 isoTermEntry = null;
 		if (isoTermEntries.size() > 0) {
@@ -1022,19 +1045,18 @@ public class ExcelTransformation implements TransformerTransformation {
 		List<Designation_ISO11179> isoDesigns = isoLangSection.getNamingEntries();
 		List<Definition_ISO11179> isoDefs = isoLangSection.getDefiningEntries();
 		
-		if (designation != null && isPreferred) {
-			for (Designation_ISO11179 isoDesign: isoDesigns) {
-				isoDesign.setPreferredDesignation(false);
+		for (Designation_ISO11179 designation: designations) {
+			if (designation!=null && designation.getName()!=null && !designation.getName().trim().equals("")) {
+				isoDesigns.add(designation);
 			}
-			isoDesigns.add(designation);
 		}
 		
-		if (definition != null && isPreferred) {
-			for (Definition_ISO11179 isoDef: isoDefs) {
-				isoDef.setPreferredDefinition(false);
+		for (Definition_ISO11179 definition: definitions) {
+			if (definition!=null && definition.getText() != null && !definition.getText().trim().equals("")) {
+				isoDefs.add(definition);
 			}
-			isoDefs.add(definition);
 		}
+
 	}
 	
 	private Designation_ISO11179 getDesignation(String name, String type, boolean isPreferred) {
