@@ -1,5 +1,7 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.util;
 
+import gov.nih.nci.cadsr.domain.AdministeredComponent;
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.CaDSRObjects;
 import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
 import gov.nih.nci.ncicb.cadsr.domain.ComponentConcept;
 import gov.nih.nci.ncicb.cadsr.domain.Concept;
@@ -348,10 +350,21 @@ public class CaDSRObjectsUtil {
 			}
 		}
 		
-		/*int lastIndexOfConcatStr = concatConceptsBuffer.lastIndexOf(CONCEPT_CONCAT_STRING);
-		
-		String concatConceptsStr = lastIndexOfConcatStr>=0?concatConceptsBuffer.substring(0, lastIndexOfConcatStr):concatConceptsBuffer.toString();
-		*/
 		return concatConceptsBuffer.toString();
+	}
+	
+	public void sanitize(CaDSRObjects caDSRObjects) {
+		List<Concept> adminComps = (List<Concept>)caDSRObjects.getList(DomainObjectFactory.newConcept());
+		sanitize(adminComps);
+	}
+	
+	private void sanitize(List<Concept> concepts) {
+		for (Concept concept: concepts) {
+			String longName = concept.getLongName();
+			if (longName != null && !longName.trim().equals("")) {
+				String sanitizedLongName = gov.nih.nci.ncicb.cadsr.bulkloader.util.StringUtil.replaceSpecialCharacters(longName);
+				concept.setLongName(sanitizedLongName);
+			}
+		}
 	}
 }
