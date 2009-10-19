@@ -9,6 +9,7 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.parser.ParseResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.parser.Parser;
 import gov.nih.nci.ncicb.cadsr.bulkloader.persist.Persister;
 import gov.nih.nci.ncicb.cadsr.bulkloader.persist.PersisterResult;
+import gov.nih.nci.ncicb.cadsr.bulkloader.util.CaDSRObjectsUtil;
 import gov.nih.nci.ncicb.cadsr.bulkloader.validate.Validation;
 import gov.nih.nci.ncicb.cadsr.bulkloader.validate.ValidationResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.validate.ValidationStatus;
@@ -21,6 +22,8 @@ public class CaDSRBulkLoaderImpl implements CaDSRBulkLoader{
 	private Validation validator;
 	private Persister persister;
 	private BulkLoaderDAOFacade daoFacade;
+	
+	private CaDSRObjectsUtil caDSRObjectsUtil = new CaDSRObjectsUtil();
 	
 	public Parser getParser() {
 		return parser;
@@ -56,6 +59,7 @@ public class CaDSRBulkLoaderImpl implements CaDSRBulkLoader{
 			CaDSRObjects caDSRObjects = parseResult.getCaDSRObjects();
 			LoadObjects loadObjects = getLoadObjects(loadProperties);
 			
+			caDSRObjectsUtil.sanitize(caDSRObjects);
 			caDSRObjects = daoFacade.loadFromCaDSR(caDSRObjects, loadObjects);
 			
 			ValidationResult validationResult = performValidation(input, loadObjects, caDSRObjects);
