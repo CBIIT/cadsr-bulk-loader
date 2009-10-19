@@ -34,7 +34,6 @@ public class ExcelValidation implements TransformerValidation {
 		
 		QuestionsIterator questionsIter = new QuestionsIterator(questions);
 		
-		int i=0;
 		while (questionsIter.hasNext()) {
 			List<ExcelQuestion> oneRecord = questionsIter.next();
 			List<Item> items = new ArrayList<Item>();
@@ -42,10 +41,10 @@ public class ExcelValidation implements TransformerValidation {
 				items.add(question);
 			}
 			
-			TransformerValidationLineItemResult lineItemResult = new TransformerValidationLineItemResult(i, items);
-			result.addLineItemResult(lineItemResult);
-			
 			ExcelQuestion question = oneRecord.get(0);
+			
+			TransformerValidationLineItemResult lineItemResult = new TransformerValidationLineItemResult(question.getQuestionNumber(), items);
+			result.addLineItemResult(lineItemResult);
 			
 			try {
 				lineItemResult = validateCDE(question, lineItemResult);
@@ -302,14 +301,6 @@ public class ExcelValidation implements TransformerValidation {
 			}
 		}
 		else {
-			/*if (!(repTermQualConcepts == null || repTermQualConcepts.trim().equals("")
-					|| repTermPrimConcepts == null || repTermPrimConcepts.trim().equals("")
-					|| vdCdId == null || vdCdId.trim().equals("")
-					|| datatype == null || datatype.trim().equals("")
-					|| vdMaxLength == null || vdMaxLength.trim().equals("")
-					|| enumerated == null || enumerated.trim().equals(""))) {
-				lineItemResult.addStatus(ExcelValidationStatus.VDID_AND_DATA_PRESENT);
-			}*/
 			if (!testIdFormat(vdId)) {
 				lineItemResult.addStatus(ExcelValidationStatus.INVALID_VDID);
 			}
@@ -319,17 +310,14 @@ public class ExcelValidation implements TransformerValidation {
 	}
 	
 	private TransformerValidationLineItemResult validateVM(List<ExcelQuestion> oneRecord, TransformerValidationLineItemResult lineItemResult) {
-		ExcelQuestion mainQuestion = oneRecord.get(0);
-		String enumerated = mainQuestion.getEnumerated();
-		String vdId = mainQuestion.getVdId();
-		if (vdId == null && enumerated != null && enumerated.equalsIgnoreCase("yes")) {
+		if (isEnumerated(oneRecord)) {
 			List<String> vmConcepts = new ArrayList<String>();
 			for (ExcelQuestion excelQuestion: oneRecord) {
 				String vmConceptStrs = excelQuestion.getVmConcepts();
 				if (vmConceptStrs != null) {
-					String[] vmConceptsAsArray = vmConceptStrs.split(";");
+					String[] vmConceptsAsArray = getFieldMainElements(vmConceptStrs);
 					for (String vmConceptWithName: vmConceptsAsArray) {
-						String[] vmConceptAndName = vmConceptWithName.split(":");
+						String[] vmConceptAndName = getElementSubElements(vmConceptWithName);
 						String vmConcept = vmConceptAndName[0];
 						if (vmConcepts.contains(vmConcept)) {
 							lineItemResult.addStatus(ExcelValidationStatus.generateErrorStatus("Duplicate VM concept ["+vmConcept+"] for the Question # ["+excelQuestion.getQuestionNumber()+"]"));
@@ -340,10 +328,37 @@ public class ExcelValidation implements TransformerValidation {
 					}
 				}
 			}
-			
 		}
 		
 		return lineItemResult;
+	}
+	
+	private boolean isEnumerated(List<ExcelQuestion> oneRecord) {
+		ExcelQuestion mainQuestion = oneRecord.get(0);
+		String enumerated = mainQuestion.getEnumerated();
+		String vdId = mainQuestion.getVdId();
+		if (vdId == null && enumerated != null && enumerated.equalsIgnoreCase("yes")) {
+			return true;
+		}
+		else return false;
+	}
+	
+	private String[] getFieldMainElements(String fieldStr) {
+		if (fieldStr == null || fieldStr.trim().equals("")) {
+			return new String[0];
+		}
+		String[] fieldMainElements = fieldStr.split(";");
+		
+		return fieldMainElements;
+	}
+	
+	private String[] getElementSubElements(String elementStr) {
+		if (elementStr == null || elementStr.trim().equals("")) {
+			return new String[0];
+		}
+		String[] elementsSubElements = elementStr.split(":");
+		
+		return elementsSubElements;
 	}
 	
 	private boolean testIdFormat(String id) {
@@ -352,19 +367,13 @@ public class ExcelValidation implements TransformerValidation {
 	}
 	
 	private boolean testConceptFormat(String qualConcepts) {
-		return CONCEPTS_PATTERN.matcher(qualConcepts).matches();
-	}
-	
-	private boolean testPrimaryConceptFormat(String primConcept) {
-		Pattern primConceptPattern = Pattern.compile("[a-zA-Z]*[0-9]*;?");
-		
-		return patternMatch(primConcept, primConceptPattern);
-	}
-	
-	private boolean testConceptCodeFormat(String cui) {
-		Pattern cuiPattern = Pattern.compile("[a-zA-Z]*[0-9]*");
-		
-		return patternMatch(cui, cuiPattern);
+		if(CONCEPTS_PATTERN.matcher(qualConcepts).matches()) {
+			return true;
+		}
+		else {
+			String formattedConceptStr = gov.nih.nci.ncicb.cadsr.bulkloader.util.StringUtil.replaceSpecialCharacters(qualConcepts);
+			return CONCEPTS_PATTERN.matcher(formattedConceptStr).matches();
+		}
 	}
 	
 	private boolean patternMatch(String toMatch, Pattern p) {
