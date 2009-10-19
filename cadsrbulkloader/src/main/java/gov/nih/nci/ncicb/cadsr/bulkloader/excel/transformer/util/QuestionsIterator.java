@@ -37,20 +37,14 @@ public class QuestionsIterator {
 			subList.add(question);
 			i.incrementAndGet();
 
-			String enumerated = question.getEnumerated();
-			if (enumerated == null || enumerated.equalsIgnoreCase("no")) {
-				return subList;
-			}
-			else {
-				while (hasNext()) {
-					ExcelQuestion nextQuestion = questions.get(i.get());
-					if (nextQuestion.getQuestionNumber() <= question.getQuestionNumber()) {
-						subList.add(nextQuestion);
-						i.incrementAndGet();
-					}
-					else {
-						break;
-					}
+			while (hasNext()) {
+				ExcelQuestion nextQuestion = questions.get(i.get());
+				if (nextQuestion.getQuestionNumber() <= question.getQuestionNumber()) {
+					subList.add(nextQuestion);
+					i.incrementAndGet();
+				}
+				else {
+					break;
 				}
 			}
 		}
