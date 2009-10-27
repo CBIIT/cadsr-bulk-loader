@@ -529,15 +529,8 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 				if (createdDE.getAcCsCsis() != null) {
 					foundDE.setAcCsCsis(createdDE.getAcCsCsis());
 				}
-				if (createdDE.getAlternateNames() != null) {
-					String foundDELongName = foundDE.getLongName();
-					for (AlternateName altName: createdDE.getAlternateNames()) {
-						String altLongName = altName.getName();
-						if (altLongName!=null && (foundDELongName == null || !foundDELongName.equalsIgnoreCase(altLongName))) {
-							foundDE.addAlternateName(altName);
-						}
-					}
-				}
+				foundDE = addAlternateNames(createdDE, foundDE);
+				foundDE = addRefDocs(createdDE, foundDE);
 			}
 			else {
 				lookedUpDEs.add(createdDE);
@@ -545,5 +538,31 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 		}
 		
 		return lookedUpDEs;
+	}
+	
+	private DataElement addAlternateNames(DataElement createdDE, DataElement foundDE) {
+		if (createdDE!=null && foundDE!=null && createdDE.getAlternateNames() != null) {
+			String foundDELongName = foundDE.getLongName();
+			for (AlternateName altName: createdDE.getAlternateNames()) {
+				String altLongName = altName.getName();
+				if (altLongName!=null && (foundDELongName == null || !foundDELongName.equalsIgnoreCase(altLongName))) {
+					foundDE.addAlternateName(altName);
+				}
+			}
+		}
+		
+		return foundDE;
+	}
+	
+	private DataElement addRefDocs(DataElement createdDE, DataElement foundDE) {
+		if (createdDE!=null && foundDE!=null && createdDE.getReferenceDocuments() != null) {
+			List foundRefDocs = foundDE.getReferenceDocuments();
+			if (foundRefDocs == null) {
+				foundRefDocs = new ArrayList();
+			}
+			foundRefDocs.addAll(createdDE.getReferenceDocuments());
+		}
+		
+		return foundDE;
 	}
 }
