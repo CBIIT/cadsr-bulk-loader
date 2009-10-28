@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 
 public class ExcelValidation implements TransformerValidation {
 
-	private static final Pattern CONCEPTS_PATTERN = Pattern.compile("[[a-zA-Z0-9() ]+[:|;]?]*");
+	private static final Pattern CONCEPTS_PATTERN = Pattern.compile("[a-zA-Z0-9]+");
 	
 	public TransformerValidationResult validate(Item toValidate) {
 		
@@ -367,13 +367,27 @@ public class ExcelValidation implements TransformerValidation {
 	}
 	
 	private boolean testConceptFormat(String qualConcepts) {
-		if(CONCEPTS_PATTERN.matcher(qualConcepts).matches()) {
-			return true;
+		String[] conceptFields = qualConcepts.split(";");
+		
+		if (conceptFields.length < 1) {
+			return false;
 		}
-		else {
-			String formattedConceptStr = gov.nih.nci.ncicb.cadsr.bulkloader.util.StringUtil.replaceSpecialCharacters(qualConcepts);
-			return CONCEPTS_PATTERN.matcher(formattedConceptStr).matches();
+		
+		for (String conceptField: conceptFields) {
+			String[] conceptTerms = conceptField.split(":");
+			
+			if (conceptTerms.length < 1) {
+				return false;
+			}
+			if (CONCEPTS_PATTERN.matcher(conceptTerms[0]).matches()) {
+				continue;
+			}
+			else {
+				return false;
+			}
 		}
+		
+		return true;
 	}
 	
 	private boolean patternMatch(String toMatch, Pattern p) {
