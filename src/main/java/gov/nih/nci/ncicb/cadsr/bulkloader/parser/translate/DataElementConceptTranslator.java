@@ -3,6 +3,7 @@ package gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.DataElementConceptList_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.DataElementConcept_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ISO11179Elements;
+import gov.nih.nci.ncicb.cadsr.domain.AdminComponentClassSchemeClassSchemeItem;
 import gov.nih.nci.ncicb.cadsr.domain.DataElementConcept;
 import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
 import gov.nih.nci.ncicb.cadsr.domain.ObjectClass;
@@ -38,10 +39,12 @@ public class DataElementConceptTranslator extends AbstractTranslatorTemplate {
 		String longName = util.getDECLongName(dec);
 		String publicId = util.getIdentifier(isoDEC);
 		Float version = util.getIdVersion(isoDEC);
+		List<AdminComponentClassSchemeClassSchemeItem> acCSCSIList = util.getAdminComponentCSCSI(isoDEC, objRegistry);
 		
 		dec.setLongName(longName);
 		dec.setPublicId(publicId);
 		dec.setVersion(version);
+		dec.setAcCsCsis(acCSCSIList);
 		
 		return dec;
 	}
