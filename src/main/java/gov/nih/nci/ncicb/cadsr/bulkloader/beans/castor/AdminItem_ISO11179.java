@@ -17,7 +17,7 @@ public class AdminItem_ISO11179 {
 	private AdminRecord_ISO11179 adminRecord;
 	private RegistrationAuthority_ISO11179 registeredBy;
 	private List<ReferenceDocument_ISO11179> describedBy;
-	private List<ClassificationSchemeItemRef_ISO11179> classifiedBy;
+	private ClassifiedBy_ISO11179 classifiedBy;
 	private Submission_ISO11179 submittedBy;
 	private Stewardship_ISO11179 administeredBy;
 	private List<TerminologicalEntry_ISO11179> having;
@@ -47,11 +47,11 @@ public class AdminItem_ISO11179 {
 	public void setDescribedBy(List<ReferenceDocument_ISO11179> describedBy) {
 		this.describedBy = describedBy;
 	}
-	public List<ClassificationSchemeItemRef_ISO11179> getClassifiedBy() {
+	public ClassifiedBy_ISO11179 getClassifiedBy() {
 		return classifiedBy;
 	}
 	public void setClassifiedBy(
-			List<ClassificationSchemeItemRef_ISO11179> classifiedBy) {
+			ClassifiedBy_ISO11179 classifiedBy) {
 		this.classifiedBy = classifiedBy;
 	}
 	public Submission_ISO11179 getSubmittedBy() {
