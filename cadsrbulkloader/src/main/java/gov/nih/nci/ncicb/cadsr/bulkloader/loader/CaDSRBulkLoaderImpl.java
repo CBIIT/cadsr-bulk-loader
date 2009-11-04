@@ -13,8 +13,12 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.util.CaDSRObjectsUtil;
 import gov.nih.nci.ncicb.cadsr.bulkloader.validate.Validation;
 import gov.nih.nci.ncicb.cadsr.bulkloader.validate.ValidationResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.validate.ValidationStatus;
+import gov.nih.nci.ncicb.cadsr.domain.ClassSchemeClassSchemeItem;
 import gov.nih.nci.ncicb.cadsr.domain.ClassificationScheme;
+import gov.nih.nci.ncicb.cadsr.domain.ClassificationSchemeItem;
 import gov.nih.nci.ncicb.cadsr.domain.Context;
+
+import java.util.List;
 
 public class CaDSRBulkLoaderImpl implements CaDSRBulkLoader{
 
@@ -93,10 +97,36 @@ public class CaDSRBulkLoaderImpl implements CaDSRBulkLoader{
 		Context loadContext = daoFacade.findContextByName(loadProperties.getContextName());
 		ClassificationScheme loadClassScheme = daoFacade.getClassificationScheme(loadProperties.getClassificationSchemeName());
 		
+		if (loadClassScheme == null || loadClassScheme.getPublicId() == null) {
+			throw new BulkLoaderRuntimeException("Could not find the given CS ["+loadProperties.getClassificationSchemeName()+"]");
+		}
+		
+		ClassificationSchemeItem csi = getCSI(loadClassScheme, loadProperties.getClassificationSchemeItemName());
+		if (csi == null) {
+			throw new BulkLoaderRuntimeException("Could not find the CSI specified ["+loadProperties.getClassificationSchemeItemName()+"] for the given CS ["+loadProperties.getClassificationSchemeName()+"]");
+		}
+		
 		loadObjects.setLoadContext(loadContext);
 		loadObjects.setLoadClassScheme(loadClassScheme);
 		
 		return loadObjects;
+	}
+	
+	private ClassificationSchemeItem getCSI(ClassificationScheme cs, String _csiLongName) {
+		if (cs == null || _csiLongName == null) {
+			return null;
+		}
+		
+		List<ClassSchemeClassSchemeItem> csCsis = cs.getCsCsis();
+		for (ClassSchemeClassSchemeItem csCsi: csCsis) {
+			ClassificationSchemeItem csi = csCsi.getCsi();
+			String csiLongName = csi.getLongName();
+			if (csiLongName != null && csiLongName.equalsIgnoreCase(_csiLongName.trim())) {
+				return csi;
+			}
+		}
+		
+		return null;
 	}
 	
 }

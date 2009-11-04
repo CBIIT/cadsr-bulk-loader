@@ -2,6 +2,7 @@ package gov.nih.nci.ncicb.cadsr.bulkloader.parser.util;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.AdminItem_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.AdminRecord_ISO11179;
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ClassificationSchemeItemRef_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ComponentConceptList_caDSR11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ComponentConcept_caDSR11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptDerivationRule_caDSR11179;
@@ -12,6 +13,10 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.LanguageSection_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.TerminologicalEntry_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.CaDSRObjectRegistry;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.CaDSRObjectsUtil;
+import gov.nih.nci.ncicb.cadsr.domain.AdminComponentClassSchemeClassSchemeItem;
+import gov.nih.nci.ncicb.cadsr.domain.ClassSchemeClassSchemeItem;
+import gov.nih.nci.ncicb.cadsr.domain.ClassificationScheme;
+import gov.nih.nci.ncicb.cadsr.domain.ClassificationSchemeItem;
 import gov.nih.nci.ncicb.cadsr.domain.ComponentConcept;
 import gov.nih.nci.ncicb.cadsr.domain.Concept;
 import gov.nih.nci.ncicb.cadsr.domain.ConceptDerivationRule;
@@ -193,6 +198,29 @@ public class ParserUtil {
 		catch (Exception e) {
 			return null;
 		}
+	}
+	
+	public List<AdminComponentClassSchemeClassSchemeItem> getAdminComponentCSCSI(AdminItem_ISO11179 isoAdminItem, CaDSRObjectRegistry objRegistry) {
+		List<AdminComponentClassSchemeClassSchemeItem> acCSCSIList = new ArrayList<AdminComponentClassSchemeClassSchemeItem>();
+		List<ClassificationSchemeItemRef_ISO11179> isoCSIRefs = isoAdminItem.getClassifiedBy().getClassifiedBy();
+		for (ClassificationSchemeItemRef_ISO11179 isoCSIRef: isoCSIRefs) {
+			String isoCSRefId = isoCSIRef.getCsRefId();
+			String isoCSIRefId = isoCSIRef.getCsiRefId();
+			
+			ClassificationScheme cs = objRegistry.getClassificationScheme(isoCSRefId);
+			ClassificationSchemeItem csi = objRegistry.getClassificationSchemeItem(isoCSIRefId);
+			
+			ClassSchemeClassSchemeItem csCSI = DomainObjectFactory.newClassSchemeClassSchemeItem();
+			csCSI.setCs(cs);
+			csCSI.setCsi(csi);
+			
+			AdminComponentClassSchemeClassSchemeItem acCSCSI = DomainObjectFactory.newAdminComponentClassSchemeClassSchemeItem();
+			acCSCSI.setCsCsi(csCSI);
+			
+			acCSCSIList.add(acCSCSI);
+		}
+		
+		return acCSCSIList;
 	}
 	
 	private List<ComponentConcept> getComponentConceptsFromConcepts(

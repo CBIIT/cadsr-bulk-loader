@@ -48,7 +48,7 @@ public class ExcelValidation implements TransformerValidation {
 			
 			try {
 				lineItemResult = validateCDE(question, lineItemResult);
-				lineItemResult = validateVM(oneRecord, lineItemResult);
+				lineItemResult = validatePVsAndVMs(oneRecord, lineItemResult);
 			} catch(Exception e) {
 				result.setValidationException(e);
 				result.setStatus(ExcelValidationStatus.FAILED_UNKNOWN);
@@ -309,10 +309,15 @@ public class ExcelValidation implements TransformerValidation {
 		return lineItemResult;
 	}
 	
-	private TransformerValidationLineItemResult validateVM(List<ExcelQuestion> oneRecord, TransformerValidationLineItemResult lineItemResult) {
+	private TransformerValidationLineItemResult validatePVsAndVMs(List<ExcelQuestion> oneRecord, TransformerValidationLineItemResult lineItemResult) {
 		if (isEnumerated(oneRecord)) {
+			boolean pvPresent = false;
 			List<String> vmConcepts = new ArrayList<String>();
 			for (ExcelQuestion excelQuestion: oneRecord) {
+				String pv = excelQuestion.getPv();
+				if (!pvPresent && pv != null && pv.trim().equals("")) {
+					pvPresent  = true;
+				}
 				String vmConceptStrs = excelQuestion.getVmConcepts();
 				if (vmConceptStrs != null) {
 					String[] vmConceptsAsArray = getFieldMainElements(vmConceptStrs);
@@ -327,6 +332,10 @@ public class ExcelValidation implements TransformerValidation {
 						}
 					}
 				}
+			}
+			
+			if (!pvPresent) {
+				lineItemResult.addStatus(ExcelValidationStatus.ENUM_VD_NO_PV);
 			}
 		}
 		

@@ -8,6 +8,7 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ClassificationSchemeItemR
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ClassificationSchemeItem_caDSR11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ClassificationSchemeList_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ClassificationScheme_ISO11179;
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ClassifiedBy_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ComponentConceptList_caDSR11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ComponentConcept_caDSR11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptDerivationRule_caDSR11179;
@@ -392,17 +393,9 @@ public class ExcelTransformation implements TransformerTransformation {
 		DataElementConcept_ISO11179 isoDEC = getDEC(mainQuestion);
 		ValueDomain_caDSR11179 isoVD = getVD(excelQuestions);
 		
-		ClassificationScheme_ISO11179 isoCS = getCS();
-		ClassificationSchemeItem_caDSR11179 isoCSI = getCSI();
-		ClassificationSchemeItemRef_ISO11179 isoCSIRef = new ClassificationSchemeItemRef_ISO11179();
-		isoCSIRef.setCsRefId(isoCS.getTagId());
-		isoCSIRef.setCsiRefId(isoCSI.getTagId());
-		List<ClassificationSchemeItemRef_ISO11179> isoCSIRefs = new ArrayList<ClassificationSchemeItemRef_ISO11179>();
-		isoCSIRefs.add(isoCSIRef);
-		
 		isoDE.setDecRefId(isoDEC.getTagId());
 		isoDE.setVdRefId(isoVD.getTagId());
-		isoDE.setClassifiedBy(isoCSIRefs);
+		isoDE.setClassifiedBy(getClassifiedBy());
 		
 		String preferredQuestion = mainQuestion.getPreferredQuestion();
 		String alternateQuestion = mainQuestion.getAlternateQuestion();
@@ -477,15 +470,7 @@ public class ExcelTransformation implements TransformerTransformation {
 		isoDEC.setPropertyRefId(isoProp.getTagId());
 		isoDEC.setConceptualDomainRefId(isoCD.getTagId());
 		
-		ClassificationScheme_ISO11179 isoCS = getCS();
-		ClassificationSchemeItem_caDSR11179 isoCSI = getCSI();
-		ClassificationSchemeItemRef_ISO11179 isoCSIRef = new ClassificationSchemeItemRef_ISO11179();
-		isoCSIRef.setCsRefId(isoCS.getTagId());
-		isoCSIRef.setCsiRefId(isoCSI.getTagId());
-		List<ClassificationSchemeItemRef_ISO11179> isoCSIRefs = new ArrayList<ClassificationSchemeItemRef_ISO11179>();
-		isoCSIRefs.add(isoCSIRef);
-		
-		isoDEC.setClassifiedBy(isoCSIRefs);
+		isoDEC.setClassifiedBy(getClassifiedBy());
 		
 		String tagId = "DEC-"+getRandomString();
 		
@@ -637,6 +622,7 @@ public class ExcelTransformation implements TransformerTransformation {
 		}
 		
 		isoVD.setTagId(tagId);
+		isoVD.setClassifiedBy(getClassifiedBy());
 		
 		return isoVD;
 	}
@@ -666,6 +652,21 @@ public class ExcelTransformation implements TransformerTransformation {
 		}
 	}
 	
+	private ClassifiedBy_ISO11179 getClassifiedBy() {
+		ClassifiedBy_ISO11179 classifiedBy_iso11179 = new ClassifiedBy_ISO11179();
+		
+		ClassificationScheme_ISO11179 isoCS = getCS();
+		ClassificationSchemeItem_caDSR11179 isoCSI = getCSI();
+		ClassificationSchemeItemRef_ISO11179 isoCSIRef = new ClassificationSchemeItemRef_ISO11179();
+		isoCSIRef.setCsRefId(isoCS.getTagId());
+		isoCSIRef.setCsiRefId(isoCSI.getTagId());
+		List<ClassificationSchemeItemRef_ISO11179> isoCSIRefs = new ArrayList<ClassificationSchemeItemRef_ISO11179>();
+		isoCSIRefs.add(isoCSIRef);
+		
+		classifiedBy_iso11179.setClassifiedBy(isoCSIRefs);
+		return classifiedBy_iso11179;
+	}
+	
 	private ObjectClass_caDSR11179 getObjectClassAndAddConcepts(List<Concept_caDSR11179> isoConcepts) {
 		String codesConcat = getConceptConcatenation(isoConcepts);
 		if (ocMap.containsKey(codesConcat)) {
@@ -678,6 +679,7 @@ public class ExcelTransformation implements TransformerTransformation {
 			isoObjClass.setConceptDerivationRule(getCDRAndAddConcepts(isoConcepts));
 			String tagId = "OC-"+getRandomString();
 			isoObjClass.setTagId(tagId);
+			isoObjClass.setClassifiedBy(getClassifiedBy());
 			
 			ocMap.put(codesConcat, isoObjClass);
 			
@@ -698,6 +700,7 @@ public class ExcelTransformation implements TransformerTransformation {
 			isoProp.setConceptDerivationRule(getCDRAndAddConcepts(isoConcepts));
 			String tagId = "Prop-"+getRandomString();
 			isoProp.setTagId(tagId);
+			isoProp.setClassifiedBy(getClassifiedBy());
 			
 			propMap.put(codesConcat, isoProp);
 			
@@ -721,6 +724,7 @@ public class ExcelTransformation implements TransformerTransformation {
 			String tagId = "VM-"+getRandomString();
 			isoVM.setTagId(tagId);
 			isoVM.setId("");
+			isoVM.setClassifiedBy(getClassifiedBy());
 			
 			vmMap.put(codesConcat, isoVM);
 			
@@ -897,7 +901,7 @@ public class ExcelTransformation implements TransformerTransformation {
 		isoAdminItem.setAdminRecord(getBlankAdminRecord());
 		isoAdminItem.setAdministeredBy(getBlankAdministeredBy());
 		
-		isoAdminItem.setClassifiedBy(new ArrayList<ClassificationSchemeItemRef_ISO11179>());
+		isoAdminItem.setClassifiedBy(new ClassifiedBy_ISO11179());
 		isoAdminItem.setDescribedBy(new ArrayList<ReferenceDocument_ISO11179>());
 		isoAdminItem.setHaving(new ArrayList<TerminologicalEntry_ISO11179>());
 		

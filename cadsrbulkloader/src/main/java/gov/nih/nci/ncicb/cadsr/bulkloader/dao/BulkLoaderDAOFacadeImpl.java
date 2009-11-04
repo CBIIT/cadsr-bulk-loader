@@ -343,21 +343,25 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 		
 		if (objectClasses != null) {
 			List<ObjectClass> lookedUpObjectClasses = loadObjectClasses(objectClasses);
+			replaceCSCSIs(lookedUpObjectClasses);
 			cadsrObjects.setObjectClasses(lookedUpObjectClasses);
 		}
 		
 		if (properties != null) {
 			List<Property> lookedUpProperties = loadProperties(properties);
+			replaceCSCSIs(lookedUpProperties);
 			cadsrObjects.setProperties(lookedUpProperties);
 		}
 		
 		if (dataElementConcepts != null) {
 			List<DataElementConcept> lookedUpDataElementConcepts = loadDataElementConcepts(dataElementConcepts);
+			replaceCSCSIs(lookedUpDataElementConcepts);
 			cadsrObjects.setDataElementConcepts(lookedUpDataElementConcepts);
 		}
 		
 		if (valueDomains != null) {
 			List<ValueDomain> lookedUpValueDomains = loadValueDomains(valueDomains, loadObjects);
+			replaceCSCSIs(lookedUpValueDomains);
 			cadsrObjects.setValueDomains(lookedUpValueDomains);
 		}
 		
@@ -411,6 +415,8 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 				objectClassCacheById.put(foundOC.getPublicId(), foundOC);
 				objectClassCache.put(createdOC, foundOC);
 				lookedUpOCs.add(foundOC);
+				
+				foundOC = addCSCSIs(createdOC, foundOC);
 			}
 			else {
 				lookedUpOCs.add(createdOC);
@@ -429,6 +435,8 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 				propertyCacheById.put(foundProp.getPublicId(), foundProp);
 				propertyCache.put(createdProp, foundProp);
 				lookedUpProps.add(foundProp);
+				
+				foundProp = addCSCSIs(createdProp, foundProp);
 			}
 			else {
 				lookedUpProps.add(createdProp);
@@ -463,6 +471,8 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 				dataElementConceptCacheById.put(foundDEC.getPublicId(), foundDEC);
 				dataElementConceptCache.put(createdDEC, foundDEC);
 				lookedUpDECs.add(foundDEC);
+				
+				foundDEC = addCSCSIs(createdDEC, foundDEC);
 			}
 			else {
 				lookedUpDECs.add(createdDEC);
@@ -482,6 +492,8 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 				valueDomainCacheById.put(foundVD.getPublicId(), foundVD);
 				valueDomainCache.put(createdVD, foundVD);
 				lookedUpVDs.add(foundVD);
+				
+				foundVD = addCSCSIs(createdVD, foundVD);
 			}
 			else {
 				setVMContext(createdVD, loadObjects.getLoadContext());
@@ -526,11 +538,10 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 				foundDE.removeDefinitions();
 				
 				lookedUpDEs.add(foundDE);
-				if (createdDE.getAcCsCsis() != null) {
-					foundDE.setAcCsCsis(createdDE.getAcCsCsis());
-				}
+				
 				foundDE = addAlternateNames(createdDE, foundDE);
 				foundDE = addRefDocs(createdDE, foundDE);
+				foundDE = addCSCSIs(createdDE, foundDE);
 			}
 			else {
 				lookedUpDEs.add(createdDE);
@@ -540,29 +551,37 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 		return lookedUpDEs;
 	}
 	
-	private DataElement addAlternateNames(DataElement createdDE, DataElement foundDE) {
-		if (createdDE!=null && foundDE!=null && createdDE.getAlternateNames() != null) {
-			String foundDELongName = foundDE.getLongName();
-			for (AlternateName altName: createdDE.getAlternateNames()) {
+	private <T extends AdminComponent> T addAlternateNames(T createdAC, T foundAC) {
+		if (createdAC!=null && foundAC!=null && createdAC.getAlternateNames() != null) {
+			String foundDELongName = foundAC.getLongName();
+			for (AlternateName altName: createdAC.getAlternateNames()) {
 				String altLongName = altName.getName();
 				if (altLongName!=null && (foundDELongName == null || !foundDELongName.equalsIgnoreCase(altLongName))) {
-					foundDE.addAlternateName(altName);
+					foundAC.addAlternateName(altName);
 				}
 			}
 		}
 		
-		return foundDE;
+		return foundAC;
 	}
 	
-	private DataElement addRefDocs(DataElement createdDE, DataElement foundDE) {
-		if (createdDE!=null && foundDE!=null && createdDE.getReferenceDocuments() != null) {
-			List foundRefDocs = foundDE.getReferenceDocuments();
+	private <T extends AdminComponent> T addRefDocs(T createdDE, T foundAC) {
+		if (createdDE!=null && foundAC!=null && createdDE.getReferenceDocuments() != null) {
+			List foundRefDocs = foundAC.getReferenceDocuments();
 			if (foundRefDocs == null) {
 				foundRefDocs = new ArrayList();
 			}
 			foundRefDocs.addAll(createdDE.getReferenceDocuments());
 		}
 		
-		return foundDE;
+		return foundAC;
+	}
+	
+	private <T extends AdminComponent> T addCSCSIs(T createdAC, T foundAC) {
+		if (createdAC.getAcCsCsis() != null) {
+			foundAC.setAcCsCsis(createdAC.getAcCsCsis());
+		}
+		
+		return foundAC;
 	}
 }
