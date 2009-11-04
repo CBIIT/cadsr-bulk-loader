@@ -36,6 +36,10 @@ public class BulkLoadProcessResult {
 		this.exception = exception;
 	}
 	public boolean isSuccessful() {
+		if (getException() != null) {
+			return false;
+		}
+		
 		if (transformResult == null || loadResult == null) {
 			return false;
 		}
@@ -55,7 +59,10 @@ public class BulkLoadProcessResult {
 			message.append("Process FAILED!");
 			message.append("\nCause:");
 			
-			if (transformResult == null) {
+			if (getException() != null) {
+				message.append(getException().getMessage());
+			}
+			else if (transformResult == null) {
 				message.append("Error in transformation");
 			}
 			else if (transformResult.hasErrors()) {
