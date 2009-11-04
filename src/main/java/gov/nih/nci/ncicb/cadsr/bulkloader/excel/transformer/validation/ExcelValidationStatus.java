@@ -40,6 +40,7 @@ public class ExcelValidationStatus implements TransformerValidationStatus {
 	public static final ExcelValidationStatus BLANK_SOURCE = new ExcelValidationStatus(-23, "Source cannot be blank");
 	public static final ExcelValidationStatus PV_NO_VM = new ExcelValidationStatus(-24, "The Permissible Value entered does not have any Value Meaning concepts");
 	public static final ExcelValidationStatus INVALID_MAX_LENGTH = new ExcelValidationStatus(-25, "The VD Max Length entered is not a number");
+	public static final ExcelValidationStatus ENUM_VD_NO_PV = new ExcelValidationStatus(-26, "Enumerated VD should have atleast one Permissible Value");
 	
 	private int errorCode;
 	private String message;
