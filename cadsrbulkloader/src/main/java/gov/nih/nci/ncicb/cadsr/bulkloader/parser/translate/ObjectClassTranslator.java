@@ -3,6 +3,7 @@ package gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptDerivationRule_caDSR11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ISO11179Elements;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ObjectClass_caDSR11179;
+import gov.nih.nci.ncicb.cadsr.domain.AdminComponentClassSchemeClassSchemeItem;
 import gov.nih.nci.ncicb.cadsr.domain.Concept;
 import gov.nih.nci.ncicb.cadsr.domain.ConceptDerivationRule;
 import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
@@ -33,12 +34,14 @@ public class ObjectClassTranslator extends AbstractTranslatorTemplate {
 		String longName = util.getLongNameFromConcepts(concepts);
 		String preferredName = util.getPreferredNameFromConcepts(concepts);
 		String preferredDefinition = util.getDefinitionFromConcepts(concepts);
+		List<AdminComponentClassSchemeClassSchemeItem> acCSCSIList = util.getAdminComponentCSCSI(isoObjClass, objRegistry);
 		
 		ObjectClass objClass = DomainObjectFactory.newObjectClass();
 		objClass.setLongName(longName);
 		objClass.setConceptDerivationRule(cdr);
 		objClass.setPreferredName(preferredName);
 		objClass.setPreferredDefinition(preferredDefinition);
+		objClass.setAcCsCsis(acCSCSIList);
 		
 		return objClass;
 	}

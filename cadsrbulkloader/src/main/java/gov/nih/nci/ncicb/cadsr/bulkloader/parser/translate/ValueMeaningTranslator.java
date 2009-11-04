@@ -3,6 +3,7 @@ package gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ConceptDerivationRule_caDSR11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ISO11179Elements;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueMeaning_caDSR11179;
+import gov.nih.nci.ncicb.cadsr.domain.AdminComponentClassSchemeClassSchemeItem;
 import gov.nih.nci.ncicb.cadsr.domain.ConceptDerivationRule;
 import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
 import gov.nih.nci.ncicb.cadsr.domain.ValueMeaning;
@@ -26,11 +27,13 @@ public class ValueMeaningTranslator extends AbstractTranslatorTemplate {
 		ConceptDerivationRule_caDSR11179 isoCDR = isoVM.getConceptDerivationRule();
 		ConceptDerivationRule cdr = util.getConceptDerivationRule(isoCDR, objRegistry);
 		String longName = util.getLongName(cdr);
+		List<AdminComponentClassSchemeClassSchemeItem> acCsCSI = util.getAdminComponentCSCSI(isoVM, objRegistry);
 		
 		ValueMeaning valueMeaning = DomainObjectFactory.newValueMeaning();
 		valueMeaning.setConceptDerivationRule(cdr);
 		valueMeaning.setLongName(longName);
 		valueMeaning.setId(longName);
+		valueMeaning.setAcCsCsis(acCsCSI);
 		
 		return valueMeaning;
 	}

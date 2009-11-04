@@ -8,6 +8,7 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.PermissibleValue_ISO11179
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.RepresentationClass_caDSR11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueDomain_caDSR11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.CaDSRObjectsUtil;
+import gov.nih.nci.ncicb.cadsr.domain.AdminComponentClassSchemeClassSchemeItem;
 import gov.nih.nci.ncicb.cadsr.domain.Concept;
 import gov.nih.nci.ncicb.cadsr.domain.ConceptDerivationRule;
 import gov.nih.nci.ncicb.cadsr.domain.ConceptualDomain;
@@ -43,6 +44,7 @@ public class ValueDomainTranslator extends AbstractTranslatorTemplate {
 		String vdLongName = util.getPreferredQuestionText(isoVD);
 		if (vdLongName == null) vdLongName = "";
 		int maxLength = isoVD.getMaxCharacters();
+		List<AdminComponentClassSchemeClassSchemeItem> acCSCSIList = util.getAdminComponentCSCSI(isoVD, objRegistry);
 		
 		String enumerated = "N";
 		if (isoVD instanceof  EnumeratedValueDomain_caDSR11179) {
@@ -67,6 +69,7 @@ public class ValueDomainTranslator extends AbstractTranslatorTemplate {
 		if (maxLength > 0) {
 			vd.setMaximumLength(maxLength);
 		}
+		vd.setAcCsCsis(acCSCSIList);
 		
 		String id = util.getIdentifier(isoVD);
 		Float version = util.getIdVersion(isoVD);

@@ -1,6 +1,5 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate;
 
-import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ClassificationSchemeItemRef_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.DataElement_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Designation_ISO11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ISO11179Elements;
@@ -10,9 +9,6 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.TerminologicalEntry_ISO11
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.ProjectPropertiesUtil;
 import gov.nih.nci.ncicb.cadsr.domain.AdminComponentClassSchemeClassSchemeItem;
 import gov.nih.nci.ncicb.cadsr.domain.AlternateName;
-import gov.nih.nci.ncicb.cadsr.domain.ClassSchemeClassSchemeItem;
-import gov.nih.nci.ncicb.cadsr.domain.ClassificationScheme;
-import gov.nih.nci.ncicb.cadsr.domain.ClassificationSchemeItem;
 import gov.nih.nci.ncicb.cadsr.domain.DataElement;
 import gov.nih.nci.ncicb.cadsr.domain.DataElementConcept;
 import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
@@ -58,7 +54,7 @@ public class DataElementTranslator extends AbstractTranslatorTemplate {
 		de.setPublicId(publicId);
 		de.setVersion(version);
 		
-		List<AdminComponentClassSchemeClassSchemeItem> acCSCSIList = getAdminComponentCSCSI(isoDE, objRegistry);
+		List<AdminComponentClassSchemeClassSchemeItem> acCSCSIList = util.getAdminComponentCSCSI(isoDE, objRegistry);
 		de.setAcCsCsis(acCSCSIList);
 		
 		return de;
@@ -127,29 +123,6 @@ public class DataElementTranslator extends AbstractTranslatorTemplate {
 			
 			de.setReferenceDocuments(refDocs);
 		}
-	}
-	
-	private List<AdminComponentClassSchemeClassSchemeItem> getAdminComponentCSCSI(DataElement_ISO11179 isoDE, CaDSRObjectRegistry objRegistry) {
-		List<AdminComponentClassSchemeClassSchemeItem> acCSCSIList = new ArrayList<AdminComponentClassSchemeClassSchemeItem>();
-		List<ClassificationSchemeItemRef_ISO11179> isoCSIRefs = isoDE.getClassifiedBy();
-		for (ClassificationSchemeItemRef_ISO11179 isoCSIRef: isoCSIRefs) {
-			String isoCSRefId = isoCSIRef.getCsRefId();
-			String isoCSIRefId = isoCSIRef.getCsiRefId();
-			
-			ClassificationScheme cs = objRegistry.getClassificationScheme(isoCSRefId);
-			ClassificationSchemeItem csi = objRegistry.getClassificationSchemeItem(isoCSIRefId);
-			
-			ClassSchemeClassSchemeItem csCSI = DomainObjectFactory.newClassSchemeClassSchemeItem();
-			csCSI.setCs(cs);
-			csCSI.setCsi(csi);
-			
-			AdminComponentClassSchemeClassSchemeItem acCSCSI = DomainObjectFactory.newAdminComponentClassSchemeClassSchemeItem();
-			acCSCSI.setCsCsi(csCSI);
-			
-			acCSCSIList.add(acCSCSI);
-		}
-		
-		return acCSCSIList;
 	}
 
 }
