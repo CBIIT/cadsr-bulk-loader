@@ -63,8 +63,8 @@
         <field name="describedBy" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ReferenceDocument_ISO11179">
             <bind-xml name="iso11179:described_by" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179" />
         </field>
-        <field name="classifiedBy" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ClassificationSchemeItemRef_ISO11179">
-            <bind-xml name="iso11179:Classification_Scheme_Item_Ref" location="classified_by" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179" />
+        <field name="classifiedBy" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ClassifiedBy_ISO11179">
+            <bind-xml name="iso11179:classified_by" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179" />
         </field>
         <field name="submittedBy" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.Submission_ISO11179">
             <bind-xml name="iso11179:submitted_by" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179" />
@@ -223,6 +223,12 @@
         </field>
         <field name="address" type="string">
             <bind-xml name="iso11179:organization_mail_address" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179"/>
+        </field>
+    </class>
+    
+    <class name="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ClassifiedBy_ISO11179">
+        <field name="classifiedBy" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ClassificationSchemeItemRef_ISO11179">
+            <bind-xml name="iso11179:Classification_Scheme_Item_Ref" xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179" />
         </field>
     </class>
 
