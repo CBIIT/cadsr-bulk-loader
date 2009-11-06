@@ -334,49 +334,329 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 		return publicId+"v"+version;
 	}
 	
-	public CaDSRObjects loadFromCaDSR(CaDSRObjects cadsrObjects, LoadObjects loadObjects) {
-		List<DataElement> dataElements = cadsrObjects.getDataElements();
-		List<DataElementConcept> dataElementConcepts = cadsrObjects.getDataElementConcepts();
-		List<ValueDomain> valueDomains = cadsrObjects.getValueDomains();
-		List<ObjectClass> objectClasses = cadsrObjects.getObjectClasses();
-		List<Property> properties = cadsrObjects.getProperties();
+	/**
+	 * @TODO move this method to a different class
+	 */
+	public CaDSRObjects loadFromCaDSR(final CaDSRObjects cadsrObjects, LoadObjects loadObjects) {
 		
-		if (objectClasses != null) {
-			List<ObjectClass> lookedUpObjectClasses = loadObjectClasses(objectClasses);
-			replaceCSCSIs(lookedUpObjectClasses);
-			cadsrObjects.setObjectClasses(lookedUpObjectClasses);
-		}
-		
-		if (properties != null) {
-			List<Property> lookedUpProperties = loadProperties(properties);
-			replaceCSCSIs(lookedUpProperties);
-			cadsrObjects.setProperties(lookedUpProperties);
-		}
-		
-		if (dataElementConcepts != null) {
-			List<DataElementConcept> lookedUpDataElementConcepts = loadDataElementConcepts(dataElementConcepts);
-			replaceCSCSIs(lookedUpDataElementConcepts);
-			cadsrObjects.setDataElementConcepts(lookedUpDataElementConcepts);
-		}
-		
-		if (valueDomains != null) {
-			List<ValueDomain> lookedUpValueDomains = loadValueDomains(valueDomains, loadObjects);
-			replaceCSCSIs(lookedUpValueDomains);
-			cadsrObjects.setValueDomains(lookedUpValueDomains);
-		}
-		
-		if (dataElements != null) {
-			List<DataElement> lookedUpDataElements = loadDataElements(dataElements);
-			replaceCSCSIs(lookedUpDataElements);
-			cadsrObjects.setDataElements(lookedUpDataElements);
-		}
+		processObjectClasses(cadsrObjects);
+		processProperties(cadsrObjects);
+		processDataElementConcepts(cadsrObjects);
+		processValueDomains(cadsrObjects, loadObjects);
+		processDataElements(cadsrObjects);
 		
 		return cadsrObjects;
 	}
 	
-	private void replaceCSCSIs(List<? extends AdminComponent> adminComps) {
-		for (AdminComponent adminComp: adminComps) {
-			replaceCSCSIs(adminComp);
+	private void processObjectClasses(CaDSRObjects caDSRObjects) {
+		List<ObjectClass> objectClasses = caDSRObjects.getObjectClasses();
+		
+		if (objectClasses != null) {
+			List<ObjectClass> lookedUpObjectClasses = loadObjectClasses(objectClasses, new AdminComponentLoaderCallback<ObjectClass>() {
+
+				@Override
+				public void doProcess(ObjectClass originalOC, ObjectClass foundOC) {
+					if (originalOC != null && foundOC != null 
+							&& originalOC != foundOC 
+							&& foundOC.getPublicId() != null) {
+						addCSCSIs(originalOC, foundOC);
+					}
+					
+					replaceCSCSIs(foundOC);
+				}
+			});
+			caDSRObjects.setObjectClasses(lookedUpObjectClasses);
+		}
+	}
+	
+	private void processProperties(CaDSRObjects caDSRObjects) {
+		List<Property> properties = caDSRObjects.getProperties();
+		
+		if (properties != null) {
+			List<Property> lookedUpProperties = loadProperties(properties, new AdminComponentLoaderCallback<Property>() {
+
+				@Override
+				public void doProcess(Property originalProp, Property foundProp) {
+					if (originalProp != null && foundProp != null 
+							&& originalProp != foundProp 
+							&& foundProp.getPublicId() != null) {
+						addCSCSIs(originalProp, foundProp);
+					}
+					
+					replaceCSCSIs(foundProp);
+				}
+			});
+			caDSRObjects.setProperties(lookedUpProperties);
+		}
+	}
+	
+	private void processDataElementConcepts(CaDSRObjects caDSRObjects) {
+		List<DataElementConcept> dataElementConcepts = caDSRObjects.getDataElementConcepts();
+		if (dataElementConcepts != null) {
+			final List<ObjectClass> foundDECOCs = new ArrayList<ObjectClass>();
+			final List<Property> foundDECProps = new ArrayList<Property>();
+			
+			List<DataElementConcept> lookedUpDataElementConcepts = loadDataElementConcepts(dataElementConcepts, new AdminComponentLoaderCallback<DataElementConcept>() {
+
+				@Override
+				public void doProcess(DataElementConcept originalDEC, DataElementConcept foundDEC) {
+					if (originalDEC != null && foundDEC != null 
+							&& originalDEC != foundDEC 
+							&& foundDEC.getPublicId() != null) {
+						
+						addCSCSIs(originalDEC, foundDEC);
+						ObjectClass foundOC = foundDEC.getObjectClass();
+						Property foundProp = foundDEC.getProperty();
+						
+						if (foundOC != null) {
+							addCSCSIs(originalDEC, foundOC);
+							foundDECOCs.add(foundOC);
+						}
+						if (foundProp != null) {
+							addCSCSIs(originalDEC, foundProp);
+							foundDECProps.add(foundProp);
+						}
+					}
+					replaceCSCSIs(foundDEC);
+				}
+			});
+			
+			caDSRObjects.setDataElementConcepts(lookedUpDataElementConcepts);
+			
+			addObjectClasses(caDSRObjects, foundDECOCs);
+			addProperties(caDSRObjects, foundDECProps);
+		}
+	}
+	
+	private void processValueDomains(CaDSRObjects caDSRObjects, final LoadObjects loadObjects) {
+		List<ValueDomain> valueDomains = caDSRObjects.getValueDomains();
+		if (valueDomains != null) {
+			List<ValueDomain> lookedUpValueDomains = loadValueDomains(valueDomains, new AdminComponentLoaderCallback<ValueDomain>() {
+
+				@Override
+				public void doProcess(ValueDomain originalVD, ValueDomain foundVD) {
+					if (originalVD != null && foundVD != null
+							&& originalVD != foundVD 
+							&& foundVD.getPublicId() != null) {
+						addCSCSIs(foundVD, foundVD);
+					}
+					else {
+						setVMContext(originalVD, loadObjects.getLoadContext());
+					}
+					
+					replaceCSCSIs(foundVD);
+				}
+			});
+			caDSRObjects.setValueDomains(lookedUpValueDomains);
+		}
+	}
+	
+	private void processDataElements(CaDSRObjects caDSRObjects) {
+		List<DataElement> dataElements = caDSRObjects.getDataElements();
+		final List<DataElementConcept> deDECs = new ArrayList<DataElementConcept>();
+		if (dataElements != null) {
+			List<DataElement> lookedUpDataElements = loadDataElements(dataElements, new AdminComponentLoaderCallback<DataElement>() {
+				
+				@Override
+				public void doProcess(DataElement originalDE, DataElement foundDE) {
+					
+					if (originalDE != null && foundDE != null 
+							&& originalDE != foundDE 
+							&& foundDE.getPublicId() != null) {
+						foundDE.removeAlternateNames();
+						foundDE.removeDefinitions();
+						
+						foundDE = addAlternateNames(originalDE, foundDE);
+						foundDE = addRefDocs(originalDE, foundDE);
+						
+						foundDE = addCSCSIs(originalDE, foundDE); // add new classification (if any) to the existing DE
+						
+						if (foundDE.getDataElementConcept() != null) {
+							addCSCSIs(originalDE, foundDE.getDataElementConcept()); // add new classification (if any) to the existing DEC
+							deDECs.add(foundDE.getDataElementConcept());
+						}
+					}
+					
+					replaceCSCSIs(foundDE);
+				}
+			});
+			
+			caDSRObjects.setDataElements(lookedUpDataElements);
+			addDECs(caDSRObjects, deDECs);
+		}
+	}
+	
+	private List<ObjectClass> loadObjectClasses(List<ObjectClass> createdObjectClasses, AdminComponentLoaderCallback<ObjectClass> callback) {
+		List<ObjectClass> lookedUpOCs = new ArrayList<ObjectClass>();
+		
+		for (ObjectClass createdOC: createdObjectClasses) {
+			ObjectClass ocToBeAdded = createdOC;
+			List<ObjectClass> foundOCs = findObjectClasses(createdOC);
+			if (foundOCs.size() > 0) {
+				ObjectClass foundOC = foundOCs.get(0);
+				objectClassCacheById.put(foundOC.getPublicId(), foundOC);
+				objectClassCache.put(createdOC, foundOC);
+				
+				ocToBeAdded = foundOC;
+			}
+			else {
+				ocToBeAdded = createdOC;
+			}
+			
+			lookedUpOCs.add(ocToBeAdded);
+			callback.doProcess(createdOC, ocToBeAdded);
+		}
+		return lookedUpOCs;
+	}
+	
+	private List<Property> loadProperties(List<Property> createdProperties, AdminComponentLoaderCallback<Property> callback) {
+		List<Property> lookedUpProps = new ArrayList<Property>();
+		
+		for (Property createdProp: createdProperties) {
+			Property propToBeAdded = createdProp;
+			List<Property> foundProps = findProperties(createdProp);
+			if (foundProps.size() > 0) {
+				Property foundProp = foundProps.get(0);
+				propertyCacheById.put(foundProp.getPublicId(), foundProp);
+				propertyCache.put(createdProp, foundProp);
+				propToBeAdded = foundProp;
+				
+			}
+			else {
+				propToBeAdded = createdProp;
+			}
+			
+			lookedUpProps.add(propToBeAdded);
+			callback.doProcess(createdProp, propToBeAdded);
+		}
+		return lookedUpProps;
+	}
+	
+	private List<DataElementConcept> loadDataElementConcepts(List<DataElementConcept> createdDataElementConcepts, AdminComponentLoaderCallback<DataElementConcept> postProcessor) {
+		List<DataElementConcept> lookedUpDECs = new ArrayList<DataElementConcept>();
+		
+		for (DataElementConcept createdDEC: createdDataElementConcepts) {
+			DataElementConcept decToLoad = null;
+			ObjectClass createdOC = createdDEC.getObjectClass();
+			Property createdProp = createdDEC.getProperty();
+			
+			if (createdOC != null) {
+				if (objectClassCache.get(createdOC) != null) {
+					createdDEC.setObjectClass(objectClassCache.get(createdOC));
+				}
+			}
+			
+			if (createdProp != null) {
+				if (propertyCache.get(createdProp) != null) {
+					createdDEC.setProperty(propertyCache.get(createdProp));
+				}
+			}
+			
+			List<DataElementConcept> foundDECs = findDataElementConcepts(createdDEC);
+			
+			if (foundDECs.size() > 0) {
+				DataElementConcept foundDEC = foundDECs.get(0);
+				dataElementConceptCacheById.put(foundDEC.getPublicId(), foundDEC);
+				dataElementConceptCache.put(createdDEC, foundDEC);
+				decToLoad = foundDEC;
+			}
+			else {
+				decToLoad = createdDEC;
+			}
+			
+			postProcessor.doProcess(createdDEC, decToLoad);
+			lookedUpDECs.add(decToLoad);
+		}
+		
+		return lookedUpDECs;
+	}
+	
+	private List<ValueDomain> loadValueDomains(List<ValueDomain> createdValueDomains, AdminComponentLoaderCallback<ValueDomain> callback) {
+		List<ValueDomain> lookedUpVDs = new ArrayList<ValueDomain>();
+		
+		for (ValueDomain createdVD: createdValueDomains) {
+			ValueDomain vdToBeAdded = null;
+			List<ValueDomain> foundVDs = findValueDomains(createdVD);
+			if (foundVDs.size() > 0) {
+				ValueDomain foundVD = foundVDs.get(0);
+				valueDomainCacheById.put(foundVD.getPublicId(), foundVD);
+				valueDomainCache.put(createdVD, foundVD);
+				vdToBeAdded = foundVD;
+			}
+			else {
+				vdToBeAdded = createdVD;
+			}
+			
+			lookedUpVDs.add(vdToBeAdded);
+		}
+		
+		return lookedUpVDs;
+	}
+	
+	private List<DataElement> loadDataElements(List<DataElement> createdDataElements, AdminComponentLoaderCallback<DataElement> postProcessor) {
+		List<DataElement> lookedUpDEs = new ArrayList<DataElement>();
+		
+		for (DataElement createdDE: createdDataElements) {
+			DataElement deToBeAdded = null;
+			DataElementConcept lookedUpDEC = createdDE.getDataElementConcept();
+			ValueDomain lookedUpVD = createdDE.getValueDomain();
+			
+			if (lookedUpDEC != null && dataElementConceptCache.get(lookedUpDEC) != null) {
+				createdDE.setDataElementConcept(dataElementConceptCache.get(lookedUpDEC));
+			}
+			
+			if (lookedUpVD != null && valueDomainCache.get(lookedUpVD) != null) {
+				createdDE.setValueDomain(valueDomainCache.get(lookedUpVD));
+			}
+			
+			List<DataElement> foundDEs = findDataElements(createdDE);
+			if (foundDEs.size() > 0) {
+				DataElement foundDE = foundDEs.get(0);
+				
+				deToBeAdded = foundDE;
+			}
+			else {
+				deToBeAdded = createdDE;
+			}
+			
+			postProcessor.doProcess(createdDE, deToBeAdded);
+			
+			lookedUpDEs.add(deToBeAdded);
+		}
+		
+		return lookedUpDEs;
+	}
+	
+	private void addObjectClasses (CaDSRObjects caDSRObjects, List<ObjectClass> objectClasses) {
+		if (objectClasses.size() > 0) {
+			if (caDSRObjects.getObjectClasses() != null) {
+				caDSRObjects.getObjectClasses().addAll(objectClasses);
+			}
+			else {
+				caDSRObjects.setObjectClasses(objectClasses);
+			}
+		}
+	}
+	
+	private void addProperties (CaDSRObjects caDSRObjects, List<Property> properties) {
+		if (properties.size() > 0) {
+			if (caDSRObjects.getProperties() != null) {
+				caDSRObjects.getProperties().addAll(properties);
+			}
+			else {
+				caDSRObjects.setProperties(properties);
+			}
+		}
+	}
+	
+	private void addDECs(CaDSRObjects caDSRObjects, List<DataElementConcept> decs) {
+		if (decs.size() > 0) {
+			if (caDSRObjects.getDataElementConcepts() != null) {
+				caDSRObjects.getDataElementConcepts().addAll(decs);
+			}
+			else {
+				caDSRObjects.setDataElementConcepts(decs);
+			}
 		}
 	}
 	
@@ -405,105 +685,6 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 		adminComp.setAcCsCsis(newACCsCSIs);
 	}
 	
-	private List<ObjectClass> loadObjectClasses(List<ObjectClass> createdObjectClasses) {
-		List<ObjectClass> lookedUpOCs = new ArrayList<ObjectClass>();
-		
-		for (ObjectClass createdOC: createdObjectClasses) {
-			List<ObjectClass> foundOCs = findObjectClasses(createdOC);
-			if (foundOCs.size() > 0) {
-				ObjectClass foundOC = foundOCs.get(0);
-				objectClassCacheById.put(foundOC.getPublicId(), foundOC);
-				objectClassCache.put(createdOC, foundOC);
-				lookedUpOCs.add(foundOC);
-				
-				foundOC = addCSCSIs(createdOC, foundOC);
-			}
-			else {
-				lookedUpOCs.add(createdOC);
-			}
-		}
-		return lookedUpOCs;
-	}
-	
-	private List<Property> loadProperties(List<Property> createdProperties) {
-		List<Property> lookedUpProps = new ArrayList<Property>();
-		
-		for (Property createdProp: createdProperties) {
-			List<Property> foundProps = findProperties(createdProp);
-			if (foundProps.size() > 0) {
-				Property foundProp = foundProps.get(0);
-				propertyCacheById.put(foundProp.getPublicId(), foundProp);
-				propertyCache.put(createdProp, foundProp);
-				lookedUpProps.add(foundProp);
-				
-				foundProp = addCSCSIs(createdProp, foundProp);
-			}
-			else {
-				lookedUpProps.add(createdProp);
-			}
-		}
-		return lookedUpProps;
-	}
-	
-	private List<DataElementConcept> loadDataElementConcepts(List<DataElementConcept> createdDataElementConcepts) {
-		List<DataElementConcept> lookedUpDECs = new ArrayList<DataElementConcept>();
-		
-		for (DataElementConcept createdDEC: createdDataElementConcepts) {
-			ObjectClass createdOC = createdDEC.getObjectClass();
-			Property createdProp = createdDEC.getProperty();
-			
-			if (createdOC != null) {
-				if (objectClassCache.get(createdOC) != null) {
-					createdDEC.setObjectClass(objectClassCache.get(createdOC));
-				}
-			}
-			
-			if (createdProp != null) {
-				if (propertyCache.get(createdProp) != null) {
-					createdDEC.setProperty(propertyCache.get(createdProp));
-				}
-			}
-			
-			List<DataElementConcept> foundDECs = findDataElementConcepts(createdDEC);
-			
-			if (foundDECs.size() > 0) {
-				DataElementConcept foundDEC = foundDECs.get(0);
-				dataElementConceptCacheById.put(foundDEC.getPublicId(), foundDEC);
-				dataElementConceptCache.put(createdDEC, foundDEC);
-				lookedUpDECs.add(foundDEC);
-				
-				foundDEC = addCSCSIs(createdDEC, foundDEC);
-			}
-			else {
-				lookedUpDECs.add(createdDEC);
-			}
-		}
-		
-		return lookedUpDECs;
-	}
-	
-	private List<ValueDomain> loadValueDomains(List<ValueDomain> createdValueDomains, LoadObjects loadObjects) {
-		List<ValueDomain> lookedUpVDs = new ArrayList<ValueDomain>();
-		
-		for (ValueDomain createdVD: createdValueDomains) {
-			List<ValueDomain> foundVDs = findValueDomains(createdVD);
-			if (foundVDs.size() > 0) {
-				ValueDomain foundVD = foundVDs.get(0);
-				valueDomainCacheById.put(foundVD.getPublicId(), foundVD);
-				valueDomainCache.put(createdVD, foundVD);
-				lookedUpVDs.add(foundVD);
-				
-				foundVD = addCSCSIs(createdVD, foundVD);
-			}
-			else {
-				setVMContext(createdVD, loadObjects.getLoadContext());
-				lookedUpVDs.add(createdVD);
-			}
-		}
-		
-		return lookedUpVDs;
-	}
-	
 	private void setVMContext(ValueDomain createdVD, Context loadContext) {
 		List<PermissibleValue> permissibleValues = createdVD.getPermissibleValues();
 		if (permissibleValues != null) {
@@ -514,41 +695,6 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 				}
 			}
 		}
-	}
-
-	private List<DataElement> loadDataElements(List<DataElement> createdDataElements) {
-		List<DataElement> lookedUpDEs = new ArrayList<DataElement>();
-		
-		for (DataElement createdDE: createdDataElements) {
-			DataElementConcept lookedUpDEC = createdDE.getDataElementConcept();
-			ValueDomain lookedUpVD = createdDE.getValueDomain();
-			
-			if (lookedUpDEC != null && dataElementConceptCache.get(lookedUpDEC) != null) {
-				createdDE.setDataElementConcept(dataElementConceptCache.get(lookedUpDEC));
-			}
-			
-			if (lookedUpVD != null && valueDomainCache.get(lookedUpVD) != null) {
-				createdDE.setValueDomain(valueDomainCache.get(lookedUpVD));
-			}
-			
-			List<DataElement> foundDEs = findDataElements(createdDE);
-			if (foundDEs.size() > 0) {
-				DataElement foundDE = foundDEs.get(0);
-				foundDE.removeAlternateNames();
-				foundDE.removeDefinitions();
-				
-				lookedUpDEs.add(foundDE);
-				
-				foundDE = addAlternateNames(createdDE, foundDE);
-				foundDE = addRefDocs(createdDE, foundDE);
-				foundDE = addCSCSIs(createdDE, foundDE);
-			}
-			else {
-				lookedUpDEs.add(createdDE);
-			}
-		}
-		
-		return lookedUpDEs;
 	}
 	
 	private <T extends AdminComponent> T addAlternateNames(T createdAC, T foundAC) {
@@ -583,5 +729,9 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 		}
 		
 		return foundAC;
+	}
+	
+	private interface AdminComponentLoaderCallback<T extends AdminComponent> {
+		public void doProcess(T original, T found );
 	}
 }
