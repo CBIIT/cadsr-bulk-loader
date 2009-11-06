@@ -88,11 +88,11 @@ public class BulkLoaderUnclassifier {
 		init(unloadProperties);
 		
 		if (checkCSCSI()) {
-			log.info("Unclassifying Definitions...");
+			/*log.info("Unclassifying Definitions...");
 			deleteDefinitions();
 			
 			log.info("Unclassifying Alternate Names...");
-			deleteAlternateNames();
+			deleteAlternateNames();*/
 			
 			log.info("Unclassifying Attributes...");
 			deleteAttributes();
