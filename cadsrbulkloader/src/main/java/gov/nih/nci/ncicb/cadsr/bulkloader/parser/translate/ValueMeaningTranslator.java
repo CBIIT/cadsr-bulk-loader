@@ -34,6 +34,7 @@ public class ValueMeaningTranslator extends AbstractTranslatorTemplate {
 		valueMeaning.setLongName(longName);
 		valueMeaning.setId(longName);
 		valueMeaning.setAcCsCsis(acCsCSI);
+		valueMeaning.setPreferredDefinition(util.getDefinition(cdr));
 		
 		return valueMeaning;
 	}
