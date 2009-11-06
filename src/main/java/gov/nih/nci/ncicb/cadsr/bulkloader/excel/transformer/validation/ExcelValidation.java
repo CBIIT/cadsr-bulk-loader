@@ -315,7 +315,7 @@ public class ExcelValidation implements TransformerValidation {
 			List<String> vmConcepts = new ArrayList<String>();
 			for (ExcelQuestion excelQuestion: oneRecord) {
 				String pv = excelQuestion.getPv();
-				if (!pvPresent && pv != null && pv.trim().equals("")) {
+				if (!pvPresent && pv != null && !pv.trim().equals("")) {
 					pvPresent  = true;
 				}
 				String vmConceptStrs = excelQuestion.getVmConcepts();
