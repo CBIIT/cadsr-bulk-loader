@@ -108,29 +108,43 @@ public class ConceptsTranslator extends AbstractTranslatorTemplate {
 			for (Definition_ISO11179 isoDef: isoDefs) {
 				String defStr = isoDef.getText();
 				
-				Definition def = DomainObjectFactory.newDefinition();
-				def.setDefinition(defStr);
-				
-				concept.addDefinition(def);
-				if (isoDef.isPreferredDefinition()) {
-					concept.setPreferredDefinition(defStr);
-					ReferenceDocument_ISO11179 isoRefDoc = isoDef.getSourceReference();
-					String orgName = "";
+				if (!hasDefinition(concept, defStr)) {
+					Definition def = DomainObjectFactory.newDefinition();
+					def.setDefinition(defStr);
 					
-					if(isoRefDoc != null) {
-						List<Organization_ISO11179> isoOrgs = isoRefDoc.getProvidedBy();
+					concept.addDefinition(def);
+					if (isoDef.isPreferredDefinition()) {
+						concept.setPreferredDefinition(defStr);
+						ReferenceDocument_ISO11179 isoRefDoc = isoDef.getSourceReference();
+						String orgName = "";
 						
-						for (Organization_ISO11179 isoOrg: isoOrgs) {
-							orgName = orgName.equals("")?isoOrg.getName():orgName+"_"+isoOrg.getName();
+						if(isoRefDoc != null) {
+							List<Organization_ISO11179> isoOrgs = isoRefDoc.getProvidedBy();
+							
+							for (Organization_ISO11179 isoOrg: isoOrgs) {
+								orgName = orgName.equals("")?isoOrg.getName():orgName+"_"+isoOrg.getName();
+							}
 						}
+						
+						concept.setDefinitionSource(orgName);
 					}
-					
-					concept.setDefinitionSource(orgName);
 				}
 			}
 		}
 		
 		return concept;
+	}
+	
+	private boolean hasDefinition(Concept concept, String defStr) {
+		List<Definition> existingDefs = concept.getDefinitions();
+		if (existingDefs != null) {
+			for (Definition existingDef: existingDefs) {
+				if (existingDef.getDefinition().equalsIgnoreCase(defStr)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 }
