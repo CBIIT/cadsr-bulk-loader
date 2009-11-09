@@ -408,13 +408,21 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 						ObjectClass foundOC = foundDEC.getObjectClass();
 						Property foundProp = foundDEC.getProperty();
 						
-						if (foundOC != null) {
-							addCSCSIs(originalDEC, foundOC);
-							foundDECOCs.add(foundOC);
+						if (foundOC != null && foundOC.getPublicId() != null) {
+							if (objectClassCacheById.get(foundOC.getPublicId()) == null) {
+								objectClassCacheById.put(foundOC.getPublicId(), foundOC);
+								
+								addCSCSIs(originalDEC, foundOC);
+								foundDECOCs.add(foundOC);
+							}
 						}
-						if (foundProp != null) {
-							addCSCSIs(originalDEC, foundProp);
-							foundDECProps.add(foundProp);
+						if (foundProp != null && foundProp.getPublicId() != null) {
+							if (propertyCacheById.get(foundProp.getPublicId()) == null) {
+								propertyCacheById.put(foundProp.getPublicId(), foundProp);
+								
+								addCSCSIs(originalDEC, foundProp);
+								foundDECProps.add(foundProp);
+							}
 						}
 					}
 					replaceCSCSIs(foundDEC);
@@ -454,6 +462,8 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 	private void processDataElements(CaDSRObjects caDSRObjects) {
 		List<DataElement> dataElements = caDSRObjects.getDataElements();
 		final List<DataElementConcept> deDECs = new ArrayList<DataElementConcept>();
+		final List<ObjectClass> deDECOCs = new ArrayList<ObjectClass>();
+		final List<Property> deDECProps = new ArrayList<Property>();
 		if (dataElements != null) {
 			List<DataElement> lookedUpDataElements = loadDataElements(dataElements, new AdminComponentLoaderCallback<DataElement>() {
 				
@@ -471,9 +481,29 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 						
 						foundDE = addCSCSIs(originalDE, foundDE); // add new classification (if any) to the existing DE
 						
-						if (foundDE.getDataElementConcept() != null) {
-							addCSCSIs(originalDE, foundDE.getDataElementConcept()); // add new classification (if any) to the existing DEC
-							deDECs.add(foundDE.getDataElementConcept());
+						if (foundDE.getDataElementConcept() != null && foundDE.getDataElementConcept().getPublicId() != null) {
+							DataElementConcept foundDEC = foundDE.getDataElementConcept();
+							if (dataElementConceptCacheById.get(foundDEC.getPublicId()) == null) {
+								dataElementConceptCacheById.put(foundDEC.getPublicId(), foundDEC);
+								addCSCSIs(originalDE, foundDEC); // add new classification (if any) to the existing DEC
+								deDECs.add(foundDEC);
+							}
+							
+							if (foundDEC.getObjectClass() != null && foundDEC.getObjectClass().getPublicId() != null) {
+								if (objectClassCacheById.get(foundDEC.getObjectClass().getPublicId()) == null) {
+									objectClassCacheById.put(foundDEC.getObjectClass().getPublicId(), foundDEC.getObjectClass());
+									addCSCSIs(originalDE, foundDEC.getObjectClass());
+									deDECOCs.add(foundDEC.getObjectClass());
+								}
+							}
+							
+							if (foundDEC.getProperty() != null && foundDEC.getProperty().getPublicId() != null) {
+								if (propertyCacheById.get(foundDEC.getProperty().getPublicId()) == null) {
+									propertyCacheById.put(foundDEC.getProperty().getPublicId(), foundDEC.getProperty());
+									addCSCSIs(originalDE, foundDEC.getProperty());
+									deDECProps.add(foundDEC.getProperty());
+								}
+							}
 						}
 					}
 					
@@ -483,6 +513,8 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 			
 			caDSRObjects.setDataElements(lookedUpDataElements);
 			addDECs(caDSRObjects, deDECs);
+			addObjectClasses(caDSRObjects, deDECOCs);
+			addProperties(caDSRObjects, deDECProps);
 		}
 	}
 	
