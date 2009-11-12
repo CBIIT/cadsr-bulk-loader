@@ -360,6 +360,8 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 							&& originalOC != foundOC 
 							&& foundOC.getPublicId() != null) {
 						addCSCSIs(originalOC, foundOC);
+						foundOC.removeAlternateNames();
+						foundOC.removeDefinitions();
 					}
 					
 					replaceCSCSIs(foundOC);
@@ -381,6 +383,8 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 							&& originalProp != foundProp 
 							&& foundProp.getPublicId() != null) {
 						addCSCSIs(originalProp, foundProp);
+						foundProp.removeAlternateNames();
+						foundProp.removeDefinitions();
 					}
 					
 					replaceCSCSIs(foundProp);
