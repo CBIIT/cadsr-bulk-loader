@@ -23,7 +23,7 @@ public class ConceptualDomainTranslator extends AbstractTranslatorTemplate {
 	private ConceptualDomain getConceptualDomain(ConceptualDomain_caDSR11179 isoCD) {
 		String cdId = util.getIdentifier(isoCD);
 		Float version = util.getIdVersion(isoCD);
-		if (version.equals(new Float(0.0))) {
+		if (version == null || version.equals(new Float(0.0))) {
 			version = new Float(1.0);
 		}
 		String preferredName = util.getPreferredQuestionText(isoCD);
