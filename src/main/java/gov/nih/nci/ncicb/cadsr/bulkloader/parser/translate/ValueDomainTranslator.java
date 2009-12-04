@@ -79,12 +79,12 @@ public class ValueDomainTranslator extends AbstractTranslatorTemplate {
 			
 			ConceptDerivationRule_caDSR11179 repTermCDR = repTerm.getConceptDerivationRule();
 			ConceptDerivationRule cdr = util.getConceptDerivationRule(repTermCDR, objRegistry);
-			String longName = util.getLongName(cdr);
 			String definition = util.getDefinition(cdr);
 			
 			List<String> conceptRefs = util.getConceptReferences(repTermCDR);
 			List<Concept> concepts = util.getConceptsFromRegistry(conceptRefs, objRegistry);
 			String preferredName = util.getPreferredNameFromConcepts(concepts);
+			String longName = util.getLongNameFromConcepts(concepts);
 			
 			Representation rep = DomainObjectFactory.newRepresentation();
 			//rep.setLongName(longName);
