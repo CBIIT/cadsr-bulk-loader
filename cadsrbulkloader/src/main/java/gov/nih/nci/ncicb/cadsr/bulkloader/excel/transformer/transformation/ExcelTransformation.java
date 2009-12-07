@@ -717,7 +717,7 @@ public class ExcelTransformation implements TransformerTransformation {
 			ValueMeaning_caDSR11179 isoVM = new ValueMeaning_caDSR11179();
 			//fillupAdminItem(isoVM);
 			
-			rearrangePrimaryAndQualConcepts(isoConcepts);
+			//rearrangePrimaryAndQualConcepts(isoConcepts);
 			
 			isoVM.setConceptDerivationRule(getCDRAndAddConcepts(isoConcepts));
 			isoVM.setBeginDate(new Date());
