@@ -261,24 +261,31 @@ public class CaDSRObjectsUtil {
 		}
 	}
 	
-	public String getDefinition(ConceptDerivationRule cdr) {
-		if (cdr == null) return "";
+	public List<Concept> getConcepts(ConceptDerivationRule cdr) {
+		List<Concept> concepts = new ArrayList<Concept>();
+		
+		if (cdr == null) return concepts;
 		
 		List<ComponentConcept> compCons = cdr.getComponentConcepts();
-		StringBuffer sb = new StringBuffer();
 		for (ComponentConcept compCon: compCons) {
-			List<Definition> defs = compCon.getConcept().getDefinitions();
-			for (Definition def: defs) {
-				if (sb.length()==0) {
-					sb.append(def.getDefinition());
-				}
-				else {
-					sb.append(CONCEPT_CONCAT_STRING+def.getDefinition());
-				}
-			}
+			Concept concept = compCon.getConcept();
+			concepts.add(concept);
 		}
 		
-		return sb.toString();
+		return concepts;
+	}
+	
+	public String getDefinition(ConceptDerivationRule cdr) {
+		
+		List<Concept> concepts = getConcepts(cdr);
+		
+		return getDefinitionFromConcepts(concepts);
+	}
+	
+	public String getPreferredDefinition(ConceptDerivationRule cdr) {
+		List<Concept> concepts = getConcepts(cdr);
+		
+		return getPreferredDefinitionFromConcepts(concepts);
 	}
 	
 	public List<ComponentConcept> getComponentConceptsFromConcepts(List<Concept> concepts) {
@@ -353,6 +360,22 @@ public class CaDSRObjectsUtil {
 					concatConceptsBuffer.append(defStr);
 				}
 			}
+		}
+		
+		return concatConceptsBuffer.toString();
+	}
+	
+	public String getPreferredDefinitionFromConcepts(List<Concept> concepts) {
+		StringBuffer concatConceptsBuffer = new StringBuffer();
+		
+		for (Concept concept: concepts) {
+			String prefDef = concept.getPreferredDefinition();
+			
+			if (concatConceptsBuffer.length() > 0) {
+				concatConceptsBuffer.append(CONCEPT_CONCAT_STRING);
+			}
+			
+			concatConceptsBuffer.append(prefDef);
 		}
 		
 		return concatConceptsBuffer.toString();
