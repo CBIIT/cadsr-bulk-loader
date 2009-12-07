@@ -339,6 +339,11 @@ public class CaDSRObjectsUtil {
 		for (Concept concept: concepts) {
 			List<Definition> defs = concept.getDefinitions();
 			String prefDef = concept.getPreferredDefinition();
+			
+			if (concatConceptsBuffer.length() > 0) {
+				concatConceptsBuffer.append(CONCEPT_CONCAT_STRING);
+			}
+			
 			concatConceptsBuffer.append(prefDef);
 			
 			for (Definition def: defs) {
