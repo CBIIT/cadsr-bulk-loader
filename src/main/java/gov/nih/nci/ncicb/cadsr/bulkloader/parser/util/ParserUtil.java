@@ -243,6 +243,10 @@ public class ParserUtil {
 	public String getDefinitionFromConcepts(List<Concept> concepts) {
 		return caDSRUtil.getDefinitionFromConcepts(concepts);
 	}
+	
+	public String getPreferredDefinitionFromConcepts(List<Concept> concepts) {
+		return caDSRUtil.getPreferredDefinitionFromConcepts(concepts);
+	}
 
 	public String getLongName(ConceptDerivationRule cdr) {
 		return caDSRUtil.getLongName(cdr);
@@ -250,6 +254,10 @@ public class ParserUtil {
 
 	public String getDefinition(ConceptDerivationRule cdr) {
 		return caDSRUtil.getDefinition(cdr);
+	}
+	
+	public String getPreferredDefinition(ConceptDerivationRule cdr) {
+		return caDSRUtil.getPreferredDefinition(cdr);
 	}
 
 	public String getDECLongName(DataElementConcept dec) {
