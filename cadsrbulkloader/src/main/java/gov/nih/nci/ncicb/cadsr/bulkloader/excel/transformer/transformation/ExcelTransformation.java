@@ -64,6 +64,7 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.transformation.Transformer
 import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.transformation.TransformerTransformationLineItemResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.transformation.TransformerTransformationResult;
 import gov.nih.nci.ncicb.cadsr.domain.AlternateName;
+import gov.nih.nci.ncicb.cadsr.domain.ComponentConcept;
 import gov.nih.nci.ncicb.cadsr.domain.Concept;
 import gov.nih.nci.ncicb.cadsr.domain.Definition;
 
@@ -717,9 +718,18 @@ public class ExcelTransformation implements TransformerTransformation {
 			ValueMeaning_caDSR11179 isoVM = new ValueMeaning_caDSR11179();
 			//fillupAdminItem(isoVM);
 			
-			//rearrangePrimaryAndQualConcepts(isoConcepts);
+//			rearrangePrimaryAndQualConcepts(isoConcepts);
 			
-			isoVM.setConceptDerivationRule(getCDRAndAddConcepts(isoConcepts));
+			ConceptDerivationRule_caDSR11179 isoCDR = getCDRAndAddConcepts(isoConcepts);
+			ComponentConceptList_caDSR11179 compConList = isoCDR.getComponentConceptsList();
+			List<ComponentConcept_caDSR11179> compConcepts = compConList.getComponentConcepts();
+			
+			int x = 0;
+			for (int i=compConcepts.size()-1;i>=0;i--) {
+				compConcepts.get(i).setOrder(x++);
+			}
+			
+			isoVM.setConceptDerivationRule(isoCDR);
 			isoVM.setBeginDate(new Date());
 			String tagId = "VM-"+getRandomString();
 			isoVM.setTagId(tagId);
