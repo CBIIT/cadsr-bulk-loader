@@ -145,7 +145,7 @@
 	<!-- ================================= 
           target: package              
          ================================= -->
-    <target name="package" depends="compile, conf" description="description">
+    <target name="package" depends="compile-src, conf" description="description">
     	<jar destfile="${PACKAGE.DIR}/${PROJECT.NAME}.jar">
         	<fileset dir="${SRC.CLASSES.DIR}">
 			    <include name="**/*.class"/>
