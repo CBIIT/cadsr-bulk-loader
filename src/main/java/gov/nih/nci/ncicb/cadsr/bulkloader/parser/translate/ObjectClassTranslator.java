@@ -42,6 +42,7 @@ public class ObjectClassTranslator extends AbstractTranslatorTemplate {
 		objClass.setPreferredName(preferredName);
 		objClass.setPreferredDefinition(preferredDefinition);
 		objClass.setAcCsCsis(acCSCSIList);
+		objClass.setOrigin(util.getOrigin(isoObjClass));
 		
 		return objClass;
 	}

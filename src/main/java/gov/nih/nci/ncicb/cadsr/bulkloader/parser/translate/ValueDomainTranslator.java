@@ -99,6 +99,8 @@ public class ValueDomainTranslator extends AbstractTranslatorTemplate {
 			vd.setVersion(version);
 		}
 		
+		vd.setOrigin(util.getOrigin(isoVD));
+		
 		return vd;
 	}
 	

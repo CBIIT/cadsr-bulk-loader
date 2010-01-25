@@ -92,6 +92,8 @@ public class ExcelTransformation implements TransformerTransformation {
 	private Map<String, ClassificationSchemeItem_caDSR11179> csiMap;
 	private Map<String, DataElement_ISO11179> deMap;
 	
+	String source;
+	
 	private static Log log = LogFactory.getLog(ExcelTransformation.class);
 	
 	private ExcelForm excelForm;
@@ -133,6 +135,8 @@ public class ExcelTransformation implements TransformerTransformation {
 		loadProperties.setClassificationSchemeItemName(excelForm.getClassSchemeItem());
 		loadProperties.setLoadSource(excelForm.getSource());
 		result.setLoadProperties(loadProperties);
+		
+		source = excelForm.getSource();
 		
 		List<ExcelQuestion> questions = excelForm.getQuestions();
 		
@@ -520,8 +524,8 @@ public class ExcelTransformation implements TransformerTransformation {
 			
 			
 			EnumeratedValueDomain_caDSR11179 isoEnumVD = new EnumeratedValueDomain_caDSR11179();
-			//fillupAdminItem(isoEnumVD);
-			isoEnumVD.setAdminRecord(getBlankAdminRecord());
+			
+			fillupAdminItem(isoEnumVD);
 			
 			String[] idAndVer = getPublicIdAndVersion(vdId);
 			setItemId(isoEnumVD, idAndVer[0], idAndVer[1]);
@@ -554,7 +558,7 @@ public class ExcelTransformation implements TransformerTransformation {
 			}
 			
 			NonEnumeratedValueDomain_caDSR11179 isoNonEnumVD = new NonEnumeratedValueDomain_caDSR11179();
-			isoNonEnumVD.setAdminRecord(getBlankAdminRecord());
+			fillupAdminItem(isoNonEnumVD);
 			
 			String[] idAndVer = getPublicIdAndVersion(vdId);
 			setItemId(isoNonEnumVD, idAndVer[0], idAndVer[1]);
@@ -918,11 +922,15 @@ public class ExcelTransformation implements TransformerTransformation {
 		isoAdminItem.setRegisteredBy(getBlankRegisteredBy());
 		isoAdminItem.setHaving(getBlankHaving());
 		
-		/*Submission_ISO11179 isoSubmission = new Submission_ISO11179();
+		Contact_ISO11179 isoContact = getBlankContact();
+		Organization_ISO11179 isoOrg = getBlankOrganization();
+		isoOrg.setName(source);
+		
+		Submission_ISO11179 isoSubmission = new Submission_ISO11179();
 		isoSubmission.setContact(isoContact);
 		isoSubmission.setOrganization(isoOrg);
 		isoAdminItem.setSubmittedBy(isoSubmission);
-		*/
+		
 	}
 	
 	private AdminRecord_ISO11179 getBlankAdminRecord() {
