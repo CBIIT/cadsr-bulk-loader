@@ -56,6 +56,7 @@ public class DataElementTranslator extends AbstractTranslatorTemplate {
 		
 		List<AdminComponentClassSchemeClassSchemeItem> acCSCSIList = util.getAdminComponentCSCSI(isoDE, objRegistry);
 		de.setAcCsCsis(acCSCSIList);
+		de.setOrigin(util.getOrigin(isoDE));
 		
 		return de;
 	}

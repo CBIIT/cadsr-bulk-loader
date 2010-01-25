@@ -45,6 +45,7 @@ public class DataElementConceptTranslator extends AbstractTranslatorTemplate {
 		dec.setPublicId(publicId);
 		dec.setVersion(version);
 		dec.setAcCsCsis(acCSCSIList);
+		dec.setOrigin(util.getOrigin(isoDEC));
 		
 		return dec;
 	}

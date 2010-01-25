@@ -43,6 +43,7 @@ public class PropertiesTranslator extends AbstractTranslatorTemplate {
 		property.setLongName(longName);
 		property.setPreferredDefinition(preferredDefinition);
 		property.setAcCsCsis(acCSCSIList);
+		property.setOrigin(util.getOrigin(caDSRProperty));
 		
 		return property;
 	}

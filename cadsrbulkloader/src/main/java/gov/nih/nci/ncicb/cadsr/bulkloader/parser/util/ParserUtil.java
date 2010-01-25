@@ -223,6 +223,14 @@ public class ParserUtil {
 		return acCSCSIList;
 	}
 	
+	public String getOrigin(AdminItem_ISO11179 isoAdminItem) {
+		try {
+			return isoAdminItem.getSubmittedBy().getOrganization().getName();
+		} catch (Exception e) {
+			return "";
+		}
+	}
+	
 	private List<ComponentConcept> getComponentConceptsFromConcepts(
 			List<Concept> concepts) {
 		return caDSRUtil.getComponentConceptsFromConcepts(concepts);
