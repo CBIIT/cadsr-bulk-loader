@@ -44,7 +44,7 @@ public class DataElementTranslator extends AbstractTranslatorTemplate {
 		DataElement de = DomainObjectFactory.newDataElement();
 		de.setDataElementConcept(dec);
 		de.setValueDomain(vd);
-		de.setLongName(getDELongName(dec, vd));
+		de.setLongName(getDELongName(isoDE, dec, vd));
 		
 		addAlternateNames(isoDE, de);
 		addReferenceDocs(isoDE, de);
@@ -61,11 +61,17 @@ public class DataElementTranslator extends AbstractTranslatorTemplate {
 		return de;
 	}
 	
-	private String getDELongName(DataElementConcept dec, ValueDomain vd) {
-		String decLongName = util.getDECLongName(dec);
-		String vdLongName = util.getVDLongName(vd);
-		
-		return decLongName+" "+vdLongName;
+	private String getDELongName(DataElement_ISO11179 isoDE, DataElementConcept dec, ValueDomain vd) {
+		String isoDELongName = isoDE.getLongName();
+		if (isoDELongName != null && !isoDELongName.trim().equals("")) {
+			return isoDELongName.trim();
+		}
+		else {
+			String decLongName = util.getDECLongName(dec);
+			String vdLongName = util.getVDLongName(vd);
+			
+			return decLongName+" "+vdLongName;
+		}
 	}
 	
 	private void addAlternateNames(DataElement_ISO11179 isoDE, DataElement de) {
@@ -87,18 +93,6 @@ public class DataElementTranslator extends AbstractTranslatorTemplate {
 					}
 				}
 			}
-		}
-		addLongNameAsAltName(isoDE, de);
-	}
-	
-	private void addLongNameAsAltName(DataElement_ISO11179 isoDE, DataElement de) {
-		String isoLongName = isoDE.getLongName();
-		if (isoLongName != null && !isoLongName.trim().equals("")) {
-			AlternateName altName = DomainObjectFactory.newAlternateName();
-			altName.setName(isoLongName);
-			altName.setType(ProjectPropertiesUtil.getDefaultAlternateNameType());
-			
-			de.addAlternateName(altName);
 		}
 	}
 	
