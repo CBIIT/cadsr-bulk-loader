@@ -18,6 +18,7 @@ import gov.nih.nci.ncicb.cadsr.domain.ClassSchemeClassSchemeItem;
 import gov.nih.nci.ncicb.cadsr.domain.ClassificationScheme;
 import gov.nih.nci.ncicb.cadsr.domain.ClassificationSchemeItem;
 import gov.nih.nci.ncicb.cadsr.domain.Concept;
+import gov.nih.nci.ncicb.cadsr.domain.ConceptualDomain;
 import gov.nih.nci.ncicb.cadsr.domain.Context;
 import gov.nih.nci.ncicb.cadsr.domain.DataElement;
 import gov.nih.nci.ncicb.cadsr.domain.DataElementConcept;
@@ -56,6 +57,7 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 	private HashMap<ValueDomain, ValueDomain> valueDomainCache = new HashMap<ValueDomain, ValueDomain>();
 	private HashMap<ObjectClass, ObjectClass> objectClassCache = new HashMap<ObjectClass, ObjectClass>();
 	private HashMap<Property, Property> propertyCache = new HashMap<Property, Property>();
+	private HashMap<ConceptualDomain, ConceptualDomain> conceptualDomainCache = new HashMap<ConceptualDomain, ConceptualDomain>();
 	
 	public BulkLoaderDAOFacadeImpl(BulkLoaderDAOFactory _daoFactory) {
 		daoFactory = _daoFactory;
@@ -123,9 +125,17 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 	public List<ObjectClass> findObjectClasses(ObjectClass objectClass) {
 		return readDAO.findObjectClasses(objectClass);
 	}
+	
+	public List<ObjectClass> findObjectClassesByName(ObjectClass objectClass) {
+		return readDAO.findObjectClassesByName(objectClass);
+	}
 
 	public List<Property> findProperties(Property property) {
 		return readDAO.findProperties(property);
+	}
+	
+	public List<Property> findPropertiesByName(Property property) {
+		return readDAO.findPropertiesByName(property);
 	}
 
 	public Property findPropertyByConcepts(List<Concept> concepts) {
@@ -429,6 +439,12 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 							}
 						}
 					}
+					else {
+						ConceptualDomain originalCD = originalDEC.getConceptualDomain();
+						if (originalCD != null) {
+							originalDEC.setConceptualDomain(findConceptualDomain(originalCD));
+						}
+					}
 					replaceCSCSIs(foundDEC);
 				}
 			});
@@ -454,6 +470,10 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 					}
 					else {
 						setVMContext(originalVD, loadObjects.getLoadContext());
+						ConceptualDomain originalCD = originalVD.getConceptualDomain();
+						if (originalCD != null) {
+							originalVD.setConceptualDomain(findConceptualDomain(originalCD));
+						}
 					}
 					
 					replaceCSCSIs(foundVD);
@@ -480,6 +500,7 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 						foundDE.removeAlternateNames();
 						foundDE.removeDefinitions();
 						
+						foundDE.setLongName(originalDE.getLongName());
 						foundDE = addAlternateNames(originalDE, foundDE);
 						foundDE = addRefDocs(originalDE, foundDE);
 						
@@ -663,6 +684,16 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 		return lookedUpDEs;
 	}
 	
+	private ConceptualDomain findConceptualDomain(ConceptualDomain createdCD) {
+		List<ConceptualDomain> conceptualDomains = findConceptualDomains(createdCD);
+		if (conceptualDomains != null && conceptualDomains.size() > 0) {
+			return conceptualDomains.get(0);
+		}
+		else {
+			return DomainObjectFactory.newConceptualDomain();
+		}
+	}
+	
 	private void addObjectClasses (CaDSRObjects caDSRObjects, List<ObjectClass> objectClasses) {
 		if (objectClasses.size() > 0) {
 			if (caDSRObjects.getObjectClasses() != null) {
@@ -769,5 +800,18 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 	
 	private interface AdminComponentLoaderCallback<T extends AdminComponent> {
 		public void doProcess(T original, T found );
+	}
+
+	@Override
+	public ConceptualDomain findConceptualDomainById(int publicId,
+			double version) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ConceptualDomain> findConceptualDomains(
+			ConceptualDomain conceptualDomain) {
+		return readDAO.findConceptualDomains(conceptualDomain);
 	}
 }

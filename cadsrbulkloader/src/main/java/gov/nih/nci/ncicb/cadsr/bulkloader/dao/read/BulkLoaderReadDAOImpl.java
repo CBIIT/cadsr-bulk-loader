@@ -2,6 +2,7 @@ package gov.nih.nci.ncicb.cadsr.bulkloader.dao.read;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.CaDSRObjectsUtil;
 import gov.nih.nci.ncicb.cadsr.dao.ConceptDAO;
+import gov.nih.nci.ncicb.cadsr.dao.ConceptualDomainDAO;
 import gov.nih.nci.ncicb.cadsr.dao.ContextDAO;
 import gov.nih.nci.ncicb.cadsr.dao.DataElementConceptDAO;
 import gov.nih.nci.ncicb.cadsr.dao.DataElementDAO;
@@ -10,6 +11,7 @@ import gov.nih.nci.ncicb.cadsr.dao.PropertyDAO;
 import gov.nih.nci.ncicb.cadsr.dao.ValueDomainDAO;
 import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
 import gov.nih.nci.ncicb.cadsr.domain.Concept;
+import gov.nih.nci.ncicb.cadsr.domain.ConceptualDomain;
 import gov.nih.nci.ncicb.cadsr.domain.Context;
 import gov.nih.nci.ncicb.cadsr.domain.DataElement;
 import gov.nih.nci.ncicb.cadsr.domain.DataElementConcept;
@@ -85,8 +87,9 @@ public class BulkLoaderReadDAOImpl implements BulkLoaderReadDAO {
 	}
 	
 	public List<ObjectClass> findObjectClasses(ObjectClass objectClass) {
+		String[] conceptCodes = CaDSRObjectsUtil.getConceptCodes(objectClass.getConceptDerivationRule());
 		ObjectClassDAO ocDAO = DAOAccessor.getObjectClassDAO();
-		List<ObjectClass> ocs = ocDAO.find(objectClass);
+		List<ObjectClass> ocs = ocDAO.findByConceptCodes(conceptCodes, objectClass.getContext(), null);
 		
 		if (ocs == null) {
 			ocs = new ArrayList<ObjectClass>();
@@ -95,15 +98,27 @@ public class BulkLoaderReadDAOImpl implements BulkLoaderReadDAO {
 		return ocs;
 	}
 	
+	public List<ObjectClass> findObjectClassesByName(ObjectClass objectClass) {
+		ObjectClassDAO ocDAO = DAOAccessor.getObjectClassDAO();
+		return ocDAO.find(objectClass);
+	}
+	
 	public List<Property> findProperties(Property property) {
+		String[] conceptCodes = CaDSRObjectsUtil.getConceptCodes(property.getConceptDerivationRule());
 		PropertyDAO propDAO = DAOAccessor.getPropertyDAO();
-		List<Property> prop = propDAO.find(property);
+		
+		List<Property> prop = propDAO.findByConceptCodes(conceptCodes, property.getContext());
 		
 		if (prop == null) {
 			prop = new ArrayList<Property>();
 		}
 		
 		return prop;
+	}
+	
+	public List<Property> findPropertiesByName(Property property) {
+		PropertyDAO propDAO = DAOAccessor.getPropertyDAO();
+		return propDAO.find(property);
 	}
 	
 	public List<ValueDomain> findValueDomains(ValueDomain valueDomain) {
@@ -117,6 +132,17 @@ public class BulkLoaderReadDAOImpl implements BulkLoaderReadDAO {
 		}
 		
 		return vd;
+	}
+	
+	public List<ConceptualDomain> findConceptualDomains(ConceptualDomain conceptualDomain) {
+		ConceptualDomainDAO cdDAO = DAOAccessor.getConceptualDomainDAO();
+		List<ConceptualDomain> cd = cdDAO.find(conceptualDomain);
+		
+		if (cd == null) {
+			cd = new ArrayList<ConceptualDomain>();
+		}
+		
+		return cd;
 	}
 	
 	public boolean administeredComponentExists(AdminComponent adminComponent) {
@@ -223,6 +249,19 @@ public class BulkLoaderReadDAOImpl implements BulkLoaderReadDAO {
 		}
 		else {
 			return CaDSRObjectsUtil.createValueDomain();
+		}
+	}
+	
+	public ConceptualDomain findConceptualDomainById(int publicId, double version) {
+		ConceptualDomain conceptualDomain = CaDSRObjectsUtil.createConceptualDomain(publicId, version);
+		List<ConceptualDomain> conceptualDomains = findConceptualDomains(conceptualDomain);
+		
+		Iterator<ConceptualDomain> conceptualDomainIter = conceptualDomains.iterator();
+		if (conceptualDomainIter.hasNext()) {
+			return conceptualDomainIter.next();
+		}
+		else {
+			return CaDSRObjectsUtil.createConceptualDomain();
 		}
 	}
 	
