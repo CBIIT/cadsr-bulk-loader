@@ -2,6 +2,7 @@ package gov.nih.nci.ncicb.cadsr.bulkloader.dao.read;
 
 import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
 import gov.nih.nci.ncicb.cadsr.domain.Concept;
+import gov.nih.nci.ncicb.cadsr.domain.ConceptualDomain;
 import gov.nih.nci.ncicb.cadsr.domain.Context;
 import gov.nih.nci.ncicb.cadsr.domain.DataElement;
 import gov.nih.nci.ncicb.cadsr.domain.DataElementConcept;
@@ -26,13 +27,18 @@ public interface BulkLoaderReadDAO {
 	public ObjectClass findObjectClassById(int publicId, double version);
 	public ObjectClass findObjectClassByConcepts(List<Concept> concepts);
 	public List<ObjectClass> findObjectClasses(ObjectClass objectClass);
+	public List<ObjectClass> findObjectClassesByName(ObjectClass objectClass);
 	
 	public Property findPropertyById(int publicId, double version);
 	public Property findPropertyByConcepts(List<Concept> concepts);
 	public List<Property> findProperties(Property property);
+	public List<Property> findPropertiesByName(Property property);
 	
 	public ValueDomain findValueDomainsById(int publicId, double version);
 	public List<ValueDomain> findValueDomains(ValueDomain valueDomain);
+	
+	public ConceptualDomain findConceptualDomainById(int publicId, double version);
+	public List<ConceptualDomain> findConceptualDomains(ConceptualDomain conceptualDomain);
 	
 	public Concept findCaDSRConceptByCUI(String cui);
 	
