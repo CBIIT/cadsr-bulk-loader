@@ -1,11 +1,11 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.util;
 
-import gov.nih.nci.cadsr.domain.AdministeredComponent;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.CaDSRObjects;
 import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
 import gov.nih.nci.ncicb.cadsr.domain.ComponentConcept;
 import gov.nih.nci.ncicb.cadsr.domain.Concept;
 import gov.nih.nci.ncicb.cadsr.domain.ConceptDerivationRule;
+import gov.nih.nci.ncicb.cadsr.domain.ConceptualDomain;
 import gov.nih.nci.ncicb.cadsr.domain.Context;
 import gov.nih.nci.ncicb.cadsr.domain.DataElement;
 import gov.nih.nci.ncicb.cadsr.domain.DataElementConcept;
@@ -94,6 +94,17 @@ public class CaDSRObjectsUtil {
 		setPublicIdAndVersion(property, publicId, version);
 		
 		return property;
+	}
+	
+	public static ConceptualDomain createConceptualDomain() {
+		return DomainObjectFactory.newConceptualDomain();
+	}
+	
+	public static ConceptualDomain createConceptualDomain(int publicId, double version) {
+		ConceptualDomain conceptualDomain = DomainObjectFactory.newConceptualDomain();
+		setPublicIdAndVersion(conceptualDomain, publicId, version);
+		
+		return conceptualDomain;
 	}
 
 	public static ConceptDerivationRule createConceptDerivationRule(List<Concept> concepts) {
@@ -261,7 +272,7 @@ public class CaDSRObjectsUtil {
 		}
 	}
 	
-	public List<Concept> getConcepts(ConceptDerivationRule cdr) {
+	public static List<Concept> getConcepts(ConceptDerivationRule cdr) {
 		List<Concept> concepts = new ArrayList<Concept>();
 		
 		if (cdr == null) return concepts;
@@ -273,6 +284,16 @@ public class CaDSRObjectsUtil {
 		}
 		
 		return concepts;
+	}
+	
+	public static String[] getConceptCodes(ConceptDerivationRule cdr) {
+		List<Concept> concepts = getConcepts(cdr);
+		String[] conceptCodes = new String[concepts.size()];
+		for (int i=0;i<concepts.size();i++) {
+			conceptCodes[i] = concepts.get(i).getPreferredName();
+		}
+		
+		return conceptCodes;
 	}
 	
 	public String getDefinition(ConceptDerivationRule cdr) {
@@ -313,16 +334,18 @@ public class CaDSRObjectsUtil {
 	public String getLongNameFromConcepts(List<Concept> concepts) {
 		StringBuffer concatConceptsBuffer = new StringBuffer();
 		
+		boolean apndFlag = false;
 		for (Concept concept: concepts) {
-			concatConceptsBuffer.append(concept.getLongName());
-			concatConceptsBuffer.append(" ");
+			if (apndFlag) concatConceptsBuffer.append(" ");
+			else apndFlag = true;
+			concatConceptsBuffer.append(concept.getLongName().trim());
 		}
 		
-		int lastIndexOfConcatStr = concatConceptsBuffer.lastIndexOf(CONCEPT_CONCAT_STRING);
+/*		int lastIndexOfConcatStr = concatConceptsBuffer.lastIndexOf(CONCEPT_CONCAT_STRING);
 		
-		String concatConceptsStr = lastIndexOfConcatStr>=0?concatConceptsBuffer.substring(0, lastIndexOfConcatStr):concatConceptsBuffer.toString();
+		String concatConceptsStr = lastIndexOfConcatStr>=0?concatConceptsBuffer.substring(0, lastIndexOfConcatStr):concatConceptsBuffer.toString();*/
 		
-		return concatConceptsStr;
+		return concatConceptsBuffer.toString();
 	}
 	
 	public String getPreferredNameFromConcepts(List<Concept> concepts) {
