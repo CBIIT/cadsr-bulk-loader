@@ -6,6 +6,7 @@ import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
 import gov.nih.nci.ncicb.cadsr.domain.DataElement;
 import gov.nih.nci.ncicb.cadsr.domain.DataElementConcept;
 import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
+import gov.nih.nci.ncicb.cadsr.domain.ObjectClass;
 import gov.nih.nci.ncicb.cadsr.domain.Property;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationError;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationItem;
@@ -17,11 +18,20 @@ public class PropertyValidator extends AbstractValidator {
 	public ValidationItems validate() {
 		List<Property> properties = elementsList.getElements(DomainObjectFactory.newProperty());
 		for (Property property: properties) {
+			validatePropExistsByName(property);
 			validateDefinitionLength(property);
 			validateRetiredProperty(property);
 		}
 		
 		return validationItems;
+	}
+	
+	private void validatePropExistsByName(Property property) {
+		List<Property> ocs = dao.findPropertiesByName(property);
+		if (ocs != null && ocs.size() > 0) {
+			ValidationError error = new ValidationError("The Property ["+property.getLongName()+"] already exists with a different set of concepts", property);
+			validationItems.addItem(error);
+		}
 	}
 	
 	private void validateDefinitionLength(Property property) {
