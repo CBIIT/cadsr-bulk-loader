@@ -17,11 +17,20 @@ public class ObjectClassValidator extends AbstractValidator {
 		List<ObjectClass> objectClasses = elementsList.getElements(DomainObjectFactory.newObjectClass());
 		
 		for (ObjectClass objectClass: objectClasses) {
+			validateOCExistsByName(objectClass);
 			validateDefinitionLength(objectClass);
 			validateRetiredObjectClasses(objectClass);
 		}
 		
 		return validationItems;
+	}
+	
+	private void validateOCExistsByName(ObjectClass objectClass) {
+		List<ObjectClass> ocs = dao.findObjectClassesByName(objectClass);
+		if (ocs != null && ocs.size() > 0) {
+			ValidationError error = new ValidationError("The Object Class ["+objectClass.getLongName()+"] already exists with a different set of concepts", objectClass);
+			validationItems.addItem(error);
+		}
 	}
 	
 	private void validateDefinitionLength(ObjectClass objectClass) {
