@@ -27,10 +27,19 @@ public class PropertyValidator extends AbstractValidator {
 	}
 	
 	private void validatePropExistsByName(Property property) {
-		List<Property> ocs = dao.findPropertiesByName(property);
-		if (ocs != null && ocs.size() > 0) {
-			ValidationError error = new ValidationError("The Property ["+property.getLongName()+"] already exists with a different set of concepts", property);
-			validationItems.addItem(error);
+		if (property.getId() == null) {
+			
+			// make sure this will not throw a unique key violation (PROP_UK) when we try to create it
+			Property searchProp = DomainObjectFactory.newProperty();
+			searchProp.setPreferredName(property.getPreferredName());
+			searchProp.setVersion(property.getVersion());
+			searchProp.setContext(property.getContext());
+			
+			List<Property> ocs = dao.findPropertiesByName(searchProp);
+			if (ocs != null && ocs.size() > 0) {
+				ValidationError error = new ValidationError("The Property ["+property.getLongName()+"] already exists with a different set of concepts", property);
+				validationItems.addItem(error);
+			}
 		}
 	}
 	
