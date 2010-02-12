@@ -26,10 +26,19 @@ public class ObjectClassValidator extends AbstractValidator {
 	}
 	
 	private void validateOCExistsByName(ObjectClass objectClass) {
-		List<ObjectClass> ocs = dao.findObjectClassesByName(objectClass);
-		if (ocs != null && ocs.size() > 0) {
-			ValidationError error = new ValidationError("The Object Class ["+objectClass.getLongName()+"] already exists with a different set of concepts", objectClass);
-			validationItems.addItem(error);
+		if (objectClass.getId() == null) {
+			
+			// make sure this will not throw a unique key violation (OC_UK) when we try to create it
+			ObjectClass searchOC = DomainObjectFactory.newObjectClass();
+			searchOC.setPreferredName(objectClass.getPreferredName());
+			searchOC.setVersion(objectClass.getVersion());
+			searchOC.setContext(objectClass.getContext());
+			
+			List<ObjectClass> ocs = dao.findObjectClassesByName(searchOC);
+			if (ocs != null && ocs.size() > 0) {
+				ValidationError error = new ValidationError("The Object Class ["+objectClass.getLongName()+"] already exists with a different set of concepts", objectClass);
+				validationItems.addItem(error);
+			}
 		}
 	}
 	
