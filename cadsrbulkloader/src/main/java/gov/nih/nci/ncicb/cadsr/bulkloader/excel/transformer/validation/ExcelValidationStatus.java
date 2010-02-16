@@ -42,6 +42,18 @@ public class ExcelValidationStatus implements TransformerValidationStatus {
 	public static final ExcelValidationStatus INVALID_MAX_LENGTH = new ExcelValidationStatus(-25, "The VD Max Length entered is not a number");
 	public static final ExcelValidationStatus ENUM_VD_NO_PV = new ExcelValidationStatus(-26, "Enumerated VD should have atleast one Permissible Value");
 	
+	public static final ExcelValidationStatus PV_TOO_LONG(String... replacementText) {
+		return new ExcelValidationStatus(-27, replaceMessageTokens("The permissible value [?] is longer than the max possible length of [?]", replacementText));
+	}
+	
+	public static final ExcelValidationStatus PREF_QUES_TOO_LONG(String... replacementText) { 
+		return new ExcelValidationStatus(-28, replaceMessageTokens("The preferred question text [?] is longer than the max possible length of [?]", replacementText));
+	}
+	
+	public static final ExcelValidationStatus ALT_QUES_TOO_LONG(String... replacementText) {
+		return new ExcelValidationStatus(-29, replaceMessageTokens("The alternate question text [?] is longer than the max possible length of [?]", replacementText));
+	}
+	
 	private int errorCode;
 	private String message;
 	
@@ -52,6 +64,15 @@ public class ExcelValidationStatus implements TransformerValidationStatus {
 	
 	public static ExcelValidationStatus generateErrorStatus(String _errorMessage) {
 		return new ExcelValidationStatus(-1000, _errorMessage);
+	}
+	
+	public static String replaceMessageTokens(String _statusString, String...replacementText) {
+		String msg = _statusString;
+		for (String repText: replacementText) {
+			msg = msg.replaceFirst("\\?", repText);
+		}
+		
+		return msg;
 	}
 	
 	public String getMessage() {

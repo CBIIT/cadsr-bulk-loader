@@ -15,6 +15,8 @@ import java.util.regex.Pattern;
 
 public class ExcelValidation implements TransformerValidation {
 
+	private static final int PV_MAX_LENGTH = 255;
+	private static final int QUESTION_MAX_LENGTH = 4000;
 	private static final Pattern CONCEPTS_PATTERN = Pattern.compile("[a-zA-Z0-9]+");
 	
 	public TransformerValidationResult validate(Item toValidate) {
@@ -99,9 +101,8 @@ public class ExcelValidation implements TransformerValidation {
 
 	private TransformerValidationLineItemResult validateCDE(ExcelQuestion question, TransformerValidationLineItemResult lineItemResult){
 		String cdeId = question.getCdeId();
-		String decId = question.getDecId();
-		String vdId = question.getVdId();
 		
+		lineItemResult = validatePrefAndAltQuesText(question, lineItemResult);
 		if (cdeId == null || cdeId.trim().equals("")) {
 			validateDEC(question, lineItemResult);
 			validateVD(question, lineItemResult);
@@ -110,13 +111,27 @@ public class ExcelValidation implements TransformerValidation {
 			if (!testIdFormat(cdeId)) {
 				lineItemResult.addStatus(ExcelValidationStatus.INVALID_CDEID);
 			}
-			/*if (decId!=null || !areAllDECFieldsBlank(question) || vdId!=null || !areAllVDFieldsBlank(question)) {
-				lineItemResult.addStatus(ExcelValidationStatus.CDEID_AND_DATA_PRESENT);
-			}*/
 		}
 		
 		if (!lineItemResult.hasErrors()) {
 			lineItemResult.addStatus(ExcelValidationStatus.PASSED);
+		}
+		
+		return lineItemResult;
+	}
+	
+	private TransformerValidationLineItemResult validatePrefAndAltQuesText(ExcelQuestion question, TransformerValidationLineItemResult lineItemResult) {
+		String prefQues = question.getPreferredQuestion();
+		String altQues = question.getAlternateQuestion();
+		
+		if (prefQues != null && !prefQues.equals("") 
+				&& prefQues.length() > QUESTION_MAX_LENGTH) {
+			lineItemResult.addStatus(ExcelValidationStatus.PREF_QUES_TOO_LONG(prefQues, Integer.toString(QUESTION_MAX_LENGTH)));
+		}
+		
+		if (altQues != null && !altQues.equals("") 
+				&& altQues.length() > QUESTION_MAX_LENGTH) {
+			lineItemResult.addStatus(ExcelValidationStatus.ALT_QUES_TOO_LONG(altQues, Integer.toString(QUESTION_MAX_LENGTH)));
 		}
 		
 		return lineItemResult;
@@ -148,7 +163,8 @@ public class ExcelValidation implements TransformerValidation {
 				if (!testConceptFormat(propPrimConcepts)) {
 					lineItemResult.addStatus(ExcelValidationStatus.INVALID_PRIM_CONCEPT_ID);
 				}
-				if (!testIdFormat(decConceptualDomainId)) {
+				if (decConceptualDomainId != null && !decConceptualDomainId.equals("") 
+						&& !testIdFormat(decConceptualDomainId)) {
 					lineItemResult.addStatus(ExcelValidationStatus.INVALID_DEC_CD_ID);
 				}
 			}
@@ -157,10 +173,6 @@ public class ExcelValidation implements TransformerValidation {
 			if (!testIdFormat(decId)) {
 				lineItemResult.addStatus(ExcelValidationStatus.INVALID_DECID);
 			}
-			
-			/*if (!areAllDECFieldsBlank(question)) {
-				lineItemResult.addStatus(ExcelValidationStatus.DECID_AND_DATA_PRESENT);
-			}*/
 		}
 		
 		return lineItemResult;
@@ -169,12 +181,12 @@ public class ExcelValidation implements TransformerValidation {
 	private boolean isAnyDECFieldBlank(ExcelQuestion question) {
 		String ocPrimConcepts = question.getOcPrimConcepts();
 		String propPrimConcepts = question.getPropPrimConcepts();
-		String decConceptualDomainId = question.getDecConceptualDomainId();
+		//String decConceptualDomainId = question.getDecConceptualDomainId();
 		
 		List<String> decFieldValues = new ArrayList<String>();
 		decFieldValues.add(ocPrimConcepts);
 		decFieldValues.add(propPrimConcepts);
-		decFieldValues.add(decConceptualDomainId);
+		//decFieldValues.add(decConceptualDomainId);
 		
 		return anyFieldBlank(decFieldValues);
 	}
@@ -315,9 +327,16 @@ public class ExcelValidation implements TransformerValidation {
 			List<String> vmConcepts = new ArrayList<String>();
 			for (ExcelQuestion excelQuestion: oneRecord) {
 				String pv = excelQuestion.getPv();
-				if (!pvPresent && pv != null && !pv.trim().equals("")) {
-					pvPresent  = true;
+				if (pv != null && !pv.trim().equals("")) {
+					if (!pvPresent) {
+						pvPresent  = true;
+					}
+					
+					if (pv.length() > PV_MAX_LENGTH) {
+						lineItemResult.addStatus(ExcelValidationStatus.PV_TOO_LONG(pv, Integer.toString(PV_MAX_LENGTH)));
+					}
 				}
+				
 				String vmConceptStrs = excelQuestion.getVmConcepts();
 				if (vmConceptStrs != null) {
 					String[] vmConceptsAsArray = getFieldMainElements(vmConceptStrs);
