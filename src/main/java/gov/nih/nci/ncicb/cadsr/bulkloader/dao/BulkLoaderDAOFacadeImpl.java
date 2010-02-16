@@ -666,7 +666,9 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 				createdDE.setValueDomain(valueDomainCache.get(lookedUpVD));
 			}
 			
-			List<DataElement> foundDEs = findDataElements(createdDE);
+			DataElement searchableDE = getSearchableDEByDECAndVD(createdDE);
+			
+			List<DataElement> foundDEs = findDataElements(searchableDE);
 			if (foundDEs.size() > 0) {
 				DataElement foundDE = foundDEs.get(0);
 				
@@ -682,6 +684,17 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 		}
 		
 		return lookedUpDEs;
+	}
+	
+	private DataElement getSearchableDEByDECAndVD(DataElement originalDE) {
+		DataElement de = DomainObjectFactory.newDataElement();
+		de.setDataElementConcept(originalDE.getDataElementConcept());
+		de.setValueDomain(originalDE.getValueDomain());
+		de.setContext(originalDE.getContext());
+		de.setDeletedIndicator(originalDE.getDeletedIndicator());
+		de.setWorkflowStatus(originalDE.getWorkflowStatus());
+		de.setLatestVersionIndicator(originalDE.getLatestVersionIndicator());
+		return de;
 	}
 	
 	private ConceptualDomain findConceptualDomain(ConceptualDomain createdCD) {
