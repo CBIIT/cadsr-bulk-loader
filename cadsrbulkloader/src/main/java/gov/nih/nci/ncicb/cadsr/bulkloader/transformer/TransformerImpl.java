@@ -84,9 +84,8 @@ public class TransformerImpl implements Transformer {
 			TransformerMarshallerResult marshallerResult = marshaller.marshall(transformationResult.getIsoElements(), outputFile);
 			result.setMarshallerResult(marshallerResult);
 			
+			result.setStatus(TransformerStatusImpl.PASSED);
 		}
-		
-		result.setStatus(TransformerStatusImpl.PASSED);
 		return result;
 	}
 }
