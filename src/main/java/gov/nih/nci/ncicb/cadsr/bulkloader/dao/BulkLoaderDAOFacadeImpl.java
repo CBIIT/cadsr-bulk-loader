@@ -351,7 +351,7 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 		
 		processObjectClasses(cadsrObjects);
 		processProperties(cadsrObjects);
-		processDataElementConcepts(cadsrObjects);
+		processDataElementConcepts(cadsrObjects, loadObjects);
 		processValueDomains(cadsrObjects, loadObjects);
 		processDataElements(cadsrObjects);
 		
@@ -372,6 +372,9 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 						addCSCSIs(originalOC, foundOC);
 						foundOC.removeAlternateNames();
 						foundOC.removeDefinitions();
+						
+						objectClassCache.put(originalOC, foundOC);
+						objectClassCacheById.put(foundOC.getPublicId(), foundOC);
 					}
 					
 					replaceCSCSIs(foundOC);
@@ -395,6 +398,9 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 						addCSCSIs(originalProp, foundProp);
 						foundProp.removeAlternateNames();
 						foundProp.removeDefinitions();
+						
+						propertyCache.put(originalProp, foundProp);
+						propertyCacheById.put(foundProp.getPublicId(), foundProp);
 					}
 					
 					replaceCSCSIs(foundProp);
@@ -404,7 +410,7 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 		}
 	}
 	
-	private void processDataElementConcepts(CaDSRObjects caDSRObjects) {
+	private void processDataElementConcepts(CaDSRObjects caDSRObjects, final LoadObjects loadObjects) {
 		List<DataElementConcept> dataElementConcepts = caDSRObjects.getDataElementConcepts();
 		if (dataElementConcepts != null) {
 			final List<ObjectClass> foundDECOCs = new ArrayList<ObjectClass>();
@@ -444,6 +450,9 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 						if (originalCD != null) {
 							originalDEC.setConceptualDomain(findConceptualDomain(originalCD));
 						}
+						else {
+							originalDEC.setConceptualDomain(loadObjects.getLoadConceptualDomain());
+						}
 					}
 					replaceCSCSIs(foundDEC);
 				}
@@ -467,6 +476,19 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 							&& originalVD != foundVD 
 							&& foundVD.getPublicId() != null) {
 						addCSCSIs(foundVD, foundVD);
+						if (originalVD.getPublicId() == null || originalVD.getVersion() == null) {
+							foundVD.setPublicId(originalVD.getPublicId());
+							foundVD.setVersion(originalVD.getVersion());
+							foundVD.setContext(originalVD.getContext());
+							foundVD.setDataType(originalVD.getDataType());
+							foundVD.setMaximumLength(originalVD.getMaximumLength());
+							foundVD.setValueDomainPermissibleValues(originalVD.getValueDomainPermissibleValues());
+							foundVD.setRepresentation(originalVD.getRepresentation());
+							foundVD.setConceptualDomain(originalVD.getConceptualDomain());
+							foundVD.setConceptDerivationRule(originalVD.getConceptDerivationRule());
+							foundVD.setLongName(originalVD.getLongName());
+							foundVD.setVdType(originalVD.getVdType());
+						}
 					}
 					else {
 						setVMContext(originalVD, loadObjects.getLoadContext());
@@ -500,7 +522,6 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 						foundDE.removeAlternateNames();
 						foundDE.removeDefinitions();
 						
-						foundDE.setLongName(originalDE.getLongName());
 						foundDE = addAlternateNames(originalDE, foundDE);
 						foundDE = addRefDocs(originalDE, foundDE);
 						
@@ -609,18 +630,19 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 				}
 			}
 			
-			List<DataElementConcept> foundDECs = findDataElementConcepts(createdDEC);
+			decToLoad = createdDEC;
 			
-			if (foundDECs.size() > 0) {
-				DataElementConcept foundDEC = foundDECs.get(0);
-				dataElementConceptCacheById.put(foundDEC.getPublicId(), foundDEC);
-				dataElementConceptCache.put(createdDEC, foundDEC);
-				decToLoad = foundDEC;
+			if (createdDEC.getObjectClass() != null && createdDEC.getObjectClass().getId() != null 
+					&& createdDEC.getProperty() != null && createdDEC.getProperty().getPublicId() != null) {
+				List<DataElementConcept> foundDECs = findDataElementConcepts(createdDEC);
+				
+				if (foundDECs != null && foundDECs.size() > 0) {
+					DataElementConcept foundDEC = foundDECs.get(0);
+					dataElementConceptCacheById.put(foundDEC.getPublicId(), foundDEC);
+					dataElementConceptCache.put(createdDEC, foundDEC);
+					decToLoad = foundDEC;
+				}
 			}
-			else {
-				decToLoad = createdDEC;
-			}
-			
 			postProcessor.doProcess(createdDEC, decToLoad);
 			lookedUpDECs.add(decToLoad);
 		}
@@ -643,7 +665,7 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 			else {
 				vdToBeAdded = createdVD;
 			}
-			
+			callback.doProcess(createdVD, vdToBeAdded);
 			lookedUpVDs.add(vdToBeAdded);
 		}
 		
@@ -666,16 +688,18 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 				createdDE.setValueDomain(valueDomainCache.get(lookedUpVD));
 			}
 			
-			DataElement searchableDE = getSearchableDEByDECAndVD(createdDE);
+			deToBeAdded = createdDE;
 			
-			List<DataElement> foundDEs = findDataElements(searchableDE);
-			if (foundDEs.size() > 0) {
-				DataElement foundDE = foundDEs.get(0);
+			if (createdDE.getDataElementConcept() != null && createdDE.getDataElementConcept().getId() != null 
+					&& createdDE.getValueDomain() != null && createdDE.getValueDomain().getId() != null) {
+				DataElement searchableDE = getSearchableDEByDECAndVD(createdDE);
 				
-				deToBeAdded = foundDE;
-			}
-			else {
-				deToBeAdded = createdDE;
+				List<DataElement> foundDEs = findDataElements(searchableDE);
+				if (foundDEs.size() > 0) {
+					DataElement foundDE = foundDEs.get(0);
+					
+					deToBeAdded = foundDE;
+				}
 			}
 			
 			postProcessor.doProcess(createdDE, deToBeAdded);
@@ -826,5 +850,9 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 	public List<ConceptualDomain> findConceptualDomains(
 			ConceptualDomain conceptualDomain) {
 		return readDAO.findConceptualDomains(conceptualDomain);
+	}
+	
+	public boolean sourceExists(String sourceName) {
+		return readDAO.sourceExists(sourceName);
 	}
 }
