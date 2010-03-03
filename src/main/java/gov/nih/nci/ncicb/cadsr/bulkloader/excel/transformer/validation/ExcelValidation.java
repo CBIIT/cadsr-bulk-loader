@@ -75,6 +75,7 @@ public class ExcelValidation implements TransformerValidation {
 		String classScheme = excelForm.getClassScheme();
 		String classSchemeItem = excelForm.getClassSchemeItem();
 		String source = excelForm.getSource();
+		String defaultCD = excelForm.getDefaultConceptualDomain();
 		
 		if (formName == null || formName.trim().equals("")) {
 			lineItemResult.addStatus(ExcelValidationStatus.BLANK_FORM_NAME);
@@ -90,6 +91,9 @@ public class ExcelValidation implements TransformerValidation {
 		}
 		if (source == null || source.trim().equals("")) {
 			lineItemResult.addStatus(ExcelValidationStatus.BLANK_SOURCE);
+		}
+		if (defaultCD == null || defaultCD.trim().equals("")) {
+			lineItemResult.addStatus(ExcelValidationStatus.BLANK_DEFAULT_CD);
 		}
 		
 		if (!lineItemResult.hasErrors()) {
