@@ -26,6 +26,12 @@ public class UMLLoaderHandler {
 	private ElementsLists elements = ElementsLists.getInstance();
 	private UMLDefaults defaults = UMLDefaults.getInstance();
 	private boolean propertiesLoaded;
+	private static LoadObjects loadObjects;
+
+	
+	public static LoadObjects getLoadObjects() {
+		return loadObjects;
+	}
 
 	public synchronized void loadElements(CaDSRObjects caDSRObjects, LoadObjects loadObjects) {
 		loadDefaultsIfNotLoaded(loadObjects);
@@ -61,8 +67,9 @@ public class UMLLoaderHandler {
 		
 	}
 	
-	private void loadPropertiesAndSetFlag(LoadObjects loadObjects) throws PersisterException {
-		LoaderDefault loaderDefault = getLoaderDefault(loadObjects);
+	private void loadPropertiesAndSetFlag(LoadObjects _loadObjects) throws PersisterException {
+		loadObjects = _loadObjects;
+		LoaderDefault loaderDefault = getLoaderDefault(_loadObjects);
 		
 		if (currentDefault == null || !currentDefault.equals(loaderDefault)) {
 			currentDefault = loaderDefault;
