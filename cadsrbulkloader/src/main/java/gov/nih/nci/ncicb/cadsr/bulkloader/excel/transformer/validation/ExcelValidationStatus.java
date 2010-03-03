@@ -41,6 +41,7 @@ public class ExcelValidationStatus implements TransformerValidationStatus {
 	public static final ExcelValidationStatus PV_NO_VM = new ExcelValidationStatus(-24, "The Permissible Value entered does not have any Value Meaning concepts");
 	public static final ExcelValidationStatus INVALID_MAX_LENGTH = new ExcelValidationStatus(-25, "The VD Max Length entered is not a number");
 	public static final ExcelValidationStatus ENUM_VD_NO_PV = new ExcelValidationStatus(-26, "Enumerated VD should have atleast one Permissible Value");
+	public static final ExcelValidationStatus BLANK_DEFAULT_CD = new ExcelValidationStatus(-27, "Default Conceptual Domain cannot be blank");
 	
 	public static final ExcelValidationStatus PV_TOO_LONG(String... replacementText) {
 		return new ExcelValidationStatus(-27, replaceMessageTokens("The permissible value [?] is longer than the max possible length of [?]", replacementText));
