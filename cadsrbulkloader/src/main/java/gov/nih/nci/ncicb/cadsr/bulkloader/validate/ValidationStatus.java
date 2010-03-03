@@ -6,6 +6,7 @@ public class ValidationStatus {
 	public static final ValidationStatus SUCCESS = new ValidationStatus(2, "Successfully validated");
 	
 	public static final ValidationStatus FAILURE = new ValidationStatus(3, "Validation failed");
+	public static final ValidationStatus SUCCESS_WITH_WARNINGS = new ValidationStatus(4, "Successfully validated with warnings");
 	
 	private final int code;
 	private final String message;
@@ -26,6 +27,11 @@ public class ValidationStatus {
 		case 0: return true;
 		default: return false;
 		}
+	}
+	
+	public boolean hasWarnings() {
+		if (code == 4) return true;
+		return false;
 	}
 	
 	public String toString() {

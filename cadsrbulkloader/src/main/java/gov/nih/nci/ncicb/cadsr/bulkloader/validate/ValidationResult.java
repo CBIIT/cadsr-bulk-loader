@@ -1,6 +1,7 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.validate;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.CaDSRObjects;
+import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ public class ValidationResult {
 	private List<ValidationItemResult> itemResults;
 	private ValidationStatus validationStatus;
 	private Exception exception;
+	private List<AdminComponent> decommissionedItems;
 	
 	
 	public CaDSRObjects getValidationItem() {
@@ -40,9 +42,25 @@ public class ValidationResult {
 	public boolean isSuccessful() {
 		return (validationStatus.isSuccessful() && exception == null);
 	}
+	public List<AdminComponent> getDecommissionedItems() {
+		return decommissionedItems;
+	}
+	public void setDecommissionedItems(List<AdminComponent> decommissionedItems) {
+		this.decommissionedItems = decommissionedItems;
+	}
 	public boolean hasErrors() {
 		for (ValidationItemResult itemResult: itemResults) {
 			if (!itemResult.isValid()) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public boolean hasWarnings() {
+		for (ValidationItemResult itemResult: itemResults) {
+			if (itemResult.isValid() && itemResult.hasWarnings()) {
 				return true;
 			}
 		}
