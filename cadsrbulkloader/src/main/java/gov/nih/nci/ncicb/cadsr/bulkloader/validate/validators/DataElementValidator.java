@@ -20,7 +20,7 @@ public class DataElementValidator extends AbstractValidator {
 		DataElement de = DomainObjectFactory.newDataElement();
 		List<DataElement> dataElements = elementsList.getElements(de);
 		for (DataElement dataElement: dataElements) {
-			validateIdAndLongName(dataElement);
+			validateId(dataElement);
 			validateAlternateName(dataElement);
 			validateCSCSI(dataElement);
 			validateDefinitionLength(dataElement);
@@ -30,7 +30,7 @@ public class DataElementValidator extends AbstractValidator {
 		return validationItems;
 	}
 	
-	private void validateIdAndLongName(DataElement dataElement) {
+	private void validateId(DataElement dataElement) {
 		String publicId = dataElement.getPublicId();
 		Float version = dataElement.getVersion();
 		if (publicId != null && version != null) {
@@ -39,27 +39,9 @@ public class DataElementValidator extends AbstractValidator {
 				ValidationItem validationItem = new ValidationError("Data Element Id ["+publicId+"v"+version+"] not valid", dataElement);
 				validationItems.addItem(validationItem);
 			}
-			
-			validateLongName(dataElement, deGot);
 		}
 	}
-	
-	public void validateLongName(DataElement newDataElement, DataElement oldDataElement) {
-		String oldPublicId = oldDataElement.getPublicId();
-		String newPublicId = newDataElement.getPublicId();
-		String newLongName = newDataElement.getLongName();
-		String oldLongName = oldDataElement.getLongName();
 		
-		if (newPublicId != null && oldPublicId != null
-				&& newPublicId.equals(oldPublicId)) {
-			if (oldLongName != null 
-					&& !newLongName.equalsIgnoreCase(oldLongName)) {
-				ValidationItem validationItem = new ValidationError("Long Name ("+newLongName+") of Data Element ["+newPublicId+"] does not match with the Long Name ("+oldLongName+") of the Data Element in caDSR", newDataElement);
-				validationItems.addItem(validationItem);
-			}
-		}
-	}
-	
 	private void validateAlternateName(DataElement dataElement) {
 		List<AlternateName> alternateNames = dataElement.getAlternateNames();
 		for (AlternateName alternateName: alternateNames) {
