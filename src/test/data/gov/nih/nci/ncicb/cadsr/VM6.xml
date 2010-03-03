@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns1:Form xmlns:ns1="urn:nci:caDSR">
+	<ns1:formName>VM6</ns1:formName>
+	<ns1:context>caBIG</ns1:context>
+	<ns1:cs>Bulk Loader Test</ns1:cs>
+	<ns1:csi>CSI1</ns1:csi>
+	<ns1:source>NMDP</ns1:source>
+	<ns1:questions>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:alternateName>Alternate name 1</ns1:alternateName>
+			<ns1:alternateNameType>C3D Name</ns1:alternateNameType>
+			<ns1:preferredQuestion>PQT1</ns1:preferredQuestion>
+			<ns1:alternateQuestion>Alternate Question Text 1</ns1:alternateQuestion>
+			<ns1:cdeLongName>CDE Long Name test</ns1:cdeLongName>
+			<ns1:ocPrimConcepts>C15940:Genetic Annotation Index</ns1:ocPrimConcepts>
+			<ns1:propPrimConcepts>C10037:Dacarbazine/Zorubicin</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2183782v1.0:caBIG</ns1:decConceptualDomainId>
+			<ns1:repTermQualConcepts>C51796:Address Module Coordinator</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C10037:Dacarbazine/Zorubicin</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2008570v1.0:Personal attributes</ns1:vdConceptualDomainId>
+			<ns1:dataType>CHARACTER</ns1:dataType>
+			<ns1:enumerated>Yes</ns1:enumerated>
+			<ns1:pv>PV1</ns1:pv>
+			<ns1:vmConcepts>C50424:Additional Therapy;C53039:Adductor Group of the Leg</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:alternateName>Alternate name 2</ns1:alternateName>
+			<ns1:alternateNameType>CONTEXT NAME</ns1:alternateNameType>
+			<ns1:pv>PV2</ns1:pv>
+			<ns1:vmConcepts>C16621:Genetic Engineering</ns1:vmConcepts>
+		</ns1:Question>
+	</ns1:questions>
+</ns1:Form>

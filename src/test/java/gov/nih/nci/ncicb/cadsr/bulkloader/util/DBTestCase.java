@@ -158,9 +158,6 @@ public class DBTestCase extends DatabaseTestCase {
     public boolean compareResultSet(ResultSet rs, ResultSet expected)
             throws Exception
     {
-        /**
-         * RK working on this
-         */
         return false;
     }
 

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns1:Form xmlns:ns1="urn:nci:caDSR">
+	<ns1:formName>8_9_1</ns1:formName>
+	<ns1:context>caBIG</ns1:context>
+	<ns1:cs>TEST_Bulk_Loader_0.5</ns1:cs>
+	<ns1:csi>TEST_8_39</ns1:csi>
+	<ns1:source>NMDP</ns1:source>
+	<ns1:questions>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:alternateName>Alternate name 1</ns1:alternateName>
+			<ns1:alternateNameType>C3D Name</ns1:alternateNameType>
+			<ns1:preferredQuestion>Preferred Question Text 1</ns1:preferredQuestion>
+			<ns1:alternateQuestion>Alternate Question Text 1</ns1:alternateQuestion>
+			<ns1:cdeLongName>CDE 8.39.1</ns1:cdeLongName>
+			<ns1:ocPrimConcepts>C18687:cDNA Expression</ns1:ocPrimConcepts>
+			<ns1:propPrimConcepts>C19450:cat Gene</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2008581v1.0:Properties or Attributes</ns1:decConceptualDomainId>
+			<ns1:repTermPrimConcepts>C12700:Cranial Nerve</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2008570v1.0:Personal attributes</ns1:vdConceptualDomainId>
+			<ns1:dataType>CHARACTER</ns1:dataType>
+			<ns1:vdMaxLength>30</ns1:vdMaxLength>
+			<ns1:enumerated>No</ns1:enumerated>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:alternateName>Alternate name 2</ns1:alternateName>
+			<ns1:alternateNameType>C3PR Name</ns1:alternateNameType>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:alternateName>Alternate name 1</ns1:alternateName>
+			<ns1:alternateNameType>CRITERION_NAME</ns1:alternateNameType>
+			<ns1:preferredQuestion>PQT1</ns1:preferredQuestion>
+			<ns1:cdeLongName>CDE 8.9.2</ns1:cdeLongName>
+			<ns1:ocQualConcepts>C18113:Cryo-Electron Microscopy</ns1:ocQualConcepts>
+			<ns1:ocPrimConcepts>C19450:cat Gene</ns1:ocPrimConcepts>
+			<ns1:propQualConcepts>C18687:cDNA Expression</ns1:propQualConcepts>
+			<ns1:propPrimConcepts>C17610:Blood Sample</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2008552v1.0:Physical Description of Individuals</ns1:decConceptualDomainId>
+			<ns1:repTermQualConcepts>C17691:c-Ros Tyrosine Kinase</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C17391:c-MYC Protein</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2182571v1.0:Pharmacologic Substance</ns1:vdConceptualDomainId>
+			<ns1:dataType>ALPHANUMERIC</ns1:dataType>
+			<ns1:vdMaxLength>28</ns1:vdMaxLength>
+			<ns1:enumerated>No</ns1:enumerated>
+		</ns1:Question>
+		<ns1:Question/>
+		<ns1:Question/>
+	</ns1:questions>
+</ns1:Form>

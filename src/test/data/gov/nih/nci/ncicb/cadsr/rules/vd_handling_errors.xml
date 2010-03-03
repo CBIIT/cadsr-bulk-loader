@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns1:Form xmlns:ns1="urn:nci:caDSR">
+	<ns1:formName>VD Rules Handling</ns1:formName>
+	<ns1:context>caBIG</ns1:context>
+	<ns1:cs>Bulk Loader Metadata</ns1:cs>
+	<ns1:csi>BL Test Fail</ns1:csi>
+	<ns1:defaultCD>DEFAULT_BULKLOADER_CD</ns1:defaultCD>
+	<ns1:source>caBIG</ns1:source>
+	<ns1:questions>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:questionNotes>Reuse VD 1</ns1:questionNotes>
+			<ns1:decId>1111v1.0:DEC Long Name 0</ns1:decId>
+			<ns1:vdId>1111v1.0:VD Long Name 0</ns1:vdId>
+			<ns1:repTermQualConcepts>C0001:Con Long Name 1</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C0002:Con Long Name 2</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>3333v1.0:CD Name 3</ns1:vdConceptualDomainId>
+			<ns1:dataType>DATE</ns1:dataType>
+			<ns1:vdMaxLength>10</ns1:vdMaxLength>
+			<ns1:enumerated>No</ns1:enumerated>
+			<ns1:pv>pv1</ns1:pv>
+			<ns1:pvLength>3</ns1:pvLength>
+			<ns1:vmConcepts>C0003:Con Long Name 3</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>2</ns1:questionNumber>
+			<ns1:questionNotes>Reuse VD 2</ns1:questionNotes>
+			<ns1:decId>1111v1.0:DEC Long Name 0</ns1:decId>
+			<ns1:repTermQualConcepts>C0001:Con Long Name 1</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C0002:Con Long Name 2</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2222v1.0:caBIG</ns1:vdConceptualDomainId>
+			<ns1:dataType>DATE</ns1:dataType>
+			<ns1:vdMaxLength>10</ns1:vdMaxLength>
+			<ns1:enumerated>No</ns1:enumerated>
+			<ns1:pv>val 0</ns1:pv>
+			<ns1:pvLength>5</ns1:pvLength>
+			<ns1:vmConcepts>C0003:Con Long Name 3</ns1:vmConcepts>
+		</ns1:Question>
+	</ns1:questions>
+</ns1:Form>

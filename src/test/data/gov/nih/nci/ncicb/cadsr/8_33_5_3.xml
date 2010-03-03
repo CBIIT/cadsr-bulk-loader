@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns1:Form xmlns:ns1="urn:nci:caDSR">
+	<ns1:formName>8_33_5_3</ns1:formName>
+	<ns1:context>caBIG</ns1:context>
+	<ns1:cs>TEST_Bulk_Loader_0.5</ns1:cs>
+	<ns1:csi>TEST_8_14</ns1:csi>
+	<ns1:source>NMDP</ns1:source>
+	<ns1:questions>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:alternateName>8.33.5</ns1:alternateName>
+			<ns1:alternateNameType>ABBREVIATION</ns1:alternateNameType>
+			<ns1:alternateQuestion>Creating AQT for existing CDE</ns1:alternateQuestion>
+			<ns1:cdeId>2190881v1.0</ns1:cdeId>
+			<ns1:cdeLongName>Blood Collection Tube Specify</ns1:cdeLongName>
+		</ns1:Question>
+		<ns1:Question/>
+		<ns1:Question/>
+		<ns1:Question/>
+		<ns1:Question/>
+	</ns1:questions>
+</ns1:Form>

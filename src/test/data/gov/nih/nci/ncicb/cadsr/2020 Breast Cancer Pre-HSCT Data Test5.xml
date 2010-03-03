@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns1:Form xmlns:ns1="urn:nci:caDSR">
+	<ns1:formName>2020 Breast Cancer Pre-HSCT Data Test5</ns1:formName>
+	<ns1:context>NHLBI</ns1:context>
+	<ns1:cs>NMDP: CDEs to review</ns1:cs>
+	<ns1:csi>2020r1: Breast Cancer Pre-HSCT Data</ns1:csi>
+	<ns1:source>NMDP</ns1:source>
+	<ns1:questions>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:alternateName>bc_base_diag_ax_ln_num</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:preferredQuestion>Specify the number of axillary nodes examined:</ns1:preferredQuestion>
+			<ns1:questionNotes>Existing CDE</ns1:questionNotes>
+			<ns1:cdeId>2002838v4.0</ns1:cdeId>
+			<ns1:cdeLongName>Axillary Node Examined Total Count</ns1:cdeLongName>
+			<ns1:dataType>Number</ns1:dataType>
+			<ns1:vdMaxLength>100</ns1:vdMaxLength>
+			<ns1:enumerated>No</ns1:enumerated>
+			<ns1:pv>N/A</ns1:pv>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>2</ns1:questionNumber>
+			<ns1:alternateName>bc_base_diag_clin_sz_tmr</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:preferredQuestion>Primary Neoplasm Size Laboratory Finding</ns1:preferredQuestion>
+			<ns1:alternateQuestion>28_30: 2 (ind)</ns1:alternateQuestion>
+			<ns1:questionNotes>Existing DEC with existing VD</ns1:questionNotes>
+			<ns1:decId>2011347v3.0:Primary Neoplasm Size</ns1:decId>
+			<ns1:vdId>2676304v1.0:Laboratory Finding Result</ns1:vdId>
+			<ns1:dataType>Character</ns1:dataType>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated>Yes</ns1:enumerated>
+			<ns1:pv>known</ns1:pv>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>0</ns1:questionNumber>
+			<ns1:alternateName>bc_base_diag_rad_sz_tmr</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:alternateQuestion>0</ns1:alternateQuestion>
+			<ns1:dataType>Character</ns1:dataType>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated>Yes</ns1:enumerated>
+			<ns1:pv>not known</ns1:pv>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>0</ns1:questionNumber>
+			<ns1:alternateName>bc_base_diag_path_sz_tmr</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:alternateQuestion>0</ns1:alternateQuestion>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated>Yes</ns1:enumerated>
+			<ns1:pv>0</ns1:pv>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>3</ns1:questionNumber>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:preferredQuestion>Primary Neoplasm Size Type</ns1:preferredQuestion>
+			<ns1:alternateQuestion>28_30: 1 (type)</ns1:alternateQuestion>
+			<ns1:questionNotes>Existing DEC with new VD</ns1:questionNotes>
+			<ns1:decId>2011347v3.0:Primary Neoplasm Size</ns1:decId>
+			<ns1:repTermQualConcepts>C3262:Neoplasm;C25681:Size</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C25284:Type</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2008546v1.0:Organ Measurements</ns1:vdConceptualDomainId>
+			<ns1:dataType>Character</ns1:dataType>
+			<ns1:vdMaxLength>60</ns1:vdMaxLength>
+			<ns1:enumerated>Yes</ns1:enumerated>
+			<ns1:pv>Clinical size of the primary tumor</ns1:pv>
+			<ns1:vmConcepts>C3262:Neoplasm;C25398:Clinical;C25681:Size</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>4</ns1:questionNumber>
+			<ns1:alternateName>bc_base_diag_clin_sz_rst</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:preferredQuestion>Secondary Neoplasm Size Specimen Measurement</ns1:preferredQuestion>
+			<ns1:alternateQuestion>28_30: 3 (cm value)</ns1:alternateQuestion>
+			<ns1:questionNotes>New DEC with existing VD</ns1:questionNotes>
+			<ns1:ocQualConcepts>C25667:Secondary</ns1:ocQualConcepts>
+			<ns1:ocPrimConcepts>C3262:Neoplasm</ns1:ocPrimConcepts>
+			<ns1:propPrimConcepts>C25681:Size</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2008557v1.0:Lab Results</ns1:decConceptualDomainId>
+			<ns1:vdId>2815108v1.0:Tumor Dimension Measurement</ns1:vdId>
+			<ns1:dataType>Number</ns1:dataType>
+			<ns1:vdMaxLength>100</ns1:vdMaxLength>
+			<ns1:enumerated>No</ns1:enumerated>
+			<ns1:pv>N/A</ns1:pv>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>0</ns1:questionNumber>
+			<ns1:alternateName>bc_base_diag_rad_sz_rst</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:alternateQuestion>0</ns1:alternateQuestion>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated>Yes</ns1:enumerated>
+			<ns1:pv>0</ns1:pv>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>0</ns1:questionNumber>
+			<ns1:alternateName>bc_base_diag_path_sz_rst</ns1:alternateName>
+			<ns1:alternateNameType>NMDP_FN</ns1:alternateNameType>
+			<ns1:alternateQuestion>0</ns1:alternateQuestion>
+			<ns1:dataType/>
+			<ns1:vdMaxLength/>
+			<ns1:enumerated>Yes</ns1:enumerated>
+			<ns1:pv>0</ns1:pv>
+		</ns1:Question>
+		<ns1:Question/>
+		<ns1:Question/>
+	</ns1:questions>
+</ns1:Form>
