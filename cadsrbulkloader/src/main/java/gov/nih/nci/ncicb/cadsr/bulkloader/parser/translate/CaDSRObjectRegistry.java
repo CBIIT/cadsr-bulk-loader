@@ -94,11 +94,17 @@ public class CaDSRObjectRegistry {
 	}
 	
 	public Property getProperty(String tagId) {
-		return propertiesMap.get(tagId);
+		if (tagId == null) return null;
+		else {
+			return propertiesMap.get(tagId);
+		}
 	}
 	
 	public ObjectClass getObjectClass(String tagId) {
-		return objectClassMap.get(tagId);
+		if (tagId == null) return null;
+		else {
+			return objectClassMap.get(tagId);
+		}
 	}
 	
 	public ValueDomain getValueDomain(String tagId) {
