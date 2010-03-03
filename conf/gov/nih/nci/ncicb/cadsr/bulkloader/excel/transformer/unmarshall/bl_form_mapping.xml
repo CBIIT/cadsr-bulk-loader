@@ -21,6 +21,9 @@
         <field name="source" type="string">
             <bind-xml name="ns1:source" xmlns:ns1="urn:nci:caDSR" />
         </field>
+        <field name="defaultConceptualDomain" type="string">
+            <bind-xml name="ns1:defaultCD" xmlns:ns1="urn:nci:caDSR" />
+        </field>
         <field name="questions" collection="arraylist" type="gov.nih.nci.ncicb.cadsr.bulkloader.excel.transformer.beans.ExcelQuestion" >
             <bind-xml name="Question" location="questions" />
         </field>
