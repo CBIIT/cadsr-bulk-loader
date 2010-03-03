@@ -13,11 +13,18 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.util.CaDSRObjectsUtil;
 import gov.nih.nci.ncicb.cadsr.bulkloader.validate.Validation;
 import gov.nih.nci.ncicb.cadsr.bulkloader.validate.ValidationResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.validate.ValidationStatus;
+import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
 import gov.nih.nci.ncicb.cadsr.domain.ClassSchemeClassSchemeItem;
 import gov.nih.nci.ncicb.cadsr.domain.ClassificationScheme;
 import gov.nih.nci.ncicb.cadsr.domain.ClassificationSchemeItem;
+import gov.nih.nci.ncicb.cadsr.domain.ConceptualDomain;
 import gov.nih.nci.ncicb.cadsr.domain.Context;
+import gov.nih.nci.ncicb.cadsr.domain.DataElement;
+import gov.nih.nci.ncicb.cadsr.domain.DataElementConcept;
+import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
+import gov.nih.nci.ncicb.cadsr.domain.ValueDomain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CaDSRBulkLoaderImpl implements CaDSRBulkLoader{
@@ -69,12 +76,49 @@ public class CaDSRBulkLoaderImpl implements CaDSRBulkLoader{
 			ValidationResult validationResult = performValidation(input, loadObjects, caDSRObjects);
 			result.setValidationResult(validationResult);
 			if (validationResult.isSuccessful() && !validationResult.hasErrors()) {
+				removeDecommissionedObjects(validationResult.getDecommissionedItems(), caDSRObjects);
 				PersisterResult persisterResult = persister.persist(caDSRObjects, loadObjects);
 				result.setPersisterResult(persisterResult);
 			}
 		}
 		
 		return result;
+	}
+	
+	private void removeDecommissionedObjects(List<AdminComponent> decommissionedItems, CaDSRObjects caDSRObjects) {
+		if (decommissionedItems != null && decommissionedItems.size() > 0) {
+			List<DataElement> des = caDSRObjects.getDataElements();
+			List<DataElement> deRemoveList = new ArrayList<DataElement>();
+			for (DataElement de: des) {
+				if (decommissionedItems.contains(de) 
+						|| decommissionedItems.contains(de.getDataElementConcept())
+						|| decommissionedItems.contains(de.getValueDomain())) {
+					deRemoveList.add(de);
+				}
+			}
+			des.removeAll(deRemoveList);
+			
+			List<DataElementConcept> decs = caDSRObjects.getDataElementConcepts();
+			List<DataElementConcept> decRemoveList = new ArrayList<DataElementConcept>();
+			for (DataElementConcept dec: decs) {
+				if (decommissionedItems.contains(dec) 
+						|| decommissionedItems.contains(dec.getObjectClass())
+						|| decommissionedItems.contains(dec.getProperty())) {
+					decRemoveList.add(dec);
+				}
+			}
+			decs.removeAll(decRemoveList);
+			
+			List<ValueDomain> vds = caDSRObjects.getValueDomains();
+			List<ValueDomain> vdRemoveList = new ArrayList<ValueDomain>();
+			for (ValueDomain vd: vds) {
+				if (decommissionedItems.contains(vd) 
+						|| decommissionedItems.contains(vd.getRepresentation())) {
+					vdRemoveList.add(vd);
+				}
+			}
+			vds.removeAll(vdRemoveList);
+		}
 	}
 	
 	private ValidationResult performValidation(LoaderInput input, LoadObjects loadObjects, CaDSRObjects caDSRObjects) {
@@ -97,6 +141,9 @@ public class CaDSRBulkLoaderImpl implements CaDSRBulkLoader{
 		Context loadContext = daoFacade.findContextByName(loadProperties.getContextName());
 		ClassificationScheme loadClassScheme = daoFacade.getClassificationScheme(loadProperties.getClassificationSchemeName());
 		
+		String defaultCDName = loadProperties.getDefaultConceptualDomain();
+		ConceptualDomain defaultCD = getDefaultCD(defaultCDName);
+		
 		if (loadClassScheme == null || loadClassScheme.getPublicId() == null) {
 			throw new BulkLoaderRuntimeException("Could not find the given CS ["+loadProperties.getClassificationSchemeName()+"]");
 		}
@@ -106,12 +153,34 @@ public class CaDSRBulkLoaderImpl implements CaDSRBulkLoader{
 			throw new BulkLoaderRuntimeException("Could not find the CSI specified ["+loadProperties.getClassificationSchemeItemName()+"] for the given CS ["+loadProperties.getClassificationSchemeName()+"]");
 		}
 		
+		String source = loadProperties.getLoadSource();
+		if (source != null && !source.trim().equals("")) {
+			if (!daoFacade.sourceExists(source)) {
+				throw new BulkLoaderRuntimeException("Could not find the source ["+source+"] in the list of approved sources");
+			}
+		}
+		
 		loadObjects.setLoadContext(loadContext);
 		loadObjects.setLoadClassScheme(loadClassScheme);
+		loadObjects.setLoadConceptualDomain(defaultCD);
 		
 		return loadObjects;
 	}
 	
+	private ConceptualDomain getDefaultCD(String defaultCDName) {
+		ConceptualDomain defaultCD = null;
+		if (defaultCDName != null) {
+			ConceptualDomain cd = DomainObjectFactory.newConceptualDomain();
+			cd.setPreferredName(defaultCDName);
+			
+			List<ConceptualDomain> cds = daoFacade.findConceptualDomains(cd);
+			if (cds != null && cds.size() > 0) {
+				defaultCD = cds.get(0);
+			}
+		}
+		
+		return defaultCD;
+	}
 	private ClassificationSchemeItem getCSI(ClassificationScheme cs, String _csiLongName) {
 		if (cs == null || _csiLongName == null) {
 			return null;
