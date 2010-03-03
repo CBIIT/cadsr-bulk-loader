@@ -214,10 +214,10 @@ public class CaDSRObjectsUtil {
 	}
 	
 	public String deriveLongName(ObjectClass oc, Property prop) {
-		String ocLongName = deriveLongName(oc.getConceptDerivationRule());
-		String propLongName = deriveLongName(prop.getConceptDerivationRule());
+		String ocLongName = oc==null?"":deriveLongName(oc.getConceptDerivationRule());
+		String propLongName = prop==null?"":deriveLongName(prop.getConceptDerivationRule());
 		
-		return ocLongName+" "+propLongName;
+		return (ocLongName+" "+propLongName).trim();
 	}
 	
 	public String deriveLongName(ConceptDerivationRule cdr) {
