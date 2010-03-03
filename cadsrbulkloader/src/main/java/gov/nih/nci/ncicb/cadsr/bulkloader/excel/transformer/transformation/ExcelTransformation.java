@@ -134,6 +134,7 @@ public class ExcelTransformation implements TransformerTransformation {
 		loadProperties.setClassificationSchemeName(excelForm.getClassScheme());
 		loadProperties.setClassificationSchemeItemName(excelForm.getClassSchemeItem());
 		loadProperties.setLoadSource(excelForm.getSource());
+		loadProperties.setDefaultConceptualDomain(excelForm.getDefaultConceptualDomain());
 		result.setLoadProperties(loadProperties);
 		
 		source = excelForm.getSource();
@@ -467,12 +468,23 @@ public class ExcelTransformation implements TransformerTransformation {
 		allPropConcepts.addAll(propQualConcepts);
 		allPropConcepts.addAll(propPrimConcepts);
 		
-		ObjectClass_caDSR11179 isoOC = getObjectClassAndAddConcepts(allOCConcepts);
-		Property_caDSR11179 isoProp = getPropertyAndAddConcepts(allPropConcepts);
+		String isoOCTagId = null;
+		String isoPropTagId = null;
+		
+		if (allOCConcepts.size() > 0) {
+			ObjectClass_caDSR11179 isoOC = getObjectClassAndAddConcepts(allOCConcepts);
+			isoOCTagId = isoOC.getTagId();
+		}
+		
+		if (allPropConcepts.size() > 0) {
+			Property_caDSR11179 isoProp = getPropertyAndAddConcepts(allPropConcepts);
+			isoPropTagId = isoProp.getTagId();
+		}
+		
 		ConceptualDomain_caDSR11179 isoCD = getConceptualDomain(question.getDecConceptualDomainId());
 		
-		isoDEC.setObjectClassRefId(isoOC.getTagId());
-		isoDEC.setPropertyRefId(isoProp.getTagId());
+		isoDEC.setObjectClassRefId(isoOCTagId);
+		isoDEC.setPropertyRefId(isoPropTagId);
 		isoDEC.setConceptualDomainRefId(isoCD.getTagId());
 		
 		isoDEC.setClassifiedBy(getClassifiedBy());
