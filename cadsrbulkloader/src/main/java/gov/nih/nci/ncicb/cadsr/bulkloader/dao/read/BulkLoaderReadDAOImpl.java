@@ -320,4 +320,21 @@ public class BulkLoaderReadDAOImpl implements BulkLoaderReadDAO {
 		return alternateNameTypes;
 	}
 	
+	public boolean sourceExists(String sourceName) {
+		String sql = "select * from SOURCES_EXT where SRC_NAME='"+sourceName+"'";
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		
+		Boolean exists = (Boolean)jdbcTemplate.query(sql, new ResultSetExtractor() {
+			public Object extractData(ResultSet rs) throws SQLException,
+					DataAccessException {
+				if (rs.next()) {
+					return new Boolean(true);
+				}
+				return new Boolean(false);
+			}	
+		});
+		
+		return exists;
+	}
+	
 }
