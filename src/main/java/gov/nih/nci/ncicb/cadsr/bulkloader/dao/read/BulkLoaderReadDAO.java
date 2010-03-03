@@ -45,5 +45,6 @@ public interface BulkLoaderReadDAO {
 	public Context findContextByName(String contextName);
 	
 	public List<String> getAlternateNameTypes();
+	public boolean sourceExists(String sourceName);
 
 }
