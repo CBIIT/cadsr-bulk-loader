@@ -47,7 +47,12 @@ public class LoadResult {
 	public LoadStatus getLoadStatus() {
 		if (loadStatus == null) {
 			if (isSuccessful()) {
-				loadStatus = LoadStatus.SUCCESSFUL;
+				if (hasWarnings()) {
+					loadStatus = LoadStatus.SUCCESSFUL_WITH_WARNINGS;
+				}
+				else {
+					loadStatus = LoadStatus.SUCCESSFUL;
+				}
 			}
 			else {
 				if (!parseResult.isSuccessful() || parseResult.hasErrors()) {
@@ -94,5 +99,13 @@ public class LoadResult {
 		}
 		
 		return true;
+	}
+	
+	public boolean hasWarnings() {
+		if (validationResult != null && validationResult.hasWarnings()) {
+			return true;
+		}
+		
+		return false;
 	}
 }
