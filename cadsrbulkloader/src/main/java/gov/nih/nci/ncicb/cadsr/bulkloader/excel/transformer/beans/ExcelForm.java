@@ -12,6 +12,7 @@ public class ExcelForm extends Item {
 	private String classScheme;
 	private String classSchemeItem;
 	private String source;
+	private String defaultConceptualDomain;
 	private List<ExcelQuestion> questions;
 	
 	@Override
@@ -72,6 +73,14 @@ public class ExcelForm extends Item {
 	public void setSource(String source) {
 		this.source = source;
 	}
+	public String getDefaultConceptualDomain() {
+		return defaultConceptualDomain;
+	}
+
+	public void setDefaultConceptualDomain(String defaultConceptualDomain) {
+		this.defaultConceptualDomain = defaultConceptualDomain;
+	}
+
 	public List<ExcelQuestion> getQuestions() {
 		return questions;
 	}
