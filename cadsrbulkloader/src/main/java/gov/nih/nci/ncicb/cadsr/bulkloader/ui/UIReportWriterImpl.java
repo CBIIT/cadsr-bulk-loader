@@ -78,6 +78,7 @@ public class UIReportWriterImpl implements UIReportWriter {
 		
 		if (loadResult != null) {
 			LoadStatus loadStatus = loadResult.getLoadStatus();
+			ValidationResult validationResult = loadResult.getValidationResult();
 			if (loadStatus != null) {
 				System.out.println("Data Load Status: "+loadStatus.getStatusMessage());
 			}
@@ -86,7 +87,6 @@ public class UIReportWriterImpl implements UIReportWriter {
 			if (!loadSuccessful) {
 				
 				if (!processSuccessful && loadStatus.equals(LoadStatus.FAILED_WITH_VALIDATION_ERROR)) {
-					ValidationResult validationResult = loadResult.getValidationResult();
 					List<ValidationItemResult> itemResults = validationResult.getItemResults();
 					
 					System.out.println("Validation Errors:");
@@ -100,7 +100,19 @@ public class UIReportWriterImpl implements UIReportWriter {
 						i++;
 					}
 				}
-				
+			}
+			
+			if (validationResult != null && validationResult.hasWarnings()) {
+				List<ValidationItemResult> itemResults = validationResult.getItemResults();
+				System.out.println("\n-------------------------------------");
+				System.out.println("Validation Warnings:");
+				System.out.println("-------------------------------------");
+				int i=1;
+				for (ValidationItemResult itemResult: itemResults) {
+					if (itemResult.hasWarnings()) {
+						System.out.println(i+":"+itemResult.getMessage());
+					}
+				}
 			}
 		}
 		System.out.println("\n=====================================");
