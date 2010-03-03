@@ -1,11 +1,14 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators;
 
-import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.NonPersistentObject;
+import gov.nih.nci.ncicb.cadsr.bulkloader.util.UMLLoaderHandler;
+import gov.nih.nci.ncicb.cadsr.domain.ConceptualDomain;
 import gov.nih.nci.ncicb.cadsr.domain.DataElementConcept;
 import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationError;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationItem;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationItems;
+import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationWarning;
 
 import java.util.List;
 
@@ -29,8 +32,13 @@ public class DataElementConceptValidator extends AbstractValidator {
 		Float version = dec.getVersion();
 		
 		if (publicId != null && version != null) {
-			DataElementConcept decGot = dao.findDataElementConceptById(Integer.parseInt(publicId), new Double(version).doubleValue());
-			if (decGot.getPublicId() == null) {
+			DataElementConcept searchDEC = DomainObjectFactory.newDataElementConcept();
+			searchDEC.setPublicId(publicId);
+			searchDEC.setVersion(version);
+			
+			List<DataElementConcept> foundDECs = dao.findDataElementConcepts(searchDEC);
+			
+			if (foundDECs == null || foundDECs.size() == 0) {
 				ValidationItem validationItem = new ValidationError("Data Element Concept Id ["+publicId+"v"+version+"] not valid", dec);
 				validationItems.addItem(validationItem);
 			}
