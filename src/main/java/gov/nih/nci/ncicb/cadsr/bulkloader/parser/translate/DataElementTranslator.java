@@ -62,16 +62,10 @@ public class DataElementTranslator extends AbstractTranslatorTemplate {
 	}
 	
 	private String getDELongName(DataElement_ISO11179 isoDE, DataElementConcept dec, ValueDomain vd) {
-		String isoDELongName = isoDE.getLongName();
-		if (isoDELongName != null && !isoDELongName.trim().equals("")) {
-			return isoDELongName.trim();
-		}
-		else {
-			String decLongName = util.getDECLongName(dec);
-			String vdLongName = util.getVDLongName(vd);
-			
-			return decLongName+" "+vdLongName;
-		}
+		String decLongName = util.getDECLongName(dec);
+		String vdLongName = util.getVDLongName(vd);
+		
+		return decLongName+" "+vdLongName;
 	}
 	
 	private void addAlternateNames(DataElement_ISO11179 isoDE, DataElement de) {
