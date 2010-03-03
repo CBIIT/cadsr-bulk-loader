@@ -2,7 +2,9 @@ package gov.nih.nci.ncicb.cadsr.bulkloader.validate;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.CaDSRObjects;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.LoadObjects;
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.NonPersistentObject;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.UMLLoaderHandler;
+import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationError;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationFatal;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationItem;
@@ -16,6 +18,7 @@ import java.util.Set;
 public class ValidationImpl implements Validation {
 
 	private List<gov.nih.nci.ncicb.cadsr.loader.validator.Validator> validators;
+	private List<AdminComponent> decommissionedItems = new ArrayList<AdminComponent>();
 	
 	public void setValidators(List<gov.nih.nci.ncicb.cadsr.loader.validator.Validator> validators) {
 		this.validators = validators;
@@ -48,6 +51,7 @@ public class ValidationImpl implements Validation {
 			result.setValidationStatus(ValidationStatus.FAILURE);
 		} finally {
 			handler.unLoadElements();
+			result.setDecommissionedItems(decommissionedItems);
 		}
 		
 		return result;
@@ -66,8 +70,23 @@ public class ValidationImpl implements Validation {
 			
 		for (ValidationItem error: errors) {
 			Object item = error.getRootCause();
+			if (item instanceof NonPersistentObject) {
+				decommissionedItems.add(((NonPersistentObject) item).getActualObject());
+			}
 			String message = error.getMessage();
 			ValidationItemResult lineItemResult = new ValidationItemResult(item, ValidationStatus.FAILURE);
+			lineItemResult.setMessage(message);
+			
+			itemResults.add(lineItemResult);
+		}
+		
+		for (ValidationItem warning: validationWarnings) {
+			Object item = warning.getRootCause();
+			if (item instanceof NonPersistentObject) {
+				decommissionedItems.add(((NonPersistentObject) item).getActualObject());
+			}
+			String message = warning.getMessage();
+			ValidationItemResult lineItemResult = new ValidationItemResult(item, ValidationStatus.SUCCESS_WITH_WARNINGS);
 			lineItemResult.setMessage(message);
 			
 			itemResults.add(lineItemResult);

@@ -35,4 +35,8 @@ public class ValidationItemResult {
 	public boolean isValid() {
 		return status.isSuccessful();
 	}
+	
+	public boolean hasWarnings() {
+		return status.hasWarnings();
+	}
 }
