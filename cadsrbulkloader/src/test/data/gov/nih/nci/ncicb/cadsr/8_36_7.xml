@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns1:Form xmlns:ns1="urn:nci:caDSR">
+	<ns1:formName>8_36_7</ns1:formName>
+	<ns1:context>caBIG</ns1:context>
+	<ns1:cs>Bulk Loader Test</ns1:cs>
+	<ns1:csi>CSI2</ns1:csi>
+	<ns1:source>NMDP</ns1:source>
+	<ns1:questions>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:alternateName>AlternateName1</ns1:alternateName>
+			<ns1:alternateNameType>ABBREVIATION</ns1:alternateNameType>
+			<ns1:preferredQuestion>PQT1</ns1:preferredQuestion>
+			<ns1:ocQualConcepts>C41216:Addendum;C12798:Thoracic Vertebra</ns1:ocQualConcepts>
+			<ns1:ocPrimConcepts>C15330:Digestive System Surgery</ns1:ocPrimConcepts>
+			<ns1:propQualConcepts>C12057:Trastuzumab/ZD 1839;</ns1:propQualConcepts>
+			<ns1:propPrimConcepts>C15330:Digestive System Surgery</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2183782v1.0:caBIG</ns1:decConceptualDomainId>
+			<ns1:repTermQualConcepts>C14418:Wild Type Mouse;C16270:Agriculture</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C12798:Thoracic Vertebra</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2842595v1.0:Culture Procedure</ns1:vdConceptualDomainId>
+			<ns1:dataType>CHARACTER</ns1:dataType>
+			<ns1:vdMaxLength>30</ns1:vdMaxLength>
+			<ns1:enumerated>Yes</ns1:enumerated>
+			<ns1:pv>PV1</ns1:pv>
+			<ns1:vmConcepts>C14418:Wild Type Mouse;C3228:Menarche</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>PV2</ns1:pv>
+			<ns1:vmConcepts>C16270:Agriculture;C12798:Thoracic Vertebra;C21978:Proteins;C41216:Addendum</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>PV3</ns1:pv>
+			<ns1:vmConcepts>C15584:Quality-of-Life Assessment</ns1:vmConcepts>
+		</ns1:Question>		
+		<ns1:Question>
+			<ns1:pv>PV4</ns1:pv>
+		</ns1:Question>	
+		<ns1:Question>
+			<ns1:pv>PV5</ns1:pv>
+			<ns1:vmConcepts>C10103:Bleomycin/Cisplatin/Mitoguazone/Vindesine;C1021:Batanopride;C1024:Bropirimine;C1030:Butocin</ns1:vmConcepts>
+		</ns1:Question>				
+	</ns1:questions>
+</ns1:Form>

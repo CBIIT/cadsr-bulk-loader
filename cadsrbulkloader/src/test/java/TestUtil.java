@@ -562,8 +562,8 @@ public class TestUtil {
 	
 	public static void main(String[] args) {
 		TestUtil testUtil = new TestUtil();
-		Document doc = testUtil.readXMLInput(new File("C:\\Docume~1\\mathura2\\Desktop\\8_12_2.xml"));
-		File xcelFile = testUtil.createExcelFile("C:\\Docume~1\\mathura2\\Desktop\\8_12_2.xls");
+		Document doc = testUtil.readXMLInput(new File("C:\\Docume~1\\mathura2\\Desktop\\Retest_Failures_BL_27jan2010_v2.xml"));
+		File xcelFile = testUtil.createExcelFile("C:\\Docume~1\\mathura2\\Desktop\\Retest_Failures_BL_27jan2010_v2.xls");
 		testUtil.extractToExcel(xcelFile, doc);
 	}
 }

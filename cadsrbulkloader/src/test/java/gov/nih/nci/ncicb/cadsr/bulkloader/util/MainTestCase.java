@@ -41,6 +41,7 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.FilteredDataSet;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
+import org.dbunit.dataset.NoPrimaryKeyException;
 import org.dbunit.dataset.filter.ITableFilter;
 import org.dbunit.dataset.filter.SequenceTableFilter;
 import org.dbunit.operation.DatabaseOperation;
@@ -1027,7 +1028,7 @@ public abstract class MainTestCase extends TestCase
                     if (allDeleteCmds == null)
                     {
                         allDeleteCmds = new LinkedList();
-                        tables = conn.getMetaData().getTables(null, schema, null, null);
+                        tables = conn.getMetaData().getTables(null, null, null, null);
 
                         while (tables.next())
                         {

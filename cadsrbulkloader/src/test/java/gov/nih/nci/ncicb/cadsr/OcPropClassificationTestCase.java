@@ -2,17 +2,20 @@ package gov.nih.nci.ncicb.cadsr;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.BulkLoadProcessResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.CaDSRBulkLoadProcessor;
-import gov.nih.nci.ncicb.cadsr.bulkloader.ui.UIReportWriter;
-import gov.nih.nci.ncicb.cadsr.bulkloader.ui.UIReportWriterImpl;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.FileUtil;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.SpringBeansUtil;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Properties;
 
-public class SampleTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.MainTestCase {
+import javax.sql.DataSource;
 
-	private static String[] XML_IP_FILES = {"/gov/nih/nci/ncicb/cadsr/Retest_Failures_BL_27jan2010_v2.xml"};
-	private static String dataURL = "/gov/nih/nci/ncicb/cadsr/Retest_Failures_BL_27jan2010_v2.xls";
+public class OcPropClassificationTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.MainTestCase {
+
+	private static String[] XML_IP_FILES = {"/gov/nih/nci/ncicb/cadsr/gf23121-2.xml"};
+	private static String dataURL = "/gov/nih/nci/ncicb/cadsr/gf23121-2.xls";
 	
 	@Override
 	protected void containerSetUp() throws Exception {
@@ -41,8 +44,8 @@ public class SampleTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.Main
 		}
 	}
 
-	public SampleTestCase() {
-		super("SampleTestCase", SampleTestCase.class, dataURL);
+	public OcPropClassificationTestCase() {
+		super("OcPropClassificationTestCase", OcPropClassificationTestCase.class, dataURL);
 	}
 	
 	public void testProcessor() {
@@ -51,24 +54,15 @@ public class SampleTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.Main
 		props.put("db.username", getPropertyManager().getUnitDataSourceUser());
 		props.put("db.password", getPropertyManager().getUnitDataSourcePassword());
 		
-		/*props.put("db.url", "jdbc:oracle:thin:@cbdb-s1001.nci.nih.gov:1551:DSRSTG");
-		props.put("db.username", "blkldr");
-		props.put("db.password", "29K#kd1qA");*/
-		
 		/*props.put("db.url", "jdbc:oracle:thin:@cbiodb530.nci.nih.gov:1521:DSRQA");
 		props.put("db.username", "chenr_qa");
-		props.put("db.password", "chenr_qa");*/
-		
+		props.put("db.password", "chenr_qa");
+		*/
 		SpringBeansUtil.getInstance().initialize(props);
 		
 		CaDSRBulkLoadProcessor blProcessor = SpringBeansUtil.getInstance().getBulkLoadProcessor();
 		
 		BulkLoadProcessResult[] processResults = blProcessor.process(WORKING_IN_DIR, WORKING_OUT_DIR, true);
-		
-		UIReportWriter writer = new UIReportWriterImpl();
-		for(BulkLoadProcessResult result: processResults) {
-			writer.writeReport(result);
-		}
 		
 /*		try {
 			DataSource ds = super.getDataSource();

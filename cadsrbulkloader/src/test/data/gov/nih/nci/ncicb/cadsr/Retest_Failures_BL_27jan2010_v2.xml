@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns1:Form xmlns:ns1="urn:nci:caDSR">
+	<ns1:formName>Retest Failures BL 27jan2010 v2</ns1:formName>
+	<ns1:context>caBIG</ns1:context>
+	<ns1:cs>Bulk Loader Metadata</ns1:cs>
+	<ns1:csi>BL Test Fail</ns1:csi>
+	<ns1:defaultCD>DEFAULT_BULKLOADER_CD</ns1:defaultCD>
+	<ns1:source>caBIG</ns1:source>
+	<ns1:questions>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:questionNotes>Retest new DEC for CD</ns1:questionNotes>
+			<ns1:ocPrimConcepts>C18982:Radiation, Charged Particles</ns1:ocPrimConcepts>
+			<ns1:propPrimConcepts>C25712:Value</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2513925v1.0:Activity</ns1:decConceptualDomainId>
+			<ns1:vdId>2182809v1.0:Lab Test Name Name</ns1:vdId>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>2</ns1:questionNumber>
+			<ns1:questionNotes>Retest matching DEC for CD</ns1:questionNotes>
+			<ns1:ocQualConcepts>C25190:Person</ns1:ocQualConcepts>
+			<ns1:ocPrimConcepts>C78209:Ability</ns1:ocPrimConcepts>
+			<ns1:propQualConcepts>C37987:Life</ns1:propQualConcepts>
+			<ns1:propPrimConcepts>C72889:Appreciation</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2008532v1.0:Individuals</ns1:decConceptualDomainId>
+			<ns1:vdId>2182809v1.0:Lab Test Name Name</ns1:vdId>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>3</ns1:questionNumber>
+			<ns1:questionNotes>Retest new VD</ns1:questionNotes>
+			<ns1:decId>2797685v1.0:Person Ability Work</ns1:decId>
+			<ns1:repTermQualConcepts>C78209:Ability</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C25284:Type</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2513925v1.0:Activity</ns1:vdConceptualDomainId>
+			<ns1:dataType>CHARACTER</ns1:dataType>
+			<ns1:vdMaxLength>10</ns1:vdMaxLength>
+			<ns1:enumerated>Yes</ns1:enumerated>
+			<ns1:pv>Able</ns1:pv>
+			<ns1:pvLength>4</ns1:pvLength>
+			<ns1:vmConcepts>C64975:Good</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>3</ns1:questionNumber>
+			<ns1:pv>Not Able</ns1:pv>
+			<ns1:pvLength>8</ns1:pvLength>
+			<ns1:vmConcepts>C80228:Bad</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>4</ns1:questionNumber>
+			<ns1:questionNotes>Retest existing DEC with same concepts</ns1:questionNotes>
+			<ns1:ocPrimConcepts>C25190:Person</ns1:ocPrimConcepts>
+			<ns1:propPrimConcepts>C25407:Address</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2435019v1.0:Conceptual Entity</ns1:decConceptualDomainId>
+			<ns1:vdId>2182809v1.0:Lab Test Name Name</ns1:vdId>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>5</ns1:questionNumber>
+			<ns1:questionNotes>Retest existing DEC with new EVD</ns1:questionNotes>
+			<ns1:decId>2183520v1.0:Organization Identifier</ns1:decId>
+			<ns1:repTermQualConcepts>C25364:Identifier</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C25284:Type</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2435032v1.0:Property or Attribute</ns1:vdConceptualDomainId>
+			<ns1:dataType>CHARACTER</ns1:dataType>
+			<ns1:enumerated>Yes</ns1:enumerated>
+			<ns1:pv>Number</ns1:pv>
+			<ns1:pvLength>6</ns1:pvLength>
+			<ns1:vmConcepts>C25337:Number</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:moduleName>Note: In order to automatically expand the table, please add rows directly under the shaded area.</ns1:moduleName>
+			<ns1:questionNumber>5</ns1:questionNumber>
+			<ns1:pv>Character</ns1:pv>
+			<ns1:pvLength>9</ns1:pvLength>
+			<ns1:vmConcepts>C68805:Character</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>5</ns1:questionNumber>
+			<ns1:pv>Other</ns1:pv>
+			<ns1:pvLength>5</ns1:pvLength>
+			<ns1:vmConcepts>C17649:Other</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>6</ns1:questionNumber>
+			<ns1:ocPrimConcepts>C25683:Source</ns1:ocPrimConcepts>
+			<ns1:propPrimConcepts>C61036:Finding</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2435019v1.0:Conceptual Entity</ns1:decConceptualDomainId>
+			<ns1:repTermQualConcepts>C25364:Identifier</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C25284:Type</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2435032v1.0:Property or Attribute</ns1:vdConceptualDomainId>
+			<ns1:dataType>CHARACTER</ns1:dataType>
+			<ns1:enumerated>Yes</ns1:enumerated>
+			<ns1:pv>One</ns1:pv>
+			<ns1:pvLength>3</ns1:pvLength>
+			<ns1:vmConcepts>C66832:One</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>6</ns1:questionNumber>
+			<ns1:pv>Two</ns1:pv>
+			<ns1:pvLength>3</ns1:pvLength>
+			<ns1:vmConcepts>C66833:Two</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question/>
+		<ns1:Question/>
+		<ns1:Question/>
+	</ns1:questions>
+</ns1:Form>
