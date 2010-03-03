@@ -13,6 +13,7 @@ public class LoadProperties {
 	private String classificationSchemeName;
 	private String classificationSchemeItemName;
 	private String loadSource;
+	private String defaultConceptualDomain;
 	
 	public String getContextName() {
 		return contextName;
@@ -37,6 +38,12 @@ public class LoadProperties {
 	}
 	public void setLoadSource(String loadSource) {
 		this.loadSource = loadSource;
+	}
+	public String getDefaultConceptualDomain() {
+		return defaultConceptualDomain;
+	}
+	public void setDefaultConceptualDomain(String defaultConceptualDomain) {
+		this.defaultConceptualDomain = defaultConceptualDomain;
 	}
 	
 }
