@@ -24,7 +24,6 @@ public abstract class AbstractTranslatorTemplate implements Translator<CaDSRObje
 	private AbstractTranslatorTemplate child;
 	protected BulkLoaderDAOFacade daoFacade;
 	
-
 	public AbstractTranslatorTemplate getChild() {
 		return child;
 	}
@@ -56,8 +55,6 @@ public abstract class AbstractTranslatorTemplate implements Translator<CaDSRObje
 			caDSRObjects.setDataElementConcepts(objRegistry.getDataElementConcepts());
 			caDSRObjects.setDataElements(objRegistry.getDataElements());
 			caDSRObjects.setValueMeanings(objRegistry.getValueMeanings());
-			
-			
 			
 			result.setTranslatedObject(caDSRObjects);
 			result.setStatus(TranslatorStatus.SUCCESS);
