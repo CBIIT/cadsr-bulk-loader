@@ -1,7 +1,5 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.validate.validators;
 
-import gov.nih.nci.ncicb.cadsr.bulkloader.beans.NonPersistentObject;
-import gov.nih.nci.ncicb.cadsr.bulkloader.util.UMLLoaderHandler;
 import gov.nih.nci.ncicb.cadsr.domain.ConceptualDomain;
 import gov.nih.nci.ncicb.cadsr.domain.DataElementConcept;
 import gov.nih.nci.ncicb.cadsr.domain.DomainObjectFactory;
@@ -19,7 +17,12 @@ public class DataElementConceptValidator extends AbstractValidator {
 		DataElementConcept dec = DomainObjectFactory.newDataElementConcept();
 		List<DataElementConcept> dataElementConcepts = elementsList.getElements(dec);
 		for (DataElementConcept dataElementConcept: dataElementConcepts) {
-			validateId(dataElementConcept);
+			List<DataElementConcept> matchedDECs = findDECsById(dataElementConcept);
+			validateId(dataElementConcept, matchedDECs);
+			if (matchedDECs == null) {
+				matchedDECs = findDECs(dataElementConcept);
+				validateCD(dataElementConcept, matchedDECs);
+			}
 			validateDefinitionLength(dataElementConcept);
 			validateRetiredDataElementConcepts(dataElementConcept);
 		}
@@ -27,7 +30,8 @@ public class DataElementConceptValidator extends AbstractValidator {
 		return validationItems;
 	}
 	
-	private void validateId(DataElementConcept dec) {
+	private List<DataElementConcept> findDECsById(DataElementConcept dec) {
+		List<DataElementConcept> foundDECs = null;
 		String publicId = dec.getPublicId();
 		Float version = dec.getVersion();
 		
@@ -36,10 +40,34 @@ public class DataElementConceptValidator extends AbstractValidator {
 			searchDEC.setPublicId(publicId);
 			searchDEC.setVersion(version);
 			
-			List<DataElementConcept> foundDECs = dao.findDataElementConcepts(searchDEC);
-			
-			if (foundDECs == null || foundDECs.size() == 0) {
-				ValidationItem validationItem = new ValidationError("Data Element Concept Id ["+publicId+"v"+version+"] not valid", dec);
+			foundDECs = dao.findDataElementConcepts(searchDEC);
+		}
+		
+		return foundDECs;
+	}
+	
+	private List<DataElementConcept> findDECs(DataElementConcept dec) {
+
+		DataElementConcept searchDEC = DomainObjectFactory.newDataElementConcept();
+		
+		List<DataElementConcept> foundDECs = dao.findDataElementConcepts(searchDEC);
+		
+		return foundDECs;
+	}
+	
+	private void validateId(DataElementConcept toValidate, List<DataElementConcept> matches) {
+		if ((toValidate.getPublicId() != null && toValidate.getVersion() != null) && (matches == null || matches.size() == 0)) {
+			ValidationItem validationItem = new ValidationError("Data Element Concept Id ["+toValidate.getPublicId()+"v"+toValidate.getVersion()+"] not valid", toValidate);
+			validationItems.addItem(validationItem);
+		}
+	}
+	
+	private void validateCD(DataElementConcept toValidate, List<DataElementConcept> matches) {
+		ConceptualDomain cd = toValidate.getConceptualDomain();
+		if (cd != null && cd.getPublicId() != null && matches != null && matches.size() > 0) {
+			ConceptualDomain matchCD = matches.get(0).getConceptualDomain();
+			if (matchCD != null && matchCD.getPublicId() != null && !matchCD.getPublicId().equals(cd.getPublicId())) {
+				ValidationItem validationItem = new ValidationWarning("Given CD ["+cd.getPublicId()+"v"+cd.getVersion()+"] for the DEC ["+toValidate.getLongName()+"] does not match with the CD ["+matchCD.getPublicId()+"v"+matchCD.getVersion()+"] for the DEC in caDSR", toValidate);
 				validationItems.addItem(validationItem);
 			}
 		}
