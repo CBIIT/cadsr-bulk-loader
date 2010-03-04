@@ -34,7 +34,7 @@ public interface BulkLoaderReadDAO {
 	public List<Property> findProperties(Property property);
 	public List<Property> findPropertiesByName(Property property);
 	
-	public ValueDomain findValueDomainsById(int publicId, double version);
+	public ValueDomain findValueDomainById(int publicId, double version);
 	public List<ValueDomain> findValueDomains(ValueDomain valueDomain);
 	
 	public ConceptualDomain findConceptualDomainById(int publicId, double version);
