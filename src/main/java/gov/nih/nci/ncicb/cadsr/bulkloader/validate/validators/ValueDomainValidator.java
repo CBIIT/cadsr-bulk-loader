@@ -32,7 +32,7 @@ public class ValueDomainValidator extends AbstractValidator {
 		Float version = valueDomain.getVersion();
 		
 		if (publicId != null && version != null) {
-			ValueDomain vdGot = dao.findValueDomainsById(Integer.parseInt(publicId), new Double(version).doubleValue());
+			ValueDomain vdGot = dao.findValueDomainById(Integer.parseInt(publicId), new Double(version).doubleValue());
 			if (vdGot.getPublicId() == null) {
 				ValidationItem validationItem = new ValidationError("Value Domain Id ["+publicId+"v"+version+"] not valid", valueDomain);
 				validationItems.addItem(validationItem);

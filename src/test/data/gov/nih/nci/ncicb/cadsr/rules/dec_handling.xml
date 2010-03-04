@@ -10,14 +10,20 @@
 		<ns1:Question>
 			<ns1:questionNumber>1</ns1:questionNumber>
 			<ns1:questionNotes>Reuse DEC 1</ns1:questionNotes>
-			<ns1:ocPrimConcepts>C0001:Con Long Name 1</ns1:ocPrimConcepts>
-			<ns1:propPrimConcepts>C0003:Con Long Name 3</ns1:propPrimConcepts>
-			<ns1:decConceptualDomainId>1111v1.0:caBIG</ns1:decConceptualDomainId>
+			<ns1:decId>1111v1.0:DEC Long Name 0</ns1:decId>
 			<ns1:vdId>1111v1.0:VD Long Name 0</ns1:vdId>
 		</ns1:Question>
 		<ns1:Question>
 			<ns1:questionNumber>2</ns1:questionNumber>
 			<ns1:questionNotes>Reuse DEC 2</ns1:questionNotes>
+			<ns1:ocPrimConcepts>C0001:Con Long Name 1</ns1:ocPrimConcepts>
+			<ns1:propPrimConcepts>C0003:Con Long Name 3</ns1:propPrimConcepts>
+			<ns1:decConceptualDomainId>2222v1.0:caBIG</ns1:decConceptualDomainId>
+			<ns1:vdId>1111v1.0:VD Long Name 0</ns1:vdId>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>3</ns1:questionNumber>
+			<ns1:questionNotes>Reuse DEC 3</ns1:questionNotes>
 			<ns1:ocPrimConcepts>C0001:Con Long Name 1</ns1:ocPrimConcepts>
 			<ns1:propPrimConcepts>C0003:Con Long Name 3</ns1:propPrimConcepts>
 			<ns1:decConceptualDomainId>1111v1.0:caBIG</ns1:decConceptualDomainId>

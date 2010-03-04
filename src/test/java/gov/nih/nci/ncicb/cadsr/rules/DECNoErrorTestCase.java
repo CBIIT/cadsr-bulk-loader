@@ -6,10 +6,12 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.loader.LoadResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.FileUtil;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.MainTestCase;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.SpringBeansUtil;
+import gov.nih.nci.ncicb.cadsr.bulkloader.validate.ValidationItemResult;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.List;
 import java.util.Properties;
 
 import javax.sql.DataSource;
@@ -66,6 +68,9 @@ public class DECNoErrorTestCase extends MainTestCase {
 			LoadResult loadResult = result.getLoadResult();
 			assertNotNull(loadResult);
 			assertTrue(loadResult.getMessage(), loadResult.isSuccessful());
+			List<ValidationItemResult> itemResults = loadResult.getValidationResult().getItemResults();
+			assertTrue(itemResults.size() == 1);
+			assertTrue(itemResults.get(0).hasWarnings());
 		}
 		
 		try {

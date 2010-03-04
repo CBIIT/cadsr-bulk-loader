@@ -119,7 +119,15 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 	}
 
 	public ObjectClass findObjectClassById(int publicId, double version) {
-		return readDAO.findObjectClassById(publicId, version);
+		String ocIdStr = getAdminCompIdString(publicId, version);
+		ObjectClass cachedObjectClass = objectClassCacheById.get(ocIdStr);
+		
+		if (cachedObjectClass == null) {
+			cachedObjectClass = readDAO.findObjectClassById(publicId, version);
+			objectClassCacheById.put(ocIdStr, cachedObjectClass);
+		}
+		
+		return cachedObjectClass;
 	}
 
 	public List<ObjectClass> findObjectClasses(ObjectClass objectClass) {
@@ -143,19 +151,27 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 	}
 
 	public Property findPropertyById(int publicId, double version) {
-		return readDAO.findPropertyById(publicId, version);
+		String propIdStr = getAdminCompIdString(publicId, version);
+		Property cachedProperty = propertyCacheById.get(propIdStr);
+		
+		if (cachedProperty == null) {
+			cachedProperty = readDAO.findPropertyById(publicId, version);
+			propertyCacheById.put(propIdStr, cachedProperty);
+		}
+		
+		return cachedProperty;
 	}
 
 	public List<ValueDomain> findValueDomains(ValueDomain valueDomain) {
 		return readDAO.findValueDomains(valueDomain);
 	}
 
-	public ValueDomain findValueDomainsById(int publicId, double version) {
+	public ValueDomain findValueDomainById(int publicId, double version) {
 		String vdIdStr = getAdminCompIdString(publicId, version);
 		ValueDomain cachedValueDomain = valueDomainCacheById.get(vdIdStr);
 		
 		if (cachedValueDomain == null) {
-			cachedValueDomain = readDAO.findValueDomainsById(publicId, version);
+			cachedValueDomain = readDAO.findValueDomainById(publicId, version);
 			valueDomainCacheById.put(vdIdStr, cachedValueDomain);
 		}
 		
@@ -617,6 +633,8 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 			DataElementConcept decToLoad = null;
 			ObjectClass createdOC = createdDEC.getObjectClass();
 			Property createdProp = createdDEC.getProperty();
+			String publicId = createdDEC.getPublicId();
+			Float version = createdDEC.getVersion();
 			
 			if (createdOC != null) {
 				if (objectClassCache.get(createdOC) != null) {
@@ -632,17 +650,27 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 			
 			decToLoad = createdDEC;
 			
-			if (createdDEC.getObjectClass() != null && createdDEC.getObjectClass().getId() != null 
+			if (publicId != null && version != null) {
+				DataElementConcept foundDEC = findDataElementConceptById(Integer.parseInt(publicId), version.floatValue());
+				if (foundDEC != null && foundDEC.getPublicId() != null) {
+					decToLoad = foundDEC;
+				}
+			}
+			else if (createdDEC.getObjectClass() != null && createdDEC.getObjectClass().getId() != null 
 					&& createdDEC.getProperty() != null && createdDEC.getProperty().getPublicId() != null) {
 				List<DataElementConcept> foundDECs = findDataElementConcepts(createdDEC);
 				
 				if (foundDECs != null && foundDECs.size() > 0) {
 					DataElementConcept foundDEC = foundDECs.get(0);
-					dataElementConceptCacheById.put(foundDEC.getPublicId(), foundDEC);
-					dataElementConceptCache.put(createdDEC, foundDEC);
 					decToLoad = foundDEC;
 				}
 			}
+			
+			if (decToLoad != createdDEC) {
+				dataElementConceptCacheById.put(decToLoad.getPublicId(), decToLoad);
+				dataElementConceptCache.put(createdDEC, decToLoad);
+			}
+			
 			postProcessor.doProcess(createdDEC, decToLoad);
 			lookedUpDECs.add(decToLoad);
 		}
@@ -655,16 +683,30 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 		
 		for (ValueDomain createdVD: createdValueDomains) {
 			ValueDomain vdToBeAdded = null;
-			List<ValueDomain> foundVDs = findValueDomains(createdVD);
-			if (foundVDs.size() > 0) {
-				ValueDomain foundVD = foundVDs.get(0);
-				valueDomainCacheById.put(foundVD.getPublicId(), foundVD);
-				valueDomainCache.put(createdVD, foundVD);
-				vdToBeAdded = foundVD;
+			String publicId = createdVD.getPublicId();
+			Float version = createdVD.getVersion();
+			
+			vdToBeAdded = createdVD;
+			
+			if (publicId != null && version != null) {
+				ValueDomain foundVD = findValueDomainById(Integer.parseInt(publicId), version.floatValue());
+				if (foundVD != null && foundVD.getPublicId() != null) {
+					vdToBeAdded = foundVD;
+				}
 			}
 			else {
-				vdToBeAdded = createdVD;
+				List<ValueDomain> foundVDs = findValueDomains(createdVD);
+				if (foundVDs.size() > 0) {
+					ValueDomain foundVD = foundVDs.get(0);
+					vdToBeAdded = foundVD;
+				}
 			}
+			
+			if (vdToBeAdded != createdVD) {
+				valueDomainCacheById.put(vdToBeAdded.getPublicId(), vdToBeAdded);
+				valueDomainCache.put(createdVD, vdToBeAdded);
+			}
+			
 			callback.doProcess(createdVD, vdToBeAdded);
 			lookedUpVDs.add(vdToBeAdded);
 		}
@@ -679,6 +721,8 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 			DataElement deToBeAdded = null;
 			DataElementConcept lookedUpDEC = createdDE.getDataElementConcept();
 			ValueDomain lookedUpVD = createdDE.getValueDomain();
+			String publicId = createdDE.getPublicId();
+			Float version = createdDE.getVersion();
 			
 			if (lookedUpDEC != null && dataElementConceptCache.get(lookedUpDEC) != null) {
 				createdDE.setDataElementConcept(dataElementConceptCache.get(lookedUpDEC));
@@ -690,7 +734,13 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 			
 			deToBeAdded = createdDE;
 			
-			if (createdDE.getDataElementConcept() != null && createdDE.getDataElementConcept().getId() != null 
+			if (publicId != null && version != null) {
+				DataElement foundDE = findDataElementById(Integer.parseInt(publicId), version);
+				if (foundDE != null && foundDE.getPublicId() != null) {
+					deToBeAdded = foundDE;
+				}
+			}
+			else if (createdDE.getDataElementConcept() != null && createdDE.getDataElementConcept().getId() != null 
 					&& createdDE.getValueDomain() != null && createdDE.getValueDomain().getId() != null) {
 				DataElement searchableDE = getSearchableDEByDECAndVD(createdDE);
 				

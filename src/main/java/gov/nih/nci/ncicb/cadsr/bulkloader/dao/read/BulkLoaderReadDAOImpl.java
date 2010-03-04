@@ -239,7 +239,7 @@ public class BulkLoaderReadDAOImpl implements BulkLoaderReadDAO {
 		}
 	}
 
-	public ValueDomain findValueDomainsById(int publicId, double version) {
+	public ValueDomain findValueDomainById(int publicId, double version) {
 		ValueDomain valueDomain = CaDSRObjectsUtil.createValueDomain(publicId, version);
 		List<ValueDomain> valueDomains = findValueDomains(valueDomain);
 		
