@@ -48,9 +48,7 @@ public class DataElementConceptValidator extends AbstractValidator {
 	
 	private List<DataElementConcept> findDECs(DataElementConcept dec) {
 
-		DataElementConcept searchDEC = DomainObjectFactory.newDataElementConcept();
-		
-		List<DataElementConcept> foundDECs = dao.findDataElementConcepts(searchDEC);
+		List<DataElementConcept> foundDECs = dao.findDataElementConcepts(dec);
 		
 		return foundDECs;
 	}
