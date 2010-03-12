@@ -89,9 +89,6 @@ public class ExcelValidation implements TransformerValidation {
 		if (classSchemeItem == null || classSchemeItem.trim().equals("")) {
 			lineItemResult.addStatus(ExcelValidationStatus.BLANK_CSI);
 		}
-		if (source == null || source.trim().equals("")) {
-			lineItemResult.addStatus(ExcelValidationStatus.BLANK_SOURCE);
-		}
 		if (defaultCD == null || defaultCD.trim().equals("")) {
 			lineItemResult.addStatus(ExcelValidationStatus.BLANK_DEFAULT_CD);
 		}
