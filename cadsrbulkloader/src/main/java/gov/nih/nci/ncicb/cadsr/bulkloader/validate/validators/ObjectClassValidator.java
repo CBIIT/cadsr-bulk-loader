@@ -54,6 +54,7 @@ public class ObjectClassValidator extends AbstractValidator {
 	
 	private void validateRetiredObjectClasses(ObjectClass objectClass) {
 		ObjectClass searchOC = getSearchAC(objectClass, DomainObjectFactory.newObjectClass());
+		searchOC.setConceptDerivationRule(objectClass.getConceptDerivationRule());
 		
 		List<ObjectClass> foundOCs = dao.findObjectClasses(searchOC);
 		

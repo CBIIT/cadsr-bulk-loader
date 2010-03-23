@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns1:Form xmlns:ns1="urn:nci:caDSR">
+	<ns1:formName>HLS 1 1 Test Case</ns1:formName>
+	<ns1:context>caBIG</ns1:context>
+	<ns1:cs>Bulk Loader Metadata</ns1:cs>
+	<ns1:csi>BL Test Fail</ns1:csi>
+	<ns1:defaultCD>DEFAULT_BULKLOADER_CD</ns1:defaultCD>
+	<ns1:source>caBIG</ns1:source>
+	<ns1:questions>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:alternateName>Alternate Name 8.4.1</ns1:alternateName>
+			<ns1:alternateNameType>Unknown Alt Name Type</ns1:alternateNameType>
+			<ns1:questionNotes>Reuse DEC 1</ns1:questionNotes>
+			<ns1:cdeId>1111v1.0:CDE Long Name 0</ns1:cdeId>
+		</ns1:Question>
+	</ns1:questions>
+</ns1:Form>

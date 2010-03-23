@@ -460,10 +460,17 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 								foundDECProps.add(foundProp);
 							}
 						}
+						
+						if (originalDEC.getPublicId() == null) {
+							foundDEC.setPublicId(null);
+							foundDEC.setVersion(null);
+							foundDEC.setConceptualDomain(originalDEC.getConceptualDomain());
+							foundDEC.setContext(originalDEC.getContext());
+						}
 					}
 					else {
 						ConceptualDomain originalCD = originalDEC.getConceptualDomain();
-						if (originalCD != null) {
+						if (originalCD != null && (originalCD.getPublicId() != null || originalCD.getLongName() != null || originalCD.getPreferredName() != null)) {
 							originalDEC.setConceptualDomain(findConceptualDomain(originalCD));
 						}
 						else {
@@ -495,7 +502,6 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 						if (originalVD.getPublicId() == null || originalVD.getVersion() == null) {
 							foundVD.setPublicId(originalVD.getPublicId());
 							foundVD.setVersion(originalVD.getVersion());
-							foundVD.setContext(originalVD.getContext());
 							foundVD.setDataType(originalVD.getDataType());
 							foundVD.setMaximumLength(originalVD.getMaximumLength());
 							foundVD.setValueDomainPermissibleValues(originalVD.getValueDomainPermissibleValues());
@@ -658,7 +664,11 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 			}
 			else if (createdDEC.getObjectClass() != null && createdDEC.getObjectClass().getId() != null 
 					&& createdDEC.getProperty() != null && createdDEC.getProperty().getPublicId() != null) {
-				List<DataElementConcept> foundDECs = findDataElementConcepts(createdDEC);
+				DataElementConcept searchDEC = DomainObjectFactory.newDataElementConcept();
+				searchDEC.setObjectClass(createdDEC.getObjectClass());
+				searchDEC.setProperty(createdDEC.getProperty());
+				
+				List<DataElementConcept> foundDECs = findDataElementConcepts(searchDEC);
 				
 				if (foundDECs != null && foundDECs.size() > 0) {
 					DataElementConcept foundDEC = foundDECs.get(0);

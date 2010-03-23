@@ -11,7 +11,12 @@ public class QuestionsIterator {
 	private AtomicInteger i = new AtomicInteger(0);
 	
 	public QuestionsIterator(List<ExcelQuestion> _questions) {
-		this.questions = removeBlanks(_questions);
+		if (_questions == null) {
+			this.questions = new ArrayList<ExcelQuestion>();
+		}
+		else {
+			this.questions = removeBlanks(_questions);
+		}
 	}
 	
 	private List<ExcelQuestion> removeBlanks(List<ExcelQuestion> _questions) {

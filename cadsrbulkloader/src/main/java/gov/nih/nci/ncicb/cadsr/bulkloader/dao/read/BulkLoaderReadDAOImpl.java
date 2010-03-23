@@ -89,7 +89,7 @@ public class BulkLoaderReadDAOImpl implements BulkLoaderReadDAO {
 	public List<ObjectClass> findObjectClasses(ObjectClass objectClass) {
 		String[] conceptCodes = CaDSRObjectsUtil.getConceptCodes(objectClass.getConceptDerivationRule());
 		ObjectClassDAO ocDAO = DAOAccessor.getObjectClassDAO();
-		List<ObjectClass> ocs = ocDAO.findByConceptCodes(conceptCodes, objectClass.getContext(), null);
+		List<ObjectClass> ocs = ocDAO.findByConceptCodes(conceptCodes, objectClass.getContext(), objectClass.getWorkflowStatus());
 		
 		if (ocs == null) {
 			ocs = new ArrayList<ObjectClass>();

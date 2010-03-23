@@ -4,6 +4,7 @@
 	<ns1:context>caBIG</ns1:context>
 	<ns1:cs>TEST_Bulk_Loader_0.5</ns1:cs>
 	<ns1:csi>TEST_8_5</ns1:csi>
+	<ns1:defaultCD>DEFAULT_BULKLOADER_CD</ns1:defaultCD>
 	<ns1:source>BulK Loader</ns1:source>
 	<ns1:questions>
 		<ns1:Question>

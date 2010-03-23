@@ -37,9 +37,7 @@ public abstract class AbstractValidator implements Validator {
 				
 		to.setWorkflowStatus(AdminComponent.WF_STATUS_ALL);
 		to.setPreferredName(from.getPreferredName());
-		to.setLongName(from.getLongName());
 		to.setContext(from.getContext());
-		to.setPublicId(from.getPublicId());
 		to.setVersion(from.getVersion());
 		
 		return to;

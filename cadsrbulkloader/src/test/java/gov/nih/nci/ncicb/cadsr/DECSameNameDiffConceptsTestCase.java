@@ -2,11 +2,14 @@ package gov.nih.nci.ncicb.cadsr;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.BulkLoadProcessResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.CaDSRBulkLoadProcessor;
-import gov.nih.nci.ncicb.cadsr.bulkloader.ui.UIReportWriter;
-import gov.nih.nci.ncicb.cadsr.bulkloader.ui.UIReportWriterImpl;
+import gov.nih.nci.ncicb.cadsr.bulkloader.loader.LoadResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.FileUtil;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.SpringBeansUtil;
+import gov.nih.nci.ncicb.cadsr.bulkloader.validate.ValidationItemResult;
+import gov.nih.nci.ncicb.cadsr.bulkloader.validate.ValidationResult;
+import gov.nih.nci.ncicb.cadsr.domain.Property;
 
+import java.util.List;
 import java.util.Properties;
 
 public class DECSameNameDiffConceptsTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.MainTestCase {
@@ -51,30 +54,22 @@ public class DECSameNameDiffConceptsTestCase extends gov.nih.nci.ncicb.cadsr.bul
 		props.put("db.username", getPropertyManager().getUnitDataSourceUser());
 		props.put("db.password", getPropertyManager().getUnitDataSourcePassword());
 		
-		/*props.put("db.url", "jdbc:oracle:thin:@cbdb-s1001.nci.nih.gov:1551:DSRSTG");
-		props.put("db.username", "blkldr");
-		props.put("db.password", "29K#kd1qA");*/
-		
 		SpringBeansUtil.getInstance().initialize(props);
 		
 		CaDSRBulkLoadProcessor blProcessor = SpringBeansUtil.getInstance().getBulkLoadProcessor();
 		
 		BulkLoadProcessResult[] processResults = blProcessor.process(WORKING_IN_DIR, WORKING_OUT_DIR, true);
 		
-		UIReportWriter writer = new UIReportWriterImpl();
-		for(BulkLoadProcessResult result: processResults) {
-			writer.writeReport(result);
-		}
-		
-/*		try {
-			DataSource ds = super.getDataSource();
-			Connection con = ds.getConnection();
-			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery("select * from reference_documents");
-			assertTrue(compareResultSet(rs, "REFERENCE_DOCUMENTS"));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		*/
+		assertNotNull(processResults);
+		LoadResult loadResult = processResults[0].getLoadResult();
+		assertNotNull(loadResult);
+		ValidationResult validationResult = loadResult.getValidationResult();
+		assertNotNull(validationResult);
+		assertTrue(validationResult.hasErrors());
+		List<ValidationItemResult> itemResults = validationResult.getItemResults();
+		assertNotNull(itemResults);
+		assertTrue(itemResults.size() == 1);
+		assertFalse(itemResults.get(0).isValid());
+		assertTrue(itemResults.get(0).getItem() instanceof Property);
 	}
 }

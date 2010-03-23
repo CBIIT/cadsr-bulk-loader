@@ -58,7 +58,7 @@ public class VDMaxLengthCheckTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader
 		
 		CaDSRBulkLoadProcessor blProcessor = SpringBeansUtil.getInstance().getBulkLoadProcessor();
 		
-		blProcessor.process(WORKING_IN_DIR, WORKING_OUT_DIR, true);
+		BulkLoadProcessResult[] results = blProcessor.process(WORKING_IN_DIR, WORKING_OUT_DIR, true);
 		
 		boolean matches = false;
 		

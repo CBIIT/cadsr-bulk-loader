@@ -4,10 +4,10 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.BulkLoadProcessResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.CaDSRBulkLoadProcessor;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.FileUtil;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.SpringBeansUtil;
+import gov.nih.nci.ncicb.cadsr.bulkloader.validate.ValidationItemResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.validate.ValidationResult;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
 public class RetiredOCTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.MainTestCase {
@@ -59,8 +59,12 @@ public class RetiredOCTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.M
 		BulkLoadProcessResult[] results = blProcessor.process(WORKING_IN_DIR, WORKING_OUT_DIR, true);
 
 		assertNotNull(results);
+		assertNotNull(results[0].getLoadResult());
 		ValidationResult validationResult = results[0].getLoadResult().getValidationResult();
-		assertTrue(validationResult.hasErrors());		
+		assertTrue(validationResult.hasErrors());
+		List<ValidationItemResult> itemResults = validationResult.getItemResults();
+		assertNotNull(itemResults);
+		assertTrue(itemResults.size() == 1);
 	}
 
 }

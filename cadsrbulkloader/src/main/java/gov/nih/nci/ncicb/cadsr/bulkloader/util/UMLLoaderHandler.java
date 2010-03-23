@@ -37,8 +37,11 @@ public class UMLLoaderHandler {
 		loadDefaultsIfNotLoaded(loadObjects);
 		
 		List<? extends AdminComponent> adminComponents = caDSRObjects.getList();
-		for (AdminComponent adminComponent: adminComponents) {
-			elements.addElement(adminComponent);
+		
+		if (adminComponents != null && adminComponents.size() > 0) {
+			for (AdminComponent adminComponent: adminComponents) {
+				elements.addElement(adminComponent);
+			}
 		}
 		
 		Context loadContext = loadObjects.getLoadContext();

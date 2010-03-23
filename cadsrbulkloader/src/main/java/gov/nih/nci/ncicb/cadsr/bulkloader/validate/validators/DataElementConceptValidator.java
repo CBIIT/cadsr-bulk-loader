@@ -8,6 +8,7 @@ import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationItem;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationItems;
 import gov.nih.nci.ncicb.cadsr.loader.validator.ValidationWarning;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DataElementConceptValidator extends AbstractValidator {
@@ -47,9 +48,10 @@ public class DataElementConceptValidator extends AbstractValidator {
 	}
 	
 	private List<DataElementConcept> findDECs(DataElementConcept dec) {
-
-		List<DataElementConcept> foundDECs = dao.findDataElementConcepts(dec);
-		
+		DataElementConcept searchDEC = DomainObjectFactory.newDataElementConcept();
+		searchDEC.setObjectClass(dec.getObjectClass());
+		searchDEC.setProperty(dec.getProperty());
+		List<DataElementConcept> foundDECs = dao.findDataElementConcepts(searchDEC);
 		return foundDECs;
 	}
 	
@@ -88,15 +90,24 @@ public class DataElementConceptValidator extends AbstractValidator {
 	
 	private void validateRetiredDataElementConcepts(DataElementConcept dataElementConcept) {
 		
-		DataElementConcept searchDEC = getSearchAC(dataElementConcept, DomainObjectFactory.newDataElementConcept());
-		List<DataElementConcept> foundDECs = dao.findDataElementConcepts(searchDEC);
-		
-		if (foundDECs != null) {
-			for (DataElementConcept foundDEC: foundDECs) {
-				String foundOCWFStatus = foundDEC.getWorkflowStatus();
-				if (foundOCWFStatus.contains("RETIRED")) {
-					ValidationItem error = new ValidationError("The Data Element Concept to be created ["+dataElementConcept.getPreferredName()+"] already exists but is retired. Please correct this and reload", dataElementConcept);
-					validationItems.addItem(error);
+		if (dataElementConcept != null 
+				&& dataElementConcept.getObjectClass() != null
+				&& dataElementConcept.getObjectClass().getId() != null 
+				&& dataElementConcept.getProperty() != null
+				&& dataElementConcept.getProperty().getId() != null) {
+			
+			DataElementConcept searchDEC = getSearchAC(dataElementConcept, DomainObjectFactory.newDataElementConcept());
+			searchDEC.setObjectClass(dataElementConcept.getObjectClass());
+			searchDEC.setProperty(dataElementConcept.getProperty());
+			List<DataElementConcept> foundDECs = dao.findDataElementConcepts(searchDEC);
+			
+			if (foundDECs != null) {
+				for (DataElementConcept foundDEC: foundDECs) {
+					String foundOCWFStatus = foundDEC.getWorkflowStatus();
+					if (foundOCWFStatus.contains("RETIRED")) {
+						ValidationItem error = new ValidationError("The Data Element Concept to be created ["+dataElementConcept.getPreferredName()+"] already exists but is retired. Please correct this and reload", dataElementConcept);
+						validationItems.addItem(error);
+					}
 				}
 			}
 		}

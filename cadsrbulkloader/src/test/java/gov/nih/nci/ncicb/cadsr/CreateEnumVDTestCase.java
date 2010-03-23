@@ -1,5 +1,6 @@
 package gov.nih.nci.ncicb.cadsr;
 
+import gov.nih.nci.ncicb.cadsr.bulkloader.BulkLoadProcessResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.CaDSRBulkLoadProcessor;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.FileUtil;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.SpringBeansUtil;
@@ -55,7 +56,7 @@ public class CreateEnumVDTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.uti
 		
 		CaDSRBulkLoadProcessor blProcessor = SpringBeansUtil.getInstance().getBulkLoadProcessor();
 		
-		blProcessor.process(WORKING_IN_DIR, WORKING_OUT_DIR, true);
+		BulkLoadProcessResult[] results = blProcessor.process(WORKING_IN_DIR, WORKING_OUT_DIR, true);
 		
 		boolean compare = false;
 		
