@@ -51,16 +51,21 @@ public class ValueDomainValidator extends AbstractValidator {
 	}
 	
 	private void validateRetiredValueDomain(ValueDomain valueDomain) {
-		ValueDomain searchVD = getSearchAC(valueDomain, DomainObjectFactory.newValueDomain());
-		
-		List<ValueDomain> foundVDs = dao.findValueDomains(searchVD);
-		
-		if (foundVDs != null) {
-			for (ValueDomain foundVD: foundVDs) {
-				String foundOCWFStatus = foundVD.getWorkflowStatus();
-				if (foundOCWFStatus.contains("RETIRED")) {
-					ValidationItem error = new ValidationError("The Value Domain to be created ["+valueDomain.getPreferredName()+"] already exists but is retired. Please correct this and reload", valueDomain);
-					validationItems.addItem(error);
+		if (valueDomain != null 
+				&& valueDomain.getPreferredName() != null
+				&& !valueDomain.getPreferredName().trim().equals("")) {
+			
+			ValueDomain searchVD = getSearchAC(valueDomain, DomainObjectFactory.newValueDomain());
+			
+			List<ValueDomain> foundVDs = dao.findValueDomains(searchVD);
+			
+			if (foundVDs != null) {
+				for (ValueDomain foundVD: foundVDs) {
+					String foundOCWFStatus = foundVD.getWorkflowStatus();
+					if (foundOCWFStatus.contains("RETIRED")) {
+						ValidationItem error = new ValidationError("The Value Domain to be created ["+valueDomain.getPreferredName()+"] already exists but is retired. Please correct this and reload", valueDomain);
+						validationItems.addItem(error);
+					}
 				}
 			}
 		}
