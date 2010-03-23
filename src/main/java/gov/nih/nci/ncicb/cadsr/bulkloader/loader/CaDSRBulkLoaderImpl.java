@@ -141,9 +141,6 @@ public class CaDSRBulkLoaderImpl implements CaDSRBulkLoader{
 		Context loadContext = daoFacade.findContextByName(loadProperties.getContextName());
 		ClassificationScheme loadClassScheme = daoFacade.getClassificationScheme(loadProperties.getClassificationSchemeName());
 		
-		String defaultCDName = loadProperties.getDefaultConceptualDomain();
-		ConceptualDomain defaultCD = getDefaultCD(defaultCDName);
-		
 		if (loadClassScheme == null || loadClassScheme.getPublicId() == null) {
 			throw new BulkLoaderRuntimeException("Could not find the given CS ["+loadProperties.getClassificationSchemeName()+"]");
 		}
@@ -151,6 +148,13 @@ public class CaDSRBulkLoaderImpl implements CaDSRBulkLoader{
 		ClassificationSchemeItem csi = getCSI(loadClassScheme, loadProperties.getClassificationSchemeItemName());
 		if (csi == null) {
 			throw new BulkLoaderRuntimeException("Could not find the CSI specified ["+loadProperties.getClassificationSchemeItemName()+"] for the given CS ["+loadProperties.getClassificationSchemeName()+"]");
+		}
+		
+		String defaultCDName = loadProperties.getDefaultConceptualDomain();
+		ConceptualDomain defaultCD = getDefaultCD(defaultCDName);
+		
+		if (defaultCD == null || defaultCD.getPublicId() == null) {
+			throw new BulkLoaderRuntimeException("Could not find the default CD specified ["+loadProperties.getDefaultConceptualDomain()+"] in caDSR");
 		}
 		
 		String source = loadProperties.getLoadSource();

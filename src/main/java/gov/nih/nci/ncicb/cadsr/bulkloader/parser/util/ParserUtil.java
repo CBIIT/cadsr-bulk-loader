@@ -202,6 +202,11 @@ public class ParserUtil {
 	
 	public List<AdminComponentClassSchemeClassSchemeItem> getAdminComponentCSCSI(AdminItem_ISO11179 isoAdminItem, CaDSRObjectRegistry objRegistry) {
 		List<AdminComponentClassSchemeClassSchemeItem> acCSCSIList = new ArrayList<AdminComponentClassSchemeClassSchemeItem>();
+		
+		if (isoAdminItem==null || isoAdminItem.getClassifiedBy() == null) {
+			return acCSCSIList;
+		}
+		
 		List<ClassificationSchemeItemRef_ISO11179> isoCSIRefs = isoAdminItem.getClassifiedBy().getClassifiedBy();
 		for (ClassificationSchemeItemRef_ISO11179 isoCSIRef: isoCSIRefs) {
 			String isoCSRefId = isoCSIRef.getCsRefId();

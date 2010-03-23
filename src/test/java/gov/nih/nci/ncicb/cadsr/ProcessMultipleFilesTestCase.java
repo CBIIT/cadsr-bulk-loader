@@ -62,6 +62,7 @@ public class ProcessMultipleFilesTestCase extends gov.nih.nci.ncicb.cadsr.bulklo
 		
 		BulkLoadProcessResult[] processResults = blProcessor.process(WORKING_IN_DIR, WORKING_OUT_DIR, true);
 		assertNotNull(processResults);
+		assertTrue(processResults.length == 2);
 		for (BulkLoadProcessResult result: processResults) {
 			assertTrue(result.getLoadResult().isSuccessful());
 		}

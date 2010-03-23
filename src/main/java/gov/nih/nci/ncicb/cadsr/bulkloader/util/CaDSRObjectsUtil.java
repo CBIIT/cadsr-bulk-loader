@@ -338,7 +338,10 @@ public class CaDSRObjectsUtil {
 		for (Concept concept: concepts) {
 			if (apndFlag) concatConceptsBuffer.append(" ");
 			else apndFlag = true;
-			concatConceptsBuffer.append(concept.getLongName().trim());
+			String longName = concept.getLongName();
+			if (longName != null) longName = longName.trim();
+			
+			concatConceptsBuffer.append(longName);
 		}
 		
 /*		int lastIndexOfConcatStr = concatConceptsBuffer.lastIndexOf(CONCEPT_CONCAT_STRING);

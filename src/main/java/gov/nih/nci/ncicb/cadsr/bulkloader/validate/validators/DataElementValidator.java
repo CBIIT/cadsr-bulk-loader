@@ -53,7 +53,7 @@ public class DataElementValidator extends AbstractValidator {
 			else {
 				List<String> alternateNameTypes = dao.getAlternateNameTypes();
 				if (!alternateNameTypes.contains(altNameType)) {
-					ValidationItem validationItem = new ValidationError("The Alternate Name Type ["+altNameType+"] for the DataElement ["+dataElement.getLongName()+"] is not a vlid type", dataElement);
+					ValidationItem validationItem = new ValidationError("The Alternate Name Type ["+altNameType+"] for the DataElement ["+dataElement.getLongName()+"] is not a valid type", dataElement);
 					validationItems.addItem(validationItem);
 				}
 			}
@@ -118,16 +118,25 @@ public class DataElementValidator extends AbstractValidator {
 	
 	private void validateRetiredDataElements(DataElement dataElement) {
 		
-		DataElement searchDE = getSearchAC(dataElement, DomainObjectFactory.newDataElement());
-		
-		List<DataElement> foundDEs = dao.findDataElements(searchDE);
-		
-		if (foundDEs != null) {
-			for (DataElement foundDE: foundDEs) {
-				String foundOCWFStatus = foundDE.getWorkflowStatus();
-				if (foundOCWFStatus.contains("RETIRED")) {
-					ValidationItem error = new ValidationError("The Data Element to be created ["+dataElement.getPreferredName()+"] already exists but is retired. Please correct this and reload", dataElement);
-					validationItems.addItem(error);
+		if (dataElement != null 
+				&& dataElement.getDataElementConcept() != null
+				&& dataElement.getDataElementConcept().getId() != null 
+				&& dataElement.getValueDomain() != null
+				&& dataElement.getValueDomain().getId() != null) {
+			
+			DataElement searchDE = getSearchAC(dataElement, DomainObjectFactory.newDataElement());
+			searchDE.setDataElementConcept(dataElement.getDataElementConcept());
+			searchDE.setValueDomain(dataElement.getValueDomain());
+			
+			List<DataElement> foundDEs = dao.findDataElements(searchDE);
+			
+			if (foundDEs != null) {
+				for (DataElement foundDE: foundDEs) {
+					String foundOCWFStatus = foundDE.getWorkflowStatus();
+					if (foundOCWFStatus.contains("RETIRED")) {
+						ValidationItem error = new ValidationError("The Data Element to be created ["+dataElement.getPreferredName()+"] already exists but is retired. Please correct this and reload", dataElement);
+						validationItems.addItem(error);
+					}
 				}
 			}
 		}

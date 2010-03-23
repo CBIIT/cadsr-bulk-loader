@@ -31,7 +31,7 @@ public class ParserTestCase extends TestCaseHelper {
 	}
 	
 	public void testParse() {
-		File fileToParse = new File("C:\\Docume~1\\mathura2\\Desktop\\test form1_11179.xml");//getValidFile();
+		File fileToParse = getValidFile();
 		ParseResult parseResult = parser.parse(fileToParse);
 		
 		assertNotNull(parseResult);

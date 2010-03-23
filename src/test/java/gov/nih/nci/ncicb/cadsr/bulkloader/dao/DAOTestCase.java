@@ -80,8 +80,8 @@ public class DAOTestCase extends TestCaseHelper {
 	}
 	
 	public void testEVSModule() {
-		EvsModule evsModule = new EvsModule("Pre NCI Thesaurus");
-		EvsResult result = evsModule.findByConceptCode("C27232", false);
+		EvsModule evsModule = new EvsModule("NCI Thesaurus");
+		EvsResult result = evsModule.findByConceptCode("C1234", false);
 		Concept con = result.getConcept();
 		assertNotNull(con);
 		System.out.println(con.getPreferredDefinition());

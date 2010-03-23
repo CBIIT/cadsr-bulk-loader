@@ -49,6 +49,4 @@ public class ExcelTransformerTestCase extends TestCaseHelper {
 		assertTrue(result.hasErrors());
 		assertTrue(unMarshallResult.hasErrors());
 	}
-	
-	
 }

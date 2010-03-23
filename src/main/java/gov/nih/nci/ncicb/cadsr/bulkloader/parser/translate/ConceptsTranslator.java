@@ -48,7 +48,7 @@ public class ConceptsTranslator extends AbstractTranslatorTemplate {
 		concept.setPreferredName(conCode);
 		
 		String isoLongName = iso11179Concept.getLongName();
-		if (concept.getLongName() == null && !concept.getLongName().trim().equals("") && isoLongName != null && !isoLongName.trim().equals("")) {
+		if ((concept.getLongName() == null || !concept.getLongName().trim().equals("")) && isoLongName != null && !isoLongName.trim().equals("")) {
 			concept.setLongName(isoLongName);
 		}
 		
