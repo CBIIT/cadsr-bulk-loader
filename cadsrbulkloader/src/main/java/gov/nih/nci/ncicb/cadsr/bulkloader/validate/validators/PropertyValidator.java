@@ -54,16 +54,23 @@ public class PropertyValidator extends AbstractValidator {
 	}
 	
 	private void validateRetiredProperty(Property property) {
-		Property searchProp = getSearchAC(property, DomainObjectFactory.newProperty());
-		
-		List<Property> foundProps = dao.findProperties(searchProp);
-		
-		if (foundProps != null) {
-			for (Property foundDEC: foundProps) {
-				String foundOCWFStatus = foundDEC.getWorkflowStatus();
-				if (foundOCWFStatus.contains("RETIRED")) {
-					ValidationItem error = new ValidationError("The Property to be created ["+property.getPreferredName()+"] already exists but is retired. Please correct this and reload", property);
-					validationItems.addItem(error);
+		if (property != null 
+				&& property.getPublicId()==null 
+				&& property.getConceptDerivationRule() != null
+				&& property.getConceptDerivationRule().getComponentConcepts() != null
+				&& property.getConceptDerivationRule().getComponentConcepts().size() > 0) {
+			
+			Property searchProp = getSearchAC(property, DomainObjectFactory.newProperty());
+			
+			List<Property> foundProps = dao.findProperties(searchProp);
+			
+			if (foundProps != null) {
+				for (Property foundDEC: foundProps) {
+					String foundOCWFStatus = foundDEC.getWorkflowStatus();
+					if (foundOCWFStatus.contains("RETIRED")) {
+						ValidationItem error = new ValidationError("The Property to be created ["+property.getPreferredName()+"] already exists but is retired. Please correct this and reload", property);
+						validationItems.addItem(error);
+					}
 				}
 			}
 		}
