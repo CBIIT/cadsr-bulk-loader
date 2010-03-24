@@ -53,17 +53,24 @@ public class ObjectClassValidator extends AbstractValidator {
 	}
 	
 	private void validateRetiredObjectClasses(ObjectClass objectClass) {
-		ObjectClass searchOC = getSearchAC(objectClass, DomainObjectFactory.newObjectClass());
-		searchOC.setConceptDerivationRule(objectClass.getConceptDerivationRule());
 		
-		List<ObjectClass> foundOCs = dao.findObjectClasses(searchOC);
-		
-		if (foundOCs != null) {
-			for (ObjectClass foundOC: foundOCs) {
-				String foundOCWFStatus = foundOC.getWorkflowStatus();
-				if (foundOCWFStatus.contains("RETIRED")) {
-					ValidationItem error = new ValidationError("An object class to be created ["+objectClass.getPreferredName()+"] already exists but is retired. Please correct this and reload", objectClass);
-					validationItems.addItem(error);
+		if (objectClass != null 
+				&& objectClass.getPublicId()==null 
+				&& objectClass.getConceptDerivationRule() != null
+				&& objectClass.getConceptDerivationRule().getComponentConcepts() != null
+				&& objectClass.getConceptDerivationRule().getComponentConcepts().size() > 0) {
+			ObjectClass searchOC = getSearchAC(objectClass, DomainObjectFactory.newObjectClass());
+			searchOC.setConceptDerivationRule(objectClass.getConceptDerivationRule());
+			
+			List<ObjectClass> foundOCs = dao.findObjectClasses(searchOC);
+			
+			if (foundOCs != null) {
+				for (ObjectClass foundOC: foundOCs) {
+					String foundOCWFStatus = foundOC.getWorkflowStatus();
+					if (foundOCWFStatus.contains("RETIRED")) {
+						ValidationItem error = new ValidationError("An object class to be created ["+objectClass.getPreferredName()+"] already exists but is retired. Please correct this and reload", objectClass);
+						validationItems.addItem(error);
+					}
 				}
 			}
 		}
