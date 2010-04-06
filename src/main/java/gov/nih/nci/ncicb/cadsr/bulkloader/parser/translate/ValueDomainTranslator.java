@@ -9,6 +9,7 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.RepresentationClass_caDSR
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.castor.ValueDomain_caDSR11179;
 import gov.nih.nci.ncicb.cadsr.bulkloader.util.CaDSRObjectsUtil;
 import gov.nih.nci.ncicb.cadsr.domain.AdminComponentClassSchemeClassSchemeItem;
+import gov.nih.nci.ncicb.cadsr.domain.ComponentConcept;
 import gov.nih.nci.ncicb.cadsr.domain.Concept;
 import gov.nih.nci.ncicb.cadsr.domain.ConceptDerivationRule;
 import gov.nih.nci.ncicb.cadsr.domain.ConceptualDomain;
@@ -19,21 +20,31 @@ import gov.nih.nci.ncicb.cadsr.domain.ValueDomain;
 import gov.nih.nci.ncicb.cadsr.domain.ValueMeaning;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ValueDomainTranslator extends AbstractTranslatorTemplate {
 
+	private Map<String, ValueDomain> cachedVDs = new HashMap<String, ValueDomain>();
+	
 	@Override
 	protected CaDSRObjectRegistry translateElement(ISO11179Elements iso11179Elements, CaDSRObjectRegistry objRegistry) {
 		List<ValueDomain_caDSR11179> isoVDs = iso11179Elements.getValueDomains();
 		for (ValueDomain_caDSR11179 isoVD: isoVDs) {
 			ValueDomain vd = getValueDomain(isoVD, objRegistry);
-			objRegistry.addValueDomain(isoVD.getTagId(), vd);
+			ValueDomain cachedVD = getCachedVD(vd);
+			if (cachedVD == null) {
+				objRegistry.addValueDomain(isoVD.getTagId(), vd);
+			}
+			else {
+				objRegistry.addValueDomain(isoVD.getTagId(), cachedVD);
+			}
 		}
 		
 		return objRegistry;
 	}
-	
+
 	public ValueDomain getValueDomain(ValueDomain_caDSR11179 isoVD, CaDSRObjectRegistry objRegistry) {
 		ValueDomain vd = DomainObjectFactory.newValueDomain();
 		
@@ -142,5 +153,46 @@ public class ValueDomainTranslator extends AbstractTranslatorTemplate {
 		return valueMeaning;
 	}
 	
-
+	private ValueDomain getCachedVD(ValueDomain vd) {
+		String key = getCacheKey(vd);
+		ValueDomain cachedVD = cachedVDs.get(key);
+		if (cachedVD == null) {
+			cachedVDs.put(key, vd);
+		}
+		
+		return cachedVD;
+	}
+	
+	private String getCacheKey(ValueDomain vd) {
+		String key = vd.getPublicId()+"-"+vd.getVersion();
+		key += "-"+vd.getLongName();
+		key += "-"+vd.getVdType();
+		key += "-"+vd.getDataType();
+		
+		if (vd.getConceptualDomain() != null) {
+			key += "-"+vd.getConceptualDomain().getPreferredName();
+		}
+		
+		if (vd.getRepresentation() != null) {
+			Representation rep = vd.getRepresentation();
+			key += "-"+rep.getLongName();
+			key += "-"+rep.getPreferredName();
+		}
+		
+		if (vd.getPermissibleValues() != null) {
+			for (PermissibleValue pv: vd.getPermissibleValues()) {
+				key += "-"+pv.getValue();
+				if (pv.getValueMeaning() != null) {
+					ConceptDerivationRule cdr = pv.getValueMeaning().getConceptDerivationRule();
+					if (cdr != null && cdr.getComponentConcepts() != null && cdr.getComponentConcepts().size() > 0) {
+						for (ComponentConcept compCon: cdr.getComponentConcepts()) {
+							key += "-"+compCon.getConcept().getPreferredName();
+						}
+					}
+				}
+			}
+		}
+		
+		return key;
+	}
 }
