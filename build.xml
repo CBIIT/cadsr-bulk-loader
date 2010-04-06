@@ -206,6 +206,7 @@
 			    <fileset dir="${TEST.DIR}">
 			      <include name="**/*TestCase.java"/>
 			      <exclude name="**/*MainTestCase.java" />
+				  <exclude name="**/*DBTestCase.java" />			    
 			    </fileset>
  	  			
 			</batchtest>
