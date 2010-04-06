@@ -40,14 +40,17 @@ public class UMLLoaderHandler {
 		
 		if (adminComponents != null && adminComponents.size() > 0) {
 			for (AdminComponent adminComponent: adminComponents) {
+				elements.removeElement(adminComponent);
 				elements.addElement(adminComponent);
 			}
 		}
 		
 		Context loadContext = loadObjects.getLoadContext();
+		elements.removeElement(loadContext);
 		elements.addElement(loadContext);
 		
 		ClassificationScheme loadClassScheme = loadObjects.getLoadClassScheme();			
+		elements.removeElement(loadClassScheme);
 		elements.addElement(loadClassScheme);
 		
 		loadComponentDefaults(adminComponents);
