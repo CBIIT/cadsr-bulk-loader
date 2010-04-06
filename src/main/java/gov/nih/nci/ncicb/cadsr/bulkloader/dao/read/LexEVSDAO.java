@@ -1,10 +1,6 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.dao.read;
 
-import gov.nih.nci.evs.domain.Atom;
-import gov.nih.nci.evs.domain.DescLogicConcept;
-import gov.nih.nci.evs.domain.MetaThesaurusConcept;
-
-import java.util.List;
+import org.LexGrid.LexBIG.DataModel.Core.ResolvedCodedNodeReference;
 
 
 /**
@@ -16,8 +12,6 @@ import java.util.List;
 
 public interface LexEVSDAO {
 
-	public MetaThesaurusConcept getMetaThesaurusConcept(String cui);
-	public DescLogicConcept getEVSNCItConcept(String code);
-	public DescLogicConcept getEVSPreNCItConcept(String code);
-	public List<Atom> getAtoms(String cui);
+	public ResolvedCodedNodeReference getMetaThesaurusConcept(String cui, boolean includeRetired);
+	public ResolvedCodedNodeReference getEVSNCItConcept(String code, boolean includeRetired);
 }
