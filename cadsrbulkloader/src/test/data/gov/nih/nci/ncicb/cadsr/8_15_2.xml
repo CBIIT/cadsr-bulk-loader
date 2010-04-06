@@ -17,7 +17,7 @@
 			<ns1:propQualConcepts>C70710:Sequence Number;C25673:Sequence</ns1:propQualConcepts>
 			<ns1:propPrimConcepts>C63580:Sequence Chromatogram</ns1:propPrimConcepts>
 			<ns1:decConceptualDomainId>2182370v1.0:Procedures</ns1:decConceptualDomainId>
-			<ns1:repTermQualConcepts>C39390:Doctor of Public Health</ns1:repTermQualConcepts>
+			<ns1:repTermQualConcepts>C39390:Doctor of Public Health;C16612:Gene</ns1:repTermQualConcepts>
 			<ns1:repTermPrimConcepts>C47853:Sequence Feature</ns1:repTermPrimConcepts>
 			<ns1:vdConceptualDomainId>2842595v1.0:Culture Procedure</ns1:vdConceptualDomainId>
 			<ns1:dataType>OBJECT</ns1:dataType>
