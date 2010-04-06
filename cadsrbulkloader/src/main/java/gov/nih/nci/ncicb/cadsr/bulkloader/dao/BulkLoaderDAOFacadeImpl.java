@@ -1,7 +1,5 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.dao;
 
-import gov.nih.nci.evs.domain.DescLogicConcept;
-import gov.nih.nci.evs.domain.Qualifier;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.CaDSRObjects;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.LoadObjects;
 import gov.nih.nci.ncicb.cadsr.bulkloader.dao.factory.BulkLoaderDAOFactory;
@@ -34,7 +32,10 @@ import gov.nih.nci.ncicb.cadsr.loader.util.DAOAccessor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Vector;
+import java.util.Map;
+
+import org.LexGrid.LexBIG.DataModel.Core.ResolvedCodedNodeReference;
+import org.LexGrid.concepts.Entity;
 
 public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 
@@ -163,7 +164,19 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 	}
 
 	public List<ValueDomain> findValueDomains(ValueDomain valueDomain) {
-		return readDAO.findValueDomains(valueDomain);
+		ValueDomain cachedVD = valueDomainCache.get(valueDomain);
+		if (cachedVD == null) {
+			List<ValueDomain> foundVDs = readDAO.findValueDomains(valueDomain);
+			if (foundVDs!=null && foundVDs.size()>0) {
+				valueDomainCache.put(valueDomain, foundVDs.get(0));
+			}
+			return foundVDs;
+		}
+		else {
+			List<ValueDomain> cachedVDs = new ArrayList<ValueDomain>();
+			cachedVDs.add(cachedVD);
+			return cachedVDs;
+		}
 	}
 
 	public ValueDomain findValueDomainById(int publicId, double version) {
@@ -188,9 +201,9 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 			return cachedConcept;
 		}
 		else {
-			DescLogicConcept descLogicConcept = evsDAO.getEVSPreNCItConcept(cui);
+			ResolvedCodedNodeReference codeRef = evsDAO.getEVSNCItConcept(cui, includeRetired);
 			
-			Concept concept = getConcept(descLogicConcept, includeRetired);
+			Concept concept = getConcept(codeRef);
 			evsConceptsCache.put(cui, concept);
 			return concept;
 		}
@@ -208,106 +221,35 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 		}
 	}
 	
-	private Concept getConcept(DescLogicConcept descLogicConcept, boolean includeRetired) {
+	private Concept getConcept(ResolvedCodedNodeReference codeRef) {
 		Concept concept = CaDSRObjectsUtil.createConcept();
 		
-		if (descLogicConcept == null) {
+		if (codeRef == null) {
 			return concept;
 		}
 		
-		if (!includeRetired && descLogicConcept.getIsRetired()) {
-			return concept;
+		concept.setPreferredName(codeRef.getCode());
+		if (codeRef.getEntityDescription() != null) {
+			concept.setLongName(codeRef.getEntityDescription().getContent());
 		}
-		
-		String preferredName = null;
-		String cui = descLogicConcept.getCode();
-		List<gov.nih.nci.evs.domain.Definition> defs = new ArrayList<gov.nih.nci.evs.domain.Definition>();
-		List<gov.nih.nci.evs.domain.Definition> altDefs = new ArrayList<gov.nih.nci.evs.domain.Definition>();
-		
-		Vector<gov.nih.nci.evs.domain.Property> props = descLogicConcept.getPropertyCollection();
-		for (gov.nih.nci.evs.domain.Property prop: props) {
-			String propName = prop.getName();
-			
-			if (propName.equalsIgnoreCase("definition")) {
-				gov.nih.nci.evs.domain.Definition def = getDef(prop);
-				defs.add(def);
-			}
-			else if (propName.equalsIgnoreCase("alt_definition")) {
-				gov.nih.nci.evs.domain.Definition def = getDef(prop);
-				altDefs.add(def);
-			}
-			else if (preferredName == null && prop.getName().equalsIgnoreCase("Preferred_Name")) {
-				preferredName = prop.getValue();
-			}
-		}
-		
-		if (defs.size() > 0) {
-			setDefinitions(concept, defs);
-		}
-		else {
-			setDefinitions(concept, altDefs);
-		}
-		
-		concept.setPreferredName(cui);
-		concept.setLongName(preferredName);
-		
-		return concept;
-	}
-	
-	private void setDefinitions(Concept concept, List<gov.nih.nci.evs.domain.Definition> defs) {
-		gov.nih.nci.evs.domain.Definition prefDef = null;
-		
-		for (gov.nih.nci.evs.domain.Definition def: defs) {
-			
-			Definition caDSRDef = getCaDSRDefinition(def);
-			concept.addDefinition(caDSRDef);
-			
-			if (prefDef == null) {
-				prefDef = def;
-			}
-			else {
-				gov.nih.nci.evs.domain.Source src = def.getSource();
-				if (src != null) {
-					if (src.getAbbreviation().equalsIgnoreCase("NCI")) {
-						prefDef = def;
-					}
+
+		Entity entity = codeRef.getEntity();
+		if (entity != null && entity.getDefinition() != null) {
+			org.LexGrid.concepts.Definition[] evsDefs = entity.getDefinition();
+			for (org.LexGrid.concepts.Definition evsDef: evsDefs) {
+				Definition def = DomainObjectFactory.newDefinition();
+				def.setDefinition(evsDef.getValue().getContent());
+				def.setType("");
+				concept.addDefinition(def);
+				
+				if (evsDef.isIsPreferred()) {
+					concept.setPreferredDefinition(evsDef.getValue().getContent());
+					concept.setDefinitionSource(evsDef.getSource()[0].getContent());
 				}
 			}
 		}
-		if (prefDef != null) {
-			concept.setPreferredDefinition(prefDef.getDefinition());
-			concept.setDefinitionSource(prefDef.getSource().getAbbreviation());
-		}
-	}
-	
-	private Definition getCaDSRDefinition(gov.nih.nci.evs.domain.Definition def) {
-		Definition caDSRDef = CaDSRObjectsUtil.createDefinition();
-		caDSRDef.setDefinition(def.getDefinition());
-		caDSRDef.setType("");
 		
-		return caDSRDef;
-	}
-	
-	private gov.nih.nci.evs.domain.Definition getDef(gov.nih.nci.evs.domain.Property prop) {
-		gov.nih.nci.evs.domain.Definition def = new gov.nih.nci.evs.domain.Definition();
-		def.setDefinition(prop.getValue());
-		gov.nih.nci.evs.domain.Source defSource = getSource(prop.getQualifierCollection());
-		def.setSource(defSource);
-		
-		return def;
-	}
-	
-	private gov.nih.nci.evs.domain.Source getSource(Vector<Qualifier> qualCollection) {
-		
-		for (Qualifier qual: qualCollection) {
-			if (qual.getName().equalsIgnoreCase("Source")) {
-				gov.nih.nci.evs.domain.Source source = new gov.nih.nci.evs.domain.Source();
-				source.setAbbreviation(qual.getValue());
-				return source;
-			}
-		}
-		
-		return null;
+		return concept;
 	}
 	
 	public ClassificationScheme getClassificationScheme(ClassificationScheme classScheme) {
@@ -432,7 +374,7 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 			final List<ObjectClass> foundDECOCs = new ArrayList<ObjectClass>();
 			final List<Property> foundDECProps = new ArrayList<Property>();
 			
-			List<DataElementConcept> lookedUpDataElementConcepts = loadDataElementConcepts(dataElementConcepts, new AdminComponentLoaderCallback<DataElementConcept>() {
+			Map<DataElementConcept, DataElementConcept> lookedUpDataElementConcepts = loadDataElementConcepts(dataElementConcepts, new AdminComponentLoaderCallback<DataElementConcept>() {
 
 				@Override
 				public void doProcess(DataElementConcept originalDEC, DataElementConcept foundDEC) {
@@ -481,7 +423,8 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 				}
 			});
 			
-			caDSRObjects.setDataElementConcepts(lookedUpDataElementConcepts);
+			caDSRObjects.setDataElementConcepts(new ArrayList<DataElementConcept>(lookedUpDataElementConcepts.values()));
+			replaceDEDECs(caDSRObjects, lookedUpDataElementConcepts);
 			
 			addObjectClasses(caDSRObjects, foundDECOCs);
 			addProperties(caDSRObjects, foundDECProps);
@@ -491,7 +434,7 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 	private void processValueDomains(CaDSRObjects caDSRObjects, final LoadObjects loadObjects) {
 		List<ValueDomain> valueDomains = caDSRObjects.getValueDomains();
 		if (valueDomains != null) {
-			List<ValueDomain> lookedUpValueDomains = loadValueDomains(valueDomains, new AdminComponentLoaderCallback<ValueDomain>() {
+			Map<ValueDomain, ValueDomain> lookedUpValueDomains = loadValueDomains(valueDomains, new AdminComponentLoaderCallback<ValueDomain>() {
 
 				@Override
 				public void doProcess(ValueDomain originalVD, ValueDomain foundVD) {
@@ -523,7 +466,32 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 					replaceCSCSIs(foundVD);
 				}
 			});
-			caDSRObjects.setValueDomains(lookedUpValueDomains);
+			caDSRObjects.setValueDomains(new ArrayList<ValueDomain>(lookedUpValueDomains.values()));
+			replaceDEVDs(caDSRObjects, lookedUpValueDomains);
+		}
+	}
+	
+	private void replaceDEVDs(CaDSRObjects caDSRObjects, Map<ValueDomain, ValueDomain> vdMap) {
+		List<DataElement> dataElements = caDSRObjects.getDataElements();
+		if (dataElements != null) {
+			for (DataElement dataElement: dataElements) {
+				ValueDomain deVD = dataElement.getValueDomain();
+				if (vdMap.get(deVD) != null) {
+					dataElement.setValueDomain(vdMap.get(deVD));
+				}
+			}
+		}
+	}
+	
+	private void replaceDEDECs(CaDSRObjects caDSRObjects, Map<DataElementConcept, DataElementConcept> decMap) {
+		List<DataElement> dataElements = caDSRObjects.getDataElements();
+		if (dataElements != null) {
+			for (DataElement dataElement: dataElements) {
+				DataElementConcept deDEC = dataElement.getDataElementConcept();
+				if (decMap.get(deDEC) != null) {
+					dataElement.setDataElementConcept(decMap.get(deDEC));
+				}
+			}
 		}
 	}
 	
@@ -533,7 +501,7 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 		final List<ObjectClass> deDECOCs = new ArrayList<ObjectClass>();
 		final List<Property> deDECProps = new ArrayList<Property>();
 		if (dataElements != null) {
-			List<DataElement> lookedUpDataElements = loadDataElements(dataElements, new AdminComponentLoaderCallback<DataElement>() {
+			Map<DataElement, DataElement> lookedUpDataElements = loadDataElements(dataElements, new AdminComponentLoaderCallback<DataElement>() {
 				
 				@Override
 				public void doProcess(DataElement originalDE, DataElement foundDE) {
@@ -579,7 +547,7 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 				}
 			});
 			
-			caDSRObjects.setDataElements(lookedUpDataElements);
+			caDSRObjects.setDataElements(new ArrayList<DataElement>(lookedUpDataElements.values()));
 			addDECs(caDSRObjects, deDECs);
 			addObjectClasses(caDSRObjects, deDECOCs);
 			addProperties(caDSRObjects, deDECProps);
@@ -632,8 +600,8 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 		return lookedUpProps;
 	}
 	
-	private List<DataElementConcept> loadDataElementConcepts(List<DataElementConcept> createdDataElementConcepts, AdminComponentLoaderCallback<DataElementConcept> postProcessor) {
-		List<DataElementConcept> lookedUpDECs = new ArrayList<DataElementConcept>();
+	private Map<DataElementConcept, DataElementConcept> loadDataElementConcepts(List<DataElementConcept> createdDataElementConcepts, AdminComponentLoaderCallback<DataElementConcept> postProcessor) {
+		Map<DataElementConcept, DataElementConcept> lookedUpDECs = new HashMap<DataElementConcept, DataElementConcept>();
 		
 		for (DataElementConcept createdDEC: createdDataElementConcepts) {
 			DataElementConcept decToLoad = null;
@@ -682,14 +650,14 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 			}
 			
 			postProcessor.doProcess(createdDEC, decToLoad);
-			lookedUpDECs.add(decToLoad);
+			lookedUpDECs.put(createdDEC, decToLoad);
 		}
 		
 		return lookedUpDECs;
 	}
 	
-	private List<ValueDomain> loadValueDomains(List<ValueDomain> createdValueDomains, AdminComponentLoaderCallback<ValueDomain> callback) {
-		List<ValueDomain> lookedUpVDs = new ArrayList<ValueDomain>();
+	private Map<ValueDomain, ValueDomain> loadValueDomains(List<ValueDomain> createdValueDomains, AdminComponentLoaderCallback<ValueDomain> callback) {
+		Map<ValueDomain, ValueDomain> lookedUpVDs = new HashMap<ValueDomain, ValueDomain>();
 		
 		for (ValueDomain createdVD: createdValueDomains) {
 			ValueDomain vdToBeAdded = null;
@@ -712,20 +680,15 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 				}
 			}
 			
-			if (vdToBeAdded != createdVD) {
-				valueDomainCacheById.put(vdToBeAdded.getPublicId(), vdToBeAdded);
-				valueDomainCache.put(createdVD, vdToBeAdded);
-			}
-			
 			callback.doProcess(createdVD, vdToBeAdded);
-			lookedUpVDs.add(vdToBeAdded);
+			lookedUpVDs.put(createdVD, vdToBeAdded);
 		}
 		
 		return lookedUpVDs;
 	}
 	
-	private List<DataElement> loadDataElements(List<DataElement> createdDataElements, AdminComponentLoaderCallback<DataElement> postProcessor) {
-		List<DataElement> lookedUpDEs = new ArrayList<DataElement>();
+	private Map<DataElement, DataElement> loadDataElements(List<DataElement> createdDataElements, AdminComponentLoaderCallback<DataElement> postProcessor) {
+		Map<DataElement, DataElement> lookedUpDEs = new HashMap<DataElement, DataElement>();
 		
 		for (DataElement createdDE: createdDataElements) {
 			DataElement deToBeAdded = null;
@@ -764,7 +727,7 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 			
 			postProcessor.doProcess(createdDE, deToBeAdded);
 			
-			lookedUpDEs.add(deToBeAdded);
+			lookedUpDEs.put(createdDE, deToBeAdded);
 		}
 		
 		return lookedUpDEs;
