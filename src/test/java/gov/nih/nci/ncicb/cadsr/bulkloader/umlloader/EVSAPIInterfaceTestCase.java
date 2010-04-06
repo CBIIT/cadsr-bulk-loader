@@ -8,7 +8,7 @@ public class EVSAPIInterfaceTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.
 	private static String[] XML_IP_FILES = {"/gov/nih/nci/ncicb/cadsr/8_9_3_QualiferMultipleConcepts_RemoveLongName_RemoveC16007_C16443.xml"};
 //	private static String dataURL = "/gov/nih/nci/ncicb/cadsr/8_27_1_2.xls";
 	
-	 private EvsModule evsModule = new EvsModule("Pre NCI Thesaurus");
+	 private EvsModule evsModule = new EvsModule("NCI Thesaurus");
 	 
 	@Override
 	protected void containerSetUp() throws Exception {
@@ -42,7 +42,7 @@ public class EVSAPIInterfaceTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.
 	}
 	
 	public void testProcessor() {
-		EvsResult evsResult = evsModule.findByConceptCode("C63923", false);
+		EvsResult evsResult = evsModule.findByConceptCode("C17998", false);
 		assertNotNull(evsResult);
 	}
 }

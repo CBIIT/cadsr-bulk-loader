@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns1:Form xmlns:ns1="urn:nci:caDSR">
+	<ns1:formName>VM6</ns1:formName>
+	<ns1:context>caBIG</ns1:context>
+	<ns1:cs>Bulk Loader Test</ns1:cs>
+	<ns1:csi>CSI6</ns1:csi>	
+	<ns1:defaultCD>DEFAULT_BULKLOADER_CD</ns1:defaultCD>
+	<ns1:source>NMDP</ns1:source>
+	<ns1:questions>
+		
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:alternateName>Multiple Term Qualifers</ns1:alternateName>
+			<ns1:alternateNameType>C3D Name</ns1:alternateNameType>
+			<ns1:decId>2188689v1.0:Breast Tumor Clinical M Stage</ns1:decId>
+			<ns1:repTermQualConcepts>C16667:Health Physics;C15555:Prevention of Head and Neck Cancer</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C25398:Clinical</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2008570v1.0:Personal attributes</ns1:vdConceptualDomainId>
+			<ns1:dataType>CHARACTER</ns1:dataType>
+			<ns1:vdMaxLength>66</ns1:vdMaxLength>
+			<ns1:enumerated>No</ns1:enumerated>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>2</ns1:questionNumber>
+			<ns1:alternateName>Multiple Term Qualifers</ns1:alternateName>
+			<ns1:alternateNameType>C3D Name</ns1:alternateNameType>
+			<ns1:decId>2183112v1.0:Address Directions</ns1:decId>
+			<ns1:repTermQualConcepts>C16667:Health Physics;C15555:Prevention of Head and Neck Cancer</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C25398:Clinical</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2008570v1.0:Personal attributes</ns1:vdConceptualDomainId>
+			<ns1:dataType>CHARACTER</ns1:dataType>
+			<ns1:vdMaxLength>66</ns1:vdMaxLength>
+			<ns1:enumerated>No</ns1:enumerated>
+	</ns1:Question>
+	</ns1:questions>
+</ns1:Form>
