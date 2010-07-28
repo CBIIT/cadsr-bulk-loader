@@ -95,14 +95,14 @@ public class ValueDomainTranslator extends AbstractTranslatorTemplate {
 			List<Concept> concepts = util.getConceptsFromRegistry(conceptRefs, objRegistry);
 			String preferredName = util.getPreferredNameFromConcepts(concepts);
 			String longName = util.getLongNameFromConcepts(concepts);
-			String definition = util.getDefinitionFromConcepts(concepts);
+			String prefDefinition = util.getPreferredDefinitionFromConcepts(concepts);
 			
 			Representation rep = DomainObjectFactory.newRepresentation();
 			//rep.setLongName(longName);
 			rep.setPreferredName(preferredName);
 			
 			vd.setLongName(longName);
-			vd.setPreferredDefinition(definition);
+			vd.setPreferredDefinition(prefDefinition);
 			vd.setRepresentation(rep);
 		}
 		else {
