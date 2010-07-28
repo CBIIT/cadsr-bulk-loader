@@ -34,7 +34,7 @@ public class PropertiesTranslator extends AbstractTranslatorTemplate {
 		
 		String longName = util.getLongNameFromConcepts(concepts);
 		String preferredName = util.getPreferredNameFromConcepts(concepts);
-		String preferredDefinition = util.getDefinitionFromConcepts(concepts);
+		String preferredDefinition = util.getPreferredDefinitionFromConcepts(concepts);
 		List<AdminComponentClassSchemeClassSchemeItem> acCSCSIList = util.getAdminComponentCSCSI(caDSRProperty, objRegistry);
 		
 		Property property = DomainObjectFactory.newProperty();

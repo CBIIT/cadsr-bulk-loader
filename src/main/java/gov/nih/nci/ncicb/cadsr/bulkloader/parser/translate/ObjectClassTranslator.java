@@ -33,7 +33,7 @@ public class ObjectClassTranslator extends AbstractTranslatorTemplate {
 		
 		String longName = util.getLongNameFromConcepts(concepts);
 		String preferredName = util.getPreferredNameFromConcepts(concepts);
-		String preferredDefinition = util.getDefinitionFromConcepts(concepts);
+		String preferredDefinition = util.getPreferredDefinitionFromConcepts(concepts);
 		List<AdminComponentClassSchemeClassSchemeItem> acCSCSIList = util.getAdminComponentCSCSI(isoObjClass, objRegistry);
 		
 		ObjectClass objClass = DomainObjectFactory.newObjectClass();
