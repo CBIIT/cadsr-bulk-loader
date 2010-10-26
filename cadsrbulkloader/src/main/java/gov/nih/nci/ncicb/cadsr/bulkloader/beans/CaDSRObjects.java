@@ -163,5 +163,65 @@ public class CaDSRObjects {
 		}
 		else return someAdminCompList;
 	}
+	
+	public Memento saveToMemento() {
+		return new Memento(this);
+	}
+	
+	public static class Memento {
+		public List<String> deIds;
+		public List<String> decIds;
+		public List<String> vdIds;
+		public List<String> ocIds;
+		public List<String> propIds;
+		public List<String> conIds;
+		public List<String> vmIds;
+		public List<String> repIds;
+		public String loadCtxId;
+		public String loadCSId;
+		
+		public Memento(CaDSRObjects _caDSRObjects) {
+			deIds = new ArrayList<String>();
+			doAdd(_caDSRObjects.getDataElements(), deIds);
+			
+			decIds = new ArrayList<String>();
+			doAdd(_caDSRObjects.getDataElementConcepts(), decIds);
+			
+			vdIds = new ArrayList<String>();
+			doAdd(_caDSRObjects.getValueDomains(), vdIds);
+			
+			ocIds = new ArrayList<String>();
+			doAdd(_caDSRObjects.getObjectClasses(), ocIds);
+			
+			propIds = new ArrayList<String>();
+			doAdd(_caDSRObjects.getProperties(), propIds);
+			
+			conIds = new ArrayList<String>();
+			doAdd(_caDSRObjects.getConcepts(), conIds);
+			
+			vmIds = new ArrayList<String>();
+			doAdd(_caDSRObjects.getValueMeanings(), vmIds);
+			
+			repIds = new ArrayList<String>();
+			doAdd(_caDSRObjects.getRepTerms(), repIds);
+			
+			if (_caDSRObjects.getLoadContext() != null && _caDSRObjects.getLoadContext().getId() != null) {
+				loadCtxId = _caDSRObjects.getLoadContext().getId();
+			}
+			
+			if (_caDSRObjects.getLoadClassificationScheme() != null && _caDSRObjects.getLoadClassificationScheme().getId() != null) {
+				loadCtxId = _caDSRObjects.getLoadClassificationScheme().getId();
+			}
+		}
+		
+		private void doAdd(List<? extends AdminComponent> fromList, List<String> toList) {
+			for (AdminComponent ac: fromList) {
+				if (ac.getPublicId() != null) {
+					toList.add(ac.getPublicId());
+				}
+			}
+		}
+
+	}
 			
 }

@@ -23,4 +23,5 @@ public interface BulkLoaderDAOFacade extends BulkLoaderReadDAO, BulkLoaderWriteD
 	public List<ClassSchemeClassSchemeItem> getClassSchemeClassSchemeItems(String csName);
 	public Concept findEVSConceptByCUI(String cui, boolean includeRetired);
 	public CaDSRObjects loadFromCaDSR(CaDSRObjects caDSRObjects, LoadObjects loadObjects);
+	public void clearCache();
 }

@@ -5,6 +5,8 @@ import gov.nih.nci.ncicb.cadsr.bulkloader.beans.LoadObjects;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.LoadProperties;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.LoaderInput;
 import gov.nih.nci.ncicb.cadsr.bulkloader.dao.BulkLoaderDAOFacade;
+import gov.nih.nci.ncicb.cadsr.bulkloader.event.EventRecorder;
+import gov.nih.nci.ncicb.cadsr.bulkloader.event.LoaderEvent;
 import gov.nih.nci.ncicb.cadsr.bulkloader.parser.ParseResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.parser.Parser;
 import gov.nih.nci.ncicb.cadsr.bulkloader.persist.Persister;
@@ -33,6 +35,7 @@ public class CaDSRBulkLoaderImpl implements CaDSRBulkLoader{
 	private Validation validator;
 	private Persister persister;
 	private BulkLoaderDAOFacade daoFacade;
+	private EventRecorder recorder;
 	
 	private CaDSRObjectsUtil caDSRObjectsUtil = new CaDSRObjectsUtil();
 	
@@ -61,28 +64,38 @@ public class CaDSRBulkLoaderImpl implements CaDSRBulkLoader{
 	public void setDaoFacade(BulkLoaderDAOFacade daoFacade) {
 		this.daoFacade = daoFacade;
 	}
-	public LoadResult load(LoaderInput input, LoadProperties loadProperties) {
-		LoadResult result = new LoadResult(input);
-		
+	public EventRecorder getRecorder() {
+		return recorder;
+	}
+	public void setRecorder(EventRecorder recorder) {
+		this.recorder = recorder;
+	}
+	public void load(LoaderInput input, LoadProperties loadProperties) {
+
+		if (recorder != null) recorder.preProcessEvent(LoaderEvent.PARSING, input, loadProperties);
 		ParseResult parseResult = parser.parse(input.getFileToLoad());
-		result.setParseResult(parseResult);
+		if (recorder != null) recorder.postProcessEvent(LoaderEvent.PARSING, parseResult);
+		
 		if (!parseResult.hasErrors()) {
 			CaDSRObjects caDSRObjects = parseResult.getCaDSRObjects();
 			LoadObjects loadObjects = getLoadObjects(loadProperties);
 			
 			caDSRObjectsUtil.sanitize(caDSRObjects);
+			daoFacade.clearCache();
 			caDSRObjects = daoFacade.loadFromCaDSR(caDSRObjects, loadObjects);
-			
+		
+			if (recorder != null) recorder.preProcessEvent(LoaderEvent.VALIDATION);
 			ValidationResult validationResult = performValidation(input, loadObjects, caDSRObjects);
-			result.setValidationResult(validationResult);
+			if (recorder != null) recorder.postProcessEvent(LoaderEvent.VALIDATION, validationResult);
+			
 			if (validationResult.isSuccessful() && !validationResult.hasErrors()) {
 				removeDecommissionedObjects(validationResult.getDecommissionedItems(), caDSRObjects);
+				if (recorder != null) recorder.preProcessEvent(LoaderEvent.PERSISTING, caDSRObjects);
 				PersisterResult persisterResult = persister.persist(caDSRObjects, loadObjects);
-				result.setPersisterResult(persisterResult);
+				if (recorder != null) recorder.postProcessEvent(LoaderEvent.PERSISTING, persisterResult);
 			}
 		}
 		
-		return result;
 	}
 	
 	private void removeDecommissionedObjects(List<AdminComponent> decommissionedItems, CaDSRObjects caDSRObjects) {

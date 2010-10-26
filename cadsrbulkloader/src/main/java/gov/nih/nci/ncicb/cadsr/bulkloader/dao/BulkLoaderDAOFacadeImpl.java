@@ -878,4 +878,22 @@ public class BulkLoaderDAOFacadeImpl implements BulkLoaderDAOFacade {
 	public boolean sourceExists(String sourceName) {
 		return readDAO.sourceExists(sourceName);
 	}
+	
+	public void clearCache() {
+		evsConceptsCache.clear();
+		caDSRConceptsCache.clear();
+		classSchemeCache.clear();
+		
+		dataElementCacheById.clear();
+		dataElementConceptCacheById.clear();
+		valueDomainCacheById.clear();
+		objectClassCacheById.clear();
+		propertyCacheById.clear();
+		
+		dataElementConceptCache.clear();
+		valueDomainCache.clear();
+		objectClassCache.clear();
+		propertyCache.clear();
+		conceptualDomainCache.clear();
+	}
 }

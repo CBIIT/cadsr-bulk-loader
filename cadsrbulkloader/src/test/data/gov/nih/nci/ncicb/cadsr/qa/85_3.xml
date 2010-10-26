@@ -14,7 +14,7 @@
 			<ns1:preferredQuestion>Pref Ques 1</ns1:preferredQuestion>
 			<ns1:alternateQuestion>Alt Ques 1</ns1:alternateQuestion>
 			<ns1:questionNotes>Reuse DEC 1</ns1:questionNotes>
-			<ns1:cdeId>1111v1.0:CDE Long Name 0</ns1:cdeId>
+			<ns1:cdeId>1111v1.0:DE Long Name 1</ns1:cdeId>
 		</ns1:Question>
 	</ns1:questions>
 </ns1:Form>

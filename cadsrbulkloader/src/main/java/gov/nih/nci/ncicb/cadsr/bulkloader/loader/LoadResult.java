@@ -1,9 +1,16 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.loader;
 
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.CaDSRObjects;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.LoaderInput;
+import gov.nih.nci.ncicb.cadsr.bulkloader.event.LoaderEvent;
 import gov.nih.nci.ncicb.cadsr.bulkloader.parser.ParseResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.persist.PersisterResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.validate.ValidationResult;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class LoadResult {
 
@@ -11,6 +18,7 @@ public class LoadResult {
 	private ParseResult parseResult;
 	private ValidationResult validationResult;
 	private PersisterResult persisterResult;
+	private Map<LoaderEvent, List<CaDSRObjects.Memento>> snapshots;
 	
 	private LoadStatus loadStatus;
 	private Throwable exceptionTrace;
@@ -107,5 +115,32 @@ public class LoadResult {
 		}
 		
 		return false;
+	}
+	
+	public void addSnapshot(LoaderEvent _event, CaDSRObjects.Memento _snapshot) {
+		if (snapshots == null) {
+			snapshots = new HashMap<LoaderEvent, List<CaDSRObjects.Memento>>();
+		}
+		List<CaDSRObjects.Memento> snapshotList = snapshots.get(_event);
+		if (snapshotList == null || snapshotList.isEmpty()) {
+			snapshotList = new ArrayList<CaDSRObjects.Memento>();
+			snapshots.put(_event, snapshotList);
+		}
+		snapshotList.add(_snapshot);
+	}
+	
+	public List<CaDSRObjects.Memento> getSnapshotsForEvent(LoaderEvent _event) {
+		if (snapshots == null) {
+			return new ArrayList<CaDSRObjects.Memento>();
+		}
+		else {
+			List<CaDSRObjects.Memento> snapshot = snapshots.get(_event);
+			if (snapshot == null) {
+				return new ArrayList<CaDSRObjects.Memento>();
+			}
+			else {
+				return new ArrayList<CaDSRObjects.Memento>(snapshot);
+			}
+		}
 	}
 }

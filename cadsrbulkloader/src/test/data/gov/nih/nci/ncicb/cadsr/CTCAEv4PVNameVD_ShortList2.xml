@@ -1,0 +1,2132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns1:Form xmlns:ns1="urn:nci:caDSR">
+	<ns1:formName>CTCAEv4PVNameVD_ShortList2</ns1:formName>
+	<ns1:context>caBIG</ns1:context>
+	<ns1:cs>CTCAE MedDRA CDEs</ns1:cs>
+	<ns1:csi>CTCAEv4.0</ns1:csi>
+	<ns1:source>NMDP:National Marrow Donor Program</ns1:source>
+	<ns1:defaultCD>DEFAULT_BULKLOADER_CD</ns1:defaultCD>
+	<ns1:questions>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:decId>2943909v1.0:Adverse Event Common Terminology for Adverse Events Term</ns1:decId>
+			<ns1:repTermQualConcepts>C25666:Second;C43820:MedDRA</ns1:repTermQualConcepts>
+			<ns1:repTermPrimConcepts>C25162:Code</ns1:repTermPrimConcepts>
+			<ns1:vdConceptualDomainId>2008517v1.0:Adverse Events</ns1:vdConceptualDomainId>
+			<ns1:dataType>CHARACTER</ns1:dataType>
+			<ns1:enumerated>Yes</ns1:enumerated>
+			<ns1:pv>Abdominal pain</ns1:pv>
+			<ns1:vmConcepts>E10460:Abdominal pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:pv>Acidosis</ns1:pv>
+			<ns1:vmConcepts>E12237:Acidosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:pv>Acoustic nerve disorder NOS</ns1:pv>
+			<ns1:vmConcepts>E12577:Acoustic nerve disorder NOS</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:pv>Alcohol intolerance</ns1:pv>
+			<ns1:vmConcepts>E12242:Alcohol intolerance</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:pv>Alkaline phosphatase increased</ns1:pv>
+			<ns1:vmConcepts>E12082:Alkaline phosphatase increased</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:pv>Alkalosis</ns1:pv>
+			<ns1:vmConcepts>E12247:Alkalosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:pv>Allergic rhinitis</ns1:pv>
+			<ns1:vmConcepts>E13303:Allergic rhinitis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:pv>Anal pain</ns1:pv>
+			<ns1:vmConcepts>E10486:Anal pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:pv>Anal stenosis</ns1:pv>
+			<ns1:vmConcepts>E10490:Anal stenosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:pv>Anal ulcer</ns1:pv>
+			<ns1:vmConcepts>E10496:Anal ulcer</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:pv>Anaphylaxis</ns1:pv>
+			<ns1:vmConcepts>E11254:Anaphylaxis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:pv>Anemia</ns1:pv>
+			<ns1:vmConcepts>E10010:Anemia</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:pv>Ankle fracture</ns1:pv>
+			<ns1:vmConcepts>E11640:Ankle fracture</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:pv>Aortic injury</ns1:pv>
+			<ns1:vmConcepts>E11644:Aortic injury</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:pv>Apnea</ns1:pv>
+			<ns1:vmConcepts>E13306:Apnea</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:pv>Appendicitis</ns1:pv>
+			<ns1:vmConcepts>E11292:Appendicitis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:pv>Appendicitis perforated</ns1:pv>
+			<ns1:vmConcepts>E11296:Appendicitis perforated</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:pv>Arterial injury</ns1:pv>
+			<ns1:vmConcepts>E11648:Arterial injury</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:pv>Asystole</ns1:pv>
+			<ns1:vmConcepts>E10077:Asystole</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:pv>Atrioventricular block complete</ns1:pv>
+			<ns1:vmConcepts>E10093:Atrioventricular block complete</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:pv>Atrioventricular block first degree</ns1:pv>
+			<ns1:vmConcepts>E10098:Atrioventricular block first degree</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:pv>Azoospermia</ns1:pv>
+			<ns1:vmConcepts>E13067:Azoospermia</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:pv>Back pain</ns1:pv>
+			<ns1:vmConcepts>E12388:Back pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:pv>Biliary fistula</ns1:pv>
+			<ns1:vmConcepts>E11179:Biliary fistula</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:questionNumber>1</ns1:questionNumber>
+			<ns1:pv>Bladder infection</ns1:pv>
+			<ns1:vmConcepts>E11309:Bladder infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Blood and lymphatic system disorders</ns1:pv>
+			<ns1:vmConcepts>E13857:Blood and lymphatic system disorders</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Blood antidiuretic hormone abnormal</ns1:pv>
+			<ns1:vmConcepts>E12092:Blood antidiuretic hormone abnormal</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Blood corticotrophin decreased</ns1:pv>
+			<ns1:vmConcepts>E12101:Blood corticotrophin decreased</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Blood gonadotrophin abnormal</ns1:pv>
+			<ns1:vmConcepts>E12105:Blood gonadotrophin abnormal</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Blood prolactin abnormal</ns1:pv>
+			<ns1:vmConcepts>E12109:Blood prolactin abnormal</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Body odor</ns1:pv>
+			<ns1:vmConcepts>E13614:Body odor</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Breast atrophy</ns1:pv>
+			<ns1:vmConcepts>E13069:Breast atrophy</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Breast infection</ns1:pv>
+			<ns1:vmConcepts>E11318:Breast infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Breast pain</ns1:pv>
+			<ns1:vmConcepts>E13073:Breast pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Bronchial obstruction</ns1:pv>
+			<ns1:vmConcepts>E13328:Bronchial obstruction</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Bruising</ns1:pv>
+			<ns1:vmConcepts>E11666:Bruising</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Bullous dermatitis</ns1:pv>
+			<ns1:vmConcepts>E13617:Bullous dermatitis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Cardiac arrest</ns1:pv>
+			<ns1:vmConcepts>E10101:Cardiac arrest</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Catheter related infection</ns1:pv>
+			<ns1:vmConcepts>E11328:Catheter related infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Cerebrospinal fluid leakage</ns1:pv>
+			<ns1:vmConcepts>E12611:Cerebrospinal fluid leakage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Cervicitis infection</ns1:pv>
+			<ns1:vmConcepts>E11337:Cervicitis infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Chest pain - cardiac</ns1:pv>
+			<ns1:vmConcepts>E10110:Chest pain - cardiac</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Chest wall pain</ns1:pv>
+			<ns1:vmConcepts>E12400:Chest wall pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Cholesterol high</ns1:pv>
+			<ns1:vmConcepts>E12127:Cholesterol high</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Cognitive disturbance</ns1:pv>
+			<ns1:vmConcepts>E12617:Cognitive disturbance</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Colonic fistula</ns1:pv>
+			<ns1:vmConcepts>E10527:Colonic fistula</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Colonic hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E10533:Colonic hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Colonic obstruction</ns1:pv>
+			<ns1:vmConcepts>E10539:Colonic obstruction</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Colonic perforation</ns1:pv>
+			<ns1:vmConcepts>E10545:Colonic perforation</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Colonic stenosis</ns1:pv>
+			<ns1:vmConcepts>E10550:Colonic stenosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Colonic ulcer</ns1:pv>
+			<ns1:vmConcepts>E10556:Colonic ulcer</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Concentration impairment</ns1:pv>
+			<ns1:vmConcepts>E12621:Concentration impairment</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Conduction disorder</ns1:pv>
+			<ns1:vmConcepts>E10114:Conduction disorder</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Congenital, familial and genetic disorders</ns1:pv>
+			<ns1:vmConcepts>E13862:Congenital, familial and genetic disorders</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Conjunctivitis infective</ns1:pv>
+			<ns1:vmConcepts>E11342:Conjunctivitis infective</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>CPK increased</ns1:pv>
+			<ns1:vmConcepts>E12132:CPK increased</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Creatinine increased</ns1:pv>
+			<ns1:vmConcepts>E12137:Creatinine increased</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Death neonatal</ns1:pv>
+			<ns1:vmConcepts>E11078:Death neonatal</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Death NOS</ns1:pv>
+			<ns1:vmConcepts>E11080:Death NOS</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Delusions</ns1:pv>
+			<ns1:vmConcepts>E12904:Delusions</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Dental caries</ns1:pv>
+			<ns1:vmConcepts>E10568:Dental caries</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Dry eye</ns1:pv>
+			<ns1:vmConcepts>E10363:Dry eye</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Duodenal obstruction</ns1:pv>
+			<ns1:vmConcepts>E10594:Duodenal obstruction</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Duodenal perforation</ns1:pv>
+			<ns1:vmConcepts>E10600:Duodenal perforation</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Dysgeusia</ns1:pv>
+			<ns1:vmConcepts>E12643:Dysgeusia</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Ear and labyrinth disorders</ns1:pv>
+			<ns1:vmConcepts>E13865:Ear and labyrinth disorders</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Ear pain</ns1:pv>
+			<ns1:vmConcepts>E10262:Ear pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Edema cerebral</ns1:pv>
+			<ns1:vmConcepts>E12650:Edema cerebral</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Edema face</ns1:pv>
+			<ns1:vmConcepts>E11082:Edema face</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Ejaculation disorder</ns1:pv>
+			<ns1:vmConcepts>E13085:Ejaculation disorder</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Electrocardiogram QT corrected interval prolonged</ns1:pv>
+			<ns1:vmConcepts>E12146:Electrocardiogram QT corrected interval prolonged</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Encephalitis infection</ns1:pv>
+			<ns1:vmConcepts>E11365:Encephalitis infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Encephalomyelitis infection</ns1:pv>
+			<ns1:vmConcepts>E11369:Encephalomyelitis infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Endocrine disorders</ns1:pv>
+			<ns1:vmConcepts>E13856:Endocrine disorders</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Esophageal hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E10645:Esophageal hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Esophageal obstruction</ns1:pv>
+			<ns1:vmConcepts>E10655:Esophageal obstruction</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Esophageal pain</ns1:pv>
+			<ns1:vmConcepts>E10661:Esophageal pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Esophageal stenosis</ns1:pv>
+			<ns1:vmConcepts>E10670:Esophageal stenosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Esophageal ulcer</ns1:pv>
+			<ns1:vmConcepts>E10676:Esophageal ulcer</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Esophageal varices hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E10682:Esophageal varices hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Extraocular muscle paresis</ns1:pv>
+			<ns1:vmConcepts>E10367:Extraocular muscle paresis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Extrapyramidal disorder</ns1:pv>
+			<ns1:vmConcepts>E12658:Extrapyramidal disorder</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Eye disorders</ns1:pv>
+			<ns1:vmConcepts>E13866:Eye disorders</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Eye infection</ns1:pv>
+			<ns1:vmConcepts>E11391:Eye infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Eye pain</ns1:pv>
+			<ns1:vmConcepts>E10376:Eye pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Facial pain</ns1:pv>
+			<ns1:vmConcepts>E11094:Facial pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Fat atrophy</ns1:pv>
+			<ns1:vmConcepts>E13638:Fat atrophy</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Febrile neutropenia</ns1:pv>
+			<ns1:vmConcepts>E10033:Febrile neutropenia</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Fetal death</ns1:pv>
+			<ns1:vmConcepts>E12855:Fetal death</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Fibrinogen decreased</ns1:pv>
+			<ns1:vmConcepts>E12151:Fibrinogen decreased</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Flank pain</ns1:pv>
+			<ns1:vmConcepts>E12414:Flank pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Flashing lights</ns1:pv>
+			<ns1:vmConcepts>E10384:Flashing lights</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Gallbladder obstruction</ns1:pv>
+			<ns1:vmConcepts>E11198:Gallbladder obstruction</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Gallbladder pain</ns1:pv>
+			<ns1:vmConcepts>E11204:Gallbladder pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Gallbladder perforation</ns1:pv>
+			<ns1:vmConcepts>E11208:Gallbladder perforation</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Gastric hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E10706:Gastric hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Gastric perforation</ns1:pv>
+			<ns1:vmConcepts>E10716:Gastric perforation</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Gastrointestinal fistula</ns1:pv>
+			<ns1:vmConcepts>E10749:Gastrointestinal fistula</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Gastrointestinal disorders</ns1:pv>
+			<ns1:vmConcepts>E13859:Gastrointestinal disorders</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Gastrointestinal pain</ns1:pv>
+			<ns1:vmConcepts>E10755:Gastrointestinal pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>General disorders and administration site conditions</ns1:pv>
+			<ns1:vmConcepts>E13873:General disorders and administration site conditions</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Gingival pain</ns1:pv>
+			<ns1:vmConcepts>E10763:Gingival pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Growth accelerated</ns1:pv>
+			<ns1:vmConcepts>E10317:Growth accelerated</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Growth suppression</ns1:pv>
+			<ns1:vmConcepts>E12422:Growth suppression</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Gum infection</ns1:pv>
+			<ns1:vmConcepts>E11400:Gum infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Hallucinations</ns1:pv>
+			<ns1:vmConcepts>E12919:Hallucinations</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Hepatic hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E11215:Hepatic hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Hepatic necrosis</ns1:pv>
+			<ns1:vmConcepts>E11221:Hepatic necrosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Hepatitis viral</ns1:pv>
+			<ns1:vmConcepts>E11410:Hepatitis viral</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Hepatobiliary disorders</ns1:pv>
+			<ns1:vmConcepts>E13869:Hepatobiliary disorders</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Hirsutism</ns1:pv>
+			<ns1:vmConcepts>E13642:Hirsutism</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Hot flashes</ns1:pv>
+			<ns1:vmConcepts>E13781:Hot flashes</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Hypermagnesemia</ns1:pv>
+			<ns1:vmConcepts>E12288:Hypermagnesemia</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Hypersomnia</ns1:pv>
+			<ns1:vmConcepts>E12688:Hypersomnia</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Hypertrichosis</ns1:pv>
+			<ns1:vmConcepts>E13649:Hypertrichosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Hyponatremia</ns1:pv>
+			<ns1:vmConcepts>E12339:Hyponatremia</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Hypoparathyroidism</ns1:pv>
+			<ns1:vmConcepts>E10328:Hypoparathyroidism</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Ileal ulcer</ns1:pv>
+			<ns1:vmConcepts>E10806:Ileal ulcer</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Immune system disorders</ns1:pv>
+			<ns1:vmConcepts>E13871:Immune system disorders</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Infections and infestations</ns1:pv>
+			<ns1:vmConcepts>E13863:Infections and infestations</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Infective myositis</ns1:pv>
+			<ns1:vmConcepts>E11421:Infective myositis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Injection site reaction</ns1:pv>
+			<ns1:vmConcepts>E11138:Injection site reaction</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Injury, poisoning and procedural complications</ns1:pv>
+			<ns1:vmConcepts>E13849:Injury, poisoning and procedural complications</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Injury to carotid artery</ns1:pv>
+			<ns1:vmConcepts>E11730:Injury to carotid artery</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Injury to inferior vena cava</ns1:pv>
+			<ns1:vmConcepts>E11734:Injury to inferior vena cava</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Injury to superior vena cava</ns1:pv>
+			<ns1:vmConcepts>E11741:Injury to superior vena cava</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>INR increased</ns1:pv>
+			<ns1:vmConcepts>E12175:INR increased</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Intracranial hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E12696:Intracranial hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Investigations</ns1:pv>
+			<ns1:vmConcepts>E13870:Investigations</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Irregular menstruation</ns1:pv>
+			<ns1:vmConcepts>E13125:Irregular menstruation</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Ischemia cerebrovascular</ns1:pv>
+			<ns1:vmConcepts>E12702:Ischemia cerebrovascular</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Jejunal perforation</ns1:pv>
+			<ns1:vmConcepts>E10840:Jejunal perforation</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Jejunal stenosis</ns1:pv>
+			<ns1:vmConcepts>E10845:Jejunal stenosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Jejunal ulcer</ns1:pv>
+			<ns1:vmConcepts>E10851:Jejunal ulcer</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Joint infection</ns1:pv>
+			<ns1:vmConcepts>E11426:Joint infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Kidney infection</ns1:pv>
+			<ns1:vmConcepts>E11431:Kidney infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Laryngeal edema</ns1:pv>
+			<ns1:vmConcepts>E13393:Laryngeal edema</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Left ventricular systolic dysfunction</ns1:pv>
+			<ns1:vmConcepts>E10130:Left ventricular systolic dysfunction</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Libido increased</ns1:pv>
+			<ns1:vmConcepts>E12932:Libido increased</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Lip pain</ns1:pv>
+			<ns1:vmConcepts>E10857:Lip pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Lymph node pain</ns1:pv>
+			<ns1:vmConcepts>E10052:Lymph node pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Lymphocyte count increased</ns1:pv>
+			<ns1:vmConcepts>E12195:Lymphocyte count increased</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Memory impairment</ns1:pv>
+			<ns1:vmConcepts>E12718:Memory impairment</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Metabolism and nutrition disorders</ns1:pv>
+			<ns1:vmConcepts>E13858:Metabolism and nutrition disorders</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Mobitz (type) II atrioventricular block</ns1:pv>
+			<ns1:vmConcepts>E10140:Mobitz (type) II atrioventricular block</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Mobitz type I</ns1:pv>
+			<ns1:vmConcepts>E10146:Mobitz type I</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Movements involuntary</ns1:pv>
+			<ns1:vmConcepts>E12728:Movements involuntary</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Musculoskeletal and connective tissue disorders</ns1:pv>
+			<ns1:vmConcepts>E13872:Musculoskeletal and connective tissue disorders</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Myelodysplastic syndrome</ns1:pv>
+			<ns1:vmConcepts>E12552:Myelodysplastic syndrome</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Myocarditis</ns1:pv>
+			<ns1:vmConcepts>E10157:Myocarditis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Nail discoloration</ns1:pv>
+			<ns1:vmConcepts>E13661:Nail discoloration</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Nasal congestion</ns1:pv>
+			<ns1:vmConcepts>E13450:Nasal congestion</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Nervous system disorders</ns1:pv>
+			<ns1:vmConcepts>E13868:Nervous system disorders</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Neutrophil count decreased</ns1:pv>
+			<ns1:vmConcepts>E12198:Neutrophil count decreased</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Night blindness</ns1:pv>
+			<ns1:vmConcepts>E10401:Night blindness</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Nystagmus</ns1:pv>
+			<ns1:vmConcepts>E12748:Nystagmus</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Obstruction gastric</ns1:pv>
+			<ns1:vmConcepts>E10882:Obstruction gastric</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Oral pain</ns1:pv>
+			<ns1:vmConcepts>E10904:Oral pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Otitis externa</ns1:pv>
+			<ns1:vmConcepts>E11472:Otitis externa</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Otitis media</ns1:pv>
+			<ns1:vmConcepts>E11477:Otitis media</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Ovarian rupture</ns1:pv>
+			<ns1:vmConcepts>E13151:Ovarian rupture</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Ovulation pain</ns1:pv>
+			<ns1:vmConcepts>E13157:Ovulation pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Pancreatic hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E10920:Pancreatic hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Paroxysmal atrial tachycardia</ns1:pv>
+			<ns1:vmConcepts>E10166:Paroxysmal atrial tachycardia</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Pelvic pain</ns1:pv>
+			<ns1:vmConcepts>E13167:Pelvic pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Penile pain</ns1:pv>
+			<ns1:vmConcepts>E13171:Penile pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Perforation bile duct</ns1:pv>
+			<ns1:vmConcepts>E11234:Perforation bile duct</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Peripheral ischemia</ns1:pv>
+			<ns1:vmConcepts>E13810:Peripheral ischemia</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Pharyngitis</ns1:pv>
+			<ns1:vmConcepts>E11525:Pharyngitis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Photosensitivity</ns1:pv>
+			<ns1:vmConcepts>E13680:Photosensitivity</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Pneumothorax</ns1:pv>
+			<ns1:vmConcepts>E13508:Pneumothorax</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Postnasal drip</ns1:pv>
+			<ns1:vmConcepts>E13514:Postnasal drip</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Pregnancy, puerperium and perinatal conditions</ns1:pv>
+			<ns1:vmConcepts>E13850:Pregnancy, puerperium and perinatal conditions</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Presyncope</ns1:pv>
+			<ns1:vmConcepts>E12778:Presyncope</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Proctitis</ns1:pv>
+			<ns1:vmConcepts>E10943:Proctitis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Psychiatric disorders</ns1:pv>
+			<ns1:vmConcepts>E13867:Psychiatric disorders</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Psychosis</ns1:pv>
+			<ns1:vmConcepts>E12954:Psychosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Pulmonary edema</ns1:pv>
+			<ns1:vmConcepts>E13521:Pulmonary edema</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Pulmonary fibrosis</ns1:pv>
+			<ns1:vmConcepts>E13527:Pulmonary fibrosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Pulmonary hypertension</ns1:pv>
+			<ns1:vmConcepts>E13539:Pulmonary hypertension</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Purpura</ns1:pv>
+			<ns1:vmConcepts>E13690:Purpura</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Radiation recall reaction (dermatologic)</ns1:pv>
+			<ns1:vmConcepts>E11926:Radiation recall reaction (dermatologic)</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Rash acneiform</ns1:pv>
+			<ns1:vmConcepts>E13694:Rash acneiform</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Rash maculo-papular</ns1:pv>
+			<ns1:vmConcepts>E13700:Rash maculo-papular</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Rash pustular</ns1:pv>
+			<ns1:vmConcepts>E11545:Rash pustular</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Rectal fistula</ns1:pv>
+			<ns1:vmConcepts>E10949:Rectal fistula</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Rectal hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E10955:Rectal hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Rectal pain</ns1:pv>
+			<ns1:vmConcepts>E10977:Rectal pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Rectal perforation</ns1:pv>
+			<ns1:vmConcepts>E10981:Rectal perforation</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Rectal stenosis</ns1:pv>
+			<ns1:vmConcepts>E10986:Rectal stenosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Rectal ulcer</ns1:pv>
+			<ns1:vmConcepts>E10992:Rectal ulcer</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Recurrent laryngeal nerve palsy</ns1:pv>
+			<ns1:vmConcepts>E12792:Recurrent laryngeal nerve palsy</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Renal and urinary disorders</ns1:pv>
+			<ns1:vmConcepts>E13861:Renal and urinary disorders</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Renal calculi</ns1:pv>
+			<ns1:vmConcepts>E13018:Renal calculi</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Renal colic</ns1:pv>
+			<ns1:vmConcepts>E13024:Renal colic</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Renal hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E13028:Renal hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Reproductive system and breast disorders</ns1:pv>
+			<ns1:vmConcepts>E13851:Reproductive system and breast disorders</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Respiratory failure</ns1:pv>
+			<ns1:vmConcepts>E13545:Respiratory failure</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Respiratory, thoracic and mediastinal disorders</ns1:pv>
+			<ns1:vmConcepts>E13854:Respiratory, thoracic and mediastinal disorders</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Restlessness</ns1:pv>
+			<ns1:vmConcepts>E12960:Restlessness</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Retinal tear</ns1:pv>
+			<ns1:vmConcepts>E10425:Retinal tear</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Retinal vascular disorder</ns1:pv>
+			<ns1:vmConcepts>E10429:Retinal vascular disorder</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Retinoic acid syndrome</ns1:pv>
+			<ns1:vmConcepts>E13554:Retinoic acid syndrome</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Retroperitoneal hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E10998:Retroperitoneal hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Salivary gland fistula</ns1:pv>
+			<ns1:vmConcepts>E11009:Salivary gland fistula</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Salivary gland infection</ns1:pv>
+			<ns1:vmConcepts>E11550:Salivary gland infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Scoliosis</ns1:pv>
+			<ns1:vmConcepts>E12521:Scoliosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Scrotal pain</ns1:pv>
+			<ns1:vmConcepts>E13201:Scrotal pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Seizure</ns1:pv>
+			<ns1:vmConcepts>E12804:Seizure</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Serum amylase increased</ns1:pv>
+			<ns1:vmConcepts>E12212:Serum amylase increased</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Serum sickness</ns1:pv>
+			<ns1:vmConcepts>E11276:Serum sickness</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Sick sinus syndrome</ns1:pv>
+			<ns1:vmConcepts>E10202:Sick sinus syndrome</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Sinus pain</ns1:pv>
+			<ns1:vmConcepts>E12810:Sinus pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Sinusitis</ns1:pv>
+			<ns1:vmConcepts>E11563:Sinusitis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Skin and subcutaneous tissue disorders</ns1:pv>
+			<ns1:vmConcepts>E13853:Skin and subcutaneous tissue disorders</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Skin atrophy</ns1:pv>
+			<ns1:vmConcepts>E13714:Skin atrophy</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Skin hyperpigmentation</ns1:pv>
+			<ns1:vmConcepts>E13718:Skin hyperpigmentation</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Skin hypopigmentation</ns1:pv>
+			<ns1:vmConcepts>E13721:Skin hypopigmentation</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Skin infection</ns1:pv>
+			<ns1:vmConcepts>E11568:Skin infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Skin ulceration</ns1:pv>
+			<ns1:vmConcepts>E13730:Skin ulceration</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Sleep apnea</ns1:pv>
+			<ns1:vmConcepts>E13566:Sleep apnea</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Small intestinal obstruction</ns1:pv>
+			<ns1:vmConcepts>E11021:Small intestinal obstruction</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Small intestinal perforation</ns1:pv>
+			<ns1:vmConcepts>E11027:Small intestinal perforation</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Sneezing</ns1:pv>
+			<ns1:vmConcepts>E13572:Sneezing</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Social circumstances</ns1:pv>
+			<ns1:vmConcepts>E13860:Social circumstances</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Somnolence</ns1:pv>
+			<ns1:vmConcepts>E12814:Somnolence</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Sore throat</ns1:pv>
+			<ns1:vmConcepts>E13575:Sore throat</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Spasticity</ns1:pv>
+			<ns1:vmConcepts>E12820:Spasticity</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Spinal fracture</ns1:pv>
+			<ns1:vmConcepts>E11954:Spinal fracture</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Spleen disorder</ns1:pv>
+			<ns1:vmConcepts>E10056:Spleen disorder</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Stevens-Johnson syndrome</ns1:pv>
+			<ns1:vmConcepts>E13736:Stevens-Johnson syndrome</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Stomach pain</ns1:pv>
+			<ns1:vmConcepts>E11044:Stomach pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Stomal ulcer</ns1:pv>
+			<ns1:vmConcepts>E11965:Stomal ulcer</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Stridor</ns1:pv>
+			<ns1:vmConcepts>E13579:Stridor</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Stroke</ns1:pv>
+			<ns1:vmConcepts>E12826:Stroke</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Sudden death NOS</ns1:pv>
+			<ns1:vmConcepts>E11171:Sudden death NOS</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Suicidal ideation</ns1:pv>
+			<ns1:vmConcepts>E12964:Suicidal ideation</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Suicide attempt</ns1:pv>
+			<ns1:vmConcepts>E12969:Suicide attempt</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Superficial thrombophlebitis</ns1:pv>
+			<ns1:vmConcepts>E13817:Superficial thrombophlebitis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Superior vena cava syndrome</ns1:pv>
+			<ns1:vmConcepts>E13819:Superior vena cava syndrome</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Supraventricular tachycardia</ns1:pv>
+			<ns1:vmConcepts>E10218:Supraventricular tachycardia</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Surgical and medical procedures</ns1:pv>
+			<ns1:vmConcepts>E13852:Surgical and medical procedures</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Syncope</ns1:pv>
+			<ns1:vmConcepts>E12832:Syncope</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Testicular disorder</ns1:pv>
+			<ns1:vmConcepts>E13215:Testicular disorder</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Testicular pain</ns1:pv>
+			<ns1:vmConcepts>E13227:Testicular pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Tooth development disorder</ns1:pv>
+			<ns1:vmConcepts>E11048:Tooth development disorder</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Tooth discoloration</ns1:pv>
+			<ns1:vmConcepts>E11052:Tooth discoloration</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Toxic epidermal necrolysis</ns1:pv>
+			<ns1:vmConcepts>E13743:Toxic epidermal necrolysis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Tracheal obstruction</ns1:pv>
+			<ns1:vmConcepts>E11975:Tracheal obstruction</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Tracheitis</ns1:pv>
+			<ns1:vmConcepts>E11599:Tracheitis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Transient ischemic attacks</ns1:pv>
+			<ns1:vmConcepts>E12834:Transient ischemic attacks</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Tremor</ns1:pv>
+			<ns1:vmConcepts>E12837:Tremor</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Trismus</ns1:pv>
+			<ns1:vmConcepts>E12541:Trismus</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Tumor lysis syndrome</ns1:pv>
+			<ns1:vmConcepts>E12365:Tumor lysis syndrome</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Tumor pain</ns1:pv>
+			<ns1:vmConcepts>E12565:Tumor pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Unintended pregnancy</ns1:pv>
+			<ns1:vmConcepts>E12872:Unintended pregnancy</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Upper respiratory infection</ns1:pv>
+			<ns1:vmConcepts>E11604:Upper respiratory infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Urinary frequency</ns1:pv>
+			<ns1:vmConcepts>E13039:Urinary frequency</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Urinary incontinence</ns1:pv>
+			<ns1:vmConcepts>E13042:Urinary incontinence</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Urinary retention</ns1:pv>
+			<ns1:vmConcepts>E13046:Urinary retention</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Urinary tract infection</ns1:pv>
+			<ns1:vmConcepts>E11614:Urinary tract infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Urinary urgency</ns1:pv>
+			<ns1:vmConcepts>E13062:Urinary urgency</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Urine discoloration</ns1:pv>
+			<ns1:vmConcepts>E13065:Urine discoloration</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Uterine hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E13237:Uterine hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Uterine pain</ns1:pv>
+			<ns1:vmConcepts>E13247:Uterine pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Uterine perforation</ns1:pv>
+			<ns1:vmConcepts>E12028:Uterine perforation</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Vaginal discharge</ns1:pv>
+			<ns1:vmConcepts>E13251:Vaginal discharge</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Vaginal dryness</ns1:pv>
+			<ns1:vmConcepts>E13254:Vaginal dryness</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Vaginal hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E13264:Vaginal hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Vaginal infection</ns1:pv>
+			<ns1:vmConcepts>E11624:Vaginal infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Vaginal inflammation</ns1:pv>
+			<ns1:vmConcepts>E13270:Vaginal inflammation</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Vaginal pain</ns1:pv>
+			<ns1:vmConcepts>E13280:Vaginal pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Vascular disorders</ns1:pv>
+			<ns1:vmConcepts>E13855:Vascular disorders</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Vasovagal reaction</ns1:pv>
+			<ns1:vmConcepts>E12851:Vasovagal reaction</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Venous injury</ns1:pv>
+			<ns1:vmConcepts>E12051:Venous injury</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Ventricular fibrillation</ns1:pv>
+			<ns1:vmConcepts>E10236:Ventricular fibrillation</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Vestibular disorder</ns1:pv>
+			<ns1:vmConcepts>E10295:Vestibular disorder</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Vital capacity abnormal</ns1:pv>
+			<ns1:vmConcepts>E12220:Vital capacity abnormal</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Voice alteration</ns1:pv>
+			<ns1:vmConcepts>E13601:Voice alteration</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Watering eyes</ns1:pv>
+			<ns1:vmConcepts>E10452:Watering eyes</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Weight gain</ns1:pv>
+			<ns1:vmConcepts>E12224:Weight gain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Wheezing</ns1:pv>
+			<ns1:vmConcepts>E13605:Wheezing</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Wolff-Parkinson-White syndrome</ns1:pv>
+			<ns1:vmConcepts>E10244:Wolff-Parkinson-White syndrome</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Wound dehiscence</ns1:pv>
+			<ns1:vmConcepts>E12063:Wound dehiscence</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Wrist fracture</ns1:pv>
+			<ns1:vmConcepts>E12069:Wrist fracture</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Leukemia secondary to oncology chemotherapy</ns1:pv>
+			<ns1:vmConcepts>E12549:Leukemia secondary to oncology chemotherapy</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Corneal ulcer</ns1:pv>
+			<ns1:vmConcepts>E10359:Corneal ulcer</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Bone marrow hypocellular</ns1:pv>
+			<ns1:vmConcepts>E10022:Bone marrow hypocellular</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Buttock pain</ns1:pv>
+			<ns1:vmConcepts>E12396:Buttock pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Joint range of motion decreased</ns1:pv>
+			<ns1:vmConcepts>E12435:Joint range of motion decreased</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Tooth infection</ns1:pv>
+			<ns1:vmConcepts>E11594:Tooth infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Bladder spasm</ns1:pv>
+			<ns1:vmConcepts>E12984:Bladder spasm</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Scalp pain</ns1:pv>
+			<ns1:vmConcepts>E13704:Scalp pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>White blood cell decreased</ns1:pv>
+			<ns1:vmConcepts>E12232:White blood cell decreased</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Pancreatic fistula</ns1:pv>
+			<ns1:vmConcepts>E10914:Pancreatic fistula</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Nail loss</ns1:pv>
+			<ns1:vmConcepts>E13663:Nail loss</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Intestinal stoma site bleeding</ns1:pv>
+			<ns1:vmConcepts>E11764:Intestinal stoma site bleeding</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Treatment related secondary malignancy</ns1:pv>
+			<ns1:vmConcepts>E12561:Treatment related secondary malignancy</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Pharyngeal stenosis</ns1:pv>
+			<ns1:vmConcepts>E13476:Pharyngeal stenosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Edema limbs</ns1:pv>
+			<ns1:vmConcepts>E11086:Edema limbs</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Duodenal stenosis</ns1:pv>
+			<ns1:vmConcepts>E10605:Duodenal stenosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Pancreatic anastomotic leak</ns1:pv>
+			<ns1:vmConcepts>E11891:Pancreatic anastomotic leak</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Biliary anastomotic leak</ns1:pv>
+			<ns1:vmConcepts>E11654:Biliary anastomotic leak</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Ejection fraction decreased</ns1:pv>
+			<ns1:vmConcepts>E12142:Ejection fraction decreased</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Prostate infection</ns1:pv>
+			<ns1:vmConcepts>E11540:Prostate infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Tracheal stenosis</ns1:pv>
+			<ns1:vmConcepts>E13595:Tracheal stenosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Facial muscle weakness</ns1:pv>
+			<ns1:vmConcepts>E12664:Facial muscle weakness</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Bile duct stenosis</ns1:pv>
+			<ns1:vmConcepts>E11173:Bile duct stenosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Periorbital infection</ns1:pv>
+			<ns1:vmConcepts>E11511:Periorbital infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Acute coronary syndrome</ns1:pv>
+			<ns1:vmConcepts>E10066:Acute coronary syndrome</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Pancreas infection</ns1:pv>
+			<ns1:vmConcepts>E11487:Pancreas infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Infusion related reaction</ns1:pv>
+			<ns1:vmConcepts>E11127:Infusion related reaction</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Skin induration</ns1:pv>
+			<ns1:vmConcepts>E13724:Skin induration</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Gastric necrosis</ns1:pv>
+			<ns1:vmConcepts>E10712:Gastric necrosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Cytokine release syndrome</ns1:pv>
+			<ns1:vmConcepts>E11264:Cytokine release syndrome</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Urethral infection</ns1:pv>
+			<ns1:vmConcepts>E11609:Urethral infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Glucose intolerance</ns1:pv>
+			<ns1:vmConcepts>E12264:Glucose intolerance</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Vaginal stricture</ns1:pv>
+			<ns1:vmConcepts>E13290:Vaginal stricture</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Oculomotor nerve disorder</ns1:pv>
+			<ns1:vmConcepts>E12751:Oculomotor nerve disorder</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Abducens nerve disorder</ns1:pv>
+			<ns1:vmConcepts>E12569:Abducens nerve disorder</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Wound complication</ns1:pv>
+			<ns1:vmConcepts>E12057:Wound complication</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Feminization acquired</ns1:pv>
+			<ns1:vmConcepts>E13108:Feminization acquired</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Oral dysesthesia</ns1:pv>
+			<ns1:vmConcepts>E10894:Oral dysesthesia</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Palmar-plantar erythrodysesthesia syndrome</ns1:pv>
+			<ns1:vmConcepts>E13672:Palmar-plantar erythrodysesthesia syndrome</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Visceral arterial ischemia</ns1:pv>
+			<ns1:vmConcepts>E13843:Visceral arterial ischemia</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Fetal growth retardation</ns1:pv>
+			<ns1:vmConcepts>E12857:Fetal growth retardation</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Ovarian infection</ns1:pv>
+			<ns1:vmConcepts>E11482:Ovarian infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Prostatic obstruction</ns1:pv>
+			<ns1:vmConcepts>E13187:Prostatic obstruction</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Bronchial infection</ns1:pv>
+			<ns1:vmConcepts>E11323:Bronchial infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Anal hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E10470:Anal hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Duodenal hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E10588:Duodenal hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Intra-abdominal hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E10817:Intra-abdominal hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Intraoperative hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E11810:Intraoperative hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Jejunal hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E10828:Jejunal hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Pharyngeal hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E13460:Pharyngeal hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Pleural hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E13492:Pleural hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Postoperative hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E11903:Postoperative hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Prostatic hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E13181:Prostatic hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Testicular hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E13221:Testicular hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Upper gastrointestinal hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E11062:Upper gastrointestinal hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Esophageal perforation</ns1:pv>
+			<ns1:vmConcepts>E10665:Esophageal perforation</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Hemoglobin increased</ns1:pv>
+			<ns1:vmConcepts>E12171:Hemoglobin increased</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Mediastinal hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E13444:Mediastinal hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Olfactory nerve disorder</ns1:pv>
+			<ns1:vmConcepts>E12755:Olfactory nerve disorder</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Abdominal infection</ns1:pv>
+			<ns1:vmConcepts>E11282:Abdominal infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Hepatic infection</ns1:pv>
+			<ns1:vmConcepts>E11406:Hepatic infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Phlebitis infective</ns1:pv>
+			<ns1:vmConcepts>E11530:Phlebitis infective</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Salivary duct inflammation</ns1:pv>
+			<ns1:vmConcepts>E11003:Salivary duct inflammation</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Postoperative thoracic procedure complication</ns1:pv>
+			<ns1:vmConcepts>E11909:Postoperative thoracic procedure complication</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>GGT increased</ns1:pv>
+			<ns1:vmConcepts>E12161:GGT increased</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Delayed orgasm</ns1:pv>
+			<ns1:vmConcepts>E12895:Delayed orgasm</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Peritoneal infection</ns1:pv>
+			<ns1:vmConcepts>E11521:Peritoneal infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Mediastinal infection</ns1:pv>
+			<ns1:vmConcepts>E11454:Mediastinal infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Pancreatic necrosis</ns1:pv>
+			<ns1:vmConcepts>E10926:Pancreatic necrosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Right ventricular dysfunction</ns1:pv>
+			<ns1:vmConcepts>E10196:Right ventricular dysfunction</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Pelvic infection</ns1:pv>
+			<ns1:vmConcepts>E11501:Pelvic infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Edema trunk</ns1:pv>
+			<ns1:vmConcepts>E11090:Edema trunk</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Esophageal infection</ns1:pv>
+			<ns1:vmConcepts>E11386:Esophageal infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Intestinal stoma obstruction</ns1:pv>
+			<ns1:vmConcepts>E11759:Intestinal stoma obstruction</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Intestinal stoma leak</ns1:pv>
+			<ns1:vmConcepts>E11753:Intestinal stoma leak</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Gallbladder necrosis</ns1:pv>
+			<ns1:vmConcepts>E11195:Gallbladder necrosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Laryngeal obstruction</ns1:pv>
+			<ns1:vmConcepts>E13421:Laryngeal obstruction</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Rhinitis infective</ns1:pv>
+			<ns1:vmConcepts>E11548:Rhinitis infective</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Urine output decreased</ns1:pv>
+			<ns1:vmConcepts>E12217:Urine output decreased</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Hemorrhoidal hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E10767:Hemorrhoidal hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Trigeminal nerve disorder</ns1:pv>
+			<ns1:vmConcepts>E12841:Trigeminal nerve disorder</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Accessory nerve disorder</ns1:pv>
+			<ns1:vmConcepts>E12573:Accessory nerve disorder</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Bone infection</ns1:pv>
+			<ns1:vmConcepts>E11314:Bone infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Dermatitis radiation</ns1:pv>
+			<ns1:vmConcepts>E11675:Dermatitis radiation</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Eyelid function disorder</ns1:pv>
+			<ns1:vmConcepts>E10380:Eyelid function disorder</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Female genital tract fistula</ns1:pv>
+			<ns1:vmConcepts>E13102:Female genital tract fistula</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Glossopharyngeal nerve disorder</ns1:pv>
+			<ns1:vmConcepts>E12672:Glossopharyngeal nerve disorder</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Hypoglossal nerve disorder</ns1:pv>
+			<ns1:vmConcepts>E12692:Hypoglossal nerve disorder</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Lactation disorder</ns1:pv>
+			<ns1:vmConcepts>E13129:Lactation disorder</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Nail infection</ns1:pv>
+			<ns1:vmConcepts>E11468:Nail infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Optic nerve disorder</ns1:pv>
+			<ns1:vmConcepts>E10406:Optic nerve disorder</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Perineal pain</ns1:pv>
+			<ns1:vmConcepts>E13175:Perineal pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Pleural infection</ns1:pv>
+			<ns1:vmConcepts>E11535:Pleural infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Vagus nerve disorder</ns1:pv>
+			<ns1:vmConcepts>E12845:Vagus nerve disorder</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Facial nerve disorder</ns1:pv>
+			<ns1:vmConcepts>E12668:Facial nerve disorder</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Scleral disorder</ns1:pv>
+			<ns1:vmConcepts>E10437:Scleral disorder</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Mitral valve disease</ns1:pv>
+			<ns1:vmConcepts>E10134:Mitral valve disease</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Pulmonary valve disease</ns1:pv>
+			<ns1:vmConcepts>E10186:Pulmonary valve disease</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Urinary tract obstruction</ns1:pv>
+			<ns1:vmConcepts>E13052:Urinary tract obstruction</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Aortic valve disease</ns1:pv>
+			<ns1:vmConcepts>E10071:Aortic valve disease</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Anorectal infection</ns1:pv>
+			<ns1:vmConcepts>E11286:Anorectal infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Autoimmune disorder</ns1:pv>
+			<ns1:vmConcepts>E11258:Autoimmune disorder</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Biliary tract infection</ns1:pv>
+			<ns1:vmConcepts>E11305:Biliary tract infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Corneal infection</ns1:pv>
+			<ns1:vmConcepts>E11347:Corneal infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Penile infection</ns1:pv>
+			<ns1:vmConcepts>E11506:Penile infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Radiculitis</ns1:pv>
+			<ns1:vmConcepts>E12786:Radiculitis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Gastric stenosis</ns1:pv>
+			<ns1:vmConcepts>E10721:Gastric stenosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Splenic infection</ns1:pv>
+			<ns1:vmConcepts>E11584:Splenic infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Scrotal infection</ns1:pv>
+			<ns1:vmConcepts>E11555:Scrotal infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Vascular access complication</ns1:pv>
+			<ns1:vmConcepts>E12046:Vascular access complication</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Urinary tract pain</ns1:pv>
+			<ns1:vmConcepts>E13058:Urinary tract pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Uterine infection</ns1:pv>
+			<ns1:vmConcepts>E11619:Uterine infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Sinus disorder</ns1:pv>
+			<ns1:vmConcepts>E13560:Sinus disorder</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Small intestinal stenosis</ns1:pv>
+			<ns1:vmConcepts>E11032:Small intestinal stenosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Nail ridging</ns1:pv>
+			<ns1:vmConcepts>E13666:Nail ridging</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Localized edema</ns1:pv>
+			<ns1:vmConcepts>E11148:Localized edema</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Non-cardiac chest pain</ns1:pv>
+			<ns1:vmConcepts>E11163:Non-cardiac chest pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Tracheal hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E11969:Tracheal hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Enterovesical fistula</ns1:pv>
+			<ns1:vmConcepts>E10633:Enterovesical fistula</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Generalized muscle weakness</ns1:pv>
+			<ns1:vmConcepts>E12418:Generalized muscle weakness</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Gallbladder infection</ns1:pv>
+			<ns1:vmConcepts>E11396:Gallbladder infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Pancreatic enzymes decreased</ns1:pv>
+			<ns1:vmConcepts>E12203:Pancreatic enzymes decreased</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Laryngopharyngeal dysesthesia</ns1:pv>
+			<ns1:vmConcepts>E13433:Laryngopharyngeal dysesthesia</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Cystitis noninfective</ns1:pv>
+			<ns1:vmConcepts>E12994:Cystitis noninfective</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Rectal mucositis</ns1:pv>
+			<ns1:vmConcepts>E10961:Rectal mucositis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Bronchial stricture</ns1:pv>
+			<ns1:vmConcepts>E13334:Bronchial stricture</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Bladder perforation</ns1:pv>
+			<ns1:vmConcepts>E12979:Bladder perforation</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Pyramidal tract syndrome</ns1:pv>
+			<ns1:vmConcepts>E12780:Pyramidal tract syndrome</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Reversible posterior leukoencephalopathy syndrome</ns1:pv>
+			<ns1:vmConcepts>E12798:Reversible posterior leukoencephalopathy syndrome</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Stoma site infection</ns1:pv>
+			<ns1:vmConcepts>E11588:Stoma site infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Osteonecrosis of jaw</ns1:pv>
+			<ns1:vmConcepts>E12502:Osteonecrosis of jaw</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Device related infection</ns1:pv>
+			<ns1:vmConcepts>E11356:Device related infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Chronic kidney disease</ns1:pv>
+			<ns1:vmConcepts>E12988:Chronic kidney disease</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Urinary fistula</ns1:pv>
+			<ns1:vmConcepts>E13034:Urinary fistula</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Pancreatic duct stenosis</ns1:pv>
+			<ns1:vmConcepts>E10908:Pancreatic duct stenosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Peritoneal necrosis</ns1:pv>
+			<ns1:vmConcepts>E10939:Peritoneal necrosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Pharyngeal anastomotic leak</ns1:pv>
+			<ns1:vmConcepts>E11897:Pharyngeal anastomotic leak</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Pharyngeal necrosis</ns1:pv>
+			<ns1:vmConcepts>E13472:Pharyngeal necrosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Rectal obstruction</ns1:pv>
+			<ns1:vmConcepts>E10971:Rectal obstruction</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Rectal necrosis</ns1:pv>
+			<ns1:vmConcepts>E10967:Rectal necrosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Small intestinal mucositis</ns1:pv>
+			<ns1:vmConcepts>E11015:Small intestinal mucositis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Gastrointestinal stoma necrosis</ns1:pv>
+			<ns1:vmConcepts>E11721:Gastrointestinal stoma necrosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Gastric fistula</ns1:pv>
+			<ns1:vmConcepts>E10700:Gastric fistula</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Jejunal fistula</ns1:pv>
+			<ns1:vmConcepts>E10822:Jejunal fistula</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Oral cavity fistula</ns1:pv>
+			<ns1:vmConcepts>E10888:Oral cavity fistula</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Anal mucositis</ns1:pv>
+			<ns1:vmConcepts>E10476:Anal mucositis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Anal necrosis</ns1:pv>
+			<ns1:vmConcepts>E10482:Anal necrosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Esophageal necrosis</ns1:pv>
+			<ns1:vmConcepts>E10651:Esophageal necrosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Jejunal obstruction</ns1:pv>
+			<ns1:vmConcepts>E10834:Jejunal obstruction</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Arteritis infective</ns1:pv>
+			<ns1:vmConcepts>E11301:Arteritis infective</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Prolapse of intestinal stoma</ns1:pv>
+			<ns1:vmConcepts>E11914:Prolapse of intestinal stoma</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Bronchopulmonary hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E13346:Bronchopulmonary hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Cecal hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E10511:Cecal hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Urostomy site bleeding</ns1:pv>
+			<ns1:vmConcepts>E12011:Urostomy site bleeding</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Tracheostomy site bleeding</ns1:pv>
+			<ns1:vmConcepts>E11981:Tracheostomy site bleeding</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Duodenal infection</ns1:pv>
+			<ns1:vmConcepts>E11360:Duodenal infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Laryngeal hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E13405:Laryngeal hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Cecal infection</ns1:pv>
+			<ns1:vmConcepts>E11333:Cecal infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Spermatic cord hemorrhage</ns1:pv>
+			<ns1:vmConcepts>E13205:Spermatic cord hemorrhage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Mucosal infection</ns1:pv>
+			<ns1:vmConcepts>E11462:Mucosal infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Cranial nerve infection</ns1:pv>
+			<ns1:vmConcepts>E11352:Cranial nerve infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Peripheral nerve infection</ns1:pv>
+			<ns1:vmConcepts>E11516:Peripheral nerve infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Small intestine infection</ns1:pv>
+			<ns1:vmConcepts>E11574:Small intestine infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Vulval infection</ns1:pv>
+			<ns1:vmConcepts>E11629:Vulval infection</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Lymph leakage</ns1:pv>
+			<ns1:vmConcepts>E13797:Lymph leakage</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Abdominal soft tissue necrosis</ns1:pv>
+			<ns1:vmConcepts>E12369:Abdominal soft tissue necrosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Muscle weakness lower limb</ns1:pv>
+			<ns1:vmConcepts>E12459:Muscle weakness lower limb</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Soft tissue necrosis lower limb</ns1:pv>
+			<ns1:vmConcepts>E12525:Soft tissue necrosis lower limb</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Soft tissue necrosis upper limb</ns1:pv>
+			<ns1:vmConcepts>E12530:Soft tissue necrosis upper limb</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Head soft tissue necrosis</ns1:pv>
+			<ns1:vmConcepts>E12426:Head soft tissue necrosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Neck soft tissue necrosis</ns1:pv>
+			<ns1:vmConcepts>E12497:Neck soft tissue necrosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Musculoskeletal deformity</ns1:pv>
+			<ns1:vmConcepts>E12481:Musculoskeletal deformity</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Central nervous system necrosis</ns1:pv>
+			<ns1:vmConcepts>E12605:Central nervous system necrosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>External ear pain</ns1:pv>
+			<ns1:vmConcepts>E10272:External ear pain</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Laryngeal fistula</ns1:pv>
+			<ns1:vmConcepts>E13399:Laryngeal fistula</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Tracheal fistula</ns1:pv>
+			<ns1:vmConcepts>E13583:Tracheal fistula</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Fallopian tube anastomotic leak</ns1:pv>
+			<ns1:vmConcepts>E11691:Fallopian tube anastomotic leak</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Fallopian tube obstruction</ns1:pv>
+			<ns1:vmConcepts>E13092:Fallopian tube obstruction</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Fallopian tube stenosis</ns1:pv>
+			<ns1:vmConcepts>E13096:Fallopian tube stenosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Pelvic soft tissue necrosis</ns1:pv>
+			<ns1:vmConcepts>E12516:Pelvic soft tissue necrosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Muscle weakness right-sided</ns1:pv>
+			<ns1:vmConcepts>E12463:Muscle weakness right-sided</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Muscle weakness trunk</ns1:pv>
+			<ns1:vmConcepts>E12467:Muscle weakness trunk</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Joint range of motion decreased cervical spine</ns1:pv>
+			<ns1:vmConcepts>E12439:Joint range of motion decreased cervical spine</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Superficial soft tissue fibrosis</ns1:pv>
+			<ns1:vmConcepts>E12535:Superficial soft tissue fibrosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Joint range of motion decreased lumbar spine</ns1:pv>
+			<ns1:vmConcepts>E12443:Joint range of motion decreased lumbar spine</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Bladder anastomotic leak</ns1:pv>
+			<ns1:vmConcepts>E11660:Bladder anastomotic leak</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Kidney anastomotic leak</ns1:pv>
+			<ns1:vmConcepts>E11879:Kidney anastomotic leak</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Spermatic cord obstruction</ns1:pv>
+			<ns1:vmConcepts>E13211:Spermatic cord obstruction</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Uterine fistula</ns1:pv>
+			<ns1:vmConcepts>E13231:Uterine fistula</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Vaginal fistula</ns1:pv>
+			<ns1:vmConcepts>E13258:Vaginal fistula</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Ureteric anastomotic leak</ns1:pv>
+			<ns1:vmConcepts>E11987:Ureteric anastomotic leak</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Urethral anastomotic leak</ns1:pv>
+			<ns1:vmConcepts>E11993:Urethral anastomotic leak</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Vaginal obstruction</ns1:pv>
+			<ns1:vmConcepts>E13276:Vaginal obstruction</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Vaginal perforation</ns1:pv>
+			<ns1:vmConcepts>E13284:Vaginal perforation</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Prolapse of urostomy</ns1:pv>
+			<ns1:vmConcepts>E11920:Prolapse of urostomy</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Nipple deformity</ns1:pv>
+			<ns1:vmConcepts>E13138:Nipple deformity</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Intraoperative gastrointestinal injury</ns1:pv>
+			<ns1:vmConcepts>E11798:Intraoperative gastrointestinal injury</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Intraoperative arterial injury</ns1:pv>
+			<ns1:vmConcepts>E11770:Intraoperative arterial injury</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Intraoperative hepatobiliary injury</ns1:pv>
+			<ns1:vmConcepts>E11814:Intraoperative hepatobiliary injury</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Intraoperative urinary injury</ns1:pv>
+			<ns1:vmConcepts>E11867:Intraoperative urinary injury</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Intraoperative musculoskeletal injury</ns1:pv>
+			<ns1:vmConcepts>E11820:Intraoperative musculoskeletal injury</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Intraoperative neurological injury</ns1:pv>
+			<ns1:vmConcepts>E11826:Intraoperative neurological injury</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Intraoperative breast injury</ns1:pv>
+			<ns1:vmConcepts>E11776:Intraoperative breast injury</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Intraoperative respiratory injury</ns1:pv>
+			<ns1:vmConcepts>E11850:Intraoperative respiratory injury</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Intraoperative endocrine injury</ns1:pv>
+			<ns1:vmConcepts>E11792:Intraoperative endocrine injury</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>IVth nerve disorder</ns1:pv>
+			<ns1:vmConcepts>E12705:IVth nerve disorder</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Intraoperative reproductive tract injury</ns1:pv>
+			<ns1:vmConcepts>E11844:Intraoperative reproductive tract injury</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Intraoperative ocular injury</ns1:pv>
+			<ns1:vmConcepts>E11832:Intraoperative ocular injury</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Intraoperative head and neck injury</ns1:pv>
+			<ns1:vmConcepts>E11804:Intraoperative head and neck injury</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Intraoperative ear injury</ns1:pv>
+			<ns1:vmConcepts>E11786:Intraoperative ear injury</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Intraoperative renal injury</ns1:pv>
+			<ns1:vmConcepts>E11838:Intraoperative renal injury</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Intraoperative skin injury</ns1:pv>
+			<ns1:vmConcepts>E11856:Intraoperative skin injury</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Intraoperative splenic injury</ns1:pv>
+			<ns1:vmConcepts>E11862:Intraoperative splenic injury</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Intraoperative venous injury</ns1:pv>
+			<ns1:vmConcepts>E11873:Intraoperative venous injury</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Injury to jugular vein</ns1:pv>
+			<ns1:vmConcepts>E11737:Injury to jugular vein</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Esophageal fistula</ns1:pv>
+			<ns1:vmConcepts>E10639:Esophageal fistula</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Pulmonary fistula</ns1:pv>
+			<ns1:vmConcepts>E13533:Pulmonary fistula</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Laryngeal mucositis</ns1:pv>
+			<ns1:vmConcepts>E13415:Laryngeal mucositis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Pharyngeal mucositis</ns1:pv>
+			<ns1:vmConcepts>E13466:Pharyngeal mucositis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Urostomy leak</ns1:pv>
+			<ns1:vmConcepts>E11999:Urostomy leak</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Urostomy obstruction</ns1:pv>
+			<ns1:vmConcepts>E12005:Urostomy obstruction</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Urostomy stenosis</ns1:pv>
+			<ns1:vmConcepts>E12017:Urostomy stenosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Uterine anastomotic leak</ns1:pv>
+			<ns1:vmConcepts>E12022:Uterine anastomotic leak</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Vaginal anastomotic leak</ns1:pv>
+			<ns1:vmConcepts>E12034:Vaginal anastomotic leak</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Large intestinal anastomotic leak</ns1:pv>
+			<ns1:vmConcepts>E11885:Large intestinal anastomotic leak</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Small intestinal anastomotic leak</ns1:pv>
+			<ns1:vmConcepts>E11942:Small intestinal anastomotic leak</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Gastric anastomotic leak</ns1:pv>
+			<ns1:vmConcepts>E11709:Gastric anastomotic leak</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Rectal anastomotic leak</ns1:pv>
+			<ns1:vmConcepts>E11932:Rectal anastomotic leak</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Muscle weakness upper limb</ns1:pv>
+			<ns1:vmConcepts>E12471:Muscle weakness upper limb</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Spermatic cord anastomotic leak</ns1:pv>
+			<ns1:vmConcepts>E11948:Spermatic cord anastomotic leak</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Stenosis of gastrointestinal stoma</ns1:pv>
+			<ns1:vmConcepts>E11960:Stenosis of gastrointestinal stoma</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Tracheal mucositis</ns1:pv>
+			<ns1:vmConcepts>E13589:Tracheal mucositis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Carbon monoxide diffusing capacity decreased</ns1:pv>
+			<ns1:vmConcepts>E12112:Carbon monoxide diffusing capacity decreased</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Uterine obstruction</ns1:pv>
+			<ns1:vmConcepts>E13243:Uterine obstruction</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Esophageal anastomotic leak</ns1:pv>
+			<ns1:vmConcepts>E11681:Esophageal anastomotic leak</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Avascular necrosis</ns1:pv>
+			<ns1:vmConcepts>E12382:Avascular necrosis</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question>
+			<ns1:pv>Acute kidney injury</ns1:pv>
+			<ns1:vmConcepts>E12973:Acute kidney injury</ns1:vmConcepts>
+		</ns1:Question>
+		<ns1:Question/>
+		<ns1:Question/>
+	</ns1:questions>
+</ns1:Form>

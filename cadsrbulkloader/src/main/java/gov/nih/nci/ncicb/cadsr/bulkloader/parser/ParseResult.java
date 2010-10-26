@@ -1,10 +1,11 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.parser;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.CaDSRObjects;
+import gov.nih.nci.ncicb.cadsr.bulkloader.event.EventResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.parser.translate.TranslatorResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.schema.validator.SchemaValidationResult;
 
-public class ParseResult {
+public class ParseResult implements EventResult{
 
 	private CaDSRObjects caDSRObjects;
 	private ParseStatus status;
