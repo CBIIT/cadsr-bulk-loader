@@ -1,8 +1,9 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.persist;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.CaDSRObjects;
+import gov.nih.nci.ncicb.cadsr.bulkloader.event.EventResult;
 
-public class PersisterResult {
+public class PersisterResult implements EventResult {
 
 	private PersisterStatus status;
 	private Exception exception;

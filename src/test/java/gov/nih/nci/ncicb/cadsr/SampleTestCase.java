@@ -47,17 +47,17 @@ public class SampleTestCase extends gov.nih.nci.ncicb.cadsr.bulkloader.util.Main
 	
 	public void testProcessor() {
 		Properties props = new Properties();
-		/*props.put("db.url", getPropertyManager().getUnitDataSourceURL());
+		props.put("db.url", getPropertyManager().getUnitDataSourceURL());
 		props.put("db.username", getPropertyManager().getUnitDataSourceUser());
 		props.put("db.password", getPropertyManager().getUnitDataSourcePassword());
-		*/
+		
 		/*props.put("db.url", "jdbc:oracle:thin:@cbdb-s1001.nci.nih.gov:1551:DSRSTG");
 		props.put("db.username", "blkldr");
 		props.put("db.password", "29K#kd1qA");*/
 		
-		props.put("db.url", "jdbc:oracle:thin:@cbiodb530.nci.nih.gov:1521:DSRQA");
+		/*props.put("db.url", "jdbc:oracle:thin:@cbiodb530.nci.nih.gov:1521:DSRQA");
 		props.put("db.username", "chenr_qa");
-		props.put("db.password", "chenr_qa");
+		props.put("db.password", "chenr_qa");*/
 		
 		SpringBeansUtil.getInstance().initialize(props);
 		

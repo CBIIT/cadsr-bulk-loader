@@ -1,12 +1,13 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.validate;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.CaDSRObjects;
+import gov.nih.nci.ncicb.cadsr.bulkloader.event.EventResult;
 import gov.nih.nci.ncicb.cadsr.domain.AdminComponent;
 
 import java.util.List;
 
 
-public class ValidationResult {
+public class ValidationResult implements EventResult {
 
 	private CaDSRObjects validationItem;
 	private List<ValidationItemResult> itemResults;

@@ -2,6 +2,8 @@ package gov.nih.nci.ncicb.cadsr.bulkloader;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.LoadProperties;
 import gov.nih.nci.ncicb.cadsr.bulkloader.beans.LoaderInput;
+import gov.nih.nci.ncicb.cadsr.bulkloader.event.EventRecorder;
+import gov.nih.nci.ncicb.cadsr.bulkloader.event.EventRecorderImpl;
 import gov.nih.nci.ncicb.cadsr.bulkloader.loader.CaDSRBulkLoader;
 import gov.nih.nci.ncicb.cadsr.bulkloader.loader.LoadResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.Transformer;
@@ -75,7 +77,13 @@ public class CaDSRBulkLoadProcessor {
 				
 				LoadProperties loadProperties = transformerResult.getTransformationResult().getLoadProperties();
 				
-				LoadResult loadResult = bulkLoader.load(loaderInput, loadProperties);
+				EventRecorder recorder = new EventRecorderImpl();
+				bulkLoader.setRecorder(recorder);
+				
+				bulkLoader.load(loaderInput, loadProperties);
+				
+				LoadResult loadResult = recorder.getResult();
+				
 				processResult.setLoadResult(loadResult);
 			}
 		} catch (Exception e) {

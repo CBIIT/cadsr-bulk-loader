@@ -1,6 +1,8 @@
 package gov.nih.nci.ncicb.cadsr.bulkloader.ui;
 
 import gov.nih.nci.ncicb.cadsr.bulkloader.BulkLoadProcessResult;
+import gov.nih.nci.ncicb.cadsr.bulkloader.beans.CaDSRObjects;
+import gov.nih.nci.ncicb.cadsr.bulkloader.event.LoaderEvent;
 import gov.nih.nci.ncicb.cadsr.bulkloader.loader.LoadResult;
 import gov.nih.nci.ncicb.cadsr.bulkloader.loader.LoadStatus;
 import gov.nih.nci.ncicb.cadsr.bulkloader.transformer.TransformerResult;
@@ -81,6 +83,16 @@ public class UIReportWriterImpl implements UIReportWriter {
 			ValidationResult validationResult = loadResult.getValidationResult();
 			if (loadStatus != null) {
 				System.out.println("Data Load Status: "+loadStatus.getStatusMessage());
+			}
+			
+			List<CaDSRObjects.Memento> snapshots = loadResult.getSnapshotsForEvent(LoaderEvent.PERSISTING);
+			if (snapshots != null && snapshots.size() > 1) {
+				List<String> prePersistDEIds = snapshots.get(0).deIds;
+				List<String> postPersistDEIds = snapshots.get(1).deIds;
+				
+				System.out.println("Number of CDEs reused = "+prePersistDEIds.size());
+				postPersistDEIds.removeAll(prePersistDEIds);
+				System.out.println("Number of CDEs newly created = "+postPersistDEIds.size());
 			}
 			
 			boolean loadSuccessful = loadResult.isSuccessful();
