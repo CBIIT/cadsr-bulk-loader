@@ -219,6 +219,9 @@ public class CaDSRObjects {
 				if (ac.getPublicId() != null) {
 					toList.add(ac.getPublicId());
 				}
+				else if (ac.getId() != null){
+					toList.add(ac.getId());
+				}
 			}
 		}
 
