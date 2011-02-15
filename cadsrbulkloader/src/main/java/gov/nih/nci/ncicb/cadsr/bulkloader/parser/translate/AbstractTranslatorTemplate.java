@@ -73,7 +73,7 @@ public abstract class AbstractTranslatorTemplate implements Translator<CaDSRObje
 		if (valueDomains != null) {
 			for (ValueDomain valueDomain: valueDomains) {
 				Representation repTerm = valueDomain.getRepresentation();
-				if (repTerm != null) {
+				if (repTerm != null && !repTerms.contains(repTerm)) {
 					repTerms.add(repTerm);
 				}
 			}
