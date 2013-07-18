@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!--L
+  Copyright Oracle Inc, SAIC-F.
+
+  Distributed under the OSI-approved BSD 3-Clause License.
+  See http://ncip.github.com/cadsr-bulk-loader/LICENSE.txt for details.
+L-->
+
 <Administered_Item_List xmlns="http://www.ncicb.nih.gov/caDSR/schema/ISO11179"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:schemaLocation="http://www.ncicb.nih.gov/caDSR/schema/ISO11179 ../../../../../../../../../java/gov/nih/nci/ncicb/cadsr/bulkloader/schema/cadsr_iso11179.xsd">

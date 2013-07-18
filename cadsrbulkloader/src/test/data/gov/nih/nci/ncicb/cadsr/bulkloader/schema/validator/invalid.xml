@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!--L
+  Copyright Oracle Inc, SAIC-F.
+
+  Distributed under the OSI-approved BSD 3-Clause License.
+  See http://ncip.github.com/cadsr-bulk-loader/LICENSE.txt for details.
+L-->
+
 <caDSR:Administered_Item_List
     xmlns:iso11179="http://www.cancergrid.org/schema/ISO11179"
     xmlns:caDSR="http://www.ncicb.nih.gov/caDSR/schema/ISO11179"
