@@ -3,6 +3,8 @@ Welcome to the caDSR Bulk Loader Project!
 
 The caDSR Bulk Loader uploads metadata from an Excel spreadsheet into the caDSR. 
 
+The caDSR Bulk Loader is developed in Java and requires Apache Ant for building.
+
 The caDSR Bulk Loader is distributed under the BSD 3-Clause License.
 Please see the NOTICE and LICENSE files for details.
 
