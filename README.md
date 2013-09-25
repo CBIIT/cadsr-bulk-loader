@@ -17,4 +17,4 @@ You will find more details about the caDSR Bulk Loader in the following links:
  * [Documentation] (https://gforge.nci.nih.gov/docman/?group_id=582)
  
 
-Please join us in further developing and improving the caDSR Bulk Loader.
+Please join us in further developing and improving the caDSR Bulk Loader project.
